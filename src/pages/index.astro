@@ -1,0 +1,408 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import sanghamLogo from '../assets/sangham-logo.png';
+import heroBg from '../assets/hero-bg.jpg';
+import caveMeditation from '../assets/cave-meditation.jpg';
+import sanghamCeremony from '../assets/sangham-ceremony.jpg';
+import mistyValley from '../assets/misty-valley.jpg';
+import aboveClouds from '../assets/above-clouds.jpg';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Organization',
+    name: 'Sangham',
+    url: 'https://sangham.org',
+    logo: 'https://sangham.org/sangham-logo.png',
+    description: 'Counselling, integrative practices, and grounded inner work.',
+    founder: { '@type': 'Person', name: 'Michael Kaplan', alternateName: 'Swami Ramarishi' },
+    contactPoint: {
+      '@type': 'ContactPoint',
+      email: 'ramarishi@sangham.org',
+      telephone: '+27820437887',
+      contactType: 'customer service',
+    },
+    sameAs: ['https://instagram.com/sangham.space'],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Sangham',
+    url: 'https://sangham.org',
+    description: 'A place for careful, grounded inner work.',
+  },
+];
+
+const workCards = [
+  {
+    title: 'Counselling and dialogue',
+    text: 'A grounded, relational process of understanding how a person actually functions, in real time, within the context of their life. Not abstract theory or performative conversation, but genuine engagement with the patterns, responses, and gaps between intention and action. This is where the work begins and where it deepens over time.',
+  },
+  {
+    title: 'Practical interventions',
+    text: 'Breathwork, meditation, and body-based practices used carefully and appropriately, not as fixed techniques or lifestyle habits, but as tools. The same practice can stabilise one person and unsettle another. What matters is how, when, and why it is applied. Precision here is what separates genuine support from well-meaning but misguided instruction.',
+  },
+  {
+    title: 'Integration into real life',
+    text: 'Everything is brought back into relationships, decisions, work, and environment. Without this, insight remains theoretical. The measure of this work is not how someone feels during a session, but how they function in the days and weeks that follow. Integration is where change becomes real and sustainable.',
+  },
+];
+
+const whoItems = [
+  'A clear awareness of certain patterns, alongside a frustrating inability to shift them, despite genuine effort',
+  'Cycles of overthinking, reactivity, avoidance, or emotional intensity that affect relationships and sense of self',
+  'An interest in meditation, breathwork, or inner work, combined with frustration at approaches that feel vague, impractical, or disconnected from daily reality',
+  'Concern for a teenager or young adult who seems to be struggling with direction, identity, emotional regulation, or social pressure',
+  'Experience of therapy or coaching that felt helpful but somehow incomplete, as though something more embodied or more direct was needed',
+  'A readiness to engage honestly, not just to consume information, but to participate in a process that asks something real',
+];
+
+const waysCards = [
+  {
+    title: 'One-on-one counselling',
+    text: 'The core of the process. A direct, structured engagement with patterns, responses, and lived experience within an ongoing relationship. This is where the deepest and most lasting shifts tend to happen, and where the work can be most precisely tailored to what is actually needed.',
+    path: '/counselling',
+    cta: 'Explore counselling',
+    highlight: true,
+  },
+  {
+    title: 'Guided practices',
+    text: 'A selection of accessible practices to help stabilise attention and regulate the body. These can serve as a starting point or as a complement to one-on-one work. They are designed to be simple enough to begin immediately and deep enough to grow with over time.',
+    path: '/practices',
+    cta: 'Explore practices',
+    highlight: false,
+  },
+  {
+    title: 'Workshops',
+    text: 'Occasional spaces to explore aspects of the work in a shared, in-person setting. These are offered from time to time and can serve as a strong entry point, particularly for those who prefer to begin in a group context before committing to individual work.',
+    path: '/workshops',
+    cta: 'Learn about workshops',
+    highlight: false,
+  },
+];
+---
+
+<BaseLayout
+  title="Grounded Inner Work, Counselling & Integration"
+  description="Sangham offers counselling, integrative practices, and workshops grounded in lived experience. A place for careful, honest inner work with Michael Kaplan (Swami Ramarishi)."
+  jsonLd={jsonLd}
+>
+
+  <!-- HERO -->
+  <section class="relative min-h-[92vh] flex items-center justify-center overflow-hidden -mt-[72px] pt-[72px]">
+    <Image
+      src={heroBg}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover opacity-30"
+      widths={[640, 1024, 1536, 2048]}
+      sizes="100vw"
+      loading="eager"
+    />
+    <div class="absolute inset-0 bg-sacred-gradient opacity-80"></div>
+
+    <div class="relative z-10 text-center px-6 max-w-3xl">
+      <Image
+        src={sanghamLogo}
+        alt="Sangham"
+        class="h-20 md:h-28 w-auto mx-auto mb-10"
+        width={224}
+        height={224}
+        loading="eager"
+      />
+
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-parchment/90 leading-tight mb-6">
+        A place for careful, grounded<br />
+        <span class="text-gold-light">inner work.</span>
+      </h1>
+
+      <p class="text-parchment/55 font-body text-base md:text-lg max-w-xl mx-auto mt-6 leading-relaxed">
+        Where understanding is deepened through dialogue, practice, and attention. Sangham offers a structured approach to working with how we think, feel, and respond in life.
+      </p>
+
+      <p class="text-parchment/40 font-body text-sm max-w-lg mx-auto mt-4 leading-relaxed">
+        It brings together counselling, practical interventions, and direct observation, not as separate disciplines, but as a single, integrated way of working.
+      </p>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/counselling"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Begin Here
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+        <a
+          href="/about"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-parchment/20 text-parchment/60 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Learn More
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS WORK MATTERS -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-10">
+        Why This Work Matters
+      </h2>
+
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <p class="text-lg text-foreground/90">
+          Inner work is often approached through ideas, techniques, or isolated effort.
+        </p>
+        <p>
+          Insight can deepen, practices can be learned, and yet the underlying patterns of behaviour remain unchanged. It is possible to understand something clearly and still be caught in it. To see a pattern, name it accurately, and watch it repeat regardless. This is not a failure of intelligence or willpower. It reflects something about the nature of how change actually works.
+        </p>
+        <p>
+          What is often missing is not information, but context. A way of working where understanding is tested, refined, and applied within the reality of a person's life. Where the body is included, not just the mind. Where insight is not the endpoint, but the starting point of a more practical and sustained process.
+        </p>
+        <p>
+          Most approaches address one dimension of this. Psychology works with thought and emotion but often neglects the body. Contemplative traditions cultivate awareness but frequently lack psychological sophistication. Wellness culture offers techniques without depth. What is needed is something that brings these together in a way that is intelligent, grounded, and genuinely applicable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE WORK -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-6">
+        The Work
+      </h2>
+
+      <p class="text-header-foreground/60 font-body leading-relaxed text-center mb-14 max-w-2xl mx-auto">
+        Sangham is built around a simple structure. It combines three interconnected elements into a single, coherent process that addresses what most fragmented approaches cannot.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        {workCards.map((card) => (
+          <div class="border border-header-foreground/10 rounded-lg p-8 hover:border-primary/20 transition-all duration-500">
+            <h3 class="font-heading text-xl text-header-foreground/90 mb-4">{card.title}</h3>
+            <p class="text-header-foreground/55 font-body text-sm leading-relaxed">{card.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY THIS IS DIFFERENT -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={caveMeditation}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/82"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-10">
+        Why This Is Different
+      </h2>
+
+      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
+        <p class="text-parchment/80 text-lg">
+          Meditation and yoga are often taught as skills to be acquired. In practice, they are something quite different.
+        </p>
+        <p>
+          Done properly, they function as interventions into how a person perceives, regulates, and responds to life. They work at the level of the nervous system, attention, and the relationship someone has with their own experience. That kind of work cannot be learned passively, in a group class, or through an app. It requires context, feedback, and a real relationship where what is happening can be seen, adjusted, and integrated over time.
+        </p>
+        <p>
+          Without that, practice easily becomes mechanical, self-reinforcing, or subtly avoidant. There may be a sense of calm on the surface while the underlying patterns remain untouched. The relief is real but temporary. The habits return. The same internal loops continue.
+        </p>
+        <p>
+          What makes this work distinctive is that it does not separate the psychological from the contemplative. It treats inner life as one interconnected system: thought, emotion, body, breath, attention, and action. And it works with all of these within the context of a person's actual life, not in a vacuum.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHO THIS IS FOR -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-6">
+        Who This Is For
+      </h2>
+
+      <p class="text-muted-foreground font-body leading-relaxed text-center mb-10">
+        This work tends to be most relevant for people who have already done some reflecting but recognise that understanding alone has not been enough. It may resonate if any of the following feel familiar:
+      </p>
+
+      <ul class="space-y-5 mb-10">
+        {whoItems.map((item) => (
+          <li class="flex items-start gap-3 text-muted-foreground font-body">
+            <span class="text-primary/50 mt-1.5 text-xs">&#9679;</span>
+            <span>{item}</span>
+          </li>
+        ))}
+      </ul>
+
+      <div class="text-center">
+        <a
+          href="/counselling"
+          class="inline-flex items-center gap-2 text-primary/80 hover:text-primary font-body text-sm tracking-wide transition-colors"
+        >
+          See how the counselling process works
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- THE GUIDE -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={sanghamCeremony}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/88"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        The Guide
+      </h2>
+
+      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
+        <p class="text-parchment/80">
+          Sangham is guided by Michael Kaplan (Swami Ramarishi), a registered Wellness Counsellor whose approach has been shaped by years of sustained contemplative practice, extensive experience working with individuals and groups, and a deep engagement with the psychological dimensions of inner work.
+        </p>
+        <p>
+          His background spans extended periods of solitude and retreat, training within established traditions, process work, and years of direct engagement with people across a wide range of contexts, from adolescents navigating identity and emotional difficulty to adults working through anxiety, relational patterns, loss, and life transitions.
+        </p>
+        <p>
+          The result is an approach that is psychologically informed, practically grounded, and responsive to the real complexity of human experience. It does not rely on a single method or tradition. It draws on what has proven effective, tested through relationship, and refined through honest observation over time.
+        </p>
+      </div>
+
+      <div class="text-center mt-10">
+        <a
+          href="/about"
+          class="inline-flex items-center gap-2 text-primary/60 hover:text-primary/90 font-body text-sm tracking-wide transition-colors"
+        >
+          Read more about the approach and background
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- WAYS TO BEGIN -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Ways to Begin
+      </h2>
+
+      <p class="text-muted-foreground font-body leading-relaxed text-center mb-12 max-w-2xl mx-auto">
+        There are a few ways to enter the work. Each offers something different, but they share the same commitment to clarity, practical application, and honest engagement.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        {waysCards.map((card) => (
+          <a
+            href={card.path}
+            class:list={[
+              'block h-full p-8 border rounded-lg transition-all duration-500 group',
+              card.highlight
+                ? 'border-primary/30 bg-primary/5 hover:border-primary/50'
+                : 'border-border bg-card hover:border-primary/40',
+            ]}
+          >
+            <h3 class="font-heading text-xl text-foreground mb-3 group-hover:text-primary transition-colors">
+              {card.title}
+            </h3>
+            <p class="text-muted-foreground text-sm font-body leading-relaxed mb-5">
+              {card.text}
+            </p>
+            <span class="inline-flex items-center gap-1 text-primary/70 text-sm font-body tracking-wide group-hover:text-primary transition-colors">
+              {card.cta}
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+            </span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ENVIRONMENT AND AWARENESS -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mistyValley}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/78"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
+      <h2 class="font-heading text-2xl md:text-3xl text-gold-gradient text-center mb-10">
+        Environment and Awareness
+      </h2>
+
+      <div class="space-y-6 text-parchment/60 font-body leading-relaxed text-center">
+        <p class="text-parchment/75">
+          Modern life often disconnects us from the environments our systems were shaped within.
+        </p>
+        <p>
+          Attention, sound, rhythm, and place all influence how we feel and function, often more than we realise. The nervous system did not evolve for constant screens, artificial light, and the relentless pace of modern information. Part of this work includes restoring sensitivity to these factors, allowing awareness to become both inwardly clear and outwardly responsive.
+        </p>
+        <p>
+          This is not about romanticising nature or retreating from the world. It is about recognising that where we are and what we surround ourselves with directly shapes how we think, feel, and respond. Reconnecting with that reality is part of the process.
+        </p>
+        <div>
+          <a
+            href="/workshops"
+            class="inline-flex items-center gap-2 text-primary/60 hover:text-primary/90 font-body text-sm tracking-wide transition-colors mt-4"
+          >
+            This dimension is explored more directly through specific workshops
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CLOSING CTA -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={aboveClouds}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/80"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+      <p class="font-heading text-2xl md:text-3xl text-parchment/90 mb-4">
+        This is not about escaping life.
+      </p>
+      <p class="font-heading text-2xl md:text-3xl text-gold-gradient mb-6">
+        It is about becoming more capable within it.
+      </p>
+      <p class="text-parchment/55 font-body leading-relaxed mb-10 max-w-lg mx-auto">
+        If something here resonates, you are welcome to reach out. The first step is a conversation to explore whether this approach might be relevant to your situation.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Enquire About Working Together
+        </a>
+        <a
+          href="/wisdom"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-parchment/20 text-parchment/60 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Read Essays
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

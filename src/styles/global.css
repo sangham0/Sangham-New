@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap');
+@import "tailwindcss";
+
+/* ── Tailwind v4 theme ── */
+@theme {
+  /* Fonts */
+  --font-heading: 'Cormorant Garamond', Georgia, serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+
+  /* Brand colours (HSL values from old Lovable site) */
+  --color-parchment: hsl(39 35% 88%);
+  --color-parchment-foreground: hsl(30 15% 18%);
+
+  --color-gold: hsl(42 52% 42%);
+  --color-gold-light: hsl(42 50% 52%);
+  --color-gold-dark: hsl(42 45% 32%);
+
+  --color-void: hsl(220 25% 8%);
+  --color-cosmos: hsl(220 22% 12%);
+  --color-cosmos-deep: hsl(216 28% 16%);
+
+  --color-nav: hsl(220 20% 10%);
+  --color-nav-foreground: hsl(36 18% 85%);
+
+  --color-header: hsl(220 18% 14%);
+  --color-header-foreground: hsl(36 20% 85%);
+
+  --color-background: hsl(36 18% 88%);
+  --color-foreground: hsl(30 12% 20%);
+
+  --color-card: hsl(36 14% 82%);
+  --color-card-foreground: hsl(30 12% 18%);
+
+  --color-muted: hsl(36 12% 84%);
+  --color-muted-foreground: hsl(30 8% 38%);
+
+  --color-border: hsl(36 12% 76%);
+
+  --color-primary: hsl(42 52% 42%);
+  --color-primary-foreground: hsl(40 30% 92%);
+
+  --color-secondary: hsl(36 14% 82%);
+  --color-secondary-foreground: hsl(30 12% 20%);
+
+  --color-accent: hsl(36 14% 80%);
+  --color-accent-foreground: hsl(30 12% 20%);
+
+  /* Animations */
+  --animate-fade-in: fade-in 0.8s ease-out forwards;
+  --animate-fade-in-slow: fade-in-slow 1.5s ease-out forwards;
+
+  @keyframes fade-in {
+    from { opacity: 0; transform: translateY(20px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-in-slow {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+}
+
+/* ── Base styles ── */
+@layer base {
+  body {
+    font-family: var(--font-body);
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading);
+    font-weight: 400;
+    letter-spacing: 0.02em;
+  }
+}
+
+/* ── Utility classes ── */
+@utility text-gold-gradient {
+  background: linear-gradient(135deg, hsl(42 55% 50%), hsl(42 52% 40%), hsl(42 45% 32%));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility bg-sacred-gradient {
+  background: radial-gradient(ellipse at center, hsl(220 30% 14%) 0%, hsl(220 30% 10%) 70%);
+}
+
+@utility divider-gold {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, hsl(42 52% 40% / 0.4), transparent);
+}
+
+@utility glow-gold {
+  box-shadow: 0 0 20px hsl(42 52% 40% / 0.08);
+}

@@ -1,0 +1,253 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { Image } from 'astro:assets';
+import mountainSunrise from '../assets/mountain-sunrise.jpg';
+import riverSunrise from '../assets/river-sunrise.jpg';
+import forestRiverAerial from '../assets/forest-river-aerial.jpg';
+import rockyCoastDawn from '../assets/rocky-coast-dawn.jpg';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Practices — Meditation, Breathwork & Awareness',
+    provider: { '@type': 'Organization', name: 'Sangham' },
+    serviceType: 'Wellness Practices',
+  },
+];
+---
+
+<BaseLayout
+  title="Practices — Meditation, Breathwork & Awareness"
+  description="Explore Sangham's core practices: meditation, breathwork, somatic awareness, and self-inquiry. Practical tools for stabilising attention, regulating the body, and developing awareness."
+  jsonLd={jsonLd}
+>
+
+  <PageHeader
+    title="Practices"
+    subtitle="Tools for stabilising attention, regulating the body, and developing awareness."
+  />
+
+  <!-- OPENING -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <p class="text-lg text-foreground/90">
+          These practices are tools. Not answers.
+        </p>
+        <p>
+          They can help settle the system, sharpen focus, and build a more honest relationship with experience. Used consistently and appropriately, they can support genuine change. They can stabilise the nervous system, develop attention, and create a foundation for clearer perception and more grounded action.
+        </p>
+        <p>
+          But on their own, they are limited. A breathing technique practised without context can become mechanical. A meditation habit without feedback can quietly reinforce avoidance. What matters is not just what is practised, but how it is applied, adjusted over time, and integrated into the texture of actual life.
+        </p>
+        <p>
+          The practices offered here are designed to provide a genuine starting point. They are accessible, grounded, and useful. But they are most effective when supported by the kind of ongoing relationship and attunement that one-on-one work provides.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW TO USE THIS PAGE -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        How to Use This Page
+      </h2>
+
+      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed">
+        <p>
+          The practices below are simple, accessible, and suitable for most people. They are designed to help stabilise attention, regulate state, and develop greater awareness of the patterns that drive behaviour and emotional responses.
+        </p>
+        <p>
+          They are best approached slowly. Consistency matters far more than intensity. A few minutes of genuine practice each day will do more than an hour of forced effort once a week. If something feels confusing, agitating, or destabilising, easing off rather than pushing through is the wiser response. Not every practice suits every person, and part of learning to practise well is learning to listen to one's own response.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- IMPORTANT CONTEXT -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={forestRiverAerial}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/82"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Important Context
+      </h2>
+
+      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
+        <p>
+          Meditation, breathwork, and related practices are often taught as universal solutions. Download the app. Follow the steps. Results guaranteed. This framing is not just inaccurate. It can be genuinely misleading.
+        </p>
+        <p>
+          The same practice can have very different effects depending on the person, their current state, their history, and how the technique is applied. For some, a particular breathing exercise will calm and stabilise. For others, it may increase agitation, trigger dissociation, or reinforce a pattern of emotional suppression. A meditation practice that deepens awareness in one person may function as sophisticated avoidance in another.
+        </p>
+        <p>
+          This is not a reason to avoid practice. It is a reason to approach it with intelligence and, where possible, with guidance. The practices on this page have been selected for their relative safety and accessibility. But deeper work is always best supported within a structured process, where practices can be introduced, monitored, and adjusted in context.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STILLNESS AND SITTING -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mountainSunrise}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/82"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Stillness and Sitting
+      </h2>
+
+      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
+        <p>
+          Learning to sit and observe without constant reaction is one of the most fundamental capacities a person can develop. It is also one of the most misunderstood.
+        </p>
+        <p>
+          Stillness practice is not about emptying the mind or achieving a particular state. It is about developing the ability to remain with experience as it is, without being carried away by it. Over time, this builds clarity, steadiness, and a kind of internal ground that is not easily shaken by circumstances.
+        </p>
+        <p>
+          Beginning with short, consistent sessions rather than long, irregular ones tends to be most effective. Five minutes of genuine presence is worth more than thirty minutes of restless sitting. Let the body settle. Let the breath be natural. And simply observe what arises, without needing to change it, fix it, or judge it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BREATH AND REGULATION -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
+        Breath and Regulation
+      </h2>
+
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <p>
+          The breath is one of the most direct and accessible ways to influence physiological state. Unlike thought, which is often circular and self-reinforcing, the breath provides a concrete, physical entry point into the nervous system.
+        </p>
+        <p>
+          Breathwork practices can help reduce internal pressure, stabilise energy, calm an overactive mind, and bring the body into a more regulated state. They can also be used more dynamically to increase vitality, clear emotional residue, or prepare the system for deeper meditative work.
+        </p>
+        <p>
+          The key principle is naturalness. Keeping the breath smooth and unforced. Avoiding strain, excessive effort, or aggressive techniques, especially without guidance. The breath should be worked with, not against. When approached with sensitivity, even very simple adjustments to how a person breathes can produce noticeable shifts in how they feel and function.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE DIVIDER -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={riverSunrise}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/60"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-3xl text-center">
+      <p class="font-heading text-xl md:text-2xl text-parchment/75 italic">
+        "Consistency matters far more than intensity. A few minutes of genuine practice is worth more than an hour of forced effort."
+      </p>
+    </div>
+  </section>
+
+  <!-- MOVEMENT AND EMBODIMENT -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Movement and Embodiment
+      </h2>
+
+      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed">
+        <p>
+          Many people live almost entirely in their heads. Thought dominates. The body becomes something that is carried around rather than inhabited. Over time, this creates a subtle but significant disconnection from internal signals, from energy, from physical reality.
+        </p>
+        <p>
+          Simple, controlled movement helps reverse this. It shifts attention out of constant thinking and into direct physical experience. It supports grounding, coordination between mind and body, and a restored sensitivity to what the body is actually communicating.
+        </p>
+        <p>
+          This does not require athleticism or flexibility. It requires willingness to pay attention. Movement practice at Sangham is not about performance or aesthetics. It is about inhabiting the body with greater awareness and using that awareness as a foundation for clearer perception and more grounded action.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- A NOTE ON PROGRESS -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={rockyCoastDawn}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/78"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        A Note on Progress
+      </h2>
+
+      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
+        <p>
+          It is easy to collect practices. It is much harder to apply them consistently and appropriately. The modern tendency is to accumulate: more techniques, more workshops, more apps, more knowledge. But accumulation is not the same as development.
+        </p>
+        <p>
+          Progress does not come from doing more techniques. It comes from understanding what is being done, applying it in a way that fits actual life, and having the patience to let the effects unfold over time. One practice, done well and consistently, will go further than a dozen practised sporadically.
+        </p>
+        <p>
+          The practices offered here are designed to be simple enough to begin immediately and deep enough to grow with over time. But if there is uncertainty about how to progress, or if something is stirring that is not fully understood, that is a sign that personalised guidance may be valuable.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHEN TO GO DEEPER -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        When to Go Deeper
+      </h2>
+
+      <div class="space-y-6 font-body leading-relaxed">
+        <p class="text-header-foreground/65">
+          Practices are most effective when they are introduced at the right time, adjusted based on response, and integrated into daily life. This is where one-on-one work becomes valuable. It may be worth exploring if any of the following feel relevant:
+        </p>
+
+        <ul class="space-y-3 text-header-foreground/60 list-disc list-outside ml-6">
+          <li>Uncertainty about what to practise, or when, or how to adapt as experience changes</li>
+          <li>Practice feeling stale, mechanical, or disconnected from the rest of life</li>
+          <li>Practices providing temporary relief but not translating into lasting change</li>
+          <li>Difficult emotions or experiences surfacing that are hard to work with alone</li>
+          <li>A sense of readiness for something deeper, without clarity about what that looks like</li>
+        </ul>
+
+        <p class="text-header-foreground/55">
+          These are not problems. They are natural signals that the work is ready to move into a more supported and structured context, where practice can be refined and held within the context of a genuine relationship.
+        </p>
+      </div>
+
+      <div class="mt-12 text-center">
+        <a
+          href="/counselling"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Explore Counselling
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

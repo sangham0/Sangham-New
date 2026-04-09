@@ -1,0 +1,25 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__Claude_Preview__preview_start",
+      "Bash(where npx:*)",
+      "Read(//c/Program Files/nodejs/**)",
+      "Bash(ls \"C:\\\\Users\\\\mkapl\\\\Documents\\\\GitHub\\\\Sangham-New\\\\.claude\\\\worktrees\\\\elated-nobel\\\\node_modules\\\\astro\"\" | head -5 && ls \"C:UsersmkaplDocumentsGitHubSangham-New.claudeworktreeselated-nobelnode_modules.binastro \"*)",
+      "Bash(ls 'C:/Users/mkapl/Documents/GitHub/Sangham-New/.claude/worktrees/elated-nobel/node_modules/.bin/astro'*)",
+      "Bash(export PATH=\"$PATH:/c/Program Files/nodejs\")",
+      "Bash(node -e \"const p = require\\(''./node_modules/astro/package.json''\\); console.log\\(JSON.stringify\\(p.bin\\)\\)\")",
+      "Bash(ls C:UsersmkaplDocumentsGitHubSangham-LovableScreenshotsabout*)",
+      "Bash(python3 -c \":*)",
+      "Bash(find C:UsersmkaplDocumentsGitHubsangham-a4fa5a39/src/data -type f -name *atalog* -o -name *essay*)",
+      "Bash(npx astro:*)",
+      "Bash(\"/c/Program Files/nodejs/node.exe\" node_modules/astro/bin/astro.mjs build)",
+      "Bash(git -C \"C:/Users/mkapl/Documents/GitHub/Sangham-New\" remote -v)",
+      "Bash(gh repo:*)",
+      "Bash('/c/Program Files/GitHub CLI/gh.exe' --version)",
+      "Read(//c/Program Files/**)",
+      "Read(//c/Users/mkapl/AppData/Local/Programs//**)",
+      "Bash(cmd.exe /c \"where gh\")",
+      "Bash(git -C \"C:/Users/mkapl/Documents/GitHub/Sangham-New\" remote add origin https://github.com/sangham0/Sangham-New.git)"
+    ]
+  }
+}

@@ -1,0 +1,206 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import { Image } from 'astro:assets';
+import sanghamCircle from '../assets/sangham-circle.jpg';
+import mountainSummit from '../assets/mountain-summit.jpg';
+import moonlightOcean from '../assets/moonlight-ocean.jpg';
+import loneTreeSunset from '../assets/lone-tree-sunset.jpg';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Workshops & Small Group Sessions',
+    provider: { '@type': 'Organization', name: 'Sangham' },
+    serviceType: 'Workshop',
+  },
+];
+---
+
+<BaseLayout
+  title="Workshops & Small Group Sessions"
+  description="In-person workshops and small group sessions for shared exploration of inner work. Occasional gatherings facilitated by Michael Kaplan (Swami Ramarishi) in Cape Town and beyond."
+  jsonLd={jsonLd}
+>
+
+  <PageHeader
+    title="Workshops & Small Group Sessions"
+    subtitle="Occasional spaces to explore the work in a shared, in-person setting."
+  />
+
+  <!-- OPENING -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <p class="text-lg text-foreground/90">
+          While most of the work at Sangham unfolds through one-on-one process, there are times when a group setting can offer something that individual work cannot.
+        </p>
+        <p>
+          Workshops and small group sessions provide a focused space to explore specific aspects of the work in a structured, intentional way. There is something uniquely valuable about practising alongside others, about witnessing and being witnessed in a carefully held environment. The shared quality of attention in a well-held group creates conditions that are difficult to replicate alone.
+        </p>
+        <p>
+          These are not drop-in classes or casual meetups. They are crafted experiences with clear themes, purposeful structure, and enough space for both guided work and genuine reflection. The emphasis is always on what can actually be applied, not on spiritual performance or group catharsis.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT TO EXPECT -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        What to Expect
+      </h2>
+
+      <div class="space-y-6 font-body leading-relaxed">
+        <p class="text-header-foreground/65">
+          Workshops are typically centred around a clear theme, explored through a combination of guided practice, dialogue, and direct experience. The atmosphere is grounded and participatory. Participants are invited to engage, not to perform. Themes may include:
+        </p>
+
+        <ul class="space-y-4 text-header-foreground/60 list-disc list-outside ml-6">
+          <li>Understanding and working with attention: how to develop sustained focus and clarity in the midst of daily life</li>
+          <li>Basic regulation through breath and body: practical tools for calming the nervous system and restoring a sense of ground</li>
+          <li>Developing awareness of patterns in real time: seeing how habitual responses operate before they take hold</li>
+          <li>Exploring how to apply inner work in daily life: bridging the gap between practice on the cushion and living in the world</li>
+          <li>Working with group dynamics, listening, and relational awareness</li>
+        </ul>
+
+        <p class="text-header-foreground/55">
+          Sessions are practical and grounded. The structure is simple and intentional. The aim is clarity, not overload. Participants leave with something usable, not just inspired.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mountainSummit}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/70"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-3xl text-center">
+      <p class="font-heading text-2xl md:text-3xl text-parchment/80 italic">
+        "The work is always the same: to see more clearly and respond more honestly."
+      </p>
+    </div>
+  </section>
+
+  <!-- WHO THESE ARE FOR -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Who These Are For
+      </h2>
+
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <p>
+          Workshops are open to a range of participants. Prior experience with meditation, breathwork, or inner work is not required. They may be particularly relevant for those who:
+        </p>
+
+        <ul class="space-y-4 list-disc list-outside ml-6">
+          <li>Are new to this kind of work and want a clear, supported introduction before committing to individual process</li>
+          <li>Prefer to begin in a group setting, where the atmosphere can feel less intense than one-on-one engagement</li>
+          <li>Want to explore a specific aspect of the work more directly, such as breath, attention, or regulation</li>
+          <li>Are already engaged in individual counselling and want complementary group experience</li>
+          <li>Are curious about Sangham and want to experience the quality of the work before enquiring further</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- WORKSHOP IMAGE -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 pb-20 md:pb-28 max-w-4xl">
+      <Image
+        src={sanghamCircle}
+        alt="A group sitting together in a workshop setting"
+        class="w-full rounded-lg opacity-85"
+        widths={[640, 1024, 1536]}
+        sizes="100vw"
+      />
+    </div>
+  </section>
+
+  <!-- NATURE AND ENVIRONMENTAL SESSIONS -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={moonlightOcean}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/82"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Nature and Environmental Sessions
+      </h2>
+
+      <div class="space-y-6 font-body leading-relaxed">
+        <p class="text-parchment/80">
+          Some aspects of this work are explored more directly in natural environments.
+        </p>
+        <p class="text-parchment/65">
+          These sessions focus on developing sensitivity to attention, sound, rhythm, and place, and how these influence regulation and perception. The nervous system responds differently in natural settings. Patterns that are invisible in familiar environments can become more apparent when the context shifts. And certain capacities, particularly around sensory awareness, settling, and presence, can develop more readily when supported by the right surroundings.
+        </p>
+        <p class="text-parchment/65">
+          Rather than treating nature as something separate or symbolic, the emphasis is on direct experience and practical awareness. This is not wilderness therapy or eco-spirituality. It is a grounded exploration of how environment shapes perception and how that understanding can be used to support clearer functioning in everyday life.
+        </p>
+        <p class="text-parchment/65">
+          These sessions can offer a different context for developing clarity, stability, and a sense of connection that extends beyond internal reflection alone. They are offered occasionally and are typically open to both new and existing participants.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- AVAILABILITY -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={loneTreeSunset}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/78"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Availability
+      </h2>
+
+      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed">
+        <p>
+          Workshops are offered occasionally rather than on a fixed schedule. They are designed to be responsive to what is needed, rather than filling a calendar. Details of upcoming sessions are shared through community channels when available.
+        </p>
+        <p>
+          Small group sessions can also be arranged on request. This may be relevant for groups of friends, teams, organisations, or specific interest groups who want a tailored introduction to the work.
+        </p>
+        <p>
+          If there is interest in attending a workshop or exploring a private group session, getting in touch is the best place to start.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center mt-12">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Enquire About Sessions
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+        <a
+          href="/counselling"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-header-foreground/15 text-header-foreground/60 hover:text-header-foreground/80 hover:border-header-foreground/30 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Or Explore One-on-One Work
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

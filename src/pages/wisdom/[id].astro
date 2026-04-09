@@ -1,0 +1,78 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { essays } from '../../data/essays';
+
+export function getStaticPaths() {
+  return essays.map((essay) => ({
+    params: { id: essay.id },
+    props: { essay },
+  }));
+}
+
+const { essay } = Astro.props;
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: essay.title,
+    description: essay.excerpt,
+    author: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+    },
+    publisher: { '@type': 'Organization', name: 'Sangham' },
+  },
+];
+---
+
+<BaseLayout
+  title={`${essay.title} — Sangham`}
+  description={essay.excerpt}
+  jsonLd={jsonLd}
+>
+
+  <!-- ESSAY HEADER -->
+  <section class="bg-header py-20 md:py-28">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <a
+        href="/wisdom"
+        class="inline-flex items-center gap-2 text-sm text-header-foreground/50 hover:text-header-foreground/80 font-body transition-colors mb-10"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Wisdom
+      </a>
+
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-6">
+        {essay.title}
+      </h1>
+      <div class="divider-gold w-24 mt-8"></div>
+    </div>
+  </section>
+
+  <!-- ESSAY BODY -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-2xl">
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed text-[15px]">
+        {essay.paragraphs.map((paragraph: string) => (
+          <p>{paragraph}</p>
+        ))}
+      </div>
+
+      <div class="divider-gold w-24 mx-auto mt-16"></div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/wisdom"
+          class="text-sm text-primary/70 hover:text-primary font-body transition-colors"
+        >
+          &larr; Back to all essays
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

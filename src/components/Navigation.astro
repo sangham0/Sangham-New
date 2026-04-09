@@ -1,0 +1,97 @@
+---
+import { Image } from 'astro:assets';
+import sanghamLogo from '../assets/sangham-logo.png';
+
+const navLinks = [
+  { path: '/', label: 'Home' },
+  { path: '/counselling', label: 'Counselling' },
+  { path: '/practices', label: 'Practices' },
+  { path: '/about', label: 'About' },
+  { path: '/workshops', label: 'Workshops' },
+  { path: '/wisdom', label: 'Wisdom' },
+  { path: '/contact', label: 'Contact' },
+];
+
+const currentPath = Astro.url.pathname;
+---
+
+<nav
+  class="fixed top-0 left-0 right-0 z-50 bg-nav/95 backdrop-blur-md border-b border-nav-foreground/10"
+>
+  <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+    <a href="/" class="flex items-center gap-3">
+      <Image src={sanghamLogo} alt="Sangham" class="h-10 w-auto" widths={[80, 160]} />
+    </a>
+
+    <!-- Desktop nav -->
+    <div class="hidden lg:flex items-center gap-8">
+      {navLinks.map((link) => (
+        <a
+          href={link.path}
+          class:list={[
+            'text-sm tracking-widest uppercase font-body transition-colors duration-300',
+            currentPath === link.path
+              ? 'text-gold-light'
+              : 'text-nav-foreground/60 hover:text-nav-foreground',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+
+    <!-- Mobile toggle -->
+    <button
+      id="mobile-menu-toggle"
+      class="lg:hidden text-nav-foreground"
+      aria-label="Toggle menu"
+      aria-expanded="false"
+    >
+      <!-- Hamburger icon -->
+      <svg id="menu-icon-open" class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M4 6h16M4 12h16M4 18h16" />
+      </svg>
+      <!-- Close icon -->
+      <svg id="menu-icon-close" class="w-6 h-6 hidden" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+      </svg>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div
+    id="mobile-menu"
+    class="lg:hidden hidden bg-nav border-b border-nav-foreground/10 overflow-hidden"
+  >
+    <div class="container mx-auto px-6 py-6 flex flex-col gap-4">
+      {navLinks.map((link) => (
+        <a
+          href={link.path}
+          class:list={[
+            'text-sm tracking-widest uppercase font-body transition-colors py-2',
+            currentPath === link.path
+              ? 'text-gold-light'
+              : 'text-nav-foreground/60 hover:text-nav-foreground',
+          ]}
+        >
+          {link.label}
+        </a>
+      ))}
+    </div>
+  </div>
+</nav>
+
+<script>
+  const toggle = document.getElementById('mobile-menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('menu-icon-open');
+  const iconClose = document.getElementById('menu-icon-close');
+
+  toggle?.addEventListener('click', () => {
+    const isOpen = !menu?.classList.contains('hidden');
+    menu?.classList.toggle('hidden');
+    iconOpen?.classList.toggle('hidden');
+    iconClose?.classList.toggle('hidden');
+    toggle.setAttribute('aria-expanded', String(!isOpen));
+  });
+</script>
