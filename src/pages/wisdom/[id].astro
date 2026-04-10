@@ -16,7 +16,8 @@ const jsonLd = [
     '@context': 'https://schema.org',
     '@type': 'Article',
     headline: essay.title,
-    description: essay.excerpt,
+    description: essay.paragraphs[0],
+    datePublished: essay.datePublished,
     author: {
       '@type': 'Person',
       name: 'Michael Kaplan',
@@ -28,8 +29,10 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title={`${essay.title} — Sangham`}
+  title={essay.title}
   description={essay.excerpt}
+  type="article"
+  publishedDate={essay.datePublished}
   jsonLd={jsonLd}
 >
 
@@ -46,9 +49,10 @@ const jsonLd = [
         Back to Wisdom
       </a>
 
-      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-6">
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
         {essay.title}
       </h1>
+      <p class="text-sm text-header-foreground/40 font-body">{essay.dateLabel}</p>
       <div class="divider-gold w-24 mt-8"></div>
     </div>
   </section>

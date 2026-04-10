@@ -2,6 +2,8 @@ export interface Essay {
   id: string;
   title: string;
   excerpt: string;
+  datePublished: string;
+  dateLabel: string;
   paragraphs: string[];
 }
 
@@ -11,6 +13,8 @@ export const essays: Essay[] = [
     title: "What is Meditation?",
     excerpt:
       "Meditation is almost universally misunderstood. It is commonly spoken of as a practice, a discipline, or a technique. In truth, meditation is none of these things. It is a state of being.",
+    datePublished: "2026-04-01",
+    dateLabel: "April 2026",
     paragraphs: [
       "Meditation is almost universally misunderstood.",
       "It is commonly spoken of as a practice, a discipline, or a technique. Something one does. Something one performs for a certain duration of time, often seated, often with closed eyes. In truth, meditation is none of these things.",
@@ -45,6 +49,8 @@ export const essays: Essay[] = [
     title: "What is Hatha Yoga?",
     excerpt:
       "Hatha yoga is widely misunderstood today, largely because its depth has been reduced to form without context. At its root, hatha yoga is not an exercise system. It is a precise spiritual science.",
+    datePublished: "2026-04-01",
+    dateLabel: "April 2026",
     paragraphs: [
       "Hatha yoga is widely misunderstood today, largely because its depth has been reduced to form without context. At its root, hatha yoga is not an exercise system, nor even primarily a health modality. It is a precise spiritual science, one designed to bring the human system into a state of inner union.",
       "The word hatha itself comes from the ancient Sanskrit mantra hum tam. Hum represents the solar principle, the active force, the outward-moving current of life. Tam represents the lunar principle, the receptive force, the inward-moving current. Yoga, as a word, means to join. In this sense, hatha yoga is the joining of the solar and lunar principles, of activity and passivity, of masculine and feminine, within the human being.",
@@ -76,6 +82,8 @@ export const essays: Essay[] = [
     title: "On Living",
     excerpt:
       "You do not need to know where you are, or even where you are going, if you remember who you are. Home reveals itself wherever separation dissolves.",
+    datePublished: "2026-04-01",
+    dateLabel: "April 2026",
     paragraphs: [
       "You do not need to know where you are, or even where you are going, if you remember who you are.",
       "I have wandered for a long time without orientation, lost by ordinary measures, yet again and again I find myself completely at home. Not because circumstances are secure, but because belonging no longer depends on location. Home reveals itself wherever separation dissolves. Often, it appears most clearly when there is nothing to hold onto except the quality of one's own presence, and the grace of the people one happens to meet along the way.",
@@ -99,6 +107,8 @@ export const essays: Essay[] = [
     title: "How We Love",
     excerpt:
       "There are certain encounters in life that arrive quietly and leave you undone. Over time, I have come to see that human beings tend to relate to love and connection in three distinct ways.",
+    datePublished: "2026-04-01",
+    dateLabel: "April 2026",
     paragraphs: [
       "There are certain encounters in life that arrive quietly and leave you undone. Connections so full, so alive, that their ending feels almost unbearable. Not because something has gone wrong, but because something has gone so deeply right.",
       "When love has been real, parting hurts. The heart feels too full for the body that must carry it. And yet, what remains after separation is not loss, but a strange and luminous presence. The love shared does not vanish. It becomes internal. It becomes part of who you are.",
@@ -127,6 +137,8 @@ export const essays: Essay[] = [
     title: "On Human Relationships",
     excerpt:
       "Human relationships are rarely approached innocently. Most of us enter them with an invisible hand extended, hoping to receive something. There is another way to stand in relationship.",
+    datePublished: "2026-04-01",
+    dateLabel: "April 2026",
     paragraphs: [
       "Human relationships are rarely approached innocently. Most of us enter them with an invisible hand extended, hoping to receive something. Love, validation, safety, meaning, reassurance. This posture is so normalized that it goes unquestioned. Yet at its root it is a beggar mentality, one founded on the assumption of lack. I do not have enough, therefore I must acquire. I am incomplete, therefore another must fill me.",
       "When relationships are entered from this place, even love becomes transactional. Even intimacy carries a subtle hunger. And hunger, no matter how refined its language, always distorts perception. You do not see the other clearly. You see them through the lens of what they can give you.",
@@ -152,6 +164,8 @@ export const essays: Essay[] = [
     title: "Crazy Times",
     excerpt:
       "As the American empire enters a strange, staggered collapse, it is undeniably an unusual time to be alive. Moments like this are dangerous, but also fertile.",
+    datePublished: "2026-04-01",
+    dateLabel: "April 2026",
     paragraphs: [
       "As the American empire enters a strange, staggered collapse, it is undeniably an unusual time to be alive. Entire systems of belief that were taken for granted throughout the last century are unraveling. Assumptions about progress, identity, power, and meaning are quietly losing their authority, while new and often competing narratives struggle to take their place.",
       "Moments like this are dangerous, but also fertile. When an old worldview dissolves, there is a temptation to swing wildly between extremes, grasping at whatever promises certainty or belonging. This is precisely the time to be vigilant about what we allow to replace what is falling away.",

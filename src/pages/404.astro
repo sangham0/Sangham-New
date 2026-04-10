@@ -1,0 +1,34 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Page Not Found"
+  description="This page doesn't exist."
+>
+
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-28 md:py-40 max-w-2xl text-center">
+      <h1 class="font-heading text-4xl md:text-5xl text-gold-gradient mb-6">
+        Page Not Found
+      </h1>
+      <div class="divider-gold w-24 mx-auto mb-10"></div>
+
+      <p class="text-header-foreground/70 font-body leading-relaxed mb-4">
+        This page doesn't exist.
+      </p>
+      <p class="text-header-foreground/45 font-body text-sm italic mb-12">
+        Sometimes the path isn't where we expected it to be.
+      </p>
+
+      <a
+        href="/"
+        class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+      >
+        Return Home
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
