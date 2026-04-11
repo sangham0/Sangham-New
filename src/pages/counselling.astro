@@ -74,7 +74,7 @@ const rightFitNo = [
 
 <BaseLayout
   title="Counselling & Integration"
-  description="Structured, grounded counselling that bridges insight and real change. One-on-one sessions and a five-session integrative process with Michael Kaplan (Swami Ramarishi)."
+  description="A structured, integrative approach to counselling and inner work, conducted online via video call. Working with patterns, breathwork, attention, and real change. Open to clients worldwide."
   jsonLd={jsonLd}
 >
 
@@ -99,6 +99,9 @@ const rightFitNo = [
         <p>
           The approach draws on counselling, contemplative practice, and body-based awareness to work with the whole system: thought, emotion, perception, physiology, and behaviour. Not as separate tracks, but as one integrated process anchored in real life. Sessions are conducted online via video call, making this work available to people across South Africa and beyond.
         </p>
+        <p>
+          All sessions are conducted online via video call. This format has proven to be a genuine fit for this kind of work — the quality of attention that matters most in this process is not diminished by the absence of a shared physical space. Clients join from across South Africa, India, Europe, and beyond.
+        </p>
       </div>
     </div>
   </section>
@@ -114,12 +117,9 @@ const rightFitNo = [
         The process is responsive to what is actually happening, and it adjusts as circumstances change. Common areas of focus include:
       </p>
 
-      <ul class="space-y-5 mb-10">
+      <ul class="space-y-4 mb-10 list-disc list-outside ml-6 text-header-foreground/60 font-body leading-relaxed marker:text-primary/40">
         {workWithItems.map((item) => (
-          <li class="flex items-start gap-3 text-header-foreground/60 font-body">
-            <span class="text-primary/50 mt-1.5 text-xs">&#9679;</span>
-            <span>{item}</span>
-          </li>
+          <li>{item}</li>
         ))}
       </ul>
 
@@ -192,6 +192,72 @@ const rightFitNo = [
         </p>
         <p>
           This is why practice works best when it is held within a structured relationship, where it can be introduced carefully, monitored, and refined over time. The point is not to collect more techniques. It is to apply the right intervention at the right time, in the right way, for the specific person.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT EACH CLIENT RECEIVES -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
+        What Each Client Receives
+      </h2>
+
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <p>
+          One-on-one work at Sangham is not a generic process applied uniformly. Everything is built around the specific person, their situation, and what is actually needed at each stage.
+        </p>
+        <p>
+          As the work develops, clients receive personalised materials created specifically for them. These are not pre-packaged resources or standard handouts. They are developed in response to what is emerging in the work itself.
+        </p>
+        <p>
+          Depending on what is relevant, this may include:
+        </p>
+
+        <ul class="space-y-3 list-disc list-outside ml-6 text-muted-foreground font-body leading-relaxed">
+          <li>Guided meditation recordings created specifically for the client's current situation and practice level</li>
+          <li>Personalised breathwork and practice videos tailored to their nervous system and what has been identified in sessions</li>
+          <li>Journaling prompts and written reflection exercises designed around the specific patterns being worked with</li>
+          <li>Reading material and essays selected or written to deepen understanding of what is arising</li>
+          <li>Worksheets and structured observation frameworks to support integration between sessions</li>
+        </ul>
+
+        <p>
+          These are not extras. They are part of how the work extends beyond the session itself and becomes integrated into daily life. The session opens something. The materials help it land.
+        </p>
+        <p>
+          Nothing is given automatically. Everything is offered when it is genuinely useful — when the timing is right and the person is ready to work with it.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ON WORKING ONLINE -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        On Working Online
+      </h2>
+
+      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed">
+        <p>
+          A question that sometimes arises is whether online counselling can be as effective as working in person. It is a fair question, and worth addressing directly.
+        </p>
+        <p>
+          The honest answer is: for this kind of work, yes.
+        </p>
+        <p>
+          What matters most in this process is the quality of attention, from both sides. Whether that attention is held across a room or across a screen is, in practice, less significant than it might seem. The patterns that matter, the responses that need to be seen, the moments of recognition and shift — these arise just as clearly in an online session as they do in person.
+        </p>
+        <p>
+          In some cases, working from one's own environment offers advantages. The nervous system is not performing for a new space. People tend to arrive more settled, more themselves. The conversation often goes deeper, more quickly.
+        </p>
+        <p>
+          There are forms of work where presence in the same physical space genuinely matters — certain body-based practices, some group work, intensive retreat. These are offered in person when arranged. But for the core of what happens in one-on-one counselling, online format is not a compromise. It is simply a different container, and one that has proven, in practice, to work well.
+        </p>
+        <p>
+          Sessions are held via video call at a time arranged to suit the client's timezone. Clients currently work with Sangham from South Africa, India, the United Kingdom, and elsewhere.
         </p>
       </div>
     </div>
@@ -277,10 +343,12 @@ const rightFitNo = [
       sizes="100vw"
     />
     <div class="absolute inset-0 bg-void/75"></div>
-    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-3xl text-center">
-      <p class="font-heading text-xl md:text-2xl text-parchment/70 italic">
-        "The measure of this work is not how someone feels during a session, but how they function in the days and weeks that follow."
-      </p>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-28 max-w-3xl">
+      <blockquote class="border-l-2 border-primary/40 pl-8">
+        <p class="font-heading text-xl md:text-2xl text-parchment/70 italic leading-relaxed">
+          The measure of this work is not how someone feels during a session, but how they function in the days and weeks that follow.
+        </p>
+      </blockquote>
     </div>
   </section>
 
@@ -304,14 +372,12 @@ const rightFitNo = [
         </p>
       </div>
 
-      <div class="space-y-6 mb-12">
+      <div class="space-y-4 mb-12">
         {fiveSessionSteps.map((step) => (
-          <div class="flex items-start gap-5">
-            <span class="text-primary/40 font-heading text-2xl leading-none mt-1">{step.num}</span>
-            <div>
-              <h3 class="font-heading text-lg text-header-foreground/85 mb-1">{step.title}</h3>
-              <p class="text-header-foreground/55 text-sm font-body leading-relaxed">{step.text}</p>
-            </div>
+          <div class="border-l-2 border-primary/25 bg-cosmos/40 rounded-r-lg p-6 hover:bg-cosmos/60 transition-colors duration-200">
+            <span class="block text-primary/35 font-heading text-2xl leading-none mb-2">{step.num}</span>
+            <h3 class="font-heading text-lg text-header-foreground/85 mb-2">{step.title}</h3>
+            <p class="text-header-foreground/55 text-sm font-body leading-relaxed">{step.text}</p>
           </div>
         ))}
       </div>
@@ -371,10 +437,12 @@ const rightFitNo = [
       sizes="100vw"
     />
     <div class="absolute inset-0 bg-void/60"></div>
-    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-3xl text-center">
-      <p class="font-heading text-xl md:text-2xl text-parchment/75 italic">
-        "Clarity often develops not through having the answers, but through the willingness to stay with the questions."
-      </p>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-28 max-w-3xl">
+      <blockquote class="border-l-2 border-primary/40 pl-8">
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 italic leading-relaxed">
+          Clarity often develops not through having the answers, but through the willingness to stay with the questions.
+        </p>
+      </blockquote>
     </div>
   </section>
 
@@ -390,12 +458,9 @@ const rightFitNo = [
           <h3 class="font-heading text-xl text-header-foreground/85 mb-6">
             This work may be appropriate for those who:
           </h3>
-          <ul class="space-y-4">
+          <ul class="space-y-3 list-disc list-outside ml-6 text-header-foreground/60 text-sm font-body leading-relaxed marker:text-primary/40">
             {rightFitYes.map((item) => (
-              <li class="flex items-start gap-3 text-header-foreground/60 text-sm font-body">
-                <span class="text-primary/50 mt-1.5 text-xs">&#9679;</span>
-                <span>{item}</span>
-              </li>
+              <li>{item}</li>
             ))}
           </ul>
         </div>
@@ -404,12 +469,9 @@ const rightFitNo = [
           <h3 class="font-heading text-xl text-header-foreground/85 mb-6">
             This work may not be appropriate for those who:
           </h3>
-          <ul class="space-y-4">
+          <ul class="space-y-3 list-disc list-outside ml-6 text-header-foreground/45 text-sm font-body leading-relaxed marker:text-primary/25">
             {rightFitNo.map((item) => (
-              <li class="flex items-start gap-3 text-header-foreground/45 text-sm font-body">
-                <span class="text-primary/30 mt-1.5 text-xs">&#9679;</span>
-                <span>{item}</span>
-              </li>
+              <li>{item}</li>
             ))}
           </ul>
           <p class="text-header-foreground/40 text-xs font-body leading-relaxed mt-6">
@@ -430,6 +492,9 @@ const rightFitNo = [
       <div class="space-y-6 text-muted-foreground font-body leading-relaxed max-w-2xl mx-auto mb-10">
         <p>
           The first step is an initial consultation. This is a full session, not a brief call. It allows space to explore what is present, ask questions, and get a genuine sense of whether this approach is relevant.
+        </p>
+        <p>
+          Sessions take place online via video call. If you have any questions about the format or whether your timezone presents any difficulty, feel free to mention this when you get in touch.
         </p>
         <p>
           There is no obligation to continue beyond this. Many people find even a single conversation clarifying. If the decision is made to work together, what that looks like is discussed based on specific needs and situation.

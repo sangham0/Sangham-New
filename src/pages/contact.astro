@@ -58,12 +58,9 @@ const enquiryTypes = [
         Enquiries are typically for:
       </h2>
 
-      <ul class="space-y-4 max-w-md mx-auto">
+      <ul class="space-y-3 max-w-md mx-auto list-disc list-outside ml-6 text-header-foreground/65 font-body marker:text-primary/40">
         {enquiryTypes.map((item) => (
-          <li class="flex items-start gap-3 text-header-foreground/65 font-body">
-            <span class="text-primary/50 mt-1.5 text-xs">&#9679;</span>
-            <span>{item}</span>
-          </li>
+          <li>{item}</li>
         ))}
       </ul>
     </div>
@@ -84,6 +81,18 @@ const enquiryTypes = [
           It allows space to understand what you are looking for, ask questions, and get a sense of whether this approach is a good fit. There is no obligation to continue beyond this.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- A NOTE ON FIT -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-2xl text-center">
+      <h3 class="font-heading text-xl text-foreground mb-6">
+        A Note on Fit
+      </h3>
+      <p class="text-muted-foreground font-body leading-relaxed text-sm">
+        This work is best suited to people who are open to reflection, willing to engage honestly, and interested in practical change, not just ideas. If you are unsure, you are still welcome to reach out. Sessions are held online via video call, making this work accessible wherever you are in the world.
+      </p>
     </div>
   </section>
 
@@ -202,17 +211,6 @@ const enquiryTypes = [
     </div>
   </section>
 
-  <!-- A NOTE ON FIT -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-16 md:py-20 max-w-2xl text-center">
-      <h3 class="font-heading text-xl text-foreground mb-6">
-        A Note on Fit
-      </h3>
-      <p class="text-muted-foreground font-body leading-relaxed text-sm">
-        This work is best suited to people who are open to reflection, willing to engage honestly, and interested in practical change, not just ideas. If you are unsure, you are still welcome to reach out.
-      </p>
-    </div>
-  </section>
 
 </BaseLayout>
 

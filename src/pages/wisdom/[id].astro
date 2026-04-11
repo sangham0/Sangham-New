@@ -66,6 +66,20 @@ const jsonLd = [
         ))}
       </div>
 
+      {essay.closingBridge && (
+        <div class="mt-16">
+          <div class="divider-gold w-24 mx-auto mb-10"></div>
+          <p class="text-muted-foreground/70 font-body text-sm leading-relaxed text-center">
+            {essay.closingBridge.text.split(/(Practices|counselling process|counselling page)/).map((part: string) => {
+              const link = essay.closingBridge!.links.find((l: { text: string; href: string }) => l.text === part);
+              return link
+                ? <a href={link.href} class="text-primary/70 hover:text-primary transition-colors">{part}</a>
+                : part;
+            })}
+          </p>
+        </div>
+      )}
+
       <div class="divider-gold w-24 mx-auto mt-16"></div>
 
       <div class="mt-10 text-center">

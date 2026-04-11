@@ -38,14 +38,17 @@ const workCards = [
   {
     title: 'Counselling and dialogue',
     text: 'A grounded, relational process of understanding how a person actually functions, in real time, within the context of their life. Not abstract theory or performative conversation, but genuine engagement with the patterns, responses, and gaps between intention and action. This is where the work begins and where it deepens over time.',
+    path: '/counselling',
   },
   {
     title: 'Practical interventions',
     text: 'Breathwork, meditation, and body-based practices used carefully and appropriately, not as fixed techniques or lifestyle habits, but as tools. The same practice can stabilise one person and unsettle another. What matters is how, when, and why it is applied. Precision here is what separates genuine support from well-meaning but misguided instruction.',
+    path: '/practices',
   },
   {
     title: 'Integration into real life',
     text: 'Everything is brought back into relationships, decisions, work, and environment. Without this, insight remains theoretical. The measure of this work is not how someone feels during a session, but how they function in the days and weeks that follow. Integration is where change becomes real and sustainable.',
+    path: '/counselling#integration',
   },
 ];
 
@@ -85,7 +88,7 @@ const waysCards = [
 
 <BaseLayout
   title="Grounded Inner Work, Counselling & Integration"
-  description="Sangham offers integrative counselling, breathwork, and inner work online via video call. Founded by Michael Kaplan (Swami Ramarishi), a South African-born practitioner. Open to clients internationally."
+  description="Sangham offers integrative online counselling, breathwork, and inner work via video call. Founded by Michael Kaplan (Swami Ramarishi), a South African practitioner. Open to clients internationally."
   jsonLd={jsonLd}
 >
 
@@ -179,10 +182,14 @@ const waysCards = [
 
       <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {workCards.map((card) => (
-          <div class="border border-header-foreground/10 rounded-lg p-8 hover:border-primary/20 transition-all duration-500">
-            <h3 class="font-heading text-xl text-header-foreground/90 mb-4">{card.title}</h3>
+          <a
+            href={card.path}
+            class="group block border border-header-foreground/10 rounded-lg p-8 hover:border-primary/30 hover:-translate-y-[3px] hover:bg-void/40 transition-all duration-200 ease-out cursor-pointer relative"
+          >
+            <h3 class="font-heading text-xl text-header-foreground/90 mb-4 group-hover:text-header-foreground transition-colors">{card.title}</h3>
             <p class="text-header-foreground/55 font-body text-sm leading-relaxed">{card.text}</p>
-          </div>
+            <span class="absolute bottom-6 right-6 text-primary/0 group-hover:text-primary/60 transition-all duration-200 text-lg">&rarr;</span>
+          </a>
         ))}
       </div>
     </div>
@@ -231,12 +238,9 @@ const waysCards = [
         This work tends to be most relevant for people who have already done some reflecting but recognise that understanding alone has not been enough. It may resonate if any of the following feel familiar:
       </p>
 
-      <ul class="space-y-5 mb-10">
+      <ul class="space-y-4 mb-10 list-disc list-outside ml-6 text-muted-foreground font-body leading-relaxed marker:text-primary/40">
         {whoItems.map((item) => (
-          <li class="flex items-start gap-3 text-muted-foreground font-body">
-            <span class="text-primary/50 mt-1.5 text-xs">&#9679;</span>
-            <span>{item}</span>
-          </li>
+          <li>{item}</li>
         ))}
       </ul>
 
@@ -269,7 +273,7 @@ const waysCards = [
 
       <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
         <p class="text-parchment/80">
-          Sangham is guided by Michael Kaplan (Swami Ramarishi), a registered Wellness Counsellor whose approach has been shaped by years of sustained contemplative practice, extensive experience working with individuals and groups, and a deep engagement with the psychological dimensions of inner work.
+          Sangham is guided by Michael Kaplan (Swami Ramarishi), a registered Wellness Counsellor whose approach has been shaped by years of sustained contemplative practice, extensive experience working with individuals and groups, and a deep engagement with the psychological dimensions of inner work. Based in South Africa and currently working from India, Michael works with clients online via video call, making this work accessible to people across South Africa, India, Europe, and internationally.
         </p>
         <p>
           His background spans extended periods of solitude and retreat, training within established traditions, process work, and years of direct engagement with people across a wide range of contexts, from adolescents navigating identity and emotional difficulty to adults working through anxiety, relational patterns, loss, and life transitions.
@@ -313,9 +317,13 @@ const waysCards = [
                 : 'border-border bg-card hover:border-primary/40',
             ]}
           >
-            <h3 class="font-heading text-xl text-foreground mb-3 group-hover:text-primary transition-colors">
+            <h3 class="font-heading text-xl text-foreground mb-1 group-hover:text-primary transition-colors">
               {card.title}
             </h3>
+            {card.highlight && (
+              <p class="text-xs text-muted-foreground/50 font-body mb-3">Online via video call</p>
+            )}
+            {!card.highlight && <div class="mb-3"></div>}
             <p class="text-muted-foreground text-sm font-body leading-relaxed mb-5">
               {card.text}
             </p>

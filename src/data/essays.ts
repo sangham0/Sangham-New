@@ -1,3 +1,13 @@
+export interface EssayLink {
+  text: string;
+  href: string;
+}
+
+export interface ClosingBridge {
+  text: string;
+  links: EssayLink[];
+}
+
 export interface Essay {
   id: string;
   title: string;
@@ -5,6 +15,7 @@ export interface Essay {
   datePublished: string;
   dateLabel: string;
   paragraphs: string[];
+  closingBridge?: ClosingBridge;
 }
 
 export const essays: Essay[] = [
@@ -43,6 +54,13 @@ export const essays: Essay[] = [
       "Meditation is not relaxation. It is not concentration. It is not a refined coping strategy. It is the state in which identification has dissolved so thoroughly that nothing can touch one's inner being. Not because life is avoided, but because there is no longer a center to be wounded.",
       "Meditation is not something you do. It is something you become. And ultimately, something you disappear into.",
     ],
+    closingBridge: {
+      text: "If this essay has raised questions about your own practice, or about how to begin, the Practices section offers a starting point. For those interested in working more directly with these questions, the counselling process at Sangham may be relevant.",
+      links: [
+        { text: "Practices", href: "/practices" },
+        { text: "counselling process", href: "/counselling" },
+      ],
+    },
   },
   {
     id: "what-is-hatha-yoga",
@@ -76,6 +94,12 @@ export const essays: Essay[] = [
       "Yet these are never considered the goal. In fact, they are often regarded as significant distractions. The true aim of hatha yoga is not power, but freedom. Not extraordinary ability, but inner union.",
       "When hatha yoga is approached with this understanding, it reveals itself not as a fitness routine, but as a doorway. A slow, patient, deeply intelligent path toward aligning the human form with the greater geometry of existence, until the separation between the two quietly dissolves.",
     ],
+    closingBridge: {
+      text: "Hatha yoga is introduced and contextualised within the one-on-one work at Sangham where relevant — not as a class format, but as a precise personal intervention. If this is something you want to explore, the counselling page has more detail.",
+      links: [
+        { text: "counselling page", href: "/counselling" },
+      ],
+    },
   },
   {
     id: "on-living",
