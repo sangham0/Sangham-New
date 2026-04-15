@@ -1,9 +1,11 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import { essays } from '../../data/essays';
+import { practiceGuides } from '../../data/practice-guides';
 
 export function getStaticPaths() {
-  return essays.map((essay) => ({
+  const allEssays = [...essays, ...practiceGuides];
+  return allEssays.map((essay) => ({
     params: { id: essay.id },
     props: { essay },
   }));

@@ -16,6 +16,7 @@ export interface Essay {
   dateLabel: string;
   paragraphs: string[];
   closingBridge?: ClosingBridge;
+  category?: 'essay' | 'practice-guide';
 }
 
 export const essays: Essay[] = [
