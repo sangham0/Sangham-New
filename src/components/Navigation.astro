@@ -32,7 +32,9 @@ const currentPath = Astro.url.pathname;
             'text-sm tracking-widest uppercase font-body transition-colors duration-300',
             currentPath === link.path
               ? 'text-gold-light'
-              : 'text-nav-foreground/60 hover:text-nav-foreground',
+              : link.path === '/counselling'
+                ? 'text-nav-foreground/75 hover:text-gold-light border-b border-primary/30'
+                : 'text-nav-foreground/60 hover:text-nav-foreground',
           ]}
         >
           {link.label}
@@ -71,7 +73,9 @@ const currentPath = Astro.url.pathname;
             'text-sm tracking-widest uppercase font-body transition-colors py-2',
             currentPath === link.path
               ? 'text-gold-light'
-              : 'text-nav-foreground/60 hover:text-nav-foreground',
+              : link.path === '/counselling'
+                ? 'text-nav-foreground/75 hover:text-gold-light'
+                : 'text-nav-foreground/60 hover:text-nav-foreground',
           ]}
         >
           {link.label}
