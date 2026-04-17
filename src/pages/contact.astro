@@ -189,6 +189,25 @@ const enquiryTypes = [
           </div>
 
           <div>
+            <label for="enquiry_type" class="block text-sm font-body text-header-foreground/50 mb-2">
+              What are you enquiring about?
+            </label>
+            <select
+              id="enquiry_type"
+              name="enquiry_type"
+              required
+              class="w-full bg-cosmos border border-header-foreground/10 rounded-lg px-4 py-3 text-header-foreground/90 font-body focus:outline-none focus:border-primary/40 transition-colors"
+            >
+              <option value="" disabled selected>Please select...</option>
+              <option value="One-on-one counselling">One-on-one counselling</option>
+              <option value="Five-session integrative process">Five-session integrative process</option>
+              <option value="Ongoing counselling">Ongoing counselling</option>
+              <option value="Workshop or group session">Workshop or group session</option>
+              <option value="General enquiry">General enquiry</option>
+            </select>
+          </div>
+
+          <div>
             <label for="message" class="block text-sm font-body text-header-foreground/50 mb-2">
               Message
             </label>

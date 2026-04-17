@@ -22,6 +22,7 @@ const jsonLd = [
     '@type': 'Article',
     headline: essay.title,
     description: essay.paragraphs[0],
+    url: `https://sangham.org/wisdom/${essay.id}`,
     datePublished: essay.datePublished,
     author: {
       '@type': 'Person',

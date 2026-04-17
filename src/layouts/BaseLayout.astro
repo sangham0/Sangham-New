@@ -92,6 +92,17 @@ const siteJsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
+    <!-- Google Analytics (production only) -->
+    {import.meta.env.PROD && (
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ6ZQCWJDY" is:inline></script>
+      <script is:inline>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-YZ6ZQCWJDY');
+      </script>
+    )}
+
     <slot name="head" />
   </head>
   <body>
