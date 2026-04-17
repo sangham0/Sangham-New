@@ -13,6 +13,9 @@ export function getStaticPaths() {
 
 const { essay } = Astro.props;
 
+const wordCount = essay.paragraphs.join(' ').split(/\s+/).length;
+const readingTime = Math.max(1, Math.round(wordCount / 200));
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -25,7 +28,7 @@ const jsonLd = [
       name: 'Michael Kaplan',
       alternateName: 'Swami Ramarishi',
     },
-    publisher: { '@type': 'Organization', name: 'Sangham' },
+    publisher: { '@type': 'Organization', name: 'Sangham', url: 'https://sangham.org' },
   },
 ];
 ---
@@ -54,7 +57,11 @@ const jsonLd = [
       <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
         {essay.title}
       </h1>
-      <p class="text-sm text-header-foreground/40 font-body">{essay.dateLabel}</p>
+      <div class="flex items-center gap-3 text-sm text-header-foreground/40 font-body">
+        <span>{essay.dateLabel}</span>
+        <span class="text-header-foreground/20">&middot;</span>
+        <span>{readingTime} min read</span>
+      </div>
       <div class="divider-gold w-24 mt-8"></div>
     </div>
   </section>
@@ -81,6 +88,23 @@ const jsonLd = [
           </p>
         </div>
       )}
+
+      <!-- CTA -->
+      <div class="mt-16 border border-border rounded-lg p-8 md:p-10 text-center bg-muted/30">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-4">
+          Explore This Work Directly
+        </h3>
+        <p class="text-muted-foreground font-body text-sm leading-relaxed max-w-lg mx-auto mb-8">
+          If something in this essay resonates, the next step is a conversation. One-on-one counselling, breathwork, and meditation — integrated into a single, grounded process.
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Enquire About Working Together
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
 
       <div class="divider-gold w-24 mx-auto mt-16"></div>
 

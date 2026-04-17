@@ -8,6 +8,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['meditation', 'body'],
     paragraphs: [
       'Before getting into how to sit, it\'s worth taking a moment to understand why it matters at all.',
       'Most people assume that when meditation doesn\'t work, the problem lies in the mind. There are too many thoughts, not enough focus, too much restlessness. And while that can certainly be true, it\'s often not the primary issue.',
@@ -51,6 +52,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['meditation', 'contemplative'],
     paragraphs: [
       'There comes a point in meditation that is easy to miss, not because it is obscure, but because it is too simple. Most of what we encounter in the beginning is concerned with what to do. Where to place attention, how to sit, how to return when the mind wanders, how to remain steady without becoming tense. All of this has its place, and without it very little tends to happen. Attention continues in its usual scattered way, pulled by whatever is most immediate, and the attempt to be present feels vague or inconsistent.',
       'So we learn to work with something. The breath, the body, a particular point of focus. We apply a method, and through repetition something begins to stabilise. The mind is not quite as easily carried away, the body becomes more at ease, and there are moments, sometimes brief, sometimes longer, where things settle into a quieter arrangement.',
@@ -84,6 +86,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['breathwork', 'meditation'],
     paragraphs: [
       'There is a reason so many traditions, separated by culture, language, and metaphysics, kept returning to the breath. It is not merely because the breath is always available, though that is certainly part of its usefulness. It is because breathing occupies a very strange and important place in our experience. Most of what sustains life happens without our participation. The heart beats, digestion unfolds, cells exchange and regulate, the body carries out innumerable processes with no consultation from the conscious mind. At the same time, there are functions we can direct at will. We can choose to move, to speak, to turn our heads, to place our attention here rather than there.',
       'The breath stands, as it were, between these two domains. It is happening whether we attend to it or not, but it can also be influenced consciously and directly. One can deepen it, slow it, suspend it, refine it, or simply leave it alone. In that sense it is one of the few bridges we have between what is voluntary and what is involuntary, between the surface of the mind and the deeper layers of the system that are usually operating beyond our reach. This is one of the main reasons it has always been considered so important. It gives us a point through which the conscious mind can begin to meet the rest of our functioning, not by domination, but by contact.',
@@ -107,6 +110,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['breathwork'],
     paragraphs: [
       'The word breathwork has gathered a lot of meanings over the last few years, most of them pointing in slightly different directions. For some it refers to simple techniques for calming down, something to use when stressed or overwhelmed. For others it has come to mean intense sessions of rapid breathing that lead to emotional release, unusual sensations, or states that feel expansive and powerful. These experiences can be striking, and sometimes meaningful, but they sit on the surface of something much older and far more deliberate.',
       'Long before breathwork became a category, the breath was already being used with intent. In certain traditions it was used to enter trance, to move perception beyond its usual boundaries, to loosen the grip of ordinary awareness. In others, particularly within the yogic systems of India, it was approached with a very different kind of care. Less concerned with intensity, more concerned with precision. Less about chasing experience, more about understanding the mechanics of experience itself.',
@@ -140,6 +144,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['breathwork', 'body'],
     paragraphs: [
       'There is a particular way people tend to arrive at breathwork now. Something feels off, so they look for a method to change it. Low energy, so something activating. Too much tension, so something calming. Difficulty focusing, so something that promises clarity. The breath becomes a kind of lever, something to pull in order to move the system into a different state.',
       'There is nothing wrong with that instinct. It is direct, and in many cases it works, at least for a while. The breath is one of the few points where the surface of the mind meets the deeper workings of the body, so it makes sense that changing it would have an effect. The difficulty is not in using the breath this way, but in assuming that this is the whole of what is involved.',
@@ -175,6 +180,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['breathwork'],
     paragraphs: [
       'It is worth being very clear about something before going any further.',
       'Working with the breath is not neutral.',
@@ -216,6 +222,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['body'],
     paragraphs: [
       'When people begin training the body, it usually looks like a simple choice. Strength, fitness, appearance, flexibility. Different goals, different methods, all of them pointing toward some version of improvement.',
       'But if you stay with it long enough, it becomes clear that you are not only shaping the body. You are shaping the way you relate to yourself.',
@@ -264,6 +271,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['body', 'contemplative'],
     paragraphs: [
       'If you begin to pay attention while you move, even in something simple like walking or lifting your arm, it becomes clear quite quickly that the body is never doing just one thing at a time. There is always some part of it working and some part of it letting go. Effort and release are happening together, not as a sequence but as a kind of quiet coordination that allows movement to take place at all.',
       'Most of the time this goes unnoticed. Effort is experienced as something general, as if the whole body were either engaged or relaxed. But in practice it is never that clean. Even in a very basic action, certain muscles are contracting while others are yielding, certain areas are stabilising while others are free to move. If everything were to tense at once, the body would lock. If everything were to relax at once, it would collapse. What makes movement possible is not force alone, and not softness alone, but the relationship between the two.',
@@ -293,6 +301,7 @@ export const practiceGuides: Essay[] = [
     datePublished: '2026-04-15',
     dateLabel: 'April 2026',
     category: 'practice-guide',
+    tags: ['body', 'psychology'],
     paragraphs: [
       'If you watch the body closely enough, you begin to notice that very little of what it does is random.',
       'Posture, gait, the way the shoulders sit, the way the head turns, even the rhythm of how someone moves through a room, all of it carries a certain pattern. Not something consciously chosen in most cases, but something that has been learned, repeated, and settled into over time.',
