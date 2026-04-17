@@ -2,10 +2,13 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import { Image } from 'astro:assets';
-import sanghamCircle from '../assets/sangham-circle.jpg';
 import mountainSummit from '../assets/mountain-summit.jpg';
 import moonlightOcean from '../assets/moonlight-ocean.jpg';
 import loneTreeSunset from '../assets/lone-tree-sunset.jpg';
+import workshopMeditation from '../assets/workshop-india-meditation.jpg';
+import workshopYoga from '../assets/workshop-india-yoga.jpg';
+import workshopCircle from '../assets/workshop-capetown-circle.png';
+import workshopCeremony from '../assets/workshop-capetown-ceremony.png';
 
 const jsonLd = [
   {
@@ -15,6 +18,88 @@ const jsonLd = [
     provider: { '@type': 'Organization', name: 'Sangham' },
     serviceType: 'Workshop',
   },
+];
+
+const workshopPhotos = [
+  { src: workshopMeditation, alt: 'Rooftop meditation session, Rishikesh, India', caption: 'Rooftop meditation session, Rishikesh, India' },
+  { src: workshopCircle, alt: 'Workshop circle, Cape Town', caption: 'Workshop circle, Cape Town' },
+  { src: workshopCeremony, alt: 'Closing ceremony, Cape Town', caption: 'Closing ceremony, Cape Town' },
+  { src: workshopYoga, alt: 'Hatha yoga intensive, Rishikesh, India', caption: 'Hatha yoga intensive, Rishikesh, India' },
+];
+
+const workshops = [
+  {
+    title: "Learn to Meditate",
+    subtitle: "Foundations of Stillness & Attention",
+    description: "A practical introduction to meditation for those who want clarity, not mysticism.",
+    covers: [
+      "How to sit comfortably and sustainably",
+      "Working with the breath as an anchor",
+      "Understanding distraction and mental activity",
+      "Building a simple, consistent practice"
+    ],
+    outcome: "You leave with a method you can actually continue on your own."
+  },
+  {
+    title: "Hara Meditation",
+    subtitle: "Grounding Awareness in the Body",
+    description: "A meditation workshop focused on shifting awareness out of the head and into the body.",
+    covers: [
+      "The Hara as a centre of stability and perception",
+      "Breath awareness below the navel",
+      "How emotional patterns live in the body",
+      "Developing grounded presence over mental control"
+    ],
+    outcome: "Greater stability, less overthinking, deeper embodied awareness."
+  },
+  {
+    title: "Pranayama Foundations",
+    subtitle: "Breathwork for Regulation, Not Stimulation",
+    description: "A grounded introduction to traditional breath practices, taught safely and progressively.",
+    covers: [
+      "How breath affects the nervous system",
+      "Foundational balancing practices",
+      "Why most modern breathwork is overstimulating",
+      "Building capacity before intensity"
+    ],
+    outcome: "A clear, safe way to use breath as a tool for regulation and clarity."
+  },
+  {
+    title: "Hatha Yoga Intensive",
+    subtitle: "Strength, Stillness & Awareness in the Body",
+    description: "A deeper dive into physical practice beyond a standard class.",
+    covers: [
+      "Holding postures with awareness and precision",
+      "The relationship between effort and relaxation",
+      "Breath integration within movement",
+      "Building strength without losing sensitivity"
+    ],
+    outcome: "A more intelligent relationship with your body and practice."
+  },
+  {
+    title: "Lunar Practice",
+    subtitle: "Inner Cycles & Sensitivity",
+    description: "A themed workshop using the full moon as a focal point for internal awareness.",
+    covers: [
+      "Sensitivity to internal cycles",
+      "Breath and awareness practices aligned with receptivity",
+      "Reflection and release",
+      "Grounded rather than mystical in approach"
+    ],
+    outcome: "A structured space for natural internal reset and clarity."
+  },
+  {
+    title: "Half-Day Immersion",
+    subtitle: "Integrated Practice Experience",
+    description: "A longer-form session combining movement, breath, meditation, and reflection.",
+    covers: [
+      "Guided physical practice",
+      "Breathwork",
+      "Seated meditation",
+      "Group integration and dialogue"
+    ],
+    outcome: "A deeper reset than a single class allows."
+  }
 ];
 ---
 
@@ -49,44 +134,69 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- CURRENT AVAILABILITY -->
-  <section class="bg-header text-header-foreground">
-    <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
-      <h2 class="font-heading text-2xl md:text-3xl text-gold-gradient text-center mb-10">
-        Current Availability
+  <!-- WORKSHOPS IN PRACTICE (PHOTO CAROUSEL) -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Workshops in Practice
       </h2>
 
-      <div class="text-header-foreground/65 font-body leading-relaxed text-center space-y-4">
-        <p>
-          No workshops are currently scheduled on the public calendar. To be notified when new sessions are announced, or to enquire about a private group or bespoke session, you are welcome to <a href="/contact" class="text-primary/70 hover:text-primary transition-colors">get in touch</a> or follow <a href="https://instagram.com/sangham.space" target="_blank" rel="noopener noreferrer" class="text-primary/70 hover:text-primary transition-colors">@Sangham.Space on Instagram</a>.
-        </p>
+      <div class="flex gap-5 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+        {workshopPhotos.map((photo) => (
+          <div class="flex-shrink-0 w-72 md:w-80 snap-center">
+            <div class="rounded-lg overflow-hidden">
+              <Image
+                src={photo.src}
+                alt={photo.alt}
+                class="w-full h-52 md:h-60 object-cover"
+                widths={[320, 640]}
+                sizes="320px"
+              />
+            </div>
+            <p class="text-xs text-header-foreground/40 font-body mt-3 text-center">{photo.caption}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
-  <!-- WHAT TO EXPECT -->
-  <section class="bg-header text-header-foreground">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
-        What to Expect
+  <!-- WORKSHOP TYPES -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Workshop Types
       </h2>
+      <p class="text-muted-foreground font-body leading-relaxed text-center mb-14 max-w-2xl mx-auto">
+        Each workshop is structured around a clear theme. These are the formats currently offered, either as scheduled sessions or on request for private groups.
+      </p>
 
-      <div class="space-y-6 font-body leading-relaxed">
-        <p class="text-header-foreground/65">
-          Workshops are typically centred around a clear theme, explored through a combination of guided practice, dialogue, and direct experience. The atmosphere is grounded and participatory. Participants are invited to engage, not to perform. Themes may include:
-        </p>
-
-        <ul class="space-y-4 text-header-foreground/60 list-disc list-outside ml-6">
-          <li>Understanding and working with attention: how to develop sustained focus and clarity in the midst of daily life</li>
-          <li>Basic regulation through breath and body: practical tools for calming the nervous system and restoring a sense of ground</li>
-          <li>Developing awareness of patterns in real time: seeing how habitual responses operate before they take hold</li>
-          <li>Exploring how to apply inner work in daily life: bridging the gap between practice on the cushion and living in the world</li>
-          <li>Working with group dynamics, listening, and relational awareness</li>
-        </ul>
-
-        <p class="text-header-foreground/55">
-          Sessions are practical and grounded. The structure is simple and intentional. The aim is clarity, not overload. Participants leave with something usable, not just inspired.
-        </p>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        {workshops.map((w) => (
+          <div class="border border-border rounded-lg p-7 flex flex-col">
+            <h3 class="font-heading text-lg text-foreground mb-1">{w.title}</h3>
+            <p class="text-xs text-primary/50 font-body tracking-wide uppercase mb-3">{w.subtitle}</p>
+            <p class="text-muted-foreground font-body text-sm leading-relaxed mb-4">{w.description}</p>
+            <ul class="space-y-2 text-muted-foreground/70 font-body text-sm mb-4 list-disc list-outside ml-5 marker:text-primary/30">
+              {w.covers.map((item) => (
+                <li>{item}</li>
+              ))}
+            </ul>
+            <p class="text-sm text-foreground/70 font-body italic mb-6 mt-auto">{w.outcome}</p>
+            <div class="flex flex-col gap-2">
+              <button
+                class="workshop-notify-btn w-full px-4 py-2.5 border border-primary/30 text-primary/70 hover:border-primary/60 hover:text-primary transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body"
+              >
+                Notify me when this runs
+              </button>
+              <a
+                href="/contact?enquiry=workshop-group"
+                class="w-full px-4 py-2.5 text-center text-muted-foreground/50 hover:text-muted-foreground/80 transition-colors text-xs tracking-wider uppercase font-body"
+              >
+                Request for a group
+              </a>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   </section>
@@ -133,19 +243,6 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- WORKSHOP IMAGE -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 pb-20 md:pb-28 max-w-4xl">
-      <Image
-        src={sanghamCircle}
-        alt="A group sitting together in a workshop setting"
-        class="w-full rounded-lg opacity-85"
-        widths={[640, 1024, 1536]}
-        sizes="100vw"
-      />
-    </div>
-  </section>
-
   <!-- NATURE AND ENVIRONMENTAL SESSIONS -->
   <section class="relative overflow-hidden">
     <Image
@@ -178,7 +275,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- AVAILABILITY -->
+  <!-- STAY INFORMED & CLOSING -->
   <section class="relative overflow-hidden">
     <Image
       src={loneTreeSunset}
@@ -190,29 +287,16 @@ const jsonLd = [
     <div class="absolute inset-0 bg-void/78"></div>
     <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
       <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
-        Availability
+        Stay Informed
       </h2>
 
-      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed">
+      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed text-center">
         <p>
-          Workshops are offered occasionally rather than on a fixed schedule. They are designed to be responsive to what is needed, rather than filling a calendar. Details of upcoming sessions are shared through community channels when available.
-        </p>
-        <p>
-          Small group sessions can also be arranged on request. This may be relevant for groups of friends, teams, organisations, or specific interest groups who want a tailored introduction to the work.
-        </p>
-        <p>
-          If there is interest in attending a workshop or exploring a private group session, getting in touch is the best place to start.
+          Workshops are offered occasionally rather than on a fixed schedule. They are designed to be responsive to what is needed, rather than filling a calendar.
         </p>
       </div>
 
-      <!-- STAY INFORMED -->
-      <div class="border border-header-foreground/10 rounded-lg p-8 mt-12 mb-12 text-center">
-        <h3 class="font-heading text-xl text-header-foreground/80 mb-4">
-          Stay informed
-        </h3>
-        <p class="text-header-foreground/55 font-body text-sm leading-relaxed mb-6 max-w-md mx-auto">
-          Workshops run occasionally. Leave your email and you'll be notified when the next one is scheduled.
-        </p>
+      <div class="border border-header-foreground/10 rounded-lg p-8 mt-10 mb-12 text-center bg-void/30">
         <div id="workshop-waitlist-container">
           <form id="workshop-waitlist-form" class="flex gap-3 max-w-sm mx-auto">
             <input type="hidden" name="_subject" value="Workshop waitlist | Sangham" />
@@ -230,6 +314,7 @@ const jsonLd = [
               Notify me
             </button>
           </form>
+          <p class="text-xs text-header-foreground/35 font-body mt-3">You'll only hear when something is scheduled.</p>
         </div>
       </div>
 
@@ -253,7 +338,13 @@ const jsonLd = [
 
 </BaseLayout>
 
+<style>
+  .scrollbar-hide::-webkit-scrollbar { display: none; }
+  .scrollbar-hide { -ms-overflow-style: none; scrollbar-width: none; }
+</style>
+
 <script>
+  // Workshop waitlist form
   const form = document.getElementById('workshop-waitlist-form') as HTMLFormElement;
   const container = document.getElementById('workshop-waitlist-container')!;
 
@@ -276,5 +367,15 @@ const jsonLd = [
     } catch {
       container.innerHTML = `<p class="font-body text-sm text-header-foreground/60">Something went wrong. Please try again or email <a href="mailto:ramarishi@sangham.org" class="text-primary/70 hover:text-primary transition-colors">ramarishi@sangham.org</a>.</p>`;
     }
+  });
+
+  // "Notify me when this runs" buttons scroll to the waitlist form
+  document.querySelectorAll('.workshop-notify-btn').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const el = document.getElementById('workshop-waitlist-container');
+      el?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      const input = el?.querySelector('input[type="email"]') as HTMLInputElement;
+      input?.focus();
+    });
   });
 </script>

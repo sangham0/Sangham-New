@@ -2,6 +2,7 @@
 import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
+import StickyConsultationCTA from '../components/StickyConsultationCTA.astro';
 
 interface Props {
   title: string;
@@ -11,6 +12,7 @@ interface Props {
   type?: 'website' | 'article';
   publishedDate?: string;
   jsonLd?: Record<string, unknown>[];
+  hideStickyBar?: boolean;
 }
 
 const {
@@ -21,6 +23,7 @@ const {
   type = 'website',
   publishedDate,
   jsonLd,
+  hideStickyBar = false,
 } = Astro.props;
 
 const siteName = 'Sangham';
@@ -28,24 +31,23 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
 const siteJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'ProfessionalService',
+  '@type': 'HealthAndBeautyBusiness',
   name: 'Sangham',
-  description: 'Integrative counselling, breathwork, and inner work conducted online via video call.',
+  url: 'https://sangham.org',
+  description: 'Grounded counselling, breathwork, and meditation, integrated into a single practical process.',
   founder: {
     '@type': 'Person',
     name: 'Michael Kaplan',
     alternateName: 'Swami Ramarishi',
-    nationality: 'South African',
+    jobTitle: 'Wellness Counsellor',
   },
-  areaServed: {
-    '@type': 'AdministrativeArea',
-    name: 'Worldwide',
+  contactPoint: {
+    '@type': 'ContactPoint',
+    email: 'ramarishi@sangham.org',
+    telephone: '+27820437887',
+    contactType: 'customer service',
+    availableLanguage: 'English',
   },
-  availableChannel: {
-    '@type': 'ServiceChannel',
-    serviceType: 'Online via video call',
-  },
-  url: 'https://sangham.org',
   sameAs: ['https://instagram.com/sangham.space'],
 };
 ---
@@ -111,6 +113,8 @@ const siteJsonLd = {
       <slot />
     </main>
     <Footer />
+
+    {!hideStickyBar && <StickyConsultationCTA />}
 
     <!-- WhatsApp floating button — mobile only -->
     <a

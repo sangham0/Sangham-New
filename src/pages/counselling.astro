@@ -1,6 +1,7 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
+import FAQ from '../components/FAQ.astro';
 import { Image } from 'astro:assets';
 import nightSky from '../assets/night-sky.jpg';
 import sanghamQuote from '../assets/sangham-quote.jpg';
@@ -69,6 +70,41 @@ const rightFitNo = [
   'Are in acute crisis requiring clinical or medical intervention',
   'Are seeking psychiatric diagnosis or medication management',
   'Are looking for quick fixes, prescriptive answers, or someone to follow',
+];
+
+const faqItems = [
+  {
+    q: "Is this therapy?",
+    a: "Sangham is not a clinical therapy service and does not offer psychiatric diagnosis or medication. It is a structured counselling and integrative process, psychologically informed, practically grounded, and registered with ASCHP. People who have previously worked with therapists often find this approach complements or extends what therapy began."
+  },
+  {
+    q: "How does pricing work?",
+    a: "Session investment is discussed during the initial consultation and is determined on a case-by-case basis, taking into account the nature of the work, its frequency, and the client's situation and means. The aim is that the work is accessible to those who are genuinely committed to engaging with it. There is no fixed rate published because a single number would not serve most situations well."
+  },
+  {
+    q: "Do I need prior experience with meditation or inner work?",
+    a: "No. Some people come with years of practice behind them. Others arrive having never sat in meditation. What matters is a genuine willingness to engage, not a particular background or vocabulary."
+  },
+  {
+    q: "Can I work with you if I'm not in South Africa or India?",
+    a: "Yes. All sessions are conducted online via video call and are available to anyone, anywhere in the world. Clients currently work with Sangham from South Africa, India, the United Kingdom, Europe, and beyond. Scheduling is arranged to suit your timezone."
+  },
+  {
+    q: "What happens in the initial consultation?",
+    a: "The initial consultation is a full session, not a brief screening call. It provides space to explore what is present, understand the approach in practice, ask questions, and get a genuine sense of whether working together makes sense. There is no obligation to continue beyond this."
+  },
+  {
+    q: "How long does the work typically take?",
+    a: "It varies considerably. The five-session integrative process provides a contained starting point and often produces tangible clarity within that container. Some people find that sufficient. Others move into ongoing work, weekly, fortnightly, or monthly, over a longer period. What is right depends on what is being worked with and the pace at which genuine change tends to happen for that person."
+  },
+  {
+    q: "Is online counselling as effective as in-person?",
+    a: "For this kind of work, yes. The quality of attention that matters most is not diminished by the absence of a shared physical space. In practice, many people find they arrive more settled when working from their own environment. Where in-person work is genuinely needed, such as certain intensive or group settings, it is arranged separately."
+  },
+  {
+    q: "Can this work support young people or teenagers?",
+    a: "Yes. Working with adolescents and young adults is one of the areas where this approach has proven particularly valuable. The process is adapted to be developmentally appropriate: practical, non-judgmental, and focused on real strategies rather than abstract concepts. Michael has extensive experience working with young people in both individual and group settings."
+  }
 ];
 ---
 
@@ -522,6 +558,16 @@ const rightFitNo = [
           Message on WhatsApp
         </a>
       </div>
+    </div>
+  </section>
+
+  <!-- FREQUENTLY ASKED QUESTIONS -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Frequently Asked Questions
+      </h2>
+      <FAQ items={faqItems} />
     </div>
   </section>
 

@@ -143,6 +143,10 @@ const waysCards = [
           About the Approach
         </a>
       </div>
+
+      <p class="mt-6 text-parchment/30 font-body text-xs tracking-wide">
+        Currently accepting new clients. Initial consultation available.
+      </p>
     </div>
   </section>
 
@@ -385,9 +389,13 @@ const waysCards = [
               <p class="text-xs text-muted-foreground/50 font-body mb-3">Online via video call</p>
             )}
             {!card.highlight && <div class="mb-3"></div>}
-            <p class="text-muted-foreground text-sm font-body leading-relaxed mb-5">
+            <p class="text-muted-foreground text-sm font-body leading-relaxed mb-3">
               {card.text}
             </p>
+            {card.highlight && (
+              <p class="text-xs text-primary/50 font-body mb-3">Begins with a full initial consultation, no obligation to continue.</p>
+            )}
+            {!card.highlight && <div class="mb-2"></div>}
             <span class="inline-flex items-center gap-1 text-primary/70 text-sm font-body tracking-wide group-hover:text-primary transition-colors">
               {card.cta}
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
