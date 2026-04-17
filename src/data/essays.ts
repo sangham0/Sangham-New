@@ -103,7 +103,7 @@ export const essays: Essay[] = [
       "When hatha yoga is approached with this understanding, it reveals itself not as a fitness routine, but as a doorway. A slow, patient, deeply intelligent path toward aligning the human form with the greater geometry of existence, until the separation between the two quietly dissolves.",
     ],
     closingBridge: {
-      text: "Hatha yoga is introduced and contextualised within the one-on-one work at Sangham where relevant — not as a class format, but as a precise personal intervention. If this is something you want to explore, the counselling page has more detail.",
+      text: "Hatha yoga is introduced and contextualised within the one-on-one work at Sangham where relevant, not as a class format, but as a precise personal intervention. If this is something you want to explore, the counselling page has more detail.",
       links: [
         { text: "counselling page", href: "/counselling" },
       ],
