@@ -3,11 +3,9 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import FAQ from '../components/FAQ.astro';
 import { Image } from 'astro:assets';
-import nightSky from '../assets/night-sky.jpg';
 import sanghamQuote from '../assets/sangham-quote.jpg';
 import twilightCoast from '../assets/twilight-coast.jpg';
 import forestPond from '../assets/forest-pond.jpg';
-import sanghamSpace from '../assets/sangham-space.jpg';
 
 const jsonLd = [
   {
@@ -24,19 +22,19 @@ const jsonLd = [
 const approachCards = [
   {
     title: 'Breathwork and regulation',
-    text: 'Working directly with the breath to influence physiological state. This is not about relaxation techniques. It is about developing the ability to shift the nervous system response when it matters most, and understanding the mechanisms well enough to apply them independently.',
+    text: 'Working directly with the breath to influence physiological state. Not relaxation techniques, but developing the ability to shift nervous system response when it matters most, and understanding the mechanisms well enough to apply them independently.',
   },
   {
     title: 'Attention training',
-    text: 'Developing the capacity to sustain clear, steady attention. This affects everything: how a person listens, processes emotion, makes decisions, and shows up in relationship. It is one of the most fundamental and most neglected capacities in modern life.',
+    text: 'Developing the capacity to sustain clear, steady attention. This affects everything: how a person listens, processes emotion, makes decisions, and shows up in relationship. One of the most fundamental and most neglected capacities in modern life.',
   },
   {
     title: 'Body-based awareness',
-    text: 'Reconnecting with sensation, posture, and physical signal. Many people live almost entirely in thought, cut off from the information their body is constantly providing. This work restores that connection and uses it as a foundation for clearer perception.',
+    text: 'Reconnecting with sensation, posture, and physical signal. Many people live almost entirely in thought, cut off from the information the body is constantly providing. This work restores that connection and uses it as a foundation for clearer perception.',
   },
   {
     title: 'Behavioural integration',
-    text: 'Translating insight into action. This involves looking at specific, concrete adjustments to how someone lives, responds, and interacts. Adjustments that are realistic and sustainable rather than idealistic. Change that does not reach behaviour has not yet become real.',
+    text: 'Translating insight into action. Specific, concrete adjustments to how someone lives, responds, and interacts. Realistic and sustainable rather than idealistic. Change that does not reach behaviour has not yet become real.',
   },
 ];
 
@@ -56,6 +54,14 @@ const fiveSessionSteps = [
   { num: '03', title: 'Intervening', text: 'Introducing targeted practices and shifts. Breathwork, attention exercises, behavioural adjustments, chosen for the specific situation.' },
   { num: '04', title: 'Applying', text: 'Testing changes in real time. Seeing what holds, what needs adjustment, and what emerges as the real work.' },
   { num: '05', title: 'Consolidating', text: 'Reviewing what has shifted, clarifying next steps, and establishing a sustainable foundation for continued development.' },
+];
+
+const structureDetails = [
+  '5 sessions',
+  '60 minutes each',
+  'Online via video call',
+  'Weekly or bi-weekly',
+  'Contained, not open-ended',
 ];
 
 const rightFitYes = [
@@ -95,11 +101,11 @@ const faqItems = [
   },
   {
     q: "How long does the work typically take?",
-    a: "It varies considerably. The five-session integrative process provides a contained starting point and often produces tangible clarity within that container. Some people find that sufficient. Others move into ongoing work, weekly, fortnightly, or monthly, over a longer period. What is right depends on what is being worked with and the pace at which genuine change tends to happen for that person."
+    a: "It varies. The five-session process provides a contained starting point and often produces useful clarity within that container. Some people find that sufficient. Others move into ongoing work, weekly, fortnightly, or monthly, over a longer period. What is right depends on what is being worked with and the pace at which genuine change tends to happen for that person."
   },
   {
     q: "Is online counselling as effective as in-person?",
-    a: "For this kind of work, yes. The quality of attention that matters most is not diminished by the absence of a shared physical space. In practice, many people find they arrive more settled when working from their own environment. Where in-person work is genuinely needed, such as certain intensive or group settings, it is arranged separately."
+    a: "For this kind of work, online format holds up well. The quality of attention that matters most is not diminished by the absence of a shared physical space. In practice, many people find they arrive more settled when working from their own environment. Where in-person work is genuinely needed, such as certain intensive or group settings, it is arranged separately."
   },
   {
     q: "Can this work support young people or teenagers?",
@@ -109,8 +115,8 @@ const faqItems = [
 ---
 
 <BaseLayout
-  title="Counselling & Integration"
-  description="A structured, integrated approach to counselling that combines dialogue, breathwork, and body-based practice. Online via video call. Enquire today."
+  title="Counselling & Integration | Sangham"
+  description="A structured five-session counselling process addressing the gap between understanding and real change. Online via video call. Enquire today."
   jsonLd={jsonLd}
 >
 
@@ -121,97 +127,126 @@ const faqItems = [
 
   <!-- OPENING -->
   <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+    <div class="container mx-auto px-6 py-14 md:py-18 max-w-3xl">
+      <div class="space-y-5 text-muted-foreground font-body leading-relaxed">
         <p class="text-lg text-foreground/90">
           This is not traditional therapy. And it is not informal coaching.
         </p>
         <p>
-          It is a direct, structured process focused on how a person actually functions. Most people who come to this work already understand their patterns. They know what they struggle with. They have thought about it, spoken about it, tried to change. Yet when it matters most, when the pressure rises, when old dynamics reappear in a relationship, when a decision needs to be made under uncertainty, the same responses return.
+          It is a structured process focused on how a person actually functions. Most people who come to this work already understand their patterns. They know what they struggle with. They have thought about it, spoken about it, tried to change. Yet when it matters most, the same responses return. This work focuses on that gap: not the gap between what is known and what is wished for, but between understanding and the ability to act on it.
         </p>
         <p>
-          This work focuses on that gap. Not the gap between what is known and what is wished for, but the gap between understanding and the ability to act on that understanding. That is where real change lives, and that is where this process operates.
-        </p>
-        <p>
-          The approach draws on counselling, contemplative practice, and body-based awareness to work with the whole system: thought, emotion, perception, physiology, and behaviour. Not as separate tracks, but as one integrated process anchored in real life.
-        </p>
-        <p>
-          All sessions are conducted online via video call. This format has proven to be a genuine fit for this kind of work. The quality of attention that matters most in this process is not diminished by the absence of a shared physical space. Clients join from across South Africa, India, Europe, and beyond.
+          The approach draws on counselling, contemplative practice, and body-based awareness, working with thought, emotion, physiology, and behaviour as one integrated process, anchored in real life.
         </p>
       </div>
     </div>
   </section>
 
-  <!-- THE FIVE-SESSION OFFER MOMENT -->
+  <!-- OFFER BLOCK: FIVE-SESSION PROCESS -->
   <section class="bg-header text-header-foreground">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-4">
-        Where Most People Begin
-      </h2>
-      <p class="text-header-foreground/40 text-sm tracking-widest uppercase text-center font-body mb-12">
-        The Five-Session Process
-      </p>
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
 
-      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed mb-12">
-        <p class="text-header-foreground/80">
-          Most people who reach out are not lacking insight. They can describe their patterns clearly. They know what tends to go wrong. What is harder is finding a way to actually work with those patterns rather than simply observing them.
-        </p>
-        <p>
-          The five-session process is a structured, contained piece of work designed to create that traction. It is not open-ended, and it does not promise resolution. What it offers is a clear starting point: space to understand what is driving things beneath the surface, to recognise the conditioned responses that keep repeating, and to begin responding differently in practical, grounded ways.
-        </p>
-        <p>
-          Over five sessions, the work moves from mapping the situation, to identifying what is actually maintaining the patterns, to introducing targeted adjustments and seeing how they hold. Each session builds on the last. The process ends with a review and a clear sense of what has shifted and what, if anything, would be useful to continue.
-        </p>
-      </div>
+      <div class="border border-primary/20 rounded-2xl p-8 md:p-12 bg-void/20">
 
-      <div class="border border-header-foreground/10 rounded-lg p-6 md:p-8 bg-void/20 mb-12">
-        <p class="text-header-foreground/45 text-xs tracking-widest uppercase font-body mb-5">Session details &amp; investment</p>
-        <p class="text-header-foreground/65 font-body text-sm leading-relaxed mb-4">
-          Sessions are 60 minutes each, conducted online via video call. The rhythm is typically weekly or bi-weekly.
+        <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3 text-center">Where most people begin</p>
+        <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-5">
+          Begin with the Five-Session Process
+        </h2>
+        <p class="text-header-foreground/50 font-body text-sm leading-relaxed text-center max-w-xl mx-auto mb-10">
+          A contained, structured starting point. Not open-ended counselling, and not a promise of resolution. A clear first piece of work with a defined beginning, middle, and end.
         </p>
-        <div class="space-y-2 mb-5 border-t border-header-foreground/8 pt-5">
-          <p class="text-header-foreground/70 font-body text-sm">
-            Single session: <span class="text-header-foreground/90">R850</span>
-            <span class="text-header-foreground/35 text-xs ml-2">($45–50 USD)</span>
-          </p>
-          <p class="text-header-foreground/70 font-body text-sm">
-            Five-session process: <span class="text-header-foreground/90">R3,400</span>
-            <span class="text-header-foreground/35 text-xs ml-2">a slightly reduced rate to support continuity</span>
+
+        <!-- Structure chips -->
+        <div class="flex flex-wrap justify-center gap-2 mb-12">
+          {structureDetails.map((label) => (
+            <span class="px-4 py-1.5 border border-primary/20 rounded-full text-xs font-body text-primary/55 tracking-wide">
+              {label}
+            </span>
+          ))}
+        </div>
+
+        <!-- Recognition -->
+        <p class="text-header-foreground/70 font-body leading-relaxed mb-8 max-w-2xl mx-auto">
+          Most people who reach out are not lacking insight. They can describe their patterns clearly. They know what tends to go wrong. What is harder is finding a structured way to actually work with those patterns rather than simply observing them repeat.
+        </p>
+
+        <!-- What the process does -->
+        <p class="text-header-foreground/60 font-body text-sm leading-relaxed mb-10 max-w-2xl mx-auto">
+          Over five sessions, the work moves from clarifying what is actually happening beneath the surface, to identifying the specific patterns and conditioned responses maintaining it, to introducing targeted adjustments and testing how they hold. Each session builds on the last. The process ends with a clear review of what has shifted and what, if anything, would be useful to continue.
+        </p>
+
+        <!-- The 5 steps -->
+        <div class="space-y-3 mb-12">
+          {fiveSessionSteps.map((step) => (
+            <div class="flex gap-5 items-start border-l-2 border-primary/20 pl-5 py-2">
+              <span class="text-primary/30 font-heading text-xl leading-none shrink-0 w-8 mt-0.5">{step.num}</span>
+              <div>
+                <h3 class="font-heading text-base text-header-foreground/85 mb-1">{step.title}</h3>
+                <p class="text-header-foreground/50 text-sm font-body leading-relaxed">{step.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <!-- Pricing -->
+        <div class="border border-header-foreground/10 rounded-xl p-6 bg-void/30 mb-10 max-w-md mx-auto">
+          <p class="text-header-foreground/35 text-xs tracking-widest uppercase font-body mb-5">Investment</p>
+          <div class="space-y-3">
+            <div class="flex items-baseline justify-between">
+              <span class="font-body text-sm text-header-foreground/65">Single session</span>
+              <div class="text-right">
+                <span class="font-heading text-lg text-header-foreground/85">R850</span>
+                <span class="text-header-foreground/30 text-xs font-body ml-2">approx. $45 USD</span>
+              </div>
+            </div>
+            <div class="flex items-baseline justify-between border-t border-header-foreground/8 pt-3">
+              <span class="font-body text-sm text-header-foreground/65">Five-session process</span>
+              <span class="font-heading text-lg text-header-foreground/85">R3,400</span>
+            </div>
+          </div>
+          <p class="text-header-foreground/30 text-xs font-body leading-relaxed mt-4">
+            The five-session rate is slightly reduced to support continuity and commitment to the process. If cost is a genuine barrier, mention it when reaching out.
           </p>
         </div>
-        <p class="text-header-foreground/40 text-xs font-body leading-relaxed">
-          If cost is a genuine barrier, you are welcome to mention this when reaching out. A small number of reduced-rate spaces are kept available where possible.
-        </p>
-      </div>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <a
-          href="/contact"
-          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
-        >
-          Enquire About This Process
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
-        </a>
-        <div id="counselling-overview-container">
-          <form id="counselling-overview-form" class="flex gap-2">
-            <input type="hidden" name="_subject" value="Counselling overview request | Sangham" />
-            <input type="hidden" name="note" value="Requested the process overview from the counselling page" />
-            <input
-              type="email"
-              name="email"
-              required
-              placeholder="Send me a process overview"
-              class="flex-1 bg-cosmos border border-header-foreground/10 rounded-lg px-4 py-3 text-header-foreground/90 font-body text-sm placeholder:text-header-foreground/30 focus:outline-none focus:border-primary/40 transition-colors min-w-0"
-            />
-            <button
-              type="submit"
-              class="px-5 py-3 bg-void/60 border border-header-foreground/15 hover:border-primary/40 text-header-foreground/60 hover:text-header-foreground/90 transition-all duration-300 rounded-lg text-sm font-body whitespace-nowrap"
-            >
-              Send
-            </button>
-          </form>
-          <p class="text-header-foreground/30 text-xs font-body mt-2">A short, plain-language overview of how the process works. No pressure, no follow-up unless you choose.</p>
+        <!-- Primary CTA -->
+        <div class="text-center mb-10">
+          <a
+            href="/contact"
+            class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+          >
+            Enquire About the Five-Session Process
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </a>
         </div>
+
+        <!-- Email capture - distinct secondary action -->
+        <div class="border-t border-header-foreground/8 pt-8">
+          <p class="text-header-foreground/40 text-sm font-body text-center mb-2">Not ready to enquire yet?</p>
+          <p class="text-header-foreground/30 text-xs font-body text-center leading-relaxed mb-5 max-w-sm mx-auto">
+            Leave your email and I'll send a short, plain-language overview of how the process works and what to expect from the initial consultation.
+          </p>
+          <div id="counselling-overview-container" class="max-w-xs mx-auto">
+            <form id="counselling-overview-form" class="flex gap-2">
+              <input type="hidden" name="_subject" value="Counselling overview request | Sangham" />
+              <input type="hidden" name="note" value="Requested the process overview from the counselling page" />
+              <input
+                type="email"
+                name="email"
+                required
+                placeholder="your@email.com"
+                class="flex-1 bg-cosmos border border-header-foreground/10 rounded-lg px-4 py-2.5 text-header-foreground/90 font-body text-sm placeholder:text-header-foreground/25 focus:outline-none focus:border-primary/40 transition-colors min-w-0"
+              />
+              <button
+                type="submit"
+                class="px-5 py-2.5 bg-void/60 border border-header-foreground/15 hover:border-primary/40 text-header-foreground/55 hover:text-header-foreground/90 transition-all duration-300 rounded-lg text-xs font-body whitespace-nowrap tracking-wide uppercase"
+              >
+                Send
+              </button>
+            </form>
+          </div>
+        </div>
+
       </div>
     </div>
   </section>
@@ -219,12 +254,11 @@ const faqItems = [
   <!-- WHAT WE WORK WITH -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
         What We Work With
       </h2>
-
-      <p class="text-muted-foreground font-body leading-relaxed mb-10">
-        The process is responsive to what is actually happening, and it adjusts as circumstances change. Common areas of focus include:
+      <p class="text-muted-foreground font-body text-sm text-center leading-relaxed mb-10 max-w-xl mx-auto">
+        The process is responsive to what is actually happening and adjusts as circumstances change. Common areas of focus include:
       </p>
 
       <ul class="space-y-4 mb-10 list-disc list-outside ml-6 text-muted-foreground font-body leading-relaxed marker:text-primary/40">
@@ -234,7 +268,7 @@ const faqItems = [
       </ul>
 
       <p class="text-muted-foreground font-body leading-relaxed">
-        The aim is not to analyse endlessly or to build more understanding for its own sake. It is to see clearly what is happening and begin shifting it in real time, so that changes are not just theoretical but lived.
+        The aim is not to analyse endlessly. It is to see clearly what is happening and begin shifting it in real time, so that changes are not just theoretical but lived.
       </p>
     </div>
   </section>
@@ -254,192 +288,85 @@ const faqItems = [
         How the Work Is Approached
       </h2>
 
-      <div class="space-y-6 text-parchment/65 font-body leading-relaxed mb-12">
+      <div class="space-y-5 text-parchment/65 font-body leading-relaxed mb-12">
         <p>
-          This is an integrative process. It does not stay at the level of talking. Talking matters, but if the work stops there, it is incomplete.
+          This is an integrative process. It does not stay at the level of talking. The process looks at how a person responds to pressure, how they regulate when things become difficult, how perception narrows or distorts under stress, and how actions align or misalign with what is actually valued.
         </p>
         <p>
-          The process looks at how a person responds to pressure, how they regulate when things become difficult, how perception narrows or distorts under stress, and how actions align or misalign with what is actually valued. From there, practical ways of working with what is found are introduced:
+          From there, practical ways of working with what is found are introduced. Practices in breathwork, attention, and body awareness are selected carefully, adjusted based on response, and integrated into actual context. The same practice can help one person and unsettle another. What matters is precision in application, not the breadth of techniques offered.
         </p>
       </div>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-12">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5 mb-12">
         {approachCards.map((card) => (
           <div class="border border-parchment/10 rounded-lg p-6 bg-void/30">
-            <h3 class="font-heading text-lg text-parchment/85 mb-3">{card.title}</h3>
-            <p class="text-parchment/55 font-body text-sm leading-relaxed">{card.text}</p>
+            <h3 class="font-heading text-base text-parchment/85 mb-3">{card.title}</h3>
+            <p class="text-parchment/50 font-body text-sm leading-relaxed">{card.text}</p>
           </div>
         ))}
       </div>
 
-      <p class="text-parchment/55 font-body leading-relaxed">
-        Everything is tested against real life. If it does not translate into how someone functions at home, at work, in relationships, and in the moments that actually challenge them, it does not count. The process is designed for application, not accumulation.
+      <p class="text-parchment/50 font-body leading-relaxed text-sm">
+        Everything is tested against real life. If it does not translate into how someone functions at home, at work, in relationships, and in the moments that actually challenge them, it does not count.
       </p>
-    </div>
-  </section>
-
-  <!-- THE ROLE OF PRACTICE -->
-  <section class="relative overflow-hidden border-t border-white/8">
-    <Image
-      src={nightSky}
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover"
-      widths={[640, 1024, 1536]}
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 bg-void/82"></div>
-    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-10">
-        The Role of Practice
-      </h2>
-
-      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
-        <p>
-          Meditation, breathwork, and related practices may be introduced as part of the counselling process. But they are never given as generic techniques or treated as solutions in themselves.
-        </p>
-        <p>
-          Practices are selected based on what is needed, adjusted based on response, and always integrated into actual context. The same practice can help one person and destabilise another. A calming breath exercise can increase anxiety in someone who is already dissociated. A strong meditation practice can reinforce avoidance in someone who uses stillness to escape from discomfort.
-        </p>
-        <p>
-          This is why practice works best when it is held within a structured relationship, where it can be introduced carefully, monitored, and refined over time. The point is not to collect more techniques. It is to apply the right intervention at the right time, in the right way, for the specific person.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- WHAT EACH CLIENT RECEIVES -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
-        What Each Client Receives
-      </h2>
-
-      <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
-        <p>
-          One-on-one work at Sangham is not a generic process applied uniformly. Everything is built around the specific person, their situation, and what is actually needed at each stage.
-        </p>
-        <p>
-          As the work develops, clients receive personalised materials created specifically for them. These are not pre-packaged resources or standard handouts. They are developed in response to what is emerging in the work itself.
-        </p>
-        <p>
-          Depending on what is relevant, this may include:
-        </p>
-
-        <ul class="space-y-3 list-disc list-outside ml-6 text-muted-foreground font-body leading-relaxed">
-          <li>Guided meditation recordings created specifically for the client's current situation and practice level</li>
-          <li>Personalised breathwork and practice videos tailored to their nervous system and what has been identified in sessions</li>
-          <li>Journaling prompts and written reflection exercises designed around the specific patterns being worked with</li>
-          <li>Reading material and essays selected or written to deepen understanding of what is arising</li>
-          <li>Worksheets and structured observation frameworks to support integration between sessions</li>
-        </ul>
-
-        <p>
-          These are not extras. They are part of how the work extends beyond the session itself and becomes integrated into daily life. The session opens something. The materials help it land.
-        </p>
-        <p>
-          Nothing is given automatically. Everything is offered when it is genuinely useful: when the timing is right and the person is ready to work with it.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- ON WORKING ONLINE -->
-  <section class="bg-header text-header-foreground">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
-        On Working Online
-      </h2>
-
-      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed">
-        <p>
-          A question that sometimes arises is whether online counselling can be as effective as working in person. It is a fair question, and worth addressing directly.
-        </p>
-        <p>
-          For this kind of work, online format holds up well.
-        </p>
-        <p>
-          What matters most in this process is the quality of attention, from both sides. Whether that attention is held across a room or across a screen is, in practice, less significant than it might seem. The patterns that matter, the responses that need to be seen, the moments of recognition and shift — these arise just as clearly in an online session as they do in person.
-        </p>
-        <p>
-          In some cases, working from one's own environment offers advantages. The nervous system is not performing for a new space. People tend to arrive more settled, more themselves. The conversation often goes deeper, more quickly.
-        </p>
-        <p>
-          There are forms of work where presence in the same physical space genuinely matters: certain body-based practices, some group work, intensive retreat. These are offered in person when arranged. But for the core of what happens in one-on-one counselling, online format is not a compromise. It is simply a different container, and one that tends, in practice, to work well.
-        </p>
-        <p>
-          Sessions are held via video call at a time arranged to suit the client's timezone. Clients currently work with Sangham from South Africa, India, the United Kingdom, and elsewhere.
-        </p>
-        <p>
-          Michael's professional registration is held in South Africa through the ASCHP. Sessions are offered internationally in a supportive counselling and integrative wellbeing capacity, not as locally licensed clinical mental health treatment in each country where a client may reside. Where appropriate, clients may be encouraged to work alongside, or be referred to, local medical, psychological, or psychiatric professionals.
-        </p>
-      </div>
     </div>
   </section>
 
   <!-- WHO THIS WORK CAN SUPPORT -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-6">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
         Who This Work Can Support
       </h2>
 
-      <p class="text-muted-foreground font-body leading-relaxed text-center mb-14">
-        This work is not one-size-fits-all, but it tends to be especially relevant in certain contexts. Below are some of the areas where people have found it most useful.
+      <p class="text-muted-foreground font-body text-sm leading-relaxed text-center mb-14 max-w-xl mx-auto">
+        This work is not one-size-fits-all. It tends to be most relevant in certain contexts.
       </p>
 
       <!-- Adolescents and Young Adults -->
-      <div class="mb-16">
-        <h3 class="font-heading text-2xl md:text-3xl text-foreground mb-6">
+      <div class="mb-14 border-b border-border/30 pb-14">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-5">
           Adolescents and Young Adults
         </h3>
-        <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
           <p>
             The teenage years and early twenties are a period of extraordinary internal upheaval. Identity is still forming. Emotional responses can be intense and confusing. Social pressure is constant. And the gap between how things look on the outside and how they feel on the inside can be enormous.
           </p>
           <p>
-            Many young people do not have a space where they can speak openly about what is actually happening for them, without judgment, without advice-giving, and without the complicated dynamics of family. It is often easier to engage honestly with someone outside of the immediate environment, someone who is not invested in a particular outcome but is genuinely attentive.
-          </p>
-          <p>
             This work provides a grounded, practical space to reflect, to understand what is happening beneath the surface, and to develop real strategies for responding. Where appropriate, simple practices in breathwork, attention, and body awareness can be introduced to help regulate emotion, improve focus, and build a stronger sense of internal ground.
           </p>
-          <p class="text-sm text-muted-foreground/70 italic">
+          <p class="text-sm text-muted-foreground/60 italic">
             This area draws on extensive experience working with young people in both individual and group settings, including school environments, rites-of-passage programmes, and one-on-one mentoring.
           </p>
         </div>
       </div>
 
       <!-- Those on a Meditative or Inner Path -->
-      <div class="mb-16">
-        <h3 class="font-heading text-2xl md:text-3xl text-foreground mb-6">
+      <div class="mb-14 border-b border-border/30 pb-14">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-5">
           Those on a Meditative or Inner Path
         </h3>
-        <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
           <p>
-            Many people practise meditation, yoga, or other forms of inner work for years without ongoing guidance. Over time, this can lead to stagnation, confusion, subtle imbalance, or a growing uncertainty about how to proceed. There may be a sense that practice is no longer working the way it used to, or that emotional material is surfacing that is difficult to handle alone. Or simply that something has shifted and the old approach no longer fits.
+            Many people practise meditation, yoga, or other forms of inner work for years without ongoing guidance. Over time, this can lead to stagnation, subtle imbalance, or growing uncertainty about how to proceed. There may be a sense that practice is no longer working the way it used to, or that something has shifted and the old approach no longer fits.
           </p>
           <p>
-            Questions often arise around whether to deepen or ease off practice, how to relate to difficult emotional material without being overwhelmed by it, how to integrate insight into daily life rather than keeping it compartmentalised, and how to avoid the trap of either pushing too hard or drifting into passivity.
-          </p>
-          <p>
-            This work offers a space for honest reflection and precise adjustment. Not to replace an existing path, but to support it with clarity, grounded feedback, and a practitioner who understands the terrain from direct experience. Michael's own practice spans extended periods of silent retreat, intensive pranayama, hatha yoga, and years of sustained daily meditation, which means the guidance offered here comes from someone who has navigated these challenges personally.
+            This work offers a space for honest reflection and precise adjustment. Not to replace an existing path, but to support it with clarity, grounded feedback, and a practitioner who understands the terrain from direct experience.
           </p>
         </div>
       </div>
 
       <!-- Life Transitions, Loss, and Reorientation -->
       <div>
-        <h3 class="font-heading text-2xl md:text-3xl text-foreground mb-6">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-5">
           Life Transitions, Loss, and Reorientation
         </h3>
-        <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
+        <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
           <p>
-            Certain periods of life cannot be approached as problems to be solved. Loss, endings, major changes, and significant inner shifts can alter how a person sees themselves, their relationships, and the sense of what matters. These are not always breakdowns. They are often periods that ask something genuinely different of a person, and they tend to require a different kind of support than most approaches offer.
+            Certain periods of life cannot be approached as problems to be solved. Loss, endings, major changes, and significant inner shifts can alter how a person sees themselves, their relationships, and the sense of what matters. These tend to require a different kind of support than most approaches offer.
           </p>
           <p>
-            This work provides space to move through these periods with attention, honesty, and care. Rather than rushing toward resolution or trying to "fix" what is happening, the focus is on understanding the process, staying grounded within it, and responding in a way that allows something meaningful to emerge rather than something forced.
-          </p>
-          <p>
-            Whether navigating the loss of a relationship, a shift in identity, the end of a career, or a more internal kind of reorientation, this work helps people stay connected to themselves through it, rather than losing themselves in it.
+            This work provides space to move through these periods with attention, honesty, and care. The focus is on understanding the process and staying grounded within it, rather than rushing toward resolution.
           </p>
         </div>
       </div>
@@ -465,135 +392,62 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- FIVE-SESSION PROGRESSION -->
-  <section class="bg-header">
+  <!-- ON WORKING ONLINE -->
+  <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-4">
-        The Five-Session Integrative Progression
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        On Working Online
       </h2>
 
-      <p class="text-header-foreground/40 text-sm tracking-widest uppercase text-center font-body mb-12">
-        A Clear Starting Point
-      </p>
-
-      <div class="space-y-6 text-header-foreground/65 font-body leading-relaxed mb-12">
+      <div class="space-y-5 text-header-foreground/65 font-body leading-relaxed">
         <p>
-          Most people don't lack insight into what is happening in their lives. What is often missing is a clear, structured way of working with what keeps repeating.
+          A question that sometimes arises is whether online counselling can hold the same quality as working in person. For this kind of work, online format tends to hold up well.
         </p>
         <p>
-          The five-session process is a contained, focused piece of work. It is not open-ended counselling, and it does not promise full resolution. What it offers is a defined starting point: space to understand what is happening beneath the surface, to recognise the patterns and conditioned responses that shape how a person thinks, feels, and acts, and to begin working with them in practical, grounded ways.
+          What matters most in this process is the quality of attention, from both sides. Whether that attention is held across a room or across a screen is, in practice, less significant than it might seem. The patterns that matter, the responses that need to be seen, the moments of recognition and shift, these arise just as clearly in an online session as they do in person.
         </p>
         <p>
-          Over five sessions, the work moves through a deliberate progression:
+          In some cases, working from one's own environment offers advantages. The nervous system is not performing for a new space. People tend to arrive more settled, more themselves. Sessions are held via video call at a time arranged to suit the client's timezone. Clients currently work with Sangham from South Africa, India, the United Kingdom, and elsewhere.
+        </p>
+        <p class="text-header-foreground/45 text-sm leading-relaxed">
+          Michael's professional registration is held in South Africa through the ASCHP. Sessions are offered internationally in a supportive counselling and integrative wellbeing capacity, not as locally licensed clinical mental health treatment in each country where a client may reside. Where appropriate, clients may be encouraged to work alongside, or be referred to, local medical, psychological, or psychiatric professionals.
         </p>
       </div>
-
-      <div class="space-y-4 mb-12">
-        {fiveSessionSteps.map((step) => (
-          <div class="border-l-2 border-primary/25 bg-cosmos/40 rounded-r-lg p-6 hover:bg-cosmos/60 transition-colors duration-200">
-            <span class="block text-primary/35 font-heading text-2xl leading-none mb-2">{step.num}</span>
-            <h3 class="font-heading text-lg text-header-foreground/85 mb-2">{step.title}</h3>
-            <p class="text-header-foreground/55 text-sm font-body leading-relaxed">{step.text}</p>
-          </div>
-        ))}
-      </div>
-
-      <p class="text-header-foreground/45 text-sm font-body leading-relaxed mb-4">
-        Sessions are 60 minutes, online. The rhythm is typically weekly or bi-weekly. Many people continue into ongoing work after this process; others find five sessions provides sufficient clarity. The decision is always open.
-      </p>
-
-      <div class="text-center">
-        <a
-          href="/contact"
-          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
-        >
-          Enquire About the Five-Session Process
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ONGOING COUNSELLING -->
-  <section class="relative overflow-hidden">
-    <Image
-      src={sanghamSpace}
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover"
-      widths={[640, 1024, 1536]}
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 bg-void/82"></div>
-    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-10">
-        Ongoing Counselling
-      </h2>
-
-      <div class="space-y-6 text-parchment/65 font-body leading-relaxed">
-        <p>
-          Some forms of work require continuity. The patterns that matter most are often deeply embedded. They do not dissolve in five sessions. They require patience, consistency, and a relationship in which they can surface naturally and be worked with over time.
-        </p>
-        <p>
-          Ongoing counselling allows for deeper exploration, refinement of practices and responses as life evolves, support through changing circumstances, and the kind of steady, grounded development that cannot be rushed.
-        </p>
-        <p>
-          The pace, frequency, and structure of ongoing work are discussed collaboratively. Some people meet weekly. Others fortnightly or monthly. What matters is that the rhythm supports genuine engagement rather than becoming routine or performative.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <!-- VISUAL DIVIDER / QUOTE -->
-  <section class="relative overflow-hidden border-t border-white/8">
-    <Image
-      src={twilightCoast}
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover"
-      widths={[640, 1024, 1536]}
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 bg-void/60"></div>
-    <div class="relative z-10 container mx-auto px-6 py-24 md:py-28 max-w-3xl">
-      <blockquote class="border-l-2 border-primary/40 pl-8">
-        <p class="font-heading text-xl md:text-2xl text-parchment/75 italic leading-relaxed">
-          Clarity often develops not through having the answers, but through the willingness to stay with the questions.
-        </p>
-      </blockquote>
     </div>
   </section>
 
   <!-- IS THIS THE RIGHT FIT? -->
-  <section class="bg-header">
+  <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
         Is This the Right Fit?
       </h2>
 
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
-        <div>
-          <h3 class="font-heading text-xl text-header-foreground/85 mb-6">
-            This work may be appropriate for those who:
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        <div class="border border-border/50 rounded-lg p-7">
+          <h3 class="font-heading text-lg text-foreground/85 mb-5">
+            This work tends to suit people who:
           </h3>
-          <ul class="space-y-3 list-disc list-outside ml-6 text-header-foreground/60 text-sm font-body leading-relaxed marker:text-primary/40">
+          <ul class="space-y-3 list-disc list-outside ml-5 text-muted-foreground text-sm font-body leading-relaxed marker:text-primary/40">
             {rightFitYes.map((item) => (
               <li>{item}</li>
             ))}
           </ul>
         </div>
 
-        <div>
-          <h3 class="font-heading text-xl text-header-foreground/85 mb-6">
+        <div class="border border-border/30 rounded-lg p-7 bg-muted/10">
+          <h3 class="font-heading text-lg text-foreground/70 mb-5">
             This work may not be appropriate for those who:
           </h3>
-          <ul class="space-y-3 list-disc list-outside ml-6 text-header-foreground/45 text-sm font-body leading-relaxed marker:text-primary/25">
+          <ul class="space-y-3 list-disc list-outside ml-5 text-muted-foreground/60 text-sm font-body leading-relaxed marker:text-primary/20">
             {rightFitNo.map((item) => (
               <li>{item}</li>
             ))}
           </ul>
-          <p class="text-header-foreground/40 text-xs font-body leading-relaxed mt-6">
+          <p class="text-muted-foreground/40 text-xs font-body leading-relaxed mt-5">
             If you are in immediate danger or require urgent psychiatric, psychological, or medical care, please contact local emergency or crisis services or an appropriate licensed provider in your area.
           </p>
-          <p class="text-header-foreground/40 text-xs font-body leading-relaxed mt-4">
+          <p class="text-muted-foreground/40 text-xs font-body leading-relaxed mt-3">
             If there is uncertainty about whether this is the right fit, reaching out is welcome. The initial consultation exists precisely for this purpose.
           </p>
         </div>
@@ -602,23 +456,28 @@ const faqItems = [
   </section>
 
   <!-- BEGINNING THE PROCESS -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl text-center">
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-10">
+  <section class="relative overflow-hidden border-t border-white/8">
+    <Image
+      src={twilightCoast}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+    />
+    <div class="absolute inset-0 bg-void/80"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-8">
         Beginning the Process
       </h2>
 
-      <div class="space-y-6 text-muted-foreground font-body leading-relaxed max-w-2xl mx-auto mb-10">
+      <div class="space-y-4 text-parchment/60 font-body leading-relaxed mb-10">
         <p>
-          The first step is an initial consultation. This is a full session, not a brief screening call. It allows space to explore what is present, ask questions, and get a genuine sense of whether this approach fits.
+          The first step is an initial consultation. This is a full session, not a brief screening call. It provides space to explore what is present, ask questions, and get a genuine sense of whether this approach fits.
         </p>
         <p>
-          After reaching out, you will receive a response within 1-2 business days. That reply will acknowledge your enquiry, outline the next step, and offer a simple way to arrange a time for the consultation.
+          After reaching out, you will receive a response within 1-2 business days. That reply will outline the next step and offer a simple way to arrange a time. There is no obligation to continue beyond the initial consultation.
         </p>
-        <p>
-          Sessions take place online via video call, scheduled to suit your timezone. There is no obligation to continue beyond the initial consultation.
-        </p>
-        <p class="text-sm text-muted-foreground/70">
+        <p class="text-sm text-parchment/40">
           It is not necessary to have everything figured out before getting in touch. Clarity often develops through the conversation itself.
         </p>
       </div>
@@ -626,14 +485,14 @@ const faqItems = [
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="/contact"
-          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
         >
           Enquire About a Consultation
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </a>
         <a
           href="https://wa.me/27820437887"
-          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-border text-muted-foreground hover:border-primary/40 hover:text-foreground transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
         >
           Message on WhatsApp
         </a>
@@ -667,12 +526,12 @@ const faqItems = [
           headers: { Accept: 'application/json' },
         });
         if (response.ok) {
-          container.innerHTML = `<p class="font-body text-sm text-header-foreground/60">Thank you. A brief overview will be sent to your inbox.</p>`;
+          container.innerHTML = `<p class="font-body text-sm text-header-foreground/50 text-center">Thank you. A brief overview will be sent to your inbox.</p>`;
         } else {
           throw new Error('Submission failed');
         }
       } catch {
-        container.innerHTML = `<p class="font-body text-sm text-header-foreground/60">Something went wrong. Please email <a href="mailto:ramarishi@sangham.org" class="text-primary/70 hover:text-primary transition-colors">ramarishi@sangham.org</a>.</p>`;
+        container.innerHTML = `<p class="font-body text-sm text-header-foreground/50 text-center">Something went wrong. Please email <a href="mailto:ramarishi@sangham.org" class="text-primary/70 hover:text-primary transition-colors">ramarishi@sangham.org</a>.</p>`;
       }
     });
   }

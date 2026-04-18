@@ -120,12 +120,12 @@ const waysCards = [
         <span class="text-gold-light">inner work.</span>
       </h1>
 
-      <p class="text-parchment/55 font-body text-base md:text-lg max-w-xl mx-auto mt-6 leading-relaxed">
-        Where understanding is deepened through dialogue, practice, and attention. Sangham offers a structured approach to working with how we think, feel, and respond in life.
+      <p class="text-parchment/65 font-body text-base md:text-lg max-w-xl mx-auto mt-6 leading-relaxed">
+        If you understand what tends to go wrong but still find yourself caught in it, this work is designed for that gap.
       </p>
 
       <p class="text-parchment/40 font-body text-sm max-w-lg mx-auto mt-4 leading-relaxed">
-        It brings together counselling, practical interventions, and direct observation, not as separate disciplines, but as a single, integrated way of working.
+        A structured approach to counselling, breathwork, and body-based practice, integrated into one coherent process conducted online via video call.
       </p>
 
       <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
@@ -167,9 +167,12 @@ const waysCards = [
         <p>
           What is often missing is not information, but context. A way of working where understanding is tested, refined, and applied within the reality of a person's life. Where the body is included, not just the mind. Where insight is not the endpoint, but the starting point of a more practical and sustained process.
         </p>
-        <p class="text-sm text-muted-foreground/70">
-          Most people begin with a structured five-session process designed to bring clarity and create movement where things feel stuck.
-        </p>
+        <div class="border border-primary/20 rounded-lg px-5 py-4 bg-primary/4 mt-2">
+          <p class="text-sm text-foreground/75 font-body leading-relaxed">
+            Most people begin with a structured five-session process designed to bring clarity and create movement where things feel stuck.
+            <a href="/counselling" class="text-primary/70 hover:text-primary transition-colors ml-2 whitespace-nowrap">See how it works &rarr;</a>
+          </p>
+        </div>
       </div>
     </div>
   </section>
@@ -290,10 +293,10 @@ const waysCards = [
           Sangham is guided by Michael Kaplan (Swami Ramarishi), a registered Wellness Counsellor whose approach has been shaped by years of sustained contemplative practice, extensive experience working with individuals and groups, and a deep engagement with the psychological dimensions of inner work. Currently based in India, Michael works with clients online via video call with people across South Africa and internationally. His professional registration is held in South Africa, and the work is offered online in a supportive counselling and wellbeing capacity.
         </p>
         <p>
-          His background spans extended periods of solitude and retreat, training within established traditions, process work, and years of direct engagement with people across a wide range of contexts, from adolescents navigating identity and emotional difficulty to adults working through anxiety, relational patterns, loss, and life transitions.
+          His background spans training within established contemplative traditions, process work facilitation, and years of direct engagement with people across a wide range of contexts, from adolescents navigating identity and emotional difficulty to adults working through anxiety, relational patterns, loss, and life transitions.
         </p>
         <p>
-          The result is an approach that is psychologically informed, practically grounded, and responsive to the real complexity of human experience. It does not rely on a single method or tradition. It draws on what has proven effective, tested through relationship, and refined through honest observation over time.
+          The result is an approach that is psychologically informed, practically grounded, and responsive to the real complexity of human experience. It does not rely on a single method or tradition. It draws on what tends to work, refined through relationship and direct observation over time.
         </p>
       </div>
 
@@ -386,9 +389,14 @@ const waysCards = [
                 : 'border-border bg-card hover:border-primary/40',
             ]}
           >
-            <h3 class="font-heading text-xl text-foreground mb-1 group-hover:text-primary transition-colors">
-              {card.title}
-            </h3>
+            <div class="flex items-center gap-3 mb-1">
+              <h3 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors">
+                {card.title}
+              </h3>
+              {card.highlight && (
+                <span class="text-[10px] font-body tracking-widest uppercase px-2 py-0.5 border border-primary/25 text-primary/50 rounded-full">Primary path</span>
+              )}
+            </div>
             {card.highlight && (
               <p class="text-xs text-muted-foreground/50 font-body mb-3">Online via video call</p>
             )}
