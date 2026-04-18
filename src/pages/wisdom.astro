@@ -45,7 +45,7 @@ const jsonLd = [
   <section class="bg-background">
     <div class="container mx-auto px-6 py-14 md:py-16 max-w-3xl">
       <p class="text-muted-foreground font-body leading-relaxed text-center">
-        The writing here explores the territory this work moves through: attention, the body, breath, relationship, and the mechanics of genuine change. New essays are added periodically.
+        The writing here explores the territory this work moves through: attention, the body, breath, relationship, and the mechanics of genuine change. It is organised into two kinds of writing: essays that explore broader questions in psychology, contemplation, and how we actually live, and practice guides that offer focused instruction in specific skills. Both are written to be practically useful, not merely interesting.
       </p>
     </div>
   </section>
@@ -53,9 +53,12 @@ const jsonLd = [
   <!-- ESSAYS & REFLECTIONS -->
   <section class="bg-header">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-4">
         Essays &amp; Reflections
       </h2>
+      <p class="text-header-foreground/50 font-body text-sm leading-relaxed text-center mb-12 max-w-xl mx-auto">
+        Longer-form writing on attention, psychology, the body, and what genuine change actually requires. These pieces explore the territory the counselling work moves through, from a reflective rather than instructional angle.
+      </p>
 
       <div class="space-y-4">
         {essays.map((essay) => {
@@ -99,9 +102,12 @@ const jsonLd = [
   <!-- PRACTICAL INSTRUCTION GUIDES -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
-        Practical Instruction Guides
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Practice Guides
       </h2>
+      <p class="text-muted-foreground font-body text-sm leading-relaxed text-center mb-12 max-w-xl mx-auto">
+        Focused, instructional writing on specific practices in stillness, breath, and body awareness. These guides support grounded, self-directed exploration and complement the broader work in counselling.
+      </p>
 
       <div class="space-y-4">
         {practiceGuides.map((guide) => {
