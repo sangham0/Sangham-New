@@ -1,25 +1,41 @@
 ---
 interface Props {
   items: Array<{ q: string; a: string }>;
+  dark?: boolean;
 }
 
-const { items } = Astro.props;
+const { items, dark = false } = Astro.props;
 ---
 
-<div class="space-y-3">
+<div class="space-y-2">
   {items.map((item) => (
-    <details class="group border border-border/60 rounded-lg overflow-hidden">
-      <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer font-heading text-base text-foreground/90 select-none list-none [&::-webkit-details-marker]:hidden">
+    <details class:list={[
+      "group rounded-lg overflow-hidden",
+      dark
+        ? "border border-header-foreground/12 bg-void/30 hover:bg-void/50"
+        : "border border-border/50 bg-muted/20 hover:bg-muted/40",
+      "transition-colors duration-200"
+    ]}>
+      <summary class:list={[
+        "flex items-center justify-between gap-4 px-6 py-4 cursor-pointer font-heading text-base select-none list-none [&::-webkit-details-marker]:hidden",
+        dark ? "text-header-foreground/85" : "text-foreground/85"
+      ]}>
         <span>{item.q}</span>
         <svg
-          class="w-4 h-4 shrink-0 text-muted-foreground/40 transition-transform duration-200 group-open:rotate-45"
+          class:list={[
+            "w-4 h-4 shrink-0 transition-transform duration-200 group-open:rotate-45 shrink-0",
+            dark ? "text-header-foreground/30" : "text-muted-foreground/40"
+          ]}
           fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
         >
           <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
         </svg>
       </summary>
-      <div class="px-6 pb-6 pt-0">
-        <p class="text-muted-foreground font-body text-sm leading-relaxed">{item.a}</p>
+      <div class="px-6 pb-5 pt-0">
+        <p class:list={[
+          "font-body text-sm leading-relaxed",
+          dark ? "text-header-foreground/55" : "text-muted-foreground/80"
+        ]}>{item.a}</p>
       </div>
     </details>
   ))}
@@ -27,9 +43,8 @@ const { items } = Astro.props;
 
 <style>
   details[open] > summary {
-    border-bottom: 1px solid rgba(var(--border), 0.3);
-    padding-bottom: 1.25rem;
-    margin-bottom: 0;
+    border-bottom: 1px solid rgba(128, 120, 110, 0.15);
+    padding-bottom: 1rem;
   }
 
   details > div {
