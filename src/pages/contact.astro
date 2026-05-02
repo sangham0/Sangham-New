@@ -296,14 +296,7 @@ const enquiryTypes = [
       });
 
       if (response.ok) {
-        container.innerHTML = `
-          <div class="text-center py-8">
-            <h3 class="font-heading text-xl text-header-foreground/85 mb-4">Thank you</h3>
-            <p class="text-header-foreground/60 font-body leading-relaxed">
-              Thank you for reaching out. You will receive a response within 2 working days.
-            </p>
-          </div>
-        `;
+        window.location.href = '/thank-you-consultation';
       } else {
         throw new Error('Submission failed');
       }

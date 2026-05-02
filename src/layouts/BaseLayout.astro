@@ -16,6 +16,7 @@ interface Props {
   jsonLd?: Record<string, unknown>[];
   hideStickyBar?: boolean;
   minimalNav?: boolean;
+  noNav?: boolean;
 }
 
 const {
@@ -28,6 +29,7 @@ const {
   jsonLd,
   hideStickyBar = false,
   minimalNav = false,
+  noNav = false,
 } = Astro.props;
 
 const siteName = 'Sangham';
@@ -133,7 +135,15 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </noscript>
     )}
     <!-- End Google Tag Manager (noscript) -->
-    {minimalNav ? (
+    {noNav ? (
+      <div class="fixed top-0 left-0 right-0 z-50 bg-nav/95 backdrop-blur-md border-b border-nav-foreground/10">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-center">
+          <a href="/" aria-label="Sangham home">
+            <Image src={sanghamLogo} alt="Sangham" class="h-10 w-auto opacity-70" widths={[80, 160]} loading="eager" />
+          </a>
+        </div>
+      </div>
+    ) : minimalNav ? (
       <nav class="fixed top-0 left-0 right-0 z-50 bg-nav/95 backdrop-blur-md border-b border-nav-foreground/10">
         <div class="container mx-auto px-6 py-4 flex items-center justify-between">
           <a href="/" class="flex items-center gap-3" aria-label="Sangham home">

@@ -1,0 +1,41 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Thank you"
+  description="Enquiry received."
+  noNav={true}
+  hideStickyBar={true}
+>
+  <!-- Noindex: confirmation pages should not appear in search -->
+  <meta name="robots" content="noindex, nofollow" slot="head" />
+
+  <section class="-mt-[72px] pt-[72px] min-h-screen bg-header text-header-foreground flex items-center">
+    <div class="container mx-auto px-6 py-20 max-w-lg text-center">
+
+      <div class="divider-gold w-16 mx-auto mb-10"></div>
+
+      <h1 class="font-heading text-3xl md:text-4xl text-parchment/90 leading-snug mb-6">
+        Thank you. We've received your enquiry.
+      </h1>
+
+      <p class="font-body text-base text-parchment/55 leading-relaxed mb-8 max-w-sm mx-auto">
+        You'll hear back within 1 to 2 business days with options for arranging the initial consultation.
+        Check spam if nothing arrives by then.
+      </p>
+
+      <div class="divider-gold w-8 mx-auto mb-10 opacity-30"></div>
+
+      <p class="font-body text-sm text-parchment/35 leading-relaxed">
+        While you wait, you might like to read
+        <a
+          href="/wisdom/on-living"
+          class="text-primary/60 hover:text-primary/90 transition-colors underline underline-offset-4 decoration-primary/20 hover:decoration-primary/50"
+        >On Living</a>.
+      </p>
+
+    </div>
+  </section>
+
+</BaseLayout>
