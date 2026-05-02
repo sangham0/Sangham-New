@@ -12,26 +12,14 @@ import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
 const jsonLd = [
   {
     '@context': 'https://schema.org',
-    '@type': 'Organization',
-    name: 'Sangham',
-    url: 'https://www.sangham.org',
-    logo: 'https://www.sangham.org/sangham-logo.png',
-    description: 'Integrative counselling, breathwork, and inner work conducted online via video call.',
-    founder: { '@type': 'Person', name: 'Michael Kaplan', alternateName: 'Swami Ramarishi' },
-    contactPoint: {
-      '@type': 'ContactPoint',
-      email: 'ramarishi@sangham.org',
-      telephone: '+27736738063',
-      contactType: 'customer service',
-    },
-    sameAs: ['https://instagram.com/sangham.space'],
-  },
-  {
-    '@context': 'https://schema.org',
     '@type': 'WebSite',
     name: 'Sangham',
     url: 'https://www.sangham.org',
     description: 'A place for careful, grounded inner work.',
+    potentialAction: {
+      '@type': 'ReadAction',
+      target: 'https://www.sangham.org/wisdom',
+    },
   },
 ];
 

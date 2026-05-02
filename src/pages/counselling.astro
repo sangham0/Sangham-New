@@ -11,11 +11,39 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Counselling & Integration',
-    provider: { '@type': 'Organization', name: 'Sangham' },
-    description: 'Structured, grounded counselling addressing the gap between understanding and real change.',
-    serviceType: 'Counselling',
-    areaServed: 'Worldwide',
+    name: 'Wellness Counselling',
+    url: 'https://www.sangham.org/counselling',
+    description: 'Structured, grounded counselling addressing the gap between understanding and real change. Integrates breathwork, meditation, and body-based practices into a single coherent process.',
+    serviceType: 'Wellness Counselling',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Association for Supportive Counsellors and Holistic Practitioners',
+        alternateName: 'ASCHP',
+        identifier: 'Reg. No. 10559',
+      },
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'South Africa' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: {
+      '@type': 'Offer',
+      name: 'Five-Session Process',
+      description: 'A structured five-session process: mapping, identifying, intervening, applying, and consolidating. Designed to bring clarity and create movement where things feel stuck.',
+      priceCurrency: 'ZAR',
+      availability: 'https://schema.org/InStock',
+    },
   },
 ];
 

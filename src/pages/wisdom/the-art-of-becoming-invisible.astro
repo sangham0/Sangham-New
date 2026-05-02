@@ -9,12 +9,33 @@ const jsonLd = [
     description: 'On the unfashionable wisdom of strategic concealment, and why the wellness world is wrong about always speaking your truth.',
     url: 'https://www.sangham.org/wisdom/the-art-of-becoming-invisible',
     datePublished: '2026-04-30',
+    dateModified: '2026-04-30',
+    articleSection: 'Essay',
+    inLanguage: 'en',
+    image: {
+      '@type': 'ImageObject',
+      url: 'https://www.sangham.org/images/og-default.jpg',
+    },
     author: {
       '@type': 'Person',
       name: 'Michael Kaplan',
       alternateName: 'Swami Ramarishi',
+      url: 'https://www.sangham.org/about',
     },
-    publisher: { '@type': 'Organization', name: 'Sangham', url: 'https://www.sangham.org' },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Sangham',
+      url: 'https://www.sangham.org',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.sangham.org/sangham-logo.png',
+      },
+    },
+    isPartOf: {
+      '@type': 'WebPage',
+      url: 'https://www.sangham.org/wisdom/',
+      name: 'Sangham Wisdom',
+    },
   },
 ];
 ---

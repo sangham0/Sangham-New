@@ -31,15 +31,22 @@ const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
 
 const siteJsonLd = {
   '@context': 'https://schema.org',
-  '@type': 'HealthAndBeautyBusiness',
+  '@type': 'Organization',
   name: 'Sangham',
   url: 'https://www.sangham.org',
+  logo: {
+    '@type': 'ImageObject',
+    url: 'https://www.sangham.org/sangham-logo.png',
+    width: 400,
+    height: 400,
+  },
   description: 'Grounded counselling, breathwork, and meditation, integrated into a single practical process.',
   founder: {
     '@type': 'Person',
     name: 'Michael Kaplan',
     alternateName: 'Swami Ramarishi',
     jobTitle: 'Wellness Counsellor',
+    url: 'https://www.sangham.org/about',
   },
   contactPoint: {
     '@type': 'ContactPoint',
