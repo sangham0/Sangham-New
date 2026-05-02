@@ -1,0 +1,525 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import { Image } from 'astro:assets';
+import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
+import goldenSavanna from '../assets/golden-savanna.jpg';
+
+const canonicalURL = 'https://www.sangham.org/online-counselling-south-africa';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Online Wellness Counselling',
+    url: canonicalURL,
+    description:
+      'Online wellness counselling addressing the gap between understanding patterns and actually changing them. Five-session integrative process. Available across South Africa and worldwide.',
+    serviceType: 'Wellness Counselling',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      image: {
+        '@type': 'ImageObject',
+        url: 'https://www.sangham.org/images/michael-kaplan.jpg',
+      },
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Association for Supportive Counsellors and Holistic Practitioners',
+        alternateName: 'ASCHP',
+        identifier: 'Reg. No. 10559',
+      },
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'South Africa' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Single Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'One 60-minute online session via video call.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Five-Session Process',
+        price: '3400',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description:
+          'A structured five-session process: Mapping, Identifying, Intervening, Applying, Consolidating. Paid in advance.',
+      },
+    ],
+  },
+];
+
+const fitItems = [
+  'Recurring emotional patterns that persist despite genuine effort',
+  'Overthinking and internal pressure that makes it hard to settle',
+  'Relationship dynamics that keep repeating',
+  'Difficulty following through on what matters',
+  'Periods of transition, uncertainty, or loss',
+  'A sense of disconnection from the body or from direction',
+];
+
+const fiveSteps = [
+  {
+    num: '01',
+    title: 'Mapping',
+    text: 'Understanding current patterns and where things feel stuck or challenged.',
+  },
+  {
+    num: '02',
+    title: 'Identifying',
+    text: 'Seeing what is actually maintaining these patterns — not the story, but the mechanism underneath.',
+  },
+  {
+    num: '03',
+    title: 'Intervening',
+    text: 'Introducing targeted practices: breathwork, attention training, behavioural adjustments chosen for the specific situation.',
+  },
+  {
+    num: '04',
+    title: 'Applying',
+    text: 'Testing changes in real time. Seeing what holds, what needs adjustment, and what the real work is.',
+  },
+  {
+    num: '05',
+    title: 'Consolidating',
+    text: 'Reviewing what has shifted. Clarifying next steps and establishing a sustainable foundation.',
+  },
+];
+
+const differentiators = [
+  {
+    title: 'Counselling and dialogue',
+    text: 'A direct, relational process of understanding how a person actually functions — not in theory, but in the specific patterns of their life. This is where insight becomes precise rather than general.',
+    href: '/counselling',
+    hrefLabel: 'How counselling works',
+  },
+  {
+    title: 'Breathwork and regulation',
+    text: 'Working directly with the breath to influence physiological state. Not relaxation techniques, but the ability to shift nervous system response when it matters — and understanding the mechanism well enough to apply it independently.',
+    href: '/wisdom/breathwork-explained',
+    hrefLabel: 'Breathwork explained',
+  },
+  {
+    title: 'Attention and body-based awareness',
+    text: 'Developing the capacity to sustain clear, steady attention. Reconnecting with the information the body provides. Thought alone is rarely the problem — how perception operates under pressure is.',
+    href: null,
+    hrefLabel: null,
+  },
+  {
+    title: 'Behavioural integration into real life',
+    text: 'Insight that does not reach behaviour has not yet become real. The measure of this work is not how someone feels during a session, but how they function at home, at work, and in the moments that challenge them most.',
+    href: null,
+    hrefLabel: null,
+  },
+];
+
+const faqItems = [
+  {
+    q: 'Is this therapy?',
+    a: 'No. Sangham is supportive wellness counselling, registered with the ASCHP — not psychology, psychotherapy, psychiatry, or clinical mental health treatment. People who have previously worked with therapists often find this approach complements or extends what therapy began.',
+  },
+  {
+    q: 'Does online counselling actually work?',
+    a: 'For this kind of work, the online format holds well. What matters most is the quality of attention from both sides — and that is not diminished by distance. Many people find they arrive more settled working from their own environment. Clients currently work from South Africa, India, the United Kingdom, and elsewhere.',
+  },
+  {
+    q: 'What happens in the first consultation?',
+    a: 'A full session, not a brief screening call. There is space to explore what is present, understand the approach in practice, ask questions, and get a genuine sense of whether working together makes sense. No obligation to continue beyond this.',
+  },
+  {
+    q: 'Do I need meditation or yoga experience?',
+    a: 'No. The work integrates contemplative practice where relevant and appropriate. No background or prior experience is required. What matters is a genuine willingness to engage honestly with the process.',
+  },
+  {
+    q: 'Can I work with you from outside South Africa?',
+    a: 'Yes. All sessions are conducted online via video call. Clients currently work from South Africa, India, the United Kingdom, Europe, and beyond. Scheduling is arranged to suit your timezone.',
+  },
+  {
+    q: 'How quickly can I start?',
+    a: 'Most enquiries receive a response within one to two business days, with a simple way to arrange an initial consultation time.',
+  },
+];
+---
+
+<BaseLayout
+  title="Online Counselling & Integration"
+  description="Online wellness counselling for people who understand their patterns but still find themselves caught in them. Five-session process available. ASCHP-registered. Sessions worldwide."
+  canonicalURL={canonicalURL}
+  image="/images/og-default.jpg"
+  jsonLd={jsonLd}
+  minimalNav={true}
+>
+
+  <!-- ═══ 1. HERO ═══════════════════════════════════════════════════════ -->
+  <!-- Pure CSS background — no image, fast LCP (H1 text is the LCP element) -->
+  <section class="-mt-[72px] pt-[72px] bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-8">
+        Sangham &middot; Online Sessions Worldwide
+      </p>
+
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-parchment/95 leading-tight mb-6">
+        Online Counselling<br class="hidden sm:block" />
+        <span class="text-gold-gradient">&amp; Integration</span>
+      </h1>
+
+      <p class="font-body text-xl md:text-2xl text-parchment/65 leading-relaxed mb-4 max-w-2xl">
+        For people who understand their patterns but still find themselves caught in them.
+      </p>
+
+      <p class="font-body text-sm text-parchment/40 leading-relaxed mb-10 max-w-lg">
+        Online sessions worldwide. Run by Michael Kaplan (Swami Ramarishi),
+        ASCHP-registered Wellness Counsellor (Reg.&nbsp;10559).
+      </p>
+
+      <!-- CTAs — stacked on mobile, side-by-side on sm+ -->
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
+        >
+          Book an Initial Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="https://wa.me/27736738063"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-3 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Message on WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 2. IMMEDIATE FIT ══════════════════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
+
+      <h2 class="font-heading text-2xl md:text-3xl text-foreground mb-8 leading-snug">
+        This work tends to support people who are working with:
+      </h2>
+
+      <ul class="space-y-4 list-disc list-outside ml-6 marker:text-primary/40">
+        {fitItems.map((item) => (
+          <li class="text-muted-foreground font-body leading-relaxed">{item}</li>
+        ))}
+      </ul>
+
+      <p class="mt-8 text-muted-foreground/70 font-body text-sm leading-relaxed max-w-xl">
+        The approach draws from counselling, contemplative practice, and body-based awareness —
+        working with these as one integrated process, not as separate modules.
+        <a href="/counselling" class="text-primary/70 hover:text-primary transition-colors ml-1 whitespace-nowrap">
+          Explore the full approach →
+        </a>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 3. FIVE-SESSION PROCESS ══════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
+        Where most people begin
+      </p>
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-5">
+        A clear starting point: the five-session integrative process
+      </h2>
+      <p class="text-header-foreground/50 font-body leading-relaxed text-center max-w-2xl mx-auto mb-12">
+        A contained, structured process with a defined beginning, middle, and end. Not open-ended counselling —
+        a first piece of work designed to bring clarity and create real movement.
+      </p>
+
+      <!-- Step grid: single-col on mobile, 5-col on md+ -->
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-px rounded-xl overflow-hidden bg-header-foreground/8 mb-10">
+        {fiveSteps.map((step) => (
+          <div class="bg-void/50 p-6">
+            <p class="text-primary/30 font-heading text-2xl leading-none mb-3">{step.num}</p>
+            <h3 class="font-heading text-sm text-header-foreground/85 mb-2">{step.title}</h3>
+            <p class="text-header-foreground/45 text-xs font-body leading-relaxed">{step.text}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-header-foreground/40 font-body text-sm text-center italic">
+        Many continue beyond five sessions. Some find five is enough. The decision stays open.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 4. WHAT MAKES THIS DIFFERENT ═════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-3">
+        Counselling, practice, and integration as one coherent process
+      </h2>
+      <p class="text-muted-foreground/60 font-body text-sm text-center mb-12 max-w-xl mx-auto">
+        Most approaches work with one dimension of experience in isolation. This one doesn't.
+      </p>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
+        {differentiators.map((d) => (
+          <div class="border border-border/50 rounded-lg p-7">
+            <h3 class="font-heading text-base text-foreground/85 mb-3">{d.title}</h3>
+            <p class="text-muted-foreground text-sm font-body leading-relaxed">{d.text}</p>
+            {d.href && (
+              <a
+                href={d.href}
+                class="inline-flex items-center gap-1 text-primary/55 hover:text-primary text-xs font-body mt-4 transition-colors"
+              >
+                {d.hrefLabel}
+                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+                </svg>
+              </a>
+            )}
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 5. PRICING ═══════════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        What this costs
+      </h2>
+
+      <!-- Pricing card — max-width prevents horizontal scroll on narrow screens -->
+      <div class="border border-primary/20 rounded-2xl p-8 md:p-10 bg-void/30 max-w-sm mx-auto w-full">
+
+        <!-- Single session -->
+        <div class="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <p class="font-body text-sm text-header-foreground/65 mb-0.5">Single session</p>
+            <p class="font-body text-xs text-header-foreground/30">60 minutes · online via video call</p>
+          </div>
+          <p class="font-heading text-2xl text-header-foreground/90 shrink-0 tabular-nums">R850</p>
+        </div>
+
+        <!-- Five-session process -->
+        <div class="border-t border-header-foreground/8 pt-5 flex items-start justify-between gap-4">
+          <div>
+            <p class="font-body text-sm text-header-foreground/65 mb-0.5">Five-session process</p>
+            <p class="font-body text-xs text-header-foreground/30">R680 per session · paid in advance</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-heading text-2xl text-header-foreground/90 tabular-nums">R3,400</p>
+            <p class="text-xs text-primary/45 font-body">Save R250</p>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="border-t border-header-foreground/8 pt-5 mt-5 space-y-2">
+          <p class="text-header-foreground/40 text-xs font-body leading-relaxed">
+            If cost is a genuine barrier, mention it when reaching out. A small number of reduced-rate spaces are available.
+          </p>
+          <p class="text-header-foreground/30 text-xs font-body leading-relaxed">
+            Sessions are paid in advance via EFT. International clients may pay via PayPal.
+          </p>
+        </div>
+
+      </div>
+
+      <!-- CTA below pricing -->
+      <div class="mt-10 text-center">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+        >
+          Book an Initial Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <p class="text-header-foreground/30 text-xs font-body mt-3">
+          A full session, not a brief call. No obligation to continue.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 6. ABOUT MICHAEL ══════════════════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-2xl md:text-3xl text-foreground text-center mb-12">
+        About Michael
+      </h2>
+
+      <div class="flex flex-col md:flex-row gap-10 items-start">
+
+        <!-- Portrait — lazy loaded, below fold -->
+        <div class="shrink-0 mx-auto md:mx-0">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-primary/20">
+            <Image
+              src={swamiPortrait}
+              alt="Michael Kaplan (Swami Ramarishi), ASCHP-registered Wellness Counsellor"
+              class="w-full h-full object-cover"
+              width={160}
+              height={160}
+              loading="lazy"
+            />
+          </div>
+        </div>
+
+        <!-- Bio text -->
+        <div class="space-y-4">
+          <p class="font-heading text-lg text-foreground/85">
+            Michael Kaplan <span class="text-foreground/45 font-body text-sm">(Swami Ramarishi)</span>
+          </p>
+          <div class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed">
+            <p>
+              Registered Wellness Counsellor with the Association for Supportive Counsellors
+              and Holistic Practitioners (ASCHP, Reg.&nbsp;10559). Yoga Alliance RYS 300 —
+              Hatha and Ashtanga, Triguna Yoga, Rishikesh.
+            </p>
+            <p>
+              South African by origin, currently based in India. Background includes intensive training
+              in pranayama, hatha yoga, and meditation within established traditions, extended periods
+              of practice in the Himalayas, and sustained one-on-one and group work with people across
+              South Africa, India, and Europe.
+            </p>
+            <p>
+              Works with adults, adolescents, and those navigating significant life transitions.
+              All sessions are conducted online via video call. Currently accepting new clients.
+            </p>
+          </div>
+          <a
+            href="/about"
+            class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors"
+          >
+            Read more on the About page
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+      </div>
+
+      <!-- Credential chips -->
+      <div class="mt-10 flex flex-wrap gap-3">
+        <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">ASCHP Registered — Reg.&nbsp;10559</span>
+        <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Yoga Alliance RYS&nbsp;300</span>
+        <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Online worldwide</span>
+        <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Currently accepting new clients</span>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 7. SCOPE & ETHICS (required for Google Ads compliance) ════════ -->
+  <section class="bg-background border-t border-border/25">
+    <div class="container mx-auto px-6 py-10 md:py-12 max-w-3xl">
+      <div class="bg-muted/25 border border-border/40 rounded-lg p-6 md:p-8">
+        <p class="text-xs text-muted-foreground/45 tracking-widest uppercase font-body mb-3">
+          Scope and Ethics
+        </p>
+        <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+          Sangham is supportive wellness counselling under South African ASCHP registration.
+          It is not psychology, psychiatry, psychotherapy, medical treatment, diagnosis, medication management,
+          crisis support, or emergency mental health care. If clinical or acute support is needed,
+          referral to an appropriate locally-licensed professional may be recommended.
+        </p>
+        <a
+          href="/scope"
+          class="inline-flex items-center gap-1 text-primary/45 hover:text-primary/80 text-xs font-body mt-4 transition-colors"
+        >
+          Full scope and ethics
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8. FAQ ════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Common questions
+      </h2>
+      <FAQ items={faqItems} dark={true} />
+    </div>
+  </section>
+
+  <!-- ═══ 9. FINAL CTA ══════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={goldenSavanna}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/83"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-4">
+        Begin with an initial consultation.
+      </h2>
+      <p class="text-parchment/55 font-body leading-relaxed mb-10 max-w-md mx-auto">
+        A full session, not a brief call. No obligation to continue.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+        >
+          Book a Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="https://wa.me/27736738063"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-3 px-10 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          <svg class="w-5 h-5 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+          </svg>
+          Message on WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+</BaseLayout>

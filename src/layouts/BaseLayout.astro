@@ -3,6 +3,8 @@ import '../styles/global.css';
 import Navigation from '../components/Navigation.astro';
 import Footer from '../components/Footer.astro';
 import StickyConsultationCTA from '../components/StickyConsultationCTA.astro';
+import { Image } from 'astro:assets';
+import sanghamLogo from '../assets/sangham-logo.png';
 
 interface Props {
   title: string;
@@ -13,6 +15,7 @@ interface Props {
   publishedDate?: string;
   jsonLd?: Record<string, unknown>[];
   hideStickyBar?: boolean;
+  minimalNav?: boolean;
 }
 
 const {
@@ -24,6 +27,7 @@ const {
   publishedDate,
   jsonLd,
   hideStickyBar = false,
+  minimalNav = false,
 } = Astro.props;
 
 const siteName = 'Sangham';
@@ -129,7 +133,21 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </noscript>
     )}
     <!-- End Google Tag Manager (noscript) -->
-    <Navigation />
+    {minimalNav ? (
+      <nav class="fixed top-0 left-0 right-0 z-50 bg-nav/95 backdrop-blur-md border-b border-nav-foreground/10">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+          <a href="/" class="flex items-center gap-3" aria-label="Sangham home">
+            <Image src={sanghamLogo} alt="Sangham" class="h-10 w-auto" widths={[80, 160]} loading="eager" />
+          </a>
+          <div class="flex items-center gap-5">
+            <a href="/counselling" class="hidden sm:block text-sm tracking-widest uppercase font-body text-nav-foreground/60 hover:text-nav-foreground transition-colors duration-200">Counselling</a>
+            <a href="/contact" class="px-5 py-2 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body">Get in Touch</a>
+          </div>
+        </div>
+      </nav>
+    ) : (
+      <Navigation />
+    )}
     <main class="pt-[72px]">
       <slot />
     </main>
