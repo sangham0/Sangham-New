@@ -94,20 +94,34 @@ const siteJsonLd = {
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 
-    <!-- Google Analytics (production only) -->
+    <!-- Google Tag Manager (production only) -->
     {import.meta.env.PROD && (
-      <script async src="https://www.googletagmanager.com/gtag/js?id=G-YZ6ZQCWJDY" is:inline></script>
       <script is:inline>
         window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-YZ6ZQCWJDY');
       </script>
+      <script is:inline>{`(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-M6SVCRV8');`}</script>
     )}
+    <!-- End Google Tag Manager -->
 
     <slot name="head" />
   </head>
   <body>
+    <!-- Google Tag Manager (noscript) -->
+    {import.meta.env.PROD && (
+      <noscript>
+        <iframe
+          src="https://www.googletagmanager.com/ns.html?id=GTM-M6SVCRV8"
+          height="0"
+          width="0"
+          style="display:none;visibility:hidden"
+        ></iframe>
+      </noscript>
+    )}
+    <!-- End Google Tag Manager (noscript) -->
     <Navigation />
     <main class="pt-[72px]">
       <slot />
