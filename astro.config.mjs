@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
-const SITE = 'https://sangham.org';
+const SITE = 'https://www.sangham.org';
 
 // https://astro.build/config
 export default defineConfig({
