@@ -4,18 +4,18 @@ import FAQ from '../components/FAQ.astro';
 import CalEmbed from '../components/CalEmbed.astro';
 import { Image } from 'astro:assets';
 import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
-import goldenSavanna from '../assets/golden-savanna.jpg';
+import forestPond from '../assets/forest-pond.jpg';
 
-const canonicalURL = 'https://www.sangham.org/online-counselling-south-africa';
+const canonicalURL = 'https://www.sangham.org/counselling-for-adolescents-and-young-adults';
 
 const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Online Wellness Counselling',
+    name: 'Counselling for Adolescents and Young Adults',
     url: canonicalURL,
     description:
-      'Online wellness counselling addressing the gap between understanding patterns and actually changing them. Five-session integrative process. Available across South Africa and worldwide.',
+      'Online wellness counselling for adolescents and young adults. Practical, structured, and developmentally appropriate. ASCHP-registered. Available worldwide via video call.',
     serviceType: 'Wellness Counselling',
     provider: {
       '@type': 'Person',
@@ -33,6 +33,10 @@ const jsonLd = [
         alternateName: 'ASCHP',
         identifier: 'Reg. No. 10559',
       },
+    },
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'Adolescents and Young Adults',
     },
     areaServed: [
       { '@type': 'Country', name: 'South Africa' },
@@ -66,130 +70,98 @@ const jsonLd = [
 ];
 
 const fitItems = [
-  'Recurring emotional patterns that persist despite genuine effort',
-  'Overthinking and internal pressure that makes it hard to settle',
-  'Relationship dynamics that keep repeating',
-  'Difficulty following through on what matters',
-  'Periods of transition, uncertainty, or loss',
-  'A sense of disconnection from the body or from direction',
+  'Pressure around academic performance and the future',
+  'Difficulty managing strong emotions or reactions',
+  'Anxiety, restlessness, or a persistent sense of something being off',
+  'Relationship difficulties with peers, family, or authority',
+  'Identity questions and the search for a clear sense of self',
+  'Transitions: school to university, home to independence, one chapter to the next',
+  'Difficulty following through on what matters despite genuine effort',
 ];
 
-const fiveSteps = [
+const howItWorksItems = [
   {
     num: '01',
-    title: 'Mapping',
-    text: 'Understanding current patterns and where things feel stuck or challenged.',
+    title: 'Practical, not abstract',
+    text: 'Sessions focus on real situations and specific patterns rather than concepts or theory. What is actually happening gets examined directly.',
   },
   {
     num: '02',
-    title: 'Identifying',
-    text: 'Seeing what is actually maintaining these patterns: not the story, but the mechanism underneath.',
+    title: 'Non-judgmental',
+    text: 'There is no expectation to arrive with the right vocabulary, a tidy story, or clear goals. Confusion and uncertainty are a normal starting point.',
   },
   {
     num: '03',
-    title: 'Intervening',
-    text: 'Introducing targeted practices: breathwork, attention training, behavioural adjustments chosen for the specific situation.',
+    title: 'Developmentally appropriate',
+    text: 'The pace, depth, and focus are adapted to what is developmentally relevant. This is not adult counselling delivered to a younger person.',
   },
   {
     num: '04',
-    title: 'Applying',
-    text: 'Testing changes in real time. Seeing what holds, what needs adjustment, and what the real work is.',
-  },
-  {
-    num: '05',
-    title: 'Consolidating',
-    text: 'Reviewing what has shifted. Clarifying next steps and establishing a sustainable foundation.',
-  },
-];
-
-const differentiators = [
-  {
-    title: 'Counselling and dialogue',
-    text: 'A direct, relational process of understanding how a person actually functions. Not in theory, but in the specific patterns of their life. This is where understanding moves from general to specific.',
-    href: '/counselling',
-    hrefLabel: 'How counselling works',
-  },
-  {
-    title: 'Breathwork and regulation',
-    text: 'Working directly with the breath to influence physiological state. Not relaxation techniques, but the ability to shift nervous system response when it matters, and to understand the mechanism well enough to apply it independently.',
-    href: '/wisdom/breathwork-explained',
-    hrefLabel: 'Breathwork explained',
-  },
-  {
-    title: 'Attention and body-based awareness',
-    text: 'Developing the capacity to sustain clear, steady attention. Reconnecting with the information the body provides. Thought alone is rarely the problem. How perception operates under pressure is.',
-    href: null,
-    hrefLabel: null,
-  },
-  {
-    title: 'Behavioural integration into real life',
-    text: 'Insight that does not reach behaviour has not yet become real. The measure of this work is not how someone feels during a session, but how they function at home, at work, and in the moments that challenge them most.',
-    href: null,
-    hrefLabel: null,
+    title: 'Body-based and grounded',
+    text: 'Breathwork and body-awareness are central tools. Young people often respond well to practical regulation techniques that do not require extended verbal processing.',
   },
 ];
 
 const faqItems = [
   {
     q: 'Is this therapy?',
-    a: 'No. Sangham is supportive wellness counselling, registered with the ASCHP. It is not psychology, psychotherapy, psychiatry, or clinical mental health treatment. People who have previously worked with therapists often find this approach complements or extends what therapy began.',
+    a: 'No. Sangham is supportive wellness counselling, registered with the ASCHP. It is not psychology, psychotherapy, psychiatry, or clinical mental health treatment. Families who have previously worked with therapists often find this approach complements or extends what therapy began.',
   },
   {
-    q: 'Does online counselling actually work?',
-    a: 'For this kind of work, the online format holds well. What matters most is the quality of attention from both sides, and that is not diminished by distance. Many people find they arrive more settled working from their own environment. Clients currently work from South Africa, India, the United Kingdom, and elsewhere.',
+    q: 'What age range does this cover?',
+    a: 'This work is suited to people roughly between 14 and 28. The approach is adapted to what is developmentally relevant. Michael has extensive experience with both adolescents still in school and young adults navigating early independence.',
   },
   {
-    q: 'What happens in the first consultation?',
-    a: 'A full session, not a brief screening call. There is space to explore what is present, understand the approach in practice, ask questions, and get a genuine sense of whether working together makes sense. No obligation to continue beyond this.',
+    q: 'Does the young person need to be willing to engage?',
+    a: 'Yes. This kind of work requires genuine participation. It is not something that can be done to someone who is entirely resistant. That said, some initial reluctance is normal and does not need to be resolved before reaching out. The first conversation helps clarify whether now is the right time.',
   },
   {
-    q: 'Do I need meditation or yoga experience?',
-    a: 'No. The work integrates contemplative practice where relevant and appropriate. No background or prior experience is required. What matters is a genuine willingness to engage honestly with the process.',
+    q: 'Can parents be involved?',
+    a: 'The primary relationship is between Michael and the young person. Parent involvement, if any, is kept minimal and agreed upon clearly. Confidentiality is explained and respected. The young person needs to feel safe to speak honestly.',
   },
   {
-    q: 'Can I work with you from outside South Africa?',
-    a: 'Yes. All sessions are conducted online via video call. Clients currently work from South Africa, India, the United Kingdom, Europe, and beyond. Scheduling is arranged to suit your timezone.',
+    q: 'How does the free 15-minute fit call work?',
+    a: 'The fit call is a short, no-obligation conversation to establish whether this is the right approach and the right moment. It is not a session. No deep processing, no intake forms. Just a direct conversation to see whether working together makes sense.',
   },
   {
-    q: 'How quickly can I start?',
-    a: 'Most enquiries receive a response within one to two business days, with a simple way to arrange an initial consultation time.',
+    q: 'How quickly can we start?',
+    a: 'Most enquiries receive a response within one to two business days. A fit call can typically be arranged within the same week.',
   },
 ];
 ---
 
 <BaseLayout
-  title="Online Counselling & Integration"
-  description="Online wellness counselling for people who understand their patterns but still find themselves caught in them. Five-session process available. ASCHP-registered. Sessions worldwide."
+  title="Counselling for Adolescents & Young Adults | Sangham"
+  description="Online wellness counselling for adolescents and young adults. Practical, structured, and grounded. ASCHP-registered. Start with a free 15-minute fit call."
   canonicalURL={canonicalURL}
   image="/images/og-default.jpg"
   jsonLd={jsonLd}
   minimalNav={true}
+  hideStickyBar={true}
 >
 
   <!-- ═══ 1. HERO ═══════════════════════════════════════════════════════ -->
-  <!-- Pure CSS background — no image, fast LCP (H1 text is the LCP element) -->
   <section class="-mt-[72px] pt-[72px] bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
 
       <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-8">
-        Sangham &middot; Online Sessions Worldwide
+        Sangham &middot; Adolescents &amp; Young Adults
       </p>
 
       <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-parchment/95 leading-tight mb-6">
-        Online Counselling<br class="hidden sm:block" />
-        <span class="text-gold-gradient">&amp; Integration</span>
+        Counselling for<br class="hidden sm:block" />
+        <span class="text-gold-gradient">Young People</span>
       </h1>
 
       <p class="font-body text-xl md:text-2xl text-parchment/65 leading-relaxed mb-4 max-w-2xl">
-        For people who understand their patterns but still find themselves caught in them.
+        Practical, grounded support for adolescents and young adults navigating pressure, uncertainty, and the complexity of early life.
       </p>
 
       <p class="font-body text-sm text-parchment/40 leading-relaxed mb-10 max-w-lg">
-        Online sessions worldwide. Run by Michael Kaplan (Swami Ramarishi),
+        Online sessions worldwide. Michael Kaplan (Swami Ramarishi),
         ASCHP-registered Wellness Counsellor (Reg.&nbsp;10559).
       </p>
 
-      <!-- CTAs — stacked on mobile, side-by-side on sm+ -->
       <div class="flex flex-col sm:flex-row gap-4">
         <a
           href="#cal-section"
@@ -211,12 +183,12 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- ═══ 2. IMMEDIATE FIT ══════════════════════════════════════════════ -->
+  <!-- ═══ 2. WHO THIS IS FOR ════════════════════════════════════════════ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
 
       <h2 class="font-heading text-2xl md:text-3xl text-foreground mb-8 leading-snug">
-        This work tends to support people who are working with:
+        This work tends to support young people who are dealing with:
       </h2>
 
       <ul class="space-y-4 list-disc list-outside ml-6 marker:text-primary/40">
@@ -226,49 +198,40 @@ const faqItems = [
       </ul>
 
       <p class="mt-8 text-muted-foreground/70 font-body text-sm leading-relaxed max-w-xl">
-        The approach draws from counselling, contemplative practice, and body-based awareness,
-        working with these as one integrated process rather than separate tracks.
-        <a href="/counselling" class="text-primary/70 hover:text-primary transition-colors ml-1 whitespace-nowrap">
-          Explore the full approach →
-        </a>
+        The approach integrates counselling, breathwork, and body-based awareness into a single practical process. No background in meditation or inner work is required.
       </p>
 
     </div>
   </section>
 
-  <!-- ═══ 3. FIVE-SESSION PROCESS ══════════════════════════════════════ -->
+  <!-- ═══ 3. HOW IT WORKS ═══════════════════════════════════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
 
       <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
-        Where most people begin
+        The approach
       </p>
       <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-5">
-        A clear starting point: the five-session integrative process
+        Not adult counselling delivered smaller
       </h2>
       <p class="text-header-foreground/50 font-body leading-relaxed text-center max-w-2xl mx-auto mb-12">
-        A contained, structured process with a defined beginning, middle, and end. Not open-ended counselling, but a first piece of work designed to bring clarity and create real movement.
+        The process is adapted to be developmentally appropriate. What is worked with, how it is worked with, and the pace at which it proceeds reflects what is actually relevant at this stage of life.
       </p>
 
-      <!-- Step grid: single-col on mobile, 5-col on md+ -->
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-px rounded-xl overflow-hidden bg-header-foreground/8 mb-10">
-        {fiveSteps.map((step) => (
-          <div class="bg-void/50 p-6">
-            <p class="text-primary/30 font-heading text-2xl leading-none mb-3">{step.num}</p>
-            <h3 class="font-heading text-sm text-header-foreground/85 mb-2">{step.title}</h3>
-            <p class="text-header-foreground/45 text-xs font-body leading-relaxed">{step.text}</p>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-px rounded-xl overflow-hidden bg-header-foreground/8">
+        {howItWorksItems.map((item) => (
+          <div class="bg-void/50 p-8">
+            <p class="text-primary/30 font-heading text-2xl leading-none mb-3">{item.num}</p>
+            <h3 class="font-heading text-sm text-header-foreground/85 mb-2">{item.title}</h3>
+            <p class="text-header-foreground/45 text-sm font-body leading-relaxed">{item.text}</p>
           </div>
         ))}
       </div>
 
-      <p class="text-header-foreground/40 font-body text-sm text-center italic">
-        Many continue beyond five sessions. Some find five is enough. The decision stays open.
-      </p>
-
     </div>
   </section>
 
-  <!-- ═══ 3b. FIT CALL ════════════════════════════════════════════════ -->
+  <!-- ═══ 4. FIT CALL ═══════════════════════════════════════════════════ -->
   <section id="cal-section" class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
@@ -276,7 +239,7 @@ const faqItems = [
         Free &middot; 15 minutes &middot; No obligation
       </p>
       <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
-        Not sure yet? Start with a fit call.
+        Start with a fit call
       </h2>
       <p class="text-muted-foreground/70 font-body text-sm text-center max-w-md mx-auto mb-10 leading-relaxed">
         A short conversation to see whether this is the right approach and the right moment. Not a session. No intake forms. Just a direct exchange to establish fit.
@@ -293,41 +256,7 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- ═══ 4. WHAT MAKES THIS DIFFERENT ═════════════════════════════════ -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
-
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-3">
-        Counselling, practice, and integration as one coherent process
-      </h2>
-      <p class="text-muted-foreground/60 font-body text-sm text-center mb-12 max-w-xl mx-auto">
-        Most approaches work with one dimension of experience in isolation. This one doesn't.
-      </p>
-
-      <div class="grid grid-cols-1 lg:grid-cols-2 gap-5">
-        {differentiators.map((d) => (
-          <div class="border border-border/50 rounded-lg p-7">
-            <h3 class="font-heading text-base text-foreground/85 mb-3">{d.title}</h3>
-            <p class="text-muted-foreground text-sm font-body leading-relaxed">{d.text}</p>
-            {d.href && (
-              <a
-                href={d.href}
-                class="inline-flex items-center gap-1 text-primary/55 hover:text-primary text-xs font-body mt-4 transition-colors"
-              >
-                {d.hrefLabel}
-                <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
-              </a>
-            )}
-          </div>
-        ))}
-      </div>
-
-    </div>
-  </section>
-
-  <!-- ═══ 5. PRICING ═══════════════════════════════════════════════════ -->
+  <!-- ═══ 5. PRICING ════════════════════════════════════════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
@@ -335,10 +264,8 @@ const faqItems = [
         What this costs
       </h2>
 
-      <!-- Pricing card — max-width prevents horizontal scroll on narrow screens -->
       <div class="border border-primary/20 rounded-2xl p-8 md:p-10 bg-void/30 max-w-sm mx-auto w-full">
 
-        <!-- Single session -->
         <div class="flex items-start justify-between gap-4 mb-5">
           <div>
             <p class="font-body text-sm text-header-foreground/65 mb-0.5">Single session</p>
@@ -347,7 +274,6 @@ const faqItems = [
           <p class="font-heading text-2xl text-header-foreground/90 shrink-0 tabular-nums">R850</p>
         </div>
 
-        <!-- Five-session process -->
         <div class="border-t border-header-foreground/8 pt-5 flex items-start justify-between gap-4">
           <div>
             <p class="font-body text-sm text-header-foreground/65 mb-0.5">Five-session process</p>
@@ -359,7 +285,6 @@ const faqItems = [
           </div>
         </div>
 
-        <!-- Notes -->
         <div class="border-t border-header-foreground/8 pt-5 mt-5 space-y-2">
           <p class="text-header-foreground/40 text-xs font-body leading-relaxed">
             If cost is a genuine barrier, mention it when reaching out. A small number of reduced-rate spaces are available.
@@ -371,8 +296,7 @@ const faqItems = [
 
       </div>
 
-      <!-- CTA below pricing -->
-      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <div class="mt-10 text-center">
         <a
           href="#cal-section"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
@@ -382,21 +306,15 @@ const faqItems = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a
-          href="/contact"
-          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-header-foreground/20 text-header-foreground/55 hover:border-header-foreground/40 hover:text-header-foreground/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
-        >
-          Enquire About a Consultation
-        </a>
+        <p class="text-header-foreground/30 text-xs font-body mt-3">
+          No obligation. 15 minutes. You choose whether to continue.
+        </p>
       </div>
-      <p class="text-header-foreground/30 text-xs font-body text-center mt-4">
-        Fit call is free. Initial consultation is R850. No obligation either way.
-      </p>
 
     </div>
   </section>
 
-  <!-- ═══ 6. ABOUT MICHAEL ══════════════════════════════════════════════ -->
+  <!-- ═══ 6. ABOUT MICHAEL ═════════════════════════════════════════════ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
@@ -406,7 +324,6 @@ const faqItems = [
 
       <div class="flex flex-col md:flex-row gap-10 items-start">
 
-        <!-- Portrait — lazy loaded, below fold -->
         <div class="shrink-0 mx-auto md:mx-0">
           <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-primary/20">
             <Image
@@ -420,7 +337,6 @@ const faqItems = [
           </div>
         </div>
 
-        <!-- Bio text -->
         <div class="space-y-4">
           <p class="font-heading text-lg text-foreground/85">
             Michael Kaplan <span class="text-foreground/45 font-body text-sm">(Swami Ramarishi)</span>
@@ -429,16 +345,11 @@ const faqItems = [
             <p>
               Registered Wellness Counsellor with the Association for Supportive Counsellors
               and Holistic Practitioners (ASCHP, Reg.&nbsp;10559). Yoga Alliance RYS 300.
-              Hatha and Ashtanga, Triguna Yoga, Rishikesh.
             </p>
             <p>
-              South African by origin, currently based in India. Background includes intensive training
-              in pranayama, hatha yoga, and meditation within established traditions, extended periods
-              of practice in the Himalayas, and sustained one-on-one and group work with people across
-              South Africa, India, and Europe.
+              Extensive experience working with adolescents and young adults in both individual and group settings, across South Africa and India. Background includes sustained work within schools, residential settings, and one-on-one practice.
             </p>
             <p>
-              Works with adults, adolescents, and those navigating significant life transitions.
               All sessions are conducted online via video call. Currently accepting new clients.
             </p>
           </div>
@@ -455,10 +366,9 @@ const faqItems = [
 
       </div>
 
-      <!-- Credential chips -->
       <div class="mt-10 flex flex-wrap gap-3">
         <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">ASCHP Registered, Reg.&nbsp;10559</span>
-        <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Yoga Alliance RYS&nbsp;300</span>
+        <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Adolescents &amp; Young Adults</span>
         <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Online worldwide</span>
         <span class="px-4 py-2 border border-border/50 rounded-full text-xs font-body text-muted-foreground/55 tracking-wide">Currently accepting new clients</span>
       </div>
@@ -466,7 +376,7 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- ═══ 7. SCOPE & ETHICS (required for Google Ads compliance) ════════ -->
+  <!-- ═══ 7. SCOPE & ETHICS ════════════════════════════════════════════ -->
   <section class="bg-background border-t border-border/25">
     <div class="container mx-auto px-6 py-10 md:py-12 max-w-3xl">
       <div class="bg-muted/25 border border-border/40 rounded-lg p-6 md:p-8">
@@ -502,10 +412,10 @@ const faqItems = [
     </div>
   </section>
 
-  <!-- ═══ 9. FINAL CTA ══════════════════════════════════════════════════ -->
+  <!-- ═══ 9. FINAL CTA ═════════════════════════════════════════════════ -->
   <section class="relative overflow-hidden">
     <Image
-      src={goldenSavanna}
+      src={forestPond}
       alt=""
       class="absolute inset-0 w-full h-full object-cover"
       widths={[640, 1024, 1536]}
@@ -536,7 +446,7 @@ const faqItems = [
           href="/contact"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
         >
-          Enquire About a Consultation
+          Send an Enquiry
         </a>
       </div>
 
