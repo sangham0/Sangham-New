@@ -128,6 +128,16 @@ const faqItems = [
     a: 'Most enquiries receive a response within one to two business days. A fit call can typically be arranged within the same week.',
   },
 ];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -135,7 +145,7 @@ const faqItems = [
   description="Online wellness counselling for adolescents and young adults. Practical, structured, and grounded. ASCHP-registered. Start with a free 15-minute fit call."
   canonicalURL={canonicalURL}
   image="/images/og-default.jpg"
-  jsonLd={jsonLd}
+  jsonLd={[...jsonLd, faqJsonLd]}
   minimalNav={true}
   hideStickyBar={true}
 >

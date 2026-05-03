@@ -140,13 +140,29 @@ const faqItems = [
     a: "Yes. Working with adolescents and young adults is one of the areas where this work is often especially useful. The process is adapted to be developmentally appropriate: practical, non-judgmental, and focused on real strategies rather than abstract concepts. Michael has extensive experience working with young people in both individual and group settings."
   }
 ];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
 
 <BaseLayout
   title="Counselling & Integration | Sangham"
   description="A structured five-session counselling process addressing the gap between understanding and real change. Online via video call. Enquire today."
-  jsonLd={jsonLd}
+  jsonLd={[...jsonLd, faqJsonLd]}
 >
+
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="en" href="https://www.sangham.org/counselling" />
+    <link rel="alternate" hreflang="en-ZA" href="https://www.sangham.org/online-counselling-south-africa" />
+    <link rel="alternate" hreflang="x-default" href="https://www.sangham.org/counselling" />
+  </Fragment>
 
   <PageHeader
     title="Counselling & Integration"

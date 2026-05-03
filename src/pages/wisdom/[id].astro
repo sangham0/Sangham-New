@@ -19,6 +19,15 @@ const readingTime = Math.max(1, Math.round(wordCount / 200));
 const jsonLd = [
   {
     '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sangham.org/' },
+      { '@type': 'ListItem', position: 2, name: 'Wisdom', item: 'https://www.sangham.org/wisdom' },
+      { '@type': 'ListItem', position: 3, name: essay.title, item: `https://www.sangham.org/wisdom/${essay.id}` },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
     '@type': 'Article',
     headline: essay.title,
     description: essay.excerpt,
