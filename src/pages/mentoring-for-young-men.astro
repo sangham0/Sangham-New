@@ -1,0 +1,848 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import { Image } from 'astro:assets';
+import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
+import aboveClouds from '../assets/above-clouds.jpg';
+import mountainSummit from '../assets/mountain-summit.jpg';
+import mountainSunrise from '../assets/mountain-sunrise.jpg';
+
+const canonicalURL = 'https://www.sangham.org/mentoring-for-young-men';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Counselling and Mentorship for Young Men',
+    url: canonicalURL,
+    description:
+      'Sustained developmental mentorship for young men aged 13-25, drawing on years of adolescent rites-of-passage facilitation and group work. ASCHP-registered wellness counselling. Online sessions worldwide.',
+    serviceType: 'Wellness Counselling and Developmental Mentorship',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      image: {
+        '@type': 'ImageObject',
+        url: 'https://www.sangham.org/images/michael-kaplan.jpg',
+      },
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Association for Supportive Counsellors and Holistic Practitioners',
+        alternateName: 'ASCHP',
+        identifier: 'Reg. No. 10559',
+      },
+    },
+    audience: [
+      { '@type': 'Audience', audienceType: 'Parent' },
+      { '@type': 'Audience', audienceType: 'Young Adult' },
+    ],
+    areaServed: [
+      { '@type': 'Country', name: 'South Africa' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Parental Consultation',
+        price: '600',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description:
+          '45-minute online consultation for parents. Includes a written summary with recommendations. If you proceed to working with your son, the fee credits toward the first month of work.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Single Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'One 60-minute online session via video call.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Five-Session Integrative Process',
+        price: '3400',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A structured five-session integrative process. R680 per session, paid in advance.',
+      },
+    ],
+  },
+];
+
+const capacities = [
+  {
+    title: 'Emotional regulation under pressure',
+    text: 'The capacity to notice what is happening internally before it controls behaviour. The single most consequential psychological skill, and the one most absent.',
+  },
+  {
+    title: 'Clarity of attention',
+    text: "A relationship with one's own focus that holds up against constant digital interruption. Affects everything: study, conversation, emotional processing, decision-making.",
+  },
+  {
+    title: 'Articulate inner life',
+    text: 'The vocabulary and habit of putting inner experience into words. The young man who can name what he feels does not act it out. The one who cannot, will.',
+  },
+  {
+    title: 'Grounded direction',
+    text: "A sense of where one is going that is not borrowed from peers, algorithms, or family expectation. Built slowly, through honest reflection.",
+  },
+  {
+    title: 'Body-based literacy',
+    text: 'Reconnection with the body as a source of information rather than a thing to be managed. Breath, posture, sensation as a daily practice.',
+  },
+  {
+    title: 'Real self-knowledge',
+    text: "Not the performed kind, the actual kind. Knowing what one is like, what patterns one falls into, what one's edges are. This is the foundation everything else rests on.",
+  },
+  {
+    title: 'Reflective capacity',
+    text: 'The habit of turning experience into understanding rather than into noise. What separates a young man who matures from one who simply ages.',
+  },
+];
+
+const differences = [
+  {
+    title: 'Different from therapy',
+    text: 'Not problem-focused, not clinical, not concerned with diagnosis. The aim is building developmental capacities, not addressing pathology. When clinical work is genuinely required, it will be named plainly and referred. Honesty about scope is part of what you are paying for.',
+  },
+  {
+    title: 'Different from coaching',
+    text: 'Not goal-and-action focused. Slower, more considered, more contemplative. The work builds the substrate from which good decisions naturally arise, rather than prescribing decisions from the outside.',
+  },
+  {
+    title: 'Different from tutoring',
+    text: 'The inner work, not the academic work. Though it consistently supports academic performance, by building attention, regulation, and resilience under pressure.',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'My son is not in crisis. Would he still benefit from this?',
+    a: 'Yes, and this is precisely the point. The work builds developmental capacities that are valuable regardless of whether anything is currently wrong. Many of the families Michael works with came in this way: not because of a crisis, but because they wanted to give their son something genuinely useful before one was needed.',
+  },
+  {
+    q: 'How is this different from therapy?',
+    a: 'It is not clinical, not problem-focused, and not about diagnosis. The work is developmental rather than remedial: building capacities a young man will carry for the rest of his life. When clinical work is genuinely the right call, Michael will say so directly and offer appropriate referrals.',
+  },
+  {
+    q: 'How do you handle confidentiality between us and our son?',
+    a: "The work between Michael and the young person is confidential. The exception is genuine safety concern, where Michael will speak with parents first before any wider involvement. Parents are not given session reports. Where parental involvement makes sense, such as a family conversation or a moment of mutual understanding, it happens transparently with the young person's awareness.",
+  },
+  {
+    q: 'What if our son does not want to do this?',
+    a: 'That is a fair signal. Michael will not work with a young person who is being compelled into the work. A reluctant young person can be invited to the fit call without any commitment, and the conversation itself often shifts something. But compelled mentorship does not work, and this approach depends on a degree of genuine willingness.',
+  },
+  {
+    q: 'Do you work with young women too?',
+    a: "Michael's primary training and deepest experience is with young men. He does work with young women who come through trusted referral or who have been clients for some time, where the developmental principles translate well. For young women whose situation calls for female-specific work or where a same-gender mentor would be a better fit, he is glad to offer referrals to practitioners he trusts. The parental consultation is a good place to discuss whether this is the right fit for your daughter specifically.",
+  },
+  {
+    q: 'What about substance use, eating issues, or something more serious?',
+    a: 'This is exactly the kind of question the parental consultation is for. Some of these situations are well-served by this work; others need clinical care first, or alongside; some need both. Michael will tell you honestly which is which, and refer where appropriate. The clinical literacy to know the difference is part of what you are getting.',
+  },
+  {
+    q: 'How long does the work usually take to make a difference?',
+    a: 'Meaningful shifts often appear within the first five sessions, particularly in how a young person is regulating and articulating. Deeper changes take longer. Most families work together for somewhere between three and twelve months. The pace is set by what the work calls for, not by a fixed package.',
+  },
+  {
+    q: 'Can sessions happen alongside school terms, or only in holidays?',
+    a: 'Sessions are weekly or fortnightly during term, fitted around school commitments. The continuity across school terms is part of what makes the work effective.',
+  },
+  {
+    q: 'Do you work with international families?',
+    a: 'Yes. Sessions are online, and timezones are accommodated. Michael currently works with families in South Africa, the United Kingdom, India, and elsewhere.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="Counselling and Mentorship for Young Men | Sangham"
+  description="Sustained, developmental mentorship for young men aged 13-25, drawing on years of adolescent rites-of-passage and group facilitation work. ASCHP-registered. Online sessions worldwide. Parental consultation available."
+  canonicalURL={canonicalURL}
+  image="/images/og-default.jpg"
+  jsonLd={[...jsonLd, faqJsonLd]}
+  minimalNav={true}
+  hideStickyBar={true}
+>
+
+  <!-- ═══ 1. HERO ═══════════════════════════════════════════════════════ -->
+  <section class="relative -mt-[72px] pt-[72px] overflow-hidden min-h-[520px] md:min-h-[600px] flex items-center">
+    <Image
+      src={aboveClouds}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="eager"
+      fetchpriority="high"
+    />
+    <div class="absolute inset-0 bg-void/82"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl w-full">
+
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-8">
+        Sangham &middot; Online Sessions Worldwide
+      </p>
+
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-parchment/95 leading-tight mb-6">
+        Counselling and Mentorship<br class="hidden sm:block" />
+        <span class="text-gold-gradient">for Young Men</span>
+      </h1>
+
+      <p class="font-body text-xl md:text-2xl text-parchment/70 leading-relaxed mb-4 max-w-2xl">
+        For parents who recognise that real psychological foundations are not built by accident.
+      </p>
+
+      <p class="font-body text-sm text-parchment/40 leading-relaxed mb-10 max-w-lg">
+        Run by Michael Kaplan (Swami Ramarishi), ASCHP-registered Wellness Counsellor (Reg.&nbsp;10559).
+        Trained in adolescent rites-of-passage and ongoing mentorship work. Online sessions worldwide.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4">
+        <a
+          href="#parental-cal"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
+        >
+          Book a Parental Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="#fit-cal"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Or start with a free 15-min fit call
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 2. OPENING POSITION ═══════════════════════════════════════════ -->
+  <!-- No section heading per spec — three positioning paragraphs direct under the hero -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <div class="space-y-6 text-muted-foreground font-body text-base md:text-lg leading-relaxed">
+        <p>
+          Most young men don't need a psychologist. What they need has gone missing from modern life: sustained, skilled mentorship from someone older who has done the inner work themselves, who can hold a real conversation about what they're actually living through, and who knows the difference between a young person finding their feet and a young person who needs more specialised care.
+        </p>
+        <p>
+          What used to be provided by extended family, mentors, elders, and structured rites of passage is now mostly absent. The cost of that absence shows up in ways that get labelled as clinical when they are often something else entirely. A young man drifting, withdrawn, irritable, struggling at school, experimenting with substances, losing his voice in his family, can be experiencing a developmental crisis that has no clinical answer. He needs someone present, capable, and consistent, who knows the terrain.
+        </p>
+        <p>
+          This work is that. It is not therapy. It is not coaching. It is the kind of mentorship that has always existed in some form, brought into a contemporary structure, grounded in counselling training and contemplative practice, with the clinical literacy to recognise when something else is needed and refer appropriately.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. WHO THIS IS FOR ════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-12">
+        Who this is for
+      </h2>
+
+      <div class="space-y-10">
+        <div class="border-l-2 border-primary/30 pl-6">
+          <p class="font-heading text-base text-header-foreground/85 mb-3">
+            If your son is going through a particularly difficult period.
+          </p>
+          <p class="font-body text-sm text-header-foreground/60 leading-relaxed">
+            Substance use, withdrawal, difficulty at school, family conflict, intense emotional volatility. These patterns are worth taking seriously. They are not, however, always a sign that something is clinically wrong. They are often a sign that the developmental support most young men need is absent, and that providing it can change the trajectory significantly. That is what this work addresses.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-primary/30 pl-6">
+          <p class="font-heading text-base text-header-foreground/85 mb-3">
+            If your son is doing well, and you want to invest in foundations that last.
+          </p>
+          <p class="font-body text-sm text-header-foreground/60 leading-relaxed">
+            The capacities that determine the rest of a young man's life, clarity, regulation, articulacy, real self-knowledge, the ability to think under pressure, are not built by accident. They are built deliberately, ideally before they are urgently needed. This work is the deliberate version of that.
+          </p>
+        </div>
+      </div>
+
+      <p class="mt-10 font-body text-sm text-header-foreground/45 leading-relaxed italic">
+        Most parents who reach out are somewhere between these two descriptions. That is the right place to be.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 4. WHAT THIS WORK ACTUALLY DEVELOPS ══════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-4">
+        What this work actually develops
+      </h2>
+      <p class="text-muted-foreground font-body text-sm leading-relaxed mb-12 max-w-2xl">
+        The substance of the work is the development of specific psychological capacities. These are not abstract goals; they are concrete capabilities that show up in how a young man thinks, feels, decides, and relates.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {capacities.map((cap) => (
+          <div class="border border-border/50 rounded-lg p-6">
+            <p class="font-heading text-sm text-foreground/85 mb-2">{cap.title}</p>
+            <p class="text-muted-foreground text-sm font-body leading-relaxed">{cap.text}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 5. HOW THE WORK IS APPROACHED ════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-10">
+        How the work is approached
+      </h2>
+
+      <div class="space-y-6 text-header-foreground/60 font-body text-sm leading-relaxed">
+        <p>
+          Sessions are conducted online via video call, weekly or fortnightly depending on what the work calls for. Each session is a conversation, though the conversation goes deeper than most. We work with whatever is actually present, not a fixed agenda.
+        </p>
+        <p>
+          Where appropriate, simple practices are introduced: breathwork, attention training, body-based awareness. These are not techniques given as homework. They are tools introduced when the moment calls for them, refined to the particular young man, and integrated into daily life. A practice that helps one young man can unsettle another. The skill is in matching the right intervention to the right person at the right time.
+        </p>
+        <p>
+          Between sessions, the young person is given space to live with what has emerged. The work is in the integration as much as in the conversation. Materials may be made specifically for them: recorded practices, written reflections, prompts. These are not generic resources; they are built for what is happening in their life now.
+        </p>
+      </div>
+
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a
+          href="/wisdom/breathwork-explained"
+          class="inline-flex items-center gap-1 text-primary/50 hover:text-primary text-xs font-body transition-colors"
+        >
+          Breathwork explained
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <span class="text-header-foreground/15 text-xs">·</span>
+        <a
+          href="/wisdom/what-is-meditation"
+          class="inline-flex items-center gap-1 text-primary/50 hover:text-primary text-xs font-body transition-colors"
+        >
+          What is meditation
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 6. WHAT MAKES THIS DIFFERENT ═════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-12">
+        What makes this different from therapy, coaching, and tutoring
+      </h2>
+
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
+        {differences.map((d) => (
+          <div class="border border-border/50 rounded-lg p-7">
+            <h3 class="font-heading text-sm text-foreground/85 mb-3">{d.title}</h3>
+            <p class="text-muted-foreground text-sm font-body leading-relaxed">{d.text}</p>
+          </div>
+        ))}
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 7. ABOUT MICHAEL ══════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mountainSummit}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/88"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-12 text-center">
+        About Michael
+      </h2>
+
+      <div class="flex flex-col md:flex-row gap-8 items-start mb-8">
+        <div class="shrink-0 mx-auto md:mx-0">
+          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-primary/20">
+            <Image
+              src={swamiPortrait}
+              alt="Michael Kaplan (Swami Ramarishi), ASCHP-registered Wellness Counsellor and developmental mentor for young men"
+              class="w-full h-full object-cover"
+              width={160}
+              height={160}
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="text-center md:text-left">
+          <p class="font-heading text-lg text-parchment/85 mb-1">
+            Michael Kaplan <span class="text-parchment/45 font-body text-sm">(Swami Ramarishi)</span>
+          </p>
+          <p class="text-primary/55 text-xs font-body tracking-wide">ASCHP Reg.&nbsp;10559 &middot; Yoga Alliance RYS&nbsp;300</p>
+        </div>
+      </div>
+
+      <div class="space-y-5 text-parchment/60 font-body text-sm leading-relaxed">
+        <p>
+          Michael trained in this work for many years under Bernard Altman, a clinical psychologist with whom he facilitated adolescent rites-of-passage weekends and ongoing mentorship groups. The model they worked with, intensive group containers held within sustained, ongoing relational mentorship, taught him what makes this kind of work genuinely safe and genuinely effective. The depth of relationship, sustained across months and years, is what allows the intensity to be useful rather than destabilising. That model shapes how he works now.
+        </p>
+        <p>
+          Through this work, Michael had the privilege of facilitating coming-of-age weekends and ongoing group spaces for hundreds of young men over several years, including in school environments, weekend rites of passage, and ongoing reflective circles. The depth and intensity of that work shaped how he understands what young men actually need at this age.
+        </p>
+        <p>
+          Alongside this, Michael trained in pranayama, hatha yoga, and meditation within established traditions, including extended periods of intensive practice in the Himalayas. He is registered with the Association for Supportive Counsellors and Holistic Practitioners (ASCHP, Reg.&nbsp;10559) and holds a Yoga Alliance RYS 300 from Triguna Yoga, Rishikesh. The inner work he asks young people to do is work he has done and continues to do himself.
+        </p>
+        <p>
+          At 25, Michael is close enough in age to remember the terrain young men are navigating, and far enough along the path to offer something useful. The combination is unusual: depth of training and lived practice, in someone who has not yet forgotten what it is like to be 17.
+        </p>
+      </div>
+
+      <div class="mt-8 flex flex-wrap gap-3">
+        <span class="px-4 py-2 border border-parchment/15 rounded-full text-xs font-body text-parchment/40 tracking-wide">ASCHP Registered, Reg.&nbsp;10559</span>
+        <span class="px-4 py-2 border border-parchment/15 rounded-full text-xs font-body text-parchment/40 tracking-wide">Yoga Alliance RYS&nbsp;300</span>
+        <span class="px-4 py-2 border border-parchment/15 rounded-full text-xs font-body text-parchment/40 tracking-wide">Online worldwide</span>
+        <span class="px-4 py-2 border border-parchment/15 rounded-full text-xs font-body text-parchment/40 tracking-wide">Currently accepting new clients</span>
+      </div>
+
+      <a
+        href="/about"
+        class="inline-flex items-center gap-1.5 text-primary/55 hover:text-primary text-sm font-body transition-colors mt-6"
+      >
+        Read more on the About page
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══ 8. PARENTAL CONSULTATION + CAL EMBED ══════════════════════════ -->
+  <section id="parental-cal" class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
+        The right starting point for parents
+      </p>
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-8">
+        Begin with a parental consultation
+      </h2>
+
+      <div class="space-y-4 text-muted-foreground font-body text-sm leading-relaxed mb-10 max-w-2xl mx-auto">
+        <p>
+          Before involving your son in any process, the right starting point is a conversation between you and Michael. A parental consultation is a 45-minute paid session, conducted online, where you have time to describe what is happening, what you are concerned about or hoping for, and explore whether this work is genuinely the right fit. Parents need to be heard before they can think clearly about their son. This is the space for that.
+        </p>
+        <p>
+          It also lets Michael hear the situation from your perspective, ask the right questions, and form a clear sense of whether this work is the right fit, or whether something else would serve your son better. Honesty about that is part of what you are paying for.
+        </p>
+      </div>
+
+      <!-- Practical details -->
+      <div class="bg-muted/20 border border-border/40 rounded-lg p-6 mb-10 max-w-2xl mx-auto">
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+          <div>
+            <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Duration</p>
+            <p class="text-sm font-heading text-foreground/75">45 minutes</p>
+          </div>
+          <div>
+            <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Cost</p>
+            <p class="text-sm font-heading text-foreground/75">R600</p>
+          </div>
+          <div>
+            <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Format</p>
+            <p class="text-sm font-heading text-foreground/75">Online video</p>
+          </div>
+          <div>
+            <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Includes</p>
+            <p class="text-sm font-heading text-foreground/75">Written summary</p>
+          </div>
+        </div>
+        <p class="text-xs text-muted-foreground/40 font-body text-center mt-4 leading-relaxed">
+          If you proceed to working with your son, the consultation fee credits toward the first month of work.
+        </p>
+      </div>
+
+      <!-- Parental Cal.com embed -->
+      <div class="border border-border/40 rounded-xl overflow-hidden">
+        <div id="cal-parental-embed" style="min-height:700px; width:100%;"></div>
+      </div>
+
+      <p class="text-muted-foreground/40 text-xs font-body text-center mt-6 leading-relaxed">
+        If a slot doesn't suit your timezone or schedule, reach out via
+        <a href="/contact" class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">the contact form</a>
+        or
+        <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">WhatsApp</a>.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 9. FOR YOUNG MEN READING DIRECTLY ════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-8">
+        If you're 18 to 25 and reading for yourself
+      </h2>
+
+      <div class="space-y-5 text-header-foreground/60 font-body text-sm leading-relaxed mb-10">
+        <p>
+          If you are reaching out for yourself rather than through a parent, the right entry point is the free 15-minute fit call. It's a chance to ask whatever feels useful, hear how the work might apply to where you are, and decide together whether to go further. There is no expectation beyond that conversation.
+        </p>
+        <p>
+          What people in their early twenties most often want from this work is a space outside family dynamics, outside friend-group dynamics, where they can think about their own life with someone who takes them seriously and brings real depth to the conversation. The work is collaborative, structured, and goes as deep as you choose to take it.
+        </p>
+      </div>
+
+      <a
+        href="#fit-cal"
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
+      >
+        Book a Free 15-min Fit Call
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ═══ 9b. FIT CALL EMBED ════════════════════════════════════════════ -->
+  <section id="fit-cal" class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
+        Free &middot; 15 minutes &middot; No obligation
+      </p>
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Not sure yet? Start with a fit call.
+      </h2>
+      <p class="text-muted-foreground/70 font-body text-sm text-center max-w-md mx-auto mb-10 leading-relaxed">
+        A short conversation to establish whether this is the right approach and the right moment. Not a session. No intake forms. Just a direct exchange to see whether to take the next step.
+      </p>
+
+      <div class="border border-border/40 rounded-xl overflow-hidden">
+        <div id="cal-fit-embed" style="min-height:700px; width:100%;"></div>
+      </div>
+
+      <p class="text-muted-foreground/40 text-xs font-body text-center mt-6 leading-relaxed">
+        Prefer to write first? <a href="/contact" class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">Send an enquiry instead.</a>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 10. SCOPE AND BOUNDARIES ════════════════════════════════════ -->
+  <section class="bg-background border-t border-border/25">
+    <div class="container mx-auto px-6 py-10 md:py-12 max-w-3xl">
+      <div class="bg-muted/25 border border-border/40 rounded-lg p-6 md:p-8">
+        <p class="text-xs text-muted-foreground/45 tracking-widest uppercase font-body mb-3">
+          Scope and what this is not
+        </p>
+        <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+          Sangham is supportive wellness counselling and developmental mentorship under South African ASCHP registration. It is not clinical psychology, psychiatry, or psychotherapy. It is not a crisis service or emergency mental health care. If a young person is in acute crisis, in danger to themselves or others, or experiencing symptoms that need clinical assessment, Michael will say so directly and refer to an appropriate professional. Honesty about scope is part of the work, and one of the reasons clinical professionals refer young people here when the right fit is developmental rather than clinical.
+        </p>
+        <a
+          href="/scope"
+          class="inline-flex items-center gap-1 text-primary/45 hover:text-primary/80 text-xs font-body mt-4 transition-colors"
+        >
+          Full scope and ethics
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 11. PRICING ══════════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        What this costs
+      </h2>
+
+      <div class="border border-primary/20 rounded-2xl p-8 md:p-10 bg-void/30 max-w-sm mx-auto w-full">
+
+        <!-- Parental consultation -->
+        <div class="flex items-start justify-between gap-4 mb-5">
+          <div>
+            <p class="font-body text-sm text-header-foreground/65 mb-0.5">Parental consultation</p>
+            <p class="font-body text-xs text-header-foreground/30">45 minutes · online · written summary included</p>
+          </div>
+          <p class="font-heading text-2xl text-header-foreground/90 shrink-0 tabular-nums">R600</p>
+        </div>
+
+        <!-- Single session -->
+        <div class="border-t border-header-foreground/8 pt-5 flex items-start justify-between gap-4 mb-5">
+          <div>
+            <p class="font-body text-sm text-header-foreground/65 mb-0.5">Single session</p>
+            <p class="font-body text-xs text-header-foreground/30">60 minutes · online via video call</p>
+          </div>
+          <p class="font-heading text-2xl text-header-foreground/90 shrink-0 tabular-nums">R850</p>
+        </div>
+
+        <!-- Five-session process -->
+        <div class="border-t border-header-foreground/8 pt-5 flex items-start justify-between gap-4">
+          <div>
+            <p class="font-body text-sm text-header-foreground/65 mb-0.5">Five-session integrative process</p>
+            <p class="font-body text-xs text-header-foreground/30">R680 per session · paid in advance</p>
+          </div>
+          <div class="text-right shrink-0">
+            <p class="font-heading text-2xl text-header-foreground/90 tabular-nums">R3,400</p>
+            <p class="text-xs text-primary/45 font-body">Save R250</p>
+          </div>
+        </div>
+
+        <!-- Notes -->
+        <div class="border-t border-header-foreground/8 pt-5 mt-5 space-y-2">
+          <p class="text-header-foreground/40 text-xs font-body leading-relaxed">
+            If cost is a genuine barrier, please mention it when reaching out. A small number of reduced-rate spaces are available, particularly for situations where the work would clearly be valuable but family circumstances make it difficult.
+          </p>
+          <p class="text-header-foreground/30 text-xs font-body leading-relaxed">
+            Most families work with Michael for somewhere between three and twelve months. The pace is set by what the work calls for.
+          </p>
+        </div>
+
+      </div>
+
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
+        <a
+          href="#parental-cal"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+        >
+          Book a Parental Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="#fit-cal"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-header-foreground/20 text-header-foreground/55 hover:border-header-foreground/40 hover:text-header-foreground/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Start with a Free Fit Call
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 12. ANONYMISED REFLECTIONS (PLACEHOLDER) ════════════════════ -->
+  <!--
+    PLACEHOLDER FOR MICHAEL:
+    Replace this entire section with 2-3 short, anonymised reflections from past
+    parents and/or young men before publishing. See the spec for exact guidance.
+    Remove this placeholder comment block once content is added.
+  -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
+        Reflections from the work
+      </h2>
+
+      <div class="border-2 border-dashed border-border/40 rounded-lg p-8 md:p-12 text-center">
+        <p class="text-xs text-muted-foreground/40 tracking-widest uppercase font-body mb-4">
+          Placeholder — for Michael to complete before publishing
+        </p>
+        <p class="text-muted-foreground/50 font-body text-sm leading-relaxed max-w-xl mx-auto">
+          Insert 2-3 short, anonymised reflections here. These do not need to be glowing — honest, specific reflections that capture what changed are more effective than generic praise. Each should be 50-100 words, attributed only as "Parent of a 16-year-old, Cape Town" or similar. With permission from past clients only.
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 13. FAQ ═══════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Common questions
+      </h2>
+      <FAQ items={faqItems} dark={true} />
+    </div>
+  </section>
+
+  <!-- ═══ 14. FINAL CTA ════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mountainSunrise}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/83"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-8">
+        Begin with a conversation.
+      </h2>
+
+      <div class="space-y-4 text-parchment/55 font-body text-sm leading-relaxed mb-10 max-w-xl mx-auto text-left md:text-center">
+        <p>
+          If you are reaching out as a parent, the right starting point is a parental consultation. Forty-five minutes, online, paid. A real conversation about what is happening with your son and whether this work is the right response.
+        </p>
+        <p>
+          If you are unsure whether to commit to that, a free 15-minute fit call is also available. Less depth, but enough to get a sense of whether to take the next step.
+        </p>
+        <p>
+          If you are a young man reading this for yourself, the fit call is the right entry point. From there, the work is between us.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center flex-wrap">
+        <a
+          href="#parental-cal"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+        >
+          Book a Parental Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="#fit-cal"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Book a Free Fit Call
+        </a>
+        <a
+          href="https://wa.me/27736738063"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-parchment/35 hover:text-parchment/60 text-sm font-body transition-colors underline underline-offset-2 decoration-parchment/15"
+        >
+          Message on WhatsApp
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ CAL.COM EMBED SCRIPTS ═════════════════════════════════════════ -->
+  <!--
+    Two distinct namespaces: "parental-consultation" and "fit-call".
+    These must not share namespace identifiers or they will conflict.
+    Both embeds load from a single Cal.com embed.js instance (the IIFE
+    checks cal.loaded so the script is only appended to <head> once).
+  -->
+  <script is:inline>
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else {
+            p(cal, ar);
+          }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+
+    // --- Parental consultation embed ---
+    Cal("init", "parental-consultation", { origin: "https://cal.com" });
+    Cal.ns["parental-consultation"]("inline", {
+      elementOrSelector: "#cal-parental-embed",
+      calLink: "sangham/parental-consultation",
+      layout: "month_view",
+    });
+    Cal.ns["parental-consultation"]("ui", {
+      theme: "auto",
+      hideEventTypeDetails: false,
+      layout: "month_view",
+    });
+    Cal.ns["parental-consultation"]("on", {
+      action: "bookingSuccessful",
+      callback: function (e) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "parental_consultation_booked",
+          cal_event_slug: "parental-consultation",
+          cal_booking_uid:
+            (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "",
+        });
+      },
+    });
+
+    // --- Fit call embed ---
+    Cal("init", "fit-call", { origin: "https://cal.com" });
+    Cal.ns["fit-call"]("inline", {
+      elementOrSelector: "#cal-fit-embed",
+      calLink: "sangham/fit",
+      layout: "month_view",
+    });
+    Cal.ns["fit-call"]("ui", {
+      theme: "auto",
+      hideEventTypeDetails: false,
+      layout: "month_view",
+    });
+    Cal.ns["fit-call"]("on", {
+      action: "bookingSuccessful",
+      callback: function (e) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({
+          event: "fit_call_booked",
+          cal_event_slug: "fit",
+          cal_booking_uid:
+            (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "",
+        });
+        window.location.href = "/thank-you-consultation";
+      },
+    });
+  </script>
+
+</BaseLayout>

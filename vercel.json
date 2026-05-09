@@ -5,6 +5,11 @@
       "has": [{ "type": "host", "value": "sangham.org" }],
       "destination": "https://www.sangham.org/:path*",
       "permanent": true
+    },
+    {
+      "source": "/counselling-for-adolescents-and-young-adults",
+      "destination": "/mentoring-for-young-men",
+      "permanent": true
     }
   ],
   "headers": [
