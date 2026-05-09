@@ -25,7 +25,6 @@ type FilterId =
 
 const filters: { id: FilterId; label: string }[] = [
   { id: 'all',             label: 'All' },
-  { id: 'start-here',      label: 'Start Here' },
   { id: 'psychology',      label: 'Psychology & Change' },
   { id: 'meditation',      label: 'Meditation' },
   { id: 'breathwork',      label: 'Breathwork & Nervous System' },
@@ -372,10 +371,9 @@ const jsonLd = [
         btn.setAttribute('aria-selected', active ? 'true' : 'false');
       });
 
-      // Show / hide featured section
+      // Show / hide featured section (only visible on All)
       if (featuredSection) {
-        featuredSection.style.display =
-          categoryId === 'all' || categoryId === 'start-here' ? '' : 'none';
+        featuredSection.style.display = categoryId === 'all' ? '' : 'none';
       }
 
       // Show / hide cards
