@@ -26,7 +26,7 @@ export const essays: Essay[] = [
   {
     id: "kings-and-queens",
     title: "You Are Not the Beggar You Think You Are",
-    excerpt: "On the strange dream most people are sleeping inside — the posture of the beggar, and what is waiting underneath it when the performing stops.",
+    excerpt: "On the strange dream most people are sleeping inside: the posture of the beggar, and what is waiting underneath it when the performing stops.",
     datePublished: "2026-05-07",
     dateLabel: "May 2026",
     category: 'essay',
