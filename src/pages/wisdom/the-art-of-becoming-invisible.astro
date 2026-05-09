@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleBadge from '../../components/ArticleBadge.astro';
 
 const jsonLd = [
   {
@@ -64,6 +65,9 @@ const jsonLd = [
       <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
         The Art of Becoming Invisible
       </h1>
+      <div class="mb-4">
+        <ArticleBadge type="essay" context="header" />
+      </div>
       <p class="font-body text-sm text-header-foreground/45 italic mb-5 leading-relaxed">
         On the unfashionable wisdom of strategic concealment, and why the wellness world is wrong about always speaking your truth.
       </p>

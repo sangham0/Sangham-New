@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleBadge from '../../components/ArticleBadge.astro';
 import { essays } from '../../data/essays';
 import { practiceGuides } from '../../data/practice-guides';
 
@@ -88,6 +89,13 @@ const jsonLd = [
       <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
         {essay.title}
       </h1>
+      <div class="mb-4">
+        <ArticleBadge
+          type={(essay.category ?? 'essay') as 'essay' | 'practice-guide'}
+          context="header"
+          showPrint={essay.category === 'practice-guide'}
+        />
+      </div>
       <div class="flex items-center gap-3 text-sm text-header-foreground/40 font-body">
         <span>{essay.dateLabel}</span>
         <span class="text-header-foreground/20">&middot;</span>

@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleBadge from '../../components/ArticleBadge.astro';
 
 const canonicalURL = 'https://www.sangham.org/wisdom/kings-and-queens';
 
@@ -76,6 +77,9 @@ const jsonLd = [
       <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
         You Are Not the Beggar You Think You Are
       </h1>
+      <div class="mb-4">
+        <ArticleBadge type="essay" context="header" />
+      </div>
       <p class="font-body text-sm text-header-foreground/45 italic mb-5 leading-relaxed">
         On the strange dream most people are sleeping inside, and what is waiting underneath it.
       </p>
