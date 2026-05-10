@@ -52,8 +52,8 @@ const jsonLd = [
       {
         '@type': 'Offer',
         name: 'Parental Consultation',
-        price: '600',
-        priceCurrency: 'ZAR',
+        price: '35',
+        priceCurrency: 'USD',
         availability: 'https://schema.org/InStock',
         description:
           '45-minute online consultation for parents. Includes a written summary with recommendations. If you proceed to working with your son, the fee credits toward the first month of work.',
@@ -480,7 +480,7 @@ const faqJsonLd = {
           </div>
           <div>
             <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Cost</p>
-            <p class="text-sm font-heading text-foreground/75">R600</p>
+            <p class="text-sm font-heading text-foreground/75">$35 <span class="text-xs font-body text-foreground/45">(~R600)</span></p>
           </div>
           <div>
             <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Format</p>
@@ -605,7 +605,10 @@ const faqJsonLd = {
             <p class="font-body text-sm text-header-foreground/65 mb-0.5">Parental consultation</p>
             <p class="font-body text-xs text-header-foreground/30">45 minutes · online · written summary included</p>
           </div>
-          <p class="font-heading text-2xl text-header-foreground/90 shrink-0 tabular-nums">R600</p>
+          <div class="text-right shrink-0">
+            <p class="font-heading text-2xl text-header-foreground/90 tabular-nums">$35</p>
+            <p class="text-xs text-primary/45 font-body">~R600</p>
+          </div>
         </div>
 
         <!-- Single session -->
@@ -662,13 +665,7 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- ═══ 12. ANONYMISED REFLECTIONS (PLACEHOLDER) ════════════════════ -->
-  <!--
-    PLACEHOLDER FOR MICHAEL:
-    Replace this entire section with 2-3 short, anonymised reflections from past
-    parents and/or young men before publishing. See the spec for exact guidance.
-    Remove this placeholder comment block once content is added.
-  -->
+  <!-- ═══ 12. REFLECTIONS ════════════════════════════════════════════════ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
@@ -676,13 +673,29 @@ const faqJsonLd = {
         Reflections from the work
       </h2>
 
-      <div class="border-2 border-dashed border-border/40 rounded-lg p-8 md:p-12 text-center">
-        <p class="text-xs text-muted-foreground/40 tracking-widest uppercase font-body mb-4">
-          Placeholder — for Michael to complete before publishing
-        </p>
-        <p class="text-muted-foreground/50 font-body text-sm leading-relaxed max-w-xl mx-auto">
-          Insert 2-3 short, anonymised reflections here. These do not need to be glowing — honest, specific reflections that capture what changed are more effective than generic praise. Each should be 50-100 words, attributed only as "Parent of a 16-year-old, Cape Town" or similar. With permission from past clients only.
-        </p>
+      <div class="space-y-6">
+
+        <figure class="border border-border/50 rounded-lg p-7">
+          <blockquote class="text-muted-foreground font-body text-sm leading-relaxed mb-4">
+            "Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we've worked through has left me feeling clearer and more at peace. I am so grateful for his availability and his dedication to helping me improve my life."
+          </blockquote>
+          <figcaption class="text-muted-foreground/45 font-body text-xs tracking-wide">Jacob S.</figcaption>
+        </figure>
+
+        <figure class="border border-border/50 rounded-lg p-7">
+          <blockquote class="text-muted-foreground font-body text-sm leading-relaxed mb-4">
+            "The continued mentorship and guidance Michael has provided for my son has helped us all enormously, and it's amazing to see how much more joyful and energised he feels after his sessions."
+          </blockquote>
+          <figcaption class="text-muted-foreground/45 font-body text-xs tracking-wide">Parent</figcaption>
+        </figure>
+
+        <figure class="border border-border/50 rounded-lg p-7">
+          <blockquote class="text-muted-foreground font-body text-sm leading-relaxed mb-4">
+            "On meeting Michael for the first time I was immediately drawn to his insightful, grounded approach. There's a depth to him that carries a wisdom beyond his years."
+          </blockquote>
+          <figcaption class="text-muted-foreground/45 font-body text-xs tracking-wide">Antony S.</figcaption>
+        </figure>
+
       </div>
 
     </div>
