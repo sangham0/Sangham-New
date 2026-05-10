@@ -22,3 +22,6 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Video files — too large for HTTPS push; deploy via Git LFS or external hosting
+public/videos/

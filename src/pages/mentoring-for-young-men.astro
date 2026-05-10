@@ -4,8 +4,10 @@ import FAQ from '../components/FAQ.astro';
 import { Image } from 'astro:assets';
 import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
 import aboveClouds from '../assets/above-clouds.jpg';
-import mountainSummit from '../assets/mountain-summit.jpg';
 import mountainSunrise from '../assets/mountain-sunrise.jpg';
+import mistyValley from '../assets/misty-valley.jpg';
+import himalayaEditA from '../assets/himalaya-edit-a.jpg';
+import himalayaEditB from '../assets/himalaya-edit-b.jpg';
 
 const canonicalURL = 'https://www.sangham.org/mentoring-for-young-men';
 
@@ -195,7 +197,7 @@ const faqJsonLd = {
       loading="eager"
       fetchpriority="high"
     />
-    <div class="absolute inset-0 bg-void/82"></div>
+    <div class="absolute inset-0 bg-void/78"></div>
     <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-3xl w-full">
 
       <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-8">
@@ -291,8 +293,17 @@ const faqJsonLd = {
   </section>
 
   <!-- ═══ 4. WHAT THIS WORK ACTUALLY DEVELOPS ══════════════════════════ -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+  <section class="relative overflow-hidden bg-background">
+    <Image
+      src={himalayaEditB}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover object-top"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-background/93"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-4xl">
 
       <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-4">
         What this work actually develops
@@ -314,8 +325,17 @@ const faqJsonLd = {
   </section>
 
   <!-- ═══ 5. HOW THE WORK IS APPROACHED ════════════════════════════════ -->
-  <section class="bg-header text-header-foreground">
-    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+  <section class="relative overflow-hidden bg-header text-header-foreground">
+    <Image
+      src={mistyValley}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-header/92"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
       <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-10">
         How the work is approached
@@ -381,9 +401,9 @@ const faqJsonLd = {
   <!-- ═══ 7. ABOUT MICHAEL ══════════════════════════════════════════════ -->
   <section class="relative overflow-hidden">
     <Image
-      src={mountainSummit}
+      src={himalayaEditA}
       alt=""
-      class="absolute inset-0 w-full h-full object-cover"
+      class="absolute inset-0 w-full h-full object-cover object-top"
       widths={[640, 1024, 1536]}
       sizes="100vw"
       loading="lazy"
@@ -666,8 +686,17 @@ const faqJsonLd = {
   </section>
 
   <!-- ═══ 12. REFLECTIONS ════════════════════════════════════════════════ -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+  <section class="relative overflow-hidden bg-background">
+    <Image
+      src={himalayaEditA}
+      alt=""
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-background/92"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
       <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
         Reflections from the work
