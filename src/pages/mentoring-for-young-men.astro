@@ -439,13 +439,15 @@ const faqJsonLd = {
 
       <div class="flex flex-col md:flex-row gap-10 items-start mb-10">
         <div class="shrink-0 mx-auto md:mx-0">
-          <div class="w-52 h-68 md:w-56 md:h-72 rounded-xl overflow-hidden border border-primary/20">
+          <div class="w-48 h-48 md:w-56 md:h-56 rounded-xl overflow-hidden border border-primary/20">
             <Image
               src={michaelPortrait}
               alt="Michael Kaplan (Swami Ramarishi), ASCHP-registered Wellness Counsellor and developmental mentor for young men"
-              class="w-full h-full object-cover object-top"
-              width={224}
-              height={288}
+              class="w-full h-full object-cover object-center"
+              widths={[192, 224, 448]}
+              sizes="(min-width: 768px) 224px, 192px"
+              width={1254}
+              height={1254}
               loading="lazy"
             />
           </div>
@@ -468,7 +470,7 @@ const faqJsonLd = {
           My path into this work started long before I formally entered counselling. As a young teenager myself, I became involved with NGOs working in adolescent development across Cape Town: Boys to Men, BoysQuest, and The Homestead Project. Across nearly a decade of involvement, I trained and worked under Bernard Altman, the clinical psychologist who founded much of this lineage of work. What began as my own search for understanding gradually evolved into a vocation.
         </p>
         <p>
-          Over time, I was entrusted with increasing responsibility, eventually stepping into youth leadership and facilitation roles. I worked with hundreds of young men from a wide range of backgrounds across Cape Town, including communities such as Ocean View, Lavender Hill, and Lotus River. Much of this work involved creating spaces where young men could speak honestly about anger, identity, fear, purpose, relationships, masculinity, family dynamics, and the pressures they were carrying internally but had no language for externally.
+          Over time, I was entrusted with increasing responsibility, eventually stepping into youth leadership and facilitation roles. I worked with hundreds of young men from a wide range of backgrounds across Cape Town, including communities such as Ocean View, Lavender Hill, and Hanover Park. Much of this work involved creating spaces where young men could speak honestly about anger, identity, fear, purpose, relationships, masculinity, family dynamics, and the pressures they were carrying internally but had no language for externally.
         </p>
         <p>
           Those years shaped me profoundly. They taught me that real change rarely comes from judgment, advice-giving, or authority. It comes through relationship, trust, careful listening, and the creation of spaces where young men can confront themselves without shame.
