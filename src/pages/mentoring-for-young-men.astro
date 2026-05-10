@@ -54,8 +54,8 @@ const jsonLd = [
       {
         '@type': 'Offer',
         name: 'Parental Consultation',
-        price: '35',
-        priceCurrency: 'USD',
+        price: '600',
+        priceCurrency: 'ZAR',
         availability: 'https://schema.org/InStock',
         description:
           '45-minute online consultation for parents. Includes a written summary with recommendations. If you proceed to working with your son, the fee credits toward the first month of work.',
@@ -210,7 +210,7 @@ const faqJsonLd = {
       </h1>
 
       <p class="font-body text-xl md:text-2xl text-parchment/70 leading-relaxed mb-4 max-w-2xl">
-        For parents who recognise that real psychological foundations are not built by accident.
+        What used to happen for young men by default no longer does. This is the deliberate version of what's missing.
       </p>
 
       <p class="font-body text-sm text-parchment/40 leading-relaxed mb-10 max-w-lg">
@@ -232,7 +232,7 @@ const faqJsonLd = {
           href="#fit-cal"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
         >
-          Or start with a free 15-min fit call
+          Start with a free 15-min fit call
         </a>
       </div>
 
@@ -253,6 +253,9 @@ const faqJsonLd = {
         <p>
           This work is that. It is not therapy. It is not coaching. It is the kind of mentorship that has always existed in some form, brought into a contemporary structure, grounded in counselling training and contemplative practice, with the clinical literacy to recognise when something else is needed and refer appropriately.
         </p>
+        <p>
+          Without this kind of work, most young men muddle through. Some find their feet eventually. Many spend years in their twenties trying to build privately what could have been built deliberately at sixteen, often after a period of difficulty that didn't have to happen the way it did. The capacities discussed below are not optional luxuries. They are the difference between a young man who matures and one who simply ages. The years between fourteen and twenty-two do not repeat.
+        </p>
       </div>
     </div>
   </section>
@@ -261,9 +264,13 @@ const faqJsonLd = {
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
 
-      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-12">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-6">
         Who this is for
       </h2>
+
+      <p class="font-body text-sm text-header-foreground/60 leading-relaxed mb-10">
+        Some parents arrive worried. Others are looking ahead. Most are some of both, and that is the right place to be.
+      </p>
 
       <div class="space-y-10">
         <div class="border-l-2 border-primary/30 pl-6">
@@ -319,6 +326,21 @@ const faqJsonLd = {
             <p class="text-muted-foreground text-sm font-body leading-relaxed">{cap.text}</p>
           </div>
         ))}
+      </div>
+
+      <!-- Concretely, what changes -->
+      <div class="mt-14 border-t border-border/30 pt-12 max-w-2xl">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-6">
+          Concretely, what changes
+        </h3>
+        <div class="space-y-4 text-muted-foreground font-body text-sm leading-relaxed">
+          <p>
+            A young man who comes in unable to talk about how he is feeling, six months in, can articulate what's happening for him without being prompted. A young man who reaches for his phone every time he feels uncomfortable, six months in, can sit with discomfort long enough to understand what it is about. A young man who couldn't make a real decision because every option felt equally true, six months in, has access to his own inner authority.
+          </p>
+          <p>
+            These are not aspirational claims. They are the kinds of shifts this work routinely produces when both sides show up.
+          </p>
+        </div>
       </div>
 
     </div>
@@ -415,39 +437,40 @@ const faqJsonLd = {
         About Michael
       </h2>
 
-      <div class="flex flex-col md:flex-row gap-8 items-start mb-8">
+      <div class="flex flex-col md:flex-row gap-10 items-start mb-10">
         <div class="shrink-0 mx-auto md:mx-0">
-          <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-primary/20">
+          <div class="w-52 h-68 md:w-56 md:h-72 rounded-xl overflow-hidden border border-primary/20">
             <Image
               src={swamiPortrait}
               alt="Michael Kaplan (Swami Ramarishi), ASCHP-registered Wellness Counsellor and developmental mentor for young men"
-              class="w-full h-full object-cover"
-              width={160}
-              height={160}
+              class="w-full h-full object-cover object-top"
+              width={224}
+              height={288}
               loading="lazy"
             />
           </div>
         </div>
-        <div class="text-center md:text-left">
-          <p class="font-heading text-lg text-parchment/85 mb-1">
-            Michael Kaplan <span class="text-parchment/45 font-body text-sm">(Swami Ramarishi)</span>
+        <div class="text-center md:text-left pt-2">
+          <p class="font-heading text-xl text-parchment/85 mb-1">
+            Michael Kaplan
           </p>
+          <p class="text-parchment/45 font-body text-sm mb-3">Swami Ramarishi</p>
           <p class="text-primary/55 text-xs font-body tracking-wide">ASCHP Reg.&nbsp;10559 &middot; Yoga Alliance RYS&nbsp;300</p>
         </div>
       </div>
 
       <div class="space-y-5 text-parchment/60 font-body text-sm leading-relaxed">
         <p>
-          Michael trained in this work for many years under Bernard Altman, a clinical psychologist with whom he facilitated adolescent rites-of-passage weekends and ongoing mentorship groups. The model they worked with, intensive group containers held within sustained, ongoing relational mentorship, taught him what makes this kind of work genuinely safe and genuinely effective. The depth of relationship, sustained across months and years, is what allows the intensity to be useful rather than destabilising. That model shapes how he works now.
+          I have been doing this work in various forms for several years. I began in Boys to Men South Africa, before founding BoysQuest and then The Homestead Project as containers for ongoing adolescent mentorship. Much of this was done alongside Bernard Altman, a clinical psychologist whose training sharpened my understanding of what makes this kind of mentorship genuinely safe and what makes it genuinely effective. During that time I worked in Ocean View, Lavender Hill, and Lotus River, facilitating rites-of-passage weekends and ongoing mentorship circles for young men in communities where the absence of consistent adult presence was most visible and most costly.
         </p>
         <p>
-          Through this work, Michael had the privilege of facilitating coming-of-age weekends and ongoing group spaces for hundreds of young men over several years, including in school environments, weekend rites of passage, and ongoing reflective circles. The depth and intensity of that work shaped how he understands what young men actually need at this age.
+          Alongside this, I have trained extensively in contemplative practice, including extended periods in India studying pranayama, meditation, and the traditions that ground them. I am registered with the Association for Supportive Counsellors and Holistic Practitioners (ASCHP, Reg.&nbsp;10559) and hold a Yoga Alliance RYS 300 from Triguna Yoga, Rishikesh. What I ask of young people is practice I have done and continue to do myself.
         </p>
         <p>
-          Alongside this, Michael trained in pranayama, hatha yoga, and meditation within established traditions, including extended periods of intensive practice in the Himalayas. He is registered with the Association for Supportive Counsellors and Holistic Practitioners (ASCHP, Reg.&nbsp;10559) and holds a Yoga Alliance RYS 300 from Triguna Yoga, Rishikesh. The inner work he asks young people to do is work he has done and continues to do himself.
+          At 25, I am close enough to the terrain young men are navigating to remember it clearly, and far enough along the path to offer something genuinely useful. The combination is unusual: sustained training and lived practice, in someone who has not yet forgotten what it is like to be 17.
         </p>
         <p>
-          At 25, Michael is close enough in age to remember the terrain young men are navigating, and far enough along the path to offer something useful. The combination is unusual: depth of training and lived practice, in someone who has not yet forgotten what it is like to be 17.
+          Whether a young person is struggling with directionlessness, emotional overwhelm, isolation, motivation, or the broader challenge of finding meaning and orientation, my aim is to offer something both compassionate and honest. A space where they can begin to understand themselves more clearly, develop greater internal stability, and move toward a more grounded relationship with their own life.
         </p>
       </div>
 
@@ -484,10 +507,10 @@ const faqJsonLd = {
 
       <div class="space-y-4 text-muted-foreground font-body text-sm leading-relaxed mb-10 max-w-2xl mx-auto">
         <p>
-          Before involving your son in any process, the right starting point is a conversation between you and Michael. A parental consultation is a 45-minute paid session, conducted online, where you have time to describe what is happening, what you are concerned about or hoping for, and explore whether this work is genuinely the right fit. Parents need to be heard before they can think clearly about their son. This is the space for that.
+          Most counsellors take a young person as a client without speaking meaningfully to the parent first. This is a different model. The counselling cannot be done well if the parent is not heard, and the parent cannot think clearly about their son until they have had a real conversation themselves. The parental consultation is the space for that.
         </p>
         <p>
-          It also lets Michael hear the situation from your perspective, ask the right questions, and form a clear sense of whether this work is the right fit, or whether something else would serve your son better. Honesty about that is part of what you are paying for.
+          Forty-five minutes, online, with time to describe what is actually happening, what you are concerned about, what you are hoping for. Time to be heard before any decision is made. It is also where Michael forms his own honest sense of whether this is the right fit for your son, or whether something else would serve him better. That honesty is part of what you are paying for, and one of the reasons clinical professionals refer families here when the right fit is developmental rather than clinical.
         </p>
       </div>
 
@@ -500,7 +523,7 @@ const faqJsonLd = {
           </div>
           <div>
             <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Cost</p>
-            <p class="text-sm font-heading text-foreground/75">$35 <span class="text-xs font-body text-foreground/45">(~R600)</span></p>
+            <p class="text-sm font-heading text-foreground/75">R600</p>
           </div>
           <div>
             <p class="text-xs text-muted-foreground/40 font-body uppercase tracking-widest mb-1">Format</p>
@@ -561,6 +584,65 @@ const faqJsonLd = {
     </div>
   </section>
 
+  <!-- ═══ 9c. WHAT WORKING TOGETHER LOOKS LIKE ═════════════════════════ -->
+  <section class="bg-background border-t border-border/25">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-4">
+        What working together looks like
+      </h2>
+      <p class="text-muted-foreground/65 font-body text-sm leading-relaxed mb-12 max-w-2xl">
+        The process adapts to what each young man needs at each stage. This is what it typically looks like.
+      </p>
+
+      <div class="space-y-8">
+
+        <div class="border-l-2 border-primary/25 pl-6">
+          <p class="font-heading text-sm text-foreground/85 mb-2">Parental consultation</p>
+          <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+            Before your son is involved in anything, you and Michael speak directly. Forty-five minutes to describe what is happening, what you are concerned about, and what you are hoping for. Michael forms a clear picture of the situation and tells you honestly whether this is the right fit, or whether something else would serve better. If you go forward, this conversation shapes how everything begins.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-primary/25 pl-6">
+          <p class="font-heading text-sm text-foreground/85 mb-2">First session</p>
+          <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+            The first session with the young man is a genuine getting-to-know-you. No intake forms, no agenda. A real conversation: what his life is actually like, what matters to him, what is hard, what he notices about himself. The aim is for him to leave feeling heard rather than assessed.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-primary/25 pl-6">
+          <p class="font-heading text-sm text-foreground/85 mb-2">First month</p>
+          <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+            Sessions are weekly or fortnightly. This period is about establishing the foundation: what this young man is actually dealing with, what capacities he most needs to build, where the entry points are. Often a simple practice is introduced: something in the breathwork or attention space that can be used between sessions.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-primary/25 pl-6">
+          <p class="font-heading text-sm text-foreground/85 mb-2">Three months in</p>
+          <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+            By this point, meaningful shifts are usually visible. How the young man speaks about himself has changed. He is more articulate about what is happening internally. Regulation is more visible. Decisions are less reactive. Parents often notice a change in how he is in the family before they hear about it from Michael.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-primary/25 pl-6">
+          <p class="font-heading text-sm text-foreground/85 mb-2">Six months and beyond</p>
+          <p class="font-body text-sm text-muted-foreground/65 leading-relaxed">
+            The deeper changes happen here. The patterns that took years to form take time to genuinely shift. Six months in, sessions are less about introducing new capacities and more about consolidating what has developed, working through what remains unresolved, and building the relationship with self-reflection that carries forward on its own.
+          </p>
+        </div>
+
+        <div class="border-l-2 border-primary/10 pl-6">
+          <p class="font-body text-sm text-muted-foreground/45 leading-relaxed italic">
+            Michael has no interest in creating dependency. The aim is for a young man to finish with a set of internal resources he did not have before: the capacity to regulate, reflect, and orient himself. When that is in place, the sessions are done. Some young men return at transitions, before university or after a difficult period. That is always welcome.
+          </p>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- ═══ 9b. FIT CALL EMBED ════════════════════════════════════════════ -->
   <section id="fit-cal" class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
@@ -609,6 +691,41 @@ const faqJsonLd = {
     </div>
   </section>
 
+  <!-- ═══ 10b. WHO THIS IS NOT THE RIGHT FIT FOR ═══════════════════════ -->
+  <section class="bg-background border-t border-border/25">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
+
+      <h2 class="font-heading text-2xl md:text-3xl text-foreground mb-10">
+        Who this is not the right fit for
+      </h2>
+
+      <div class="space-y-6 font-body text-sm text-muted-foreground/65 leading-relaxed">
+
+        <p>
+          This is not the right fit if your son is in acute clinical crisis. If he is at risk of harm to himself or others, experiencing symptoms that need clinical assessment, or has a clinical diagnosis that is currently unstable, he needs clinical care first. Michael will say so directly if he believes that is the case, and will help you find the right referral.
+        </p>
+
+        <p>
+          This is not the right fit if the primary goal is behavioural compliance. If the aim is for a young man to be more obedient, less disruptive, or easier to manage at home or at school, this is not the right approach. This process supports autonomy and self-direction. It makes young men more themselves, not more manageable.
+        </p>
+
+        <p>
+          This is not the right fit if you are hoping for fast transformation. The capacities built here take time to form. Families who expect a short intervention producing a changed young man within weeks are likely to be disappointed. Sustained engagement is required on both sides.
+        </p>
+
+        <p>
+          This is not the right fit if the young man is completely unwilling. A degree of reluctance is normal and workable. Compelled engagement is not. A young man who attends only because he has been made to, and has no interest in being there, will not benefit, and Michael will tell you so.
+        </p>
+
+        <p class="text-muted-foreground/45 italic">
+          If any of these describe your situation, the parental consultation is still worth having, even if only to think through what the right next step actually is. A conversation that helps you locate the right kind of support is not a wasted conversation.
+        </p>
+
+      </div>
+
+    </div>
+  </section>
+
   <!-- ═══ 11. PRICING ══════════════════════════════════════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
@@ -626,8 +743,7 @@ const faqJsonLd = {
             <p class="font-body text-xs text-header-foreground/30">45 minutes · online · written summary included</p>
           </div>
           <div class="text-right shrink-0">
-            <p class="font-heading text-2xl text-header-foreground/90 tabular-nums">$35</p>
-            <p class="text-xs text-primary/45 font-body">~R600</p>
+            <p class="font-heading text-2xl text-header-foreground/90 tabular-nums">R600</p>
           </div>
         </div>
 
