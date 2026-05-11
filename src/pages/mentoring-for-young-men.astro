@@ -131,8 +131,8 @@ const aboutMichaelCards = [
     title: 'Experience With Young Men',
     paragraphs: [
       'My work with young men began long before formal counselling registration.',
-      'As a teenager, I entered a deep process of mentorship, psychological work, and personal development myself under the guidance of clinical and forensic psychologist Bernard Altman through the organisation Boys to Men. Over the years, that gradually evolved into leadership, facilitation, mentorship, and direct work with large numbers of adolescent and young adult men. I also became involved with connected organisations in the same lineage — BoysQuest and The Homestead Project — each focused on different aspects of adolescent development across Cape Town.',
-      'Much of this work was with boys from at-risk communities across Cape Town, including Ocean View, Lavender Hill, and Hanover Park — young men navigating identity, emotional struggle, belonging, conflict, responsibility, direction, masculinity, and the difficult transition into adulthood.',
+      'As a teenager, I entered a deep process of mentorship, psychological work, and personal development myself under the guidance of clinical and forensic psychologist Bernard Altman through the organisation Boys to Men. Over the years, that gradually evolved into leadership, facilitation, mentorship, and direct work with large numbers of adolescent and young adult men. I also became involved with connected organisations in the same lineage (BoysQuest and The Homestead Project), each focused on different aspects of adolescent development across Cape Town.',
+      'Much of this work was with boys from at-risk communities across Cape Town, including Ocean View, Lavender Hill, and Hanover Park, young men navigating identity, emotional struggle, belonging, conflict, responsibility, direction, masculinity, and the difficult transition into adulthood.',
     ],
   },
   {
@@ -322,55 +322,14 @@ const jsonLd = [
 ---
 
 <style is:global>
-  /* Carousel scrollbar hiding */
-  .scroll-hide { scrollbar-width: none; -ms-overflow-style: none; }
-  .scroll-hide::-webkit-scrollbar { display: none; }
-
-  /* Transform carousel */
-  .c-track {
-    display: flex;
-    will-change: transform;
-    transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-  .c-slide {
-    flex: none;
-    min-width: 100%;
-    width: 100%;
-  }
-
-  /* Scroll carousel slide widths — responsive */
-  .c-slide-dev {
-    flex: none;
-    scroll-snap-align: start;
-    width: 84vw;
-  }
-  @media (min-width: 640px) {
-    .c-slide-dev { width: 280px; }
-  }
-  @media (min-width: 1024px) {
-    .c-slide-dev { width: 265px; }
-  }
-
-  .c-slide-process {
-    flex: none;
-    scroll-snap-align: start;
-    width: 88vw;
-  }
-  @media (min-width: 640px) {
-    .c-slide-process { width: 360px; }
-  }
-  @media (min-width: 1024px) {
-    .c-slide-process { width: 420px; }
-  }
-
-  /* FAQ accordion animation */
+  /* ─── FAQ accordion animation ──────────────────────────────────────── */
   details > .faq-body { animation: faqOpen 0.18s ease; }
   @keyframes faqOpen {
     from { opacity: 0; transform: translateY(-3px); }
     to   { opacity: 1; transform: translateY(0); }
   }
 
-  /* H2 accent line helper */
+  /* ─── H2 accent line ────────────────────────────────────────────────── */
   .h2-accent {
     display: block;
     width: 4rem;
@@ -378,6 +337,52 @@ const jsonLd = [
     margin-top: 1rem;
     margin-bottom: 2.5rem;
     background: rgba(180, 140, 80, 0.4);
+  }
+
+  /* ─── Swiper: base overrides ────────────────────────────────────────── */
+  /* Prevent overflow flash during slide transitions */
+  .sg-swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+
+  /* Equal-height slides: stretch all to the tallest */
+  .sg-swiper .swiper-wrapper {
+    align-items: stretch;
+  }
+  .sg-swiper .swiper-slide {
+    height: auto;
+    box-sizing: border-box;
+  }
+  /* Inner card fills its slide vertically */
+  .sg-swiper .sg-slide {
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ─── Swiper: disabled nav button ─────────────────────────────────── */
+  .sg-nav-btn.swiper-button-disabled {
+    opacity: 0.18 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ─── Swiper: pagination bullets (Sangham brand) ─────────────────── */
+  .sg-pag .swiper-pagination-bullet {
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.18);
+    opacity: 1;
+    margin: 0 3px;
+    cursor: pointer;
+    display: inline-block;
+    transition: width 0.22s ease, background 0.22s ease, opacity 0.22s ease;
+  }
+  .sg-pag .swiper-pagination-bullet-active {
+    width: 1.25rem;
+    background: rgba(180, 140, 80, 0.65);
+    opacity: 0.85;
   }
 </style>
 
@@ -391,7 +396,7 @@ const jsonLd = [
   hideStickyBar={true}
 >
 
-  <!-- ═══ 1. HERO — bg-void ════════════════════════════════════════════════ -->
+  <!-- ═══ 1. HERO : bg-void ════════════════════════════════════════════════ -->
   <section class="bg-void -mt-[72px] pt-[72px]">
     <div class="container mx-auto px-6 py-16 md:py-24 max-w-6xl">
       <div class="grid md:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
@@ -408,7 +413,7 @@ const jsonLd = [
           </h1>
 
           <p class="font-body text-base md:text-lg text-parchment/55 leading-relaxed mb-10 max-w-lg">
-            Grounded mentorship and reflective counselling for adolescent and young adult men aged 12&ndash;25 navigating direction, identity, emotional maturity, responsibility, and the transition into adulthood.
+            Grounded mentorship and reflective counselling for adolescent and young adult men aged 12-25 navigating direction, identity, emotional maturity, responsibility, and the transition into adulthood.
           </p>
 
           <!-- Pull quote 1 -->
@@ -418,7 +423,7 @@ const jsonLd = [
             </p>
           </blockquote>
 
-          <div class="space-y-3 font-body text-sm text-parchment/55 leading-relaxed mb-10">
+          <div class="space-y-3 font-body text-base text-parchment/55 leading-relaxed mb-10">
             <p>Many young men do not need to be pathologised, rescued, or endlessly managed.</p>
             <div class="pl-4 border-l border-primary/20 space-y-1.5 py-1">
               <p class="text-parchment/70">They need guidance.</p>
@@ -451,7 +456,7 @@ const jsonLd = [
           </div>
 
           <div class="flex flex-wrap gap-x-5 gap-y-1.5">
-            {['Online sessions available', 'Based in South Africa', 'Ages 12–25', 'Not a replacement for psychiatric care'].map((t) => (
+            {['Online sessions available', 'Based in South Africa', 'Ages 12-25', 'Not a replacement for psychiatric care'].map((t) => (
               <p class="text-parchment/25 text-xs font-body">{t}</p>
             ))}
           </div>
@@ -490,7 +495,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 2. PULL STATEMENT — bg-void + faint image ════════════════════════ -->
+  <!-- ═══ 2. PULL STATEMENT : bg-void + faint image ════════════════════════ -->
   <section class="relative overflow-hidden bg-void">
     <Image
       src={himalayaEditA}
@@ -509,27 +514,27 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 3. CREDIBILITY STRIP — bg-header ════════════════════════════════ -->
+  <!-- ═══ 3. CREDIBILITY STRIP : bg-header ════════════════════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-16 md:py-20 max-w-4xl">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-6 text-center sm:text-left sm:divide-x sm:divide-header-foreground/8">
         <div class="sm:px-6 first:pl-0 last:pr-0">
           <p class="font-heading text-5xl md:text-6xl text-gold-gradient mb-3 leading-none">10+</p>
-          <p class="font-body text-xs text-header-foreground/50 leading-relaxed">years working directly with adolescent and young adult men</p>
+          <p class="font-body text-sm text-header-foreground/50 leading-relaxed">years working directly with adolescent and young adult men</p>
         </div>
         <div class="sm:px-6">
           <p class="font-heading text-4xl md:text-5xl text-gold-gradient mb-3 leading-tight">Hundreds</p>
-          <p class="font-body text-xs text-header-foreground/50 leading-relaxed">of one-on-one and group sessions facilitated across Cape Town and online</p>
+          <p class="font-body text-sm text-header-foreground/50 leading-relaxed">of one-on-one and group sessions facilitated across Cape Town and online</p>
         </div>
         <div class="sm:px-6">
           <p class="font-heading text-2xl md:text-3xl text-parchment/75 mb-3 leading-snug">Trained under</p>
-          <p class="font-body text-xs text-header-foreground/50 leading-relaxed">a clinical and forensic psychologist in adolescent developmental work</p>
+          <p class="font-body text-sm text-header-foreground/50 leading-relaxed">a clinical and forensic psychologist in adolescent developmental work</p>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ═══ 4. SOMETHING IS MISSING — bg-background ══════════════════════════ -->
+  <!-- ═══ 4. SOMETHING IS MISSING : bg-background ══════════════════════════ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
@@ -539,9 +544,9 @@ const jsonLd = [
         </h2>
         <span class="h2-accent"></span>
 
-        <div class="space-y-4 font-body text-sm md:text-base text-muted-foreground/65 leading-relaxed">
+        <div class="space-y-4 font-body text-base text-muted-foreground/70 leading-relaxed">
           <p>Many parents can sense when something in their son's life is not fully settling into place, even when there is no dramatic crisis.</p>
-          <div class="pl-4 border-l border-border/35 space-y-1 py-1 text-muted-foreground/50">
+          <div class="pl-4 border-l border-border/35 space-y-1 py-1 text-muted-foreground/55">
             <p>Sometimes it appears as withdrawal.</p>
             <p>Sometimes as passivity.</p>
             <p>Sometimes as irritability, defensiveness, lack of direction, compulsive distraction, emotional shutdown, or a loss of confidence.</p>
@@ -555,16 +560,41 @@ const jsonLd = [
         Many young men today are growing older without ever truly being guided into adulthood.
       </p>
 
-      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-14">
-        {patternCards.map((card) => (
-          <div class="border border-border/30 rounded-xl p-6 bg-muted/8">
-            <p class="font-heading text-sm text-foreground/75 mb-2.5">{card.title}</p>
-            <p class="font-body text-sm text-muted-foreground/60 leading-relaxed">{card.text}</p>
+      <!-- ── Patterns carousel (Swiper) ─────────────────────────────────── -->
+      <div class="mb-14">
+        <div class="swiper sg-swiper" id="sw-patterns">
+          <div class="swiper-wrapper">
+            {patternCards.map((card, i) => (
+              <div class="swiper-slide">
+                <div class="sg-slide border border-border/35 rounded-xl p-8 md:p-12 bg-muted/10 flex flex-col">
+                  <p class="text-xs font-body tracking-widest uppercase text-primary/50 mb-4">
+                    Pattern {i + 1} of {patternCards.length}
+                  </p>
+                  <h3 class="font-heading text-2xl md:text-3xl lg:text-4xl text-foreground/85 leading-snug mb-6">
+                    {card.title}
+                  </h3>
+                  <p class="font-body text-base md:text-lg text-muted-foreground/65 leading-relaxed flex-1">
+                    {card.text}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        ))}
+        </div>
+        <!-- Nav -->
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-patterns-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/70 hover:border-border/70 transition-all" aria-label="Previous pattern">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <div id="sw-patterns-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-patterns-next" class="sg-nav-btn w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/70 hover:border-border/70 transition-all" aria-label="Next pattern">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
+          <p class="text-muted-foreground/25 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
+        </div>
       </div>
 
-      <div class="max-w-3xl space-y-4 font-body text-sm md:text-base text-muted-foreground/60 leading-relaxed border-t border-border/20 pt-10">
+      <div class="max-w-3xl space-y-4 font-body text-base text-muted-foreground/65 leading-relaxed border-t border-border/20 pt-10">
         <p>What many young men need is not endless criticism, over-management, or another system attempting to force them into performance. Nor do they necessarily need to be treated as psychologically damaged.</p>
         <p>Very often, they need something far simpler and far older: a grounded developmental relationship.</p>
       </div>
@@ -572,7 +602,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 5. A DIFFERENT WAY OF UNDERSTANDING — bg-header ══════════════════ -->
+  <!-- ═══ 5. A DIFFERENT WAY OF UNDERSTANDING : bg-header ══════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
@@ -582,13 +612,13 @@ const jsonLd = [
         </h2>
         <span class="h2-accent"></span>
 
-        <div class="space-y-4 font-body text-sm md:text-base text-header-foreground/55 leading-relaxed">
+        <div class="space-y-4 font-body text-base text-header-foreground/60 leading-relaxed">
           <p>For most of human history, the transition into adulthood did not happen in isolation. Young men were gradually shaped through responsibility, challenge, guidance, brotherhood, mentorship, embodied practice, meaningful expectations, and relationships with older men capable of helping them mature psychologically and emotionally.</p>
           <p>Today, many young men are attempting to navigate that transition largely alone. They are surrounded by stimulation, information, pressure, comparison, distraction, and performance demands, yet often lack meaningful spaces where they can slow down enough to develop genuine self-understanding, emotional steadiness, direction, and internal structure.</p>
-          <p>The structures that once made this kind of developmental support available naturally — extended family networks, close neighbourhood relationships, religious communities, mentorship from trusted non-parental adults, structured transitions into responsibility — have largely dissolved in modern life. "It takes a village" was never merely a sentiment. It was a structural reality of human development, maintained in various forms across virtually every culture for thousands of years.</p>
-          <p>That village is largely gone. What has replaced it is, primarily, the nuclear family: one or two parents carrying a developmental load that was never designed to be carried by one or two people alone. Parents are asked to be everything — provider and mentor, authority figure and emotional safe haven, boundary-setter and friend. It is a genuinely impossible position. And the young man, meanwhile, is largely left to figure out adulthood through his own efforts, peer influence, and the often contradictory signals of popular culture and social media.</p>
+          <p>The structures that once made this kind of developmental support available naturally (extended family networks, close neighbourhood relationships, religious communities, mentorship from trusted non-parental adults, structured transitions into responsibility) have largely dissolved in modern life. "It takes a village" was never merely a sentiment. It was a structural reality of human development, maintained in various forms across virtually every culture for thousands of years.</p>
+          <p>That village is largely gone. What has replaced it is, primarily, the nuclear family: one or two parents carrying a developmental load that was never designed to be carried by one or two people alone. Parents are asked to be everything: provider and mentor, authority figure and emotional safe haven, boundary-setter and friend. It is a genuinely impossible position. And the young man, meanwhile, is largely left to figure out adulthood through his own efforts, peer influence, and the often contradictory signals of popular culture and social media.</p>
           <p class="font-medium text-header-foreground/70">This is not a failure of parenting. It is a structural absence.</p>
-          <p>The role of someone outside the family — a person without the personal history, unspoken expectations, and emotional entanglement that parents naturally and unavoidably carry, yet still genuinely invested in the young man's flourishing — is an ancient and real one. Not a therapist. Not a teacher. A developmental mentor: someone capable of honest reflection, consistent accountability, and real relationship without the weight of personal investment distorting every exchange. This work is a contemporary version of that role.</p>
+          <p>The role of someone outside the family (a person without the personal history, unspoken expectations, and emotional entanglement that parents naturally and unavoidably carry, yet still genuinely invested in the young man's flourishing) is an ancient and real one. Not a therapist. Not a teacher. A developmental mentor: someone capable of honest reflection, consistent accountability, and real relationship without the weight of personal investment distorting every exchange. This work is a contemporary version of that role.</p>
           <p>In many cases, the issue is not simply motivation. It is disconnection: from self, from responsibility, from embodied presence, from meaningful challenge, and from trustworthy forms of guidance.</p>
         </div>
       </div>
@@ -611,26 +641,26 @@ const jsonLd = [
         <div class="grid md:grid-cols-3 gap-6 md:gap-8">
           <div>
             <p class="font-heading text-sm text-header-foreground/75 mb-3">Not Performance Coaching</p>
-            <p class="font-body text-xs text-header-foreground/45 leading-relaxed">
+            <p class="font-body text-sm text-header-foreground/50 leading-relaxed">
               This work is not focused on turning young men into hyper-productive achievement machines or forcing them into externally imposed identities. The goal is not performance at any cost, but the development of grounded self-awareness, responsibility, resilience, and inner stability.
             </p>
           </div>
           <div>
             <p class="font-heading text-sm text-header-foreground/75 mb-3">Not Passive Emotional Processing</p>
-            <p class="font-body text-xs text-header-foreground/45 leading-relaxed">
+            <p class="font-body text-sm text-header-foreground/50 leading-relaxed">
               While emotional reflection is important, this work is not based on endless analysis without movement or accountability. Insight must gradually become embodied through action, responsibility, communication, self-observation, and lived change.
             </p>
           </div>
           <div>
             <p class="font-heading text-sm text-header-foreground/75 mb-3">Not Spiritual Escapism</p>
-            <p class="font-body text-xs text-header-foreground/45 leading-relaxed">
+            <p class="font-body text-sm text-header-foreground/50 leading-relaxed">
               Meditation and breathwork are approached practically as tools for attention, nervous system regulation, emotional awareness, and self-observation. This work is grounded in real life: relationships, study, work, discipline, health, responsibility, and honest engagement with reality.
             </p>
           </div>
         </div>
       </div>
 
-      <div class="max-w-3xl space-y-4 font-body text-sm md:text-base text-header-foreground/55 leading-relaxed mb-10">
+      <div class="max-w-3xl space-y-4 font-body text-base text-header-foreground/60 leading-relaxed mb-10">
         <p>Many young men do not need to become somebody else entirely. They need support in becoming more deeply connected to themselves: more honest, more grounded, more capable of responsibility, more emotionally mature, and more able to consciously shape the direction of their lives.</p>
         <p>That process happens slowly through relationship, reflection, challenge, practice, and trust built over time.</p>
       </div>
@@ -645,7 +675,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 6. WHAT THIS WORK DEVELOPS — bg-background — scroll carousel ═════ -->
+  <!-- ═══ 6. WHAT THIS WORK DEVELOPS : bg-background : Swiper carousel ═════ -->
   <section class="bg-background overflow-hidden">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
@@ -654,7 +684,7 @@ const jsonLd = [
           What This Work Actually Develops
         </h2>
         <span class="h2-accent"></span>
-        <div class="space-y-3 font-body text-sm md:text-base text-muted-foreground/60 leading-relaxed">
+        <div class="space-y-3 font-body text-base text-muted-foreground/65 leading-relaxed">
           <p>This mentorship is not built around quick fixes, rigid systems, or motivational intensity. The work is gradual and relational. Over time, the aim is to help young men develop greater psychological grounding, emotional maturity, self-awareness, responsibility, and clarity in how they relate to themselves, other people, and the direction of their lives.</p>
         </div>
       </div>
@@ -663,39 +693,42 @@ const jsonLd = [
         The goal is not to manufacture a new identity. The goal is to help a young man become more deeply connected, responsible, aware, and capable within his own life.
       </p>
 
-      <!-- Scroll carousel -->
-      <div class="relative" id="carousel-dev">
-        <div class="-mx-6">
-          <div class="c-scroll flex gap-4 overflow-x-auto snap-x snap-mandatory scroll-hide px-6 pb-4">
+      <!-- ── Development carousel (Swiper) ────────────────────────────── -->
+      <div class="mb-14">
+        <div class="swiper sg-swiper" id="sw-dev">
+          <div class="swiper-wrapper">
             {developmentCards.map((card, i) => (
-              <div class="c-slide-dev rounded-xl p-6 border border-border/30 bg-muted/8 flex flex-col">
-                <span class="text-primary/25 text-xs font-body tabular-nums mb-4 block">0{i + 1}</span>
-                <p class="font-heading text-sm text-foreground/80 mb-3 leading-snug">{card.title}</p>
-                <p class="font-body text-xs text-muted-foreground/58 leading-relaxed flex-1">{card.text}</p>
+              <div class="swiper-slide">
+                <div class="sg-slide border border-border/35 rounded-xl p-8 md:p-12 bg-muted/10 flex flex-col">
+                  <span class="font-heading text-6xl md:text-7xl text-primary/15 leading-none block mb-5">
+                    0{i + 1}
+                  </span>
+                  <h3 class="font-heading text-2xl md:text-3xl text-foreground/80 leading-snug mb-5">
+                    {card.title}
+                  </h3>
+                  <p class="font-body text-base md:text-lg text-muted-foreground/65 leading-relaxed flex-1">
+                    {card.text}
+                  </p>
+                </div>
               </div>
             ))}
-            <div class="shrink-0 w-2" aria-hidden="true"></div>
           </div>
         </div>
-
-        <div class="flex items-center gap-3 mt-5 px-0">
-          <button class="c-prev w-9 h-9 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/75 hover:border-border/70 transition-all disabled:opacity-20 disabled:cursor-not-allowed" aria-label="Previous" disabled>
+        <!-- Nav -->
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-dev-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/70 hover:border-border/70 transition-all" aria-label="Previous">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
-          <div class="flex gap-2 items-center c-dots">
-            {developmentCards.map((_, i) => (
-              <button class="carousel-dot h-1.5 rounded-full transition-all duration-200 cursor-pointer focus:outline-none" style="width:0.375rem;background:rgba(255,255,255,0.2);opacity:0.3;" aria-label={`Card ${i + 1}`}></button>
-            ))}
-          </div>
-          <button class="c-next w-9 h-9 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/75 hover:border-border/70 transition-all" aria-label="Next">
+          <div id="sw-dev-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-dev-next" class="sg-nav-btn w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/70 hover:border-border/70 transition-all" aria-label="Next">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </button>
-          <p class="text-muted-foreground/25 text-xs font-body ml-auto hidden sm:block">Swipe or use arrows</p>
+          <p class="text-muted-foreground/25 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
         </div>
       </div>
 
-      <div class="max-w-3xl font-body text-sm md:text-base text-muted-foreground/60 leading-relaxed border-t border-border/20 pt-10 mt-10 mb-8">
-        <p>Different young men arrive with different struggles, personalities, temperaments, and developmental histories. The mentorship process is therefore adaptive and relational — shaped around the actual human being rather than forcing every individual into the same system or ideology.</p>
+      <div class="max-w-3xl font-body text-base text-muted-foreground/65 leading-relaxed border-t border-border/20 pt-10 mt-10 mb-8">
+        <p>Different young men arrive with different struggles, personalities, temperaments, and developmental histories. The mentorship process is therefore adaptive and relational, shaped around the actual human being rather than forcing every individual into the same system or ideology.</p>
       </div>
 
       <a href="#how-it-works" class="inline-flex items-center gap-1.5 text-primary/55 hover:text-primary text-sm font-body transition-colors">
@@ -708,7 +741,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 7. HOW THE MENTORSHIP WORKS — bg-void — scroll carousel ══════════ -->
+  <!-- ═══ 7. HOW THE MENTORSHIP WORKS : bg-void : Swiper carousel ══════════ -->
   <section id="how-it-works" class="bg-void text-parchment">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
@@ -717,7 +750,7 @@ const jsonLd = [
       </h2>
       <span class="h2-accent"></span>
 
-      <div class="space-y-4 font-body text-sm md:text-base text-parchment/55 leading-relaxed mb-8 max-w-2xl">
+      <div class="space-y-4 font-body text-base text-parchment/55 leading-relaxed mb-8 max-w-2xl">
         <p>This work is not approached as a rigid programme or one-size-fits-all system. Each young man arrives with a different personality, developmental history, temperament, family context, and set of challenges. The mentorship process therefore remains adaptive and relational while still providing clear structure, consistency, accountability, and direction.</p>
       </div>
 
@@ -728,38 +761,39 @@ const jsonLd = [
         </p>
       </blockquote>
 
-      <!-- Scroll carousel -->
-      <div class="relative overflow-hidden mb-14" id="carousel-process">
-        <div class="-mx-6">
-          <div class="c-scroll flex gap-5 overflow-x-auto snap-x snap-mandatory scroll-hide px-6 pb-4">
+      <!-- ── Process carousel (Swiper) ─────────────────────────────────── -->
+      <div class="mb-14">
+        <div class="swiper sg-swiper" id="sw-process">
+          <div class="swiper-wrapper">
             {processStages.map((stage) => (
-              <div class="c-slide-process rounded-xl p-7 border border-parchment/10 bg-header/20 flex flex-col">
-                <div class="flex items-center gap-3 mb-4">
-                  <span class="w-8 h-8 rounded-full border border-primary/35 flex items-center justify-center shrink-0">
-                    <span class="text-primary/55 text-[10px] font-body tabular-nums">{stage.stage}</span>
-                  </span>
-                  <p class="font-heading text-sm text-parchment/80 leading-snug">{stage.title}</p>
+              <div class="swiper-slide">
+                <div class="sg-slide border border-parchment/12 rounded-xl p-8 md:p-12 bg-header/20 flex flex-col">
+                  <div class="flex items-start gap-4 mb-6">
+                    <span class="font-heading text-4xl md:text-5xl text-primary/30 leading-none shrink-0">
+                      {stage.stage}
+                    </span>
+                    <h3 class="font-heading text-2xl md:text-3xl text-parchment/80 leading-snug pt-1">
+                      {stage.title}
+                    </h3>
+                  </div>
+                  <p class="font-body text-base md:text-lg text-parchment/55 leading-relaxed flex-1">
+                    {stage.text}
+                  </p>
                 </div>
-                <p class="font-body text-sm text-parchment/50 leading-relaxed">{stage.text}</p>
               </div>
             ))}
-            <div class="shrink-0 w-2" aria-hidden="true"></div>
           </div>
         </div>
-
-        <div class="flex items-center gap-3 mt-5 px-0">
-          <button class="c-prev w-9 h-9 rounded-full border border-parchment/15 flex items-center justify-center text-parchment/35 hover:text-parchment/70 hover:border-parchment/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed" aria-label="Previous" disabled>
+        <!-- Nav -->
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-process-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/20 flex items-center justify-center text-parchment/40 hover:text-parchment/70 hover:border-parchment/40 transition-all" aria-label="Previous">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
-          <div class="flex gap-2 items-center c-dots">
-            {processStages.map((_, i) => (
-              <button class="carousel-dot h-1.5 rounded-full transition-all duration-200 cursor-pointer focus:outline-none" style="width:0.375rem;background:rgba(255,255,255,0.2);opacity:0.3;" aria-label={`Stage ${i + 1}`}></button>
-            ))}
-          </div>
-          <button class="c-next w-9 h-9 rounded-full border border-parchment/15 flex items-center justify-center text-parchment/35 hover:text-parchment/70 hover:border-parchment/30 transition-all" aria-label="Next">
+          <div id="sw-process-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-process-next" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/20 flex items-center justify-center text-parchment/40 hover:text-parchment/70 hover:border-parchment/40 transition-all" aria-label="Next">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </button>
-          <p class="text-parchment/20 text-xs font-body ml-auto hidden sm:block">Swipe or use arrows</p>
+          <p class="text-parchment/20 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
         </div>
       </div>
 
@@ -774,15 +808,15 @@ const jsonLd = [
             'The process is developmental rather than crisis-driven',
             'This work is not designed as emergency psychological care or acute psychiatric intervention',
           ].map((item) => (
-            <li class="flex items-start gap-3 text-xs font-body text-parchment/45 leading-relaxed">
-              <span class="mt-1.5 w-1 h-1 rounded-full bg-primary/35 shrink-0"></span>
+            <li class="flex items-start gap-3 text-sm font-body text-parchment/50 leading-relaxed">
+              <span class="mt-2 w-1 h-1 rounded-full bg-primary/35 shrink-0"></span>
               {item}
             </li>
           ))}
         </ul>
       </div>
 
-      <div class="max-w-2xl font-body text-sm md:text-base text-parchment/55 leading-relaxed mb-8">
+      <div class="max-w-2xl font-body text-base text-parchment/55 leading-relaxed mb-8">
         <p>The aim of this work is not dependency. Over time, the goal is for the young man to develop greater internal stability, self-awareness, responsibility, emotional maturity, and capacity to consciously navigate his own life with increasing independence and integrity.</p>
       </div>
 
@@ -806,7 +840,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 8. ABOUT MICHAEL — bg-void + faint image — transform carousel ═════ -->
+  <!-- ═══ 8. ABOUT MICHAEL : bg-void + faint image : Swiper carousel ═════════ -->
   <section class="relative overflow-hidden bg-void">
     <Image
       src={himalayaEditA}
@@ -850,36 +884,36 @@ const jsonLd = [
         </div>
       </div>
 
-      <!-- Transform carousel -->
-      <div id="carousel-michael" class="mb-12">
-        <div class="overflow-hidden rounded-xl">
-          <div class="c-track">
+      <!-- ── About Michael carousel (Swiper) ──────────────────────────── -->
+      <div class="mb-12">
+        <div class="swiper sg-swiper" id="sw-michael">
+          <div class="swiper-wrapper">
             {aboutMichaelCards.map((card) => (
-              <div class="c-slide border border-parchment/8 bg-header/15 p-7 md:p-9">
-                <p class="font-heading text-[10px] text-primary/55 tracking-widest uppercase mb-5">{card.title}</p>
-                <div class="space-y-3">
-                  {card.paragraphs.map((para) => (
-                    <p class="font-body text-sm text-parchment/55 leading-relaxed">{para}</p>
-                  ))}
+              <div class="swiper-slide">
+                <div class="sg-slide border border-parchment/10 rounded-xl p-8 md:p-10 bg-header/15 flex flex-col">
+                  <p class="font-heading text-[10px] text-primary/55 tracking-widest uppercase mb-5">
+                    {card.title}
+                  </p>
+                  <div class="space-y-4 flex-1">
+                    {card.paragraphs.map((para) => (
+                      <p class="font-body text-base text-parchment/60 leading-relaxed">{para}</p>
+                    ))}
+                  </div>
                 </div>
               </div>
             ))}
           </div>
         </div>
-
-        <div class="flex items-center gap-3 mt-5">
-          <button class="c-prev w-9 h-9 rounded-full border border-parchment/15 flex items-center justify-center text-parchment/35 hover:text-parchment/70 hover:border-parchment/30 transition-all disabled:opacity-20 disabled:cursor-not-allowed" aria-label="Previous" disabled>
+        <!-- Nav -->
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-michael-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/20 flex items-center justify-center text-parchment/40 hover:text-parchment/70 hover:border-parchment/40 transition-all" aria-label="Previous">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
-          <div class="flex gap-2 items-center c-dots">
-            {aboutMichaelCards.map((_, i) => (
-              <button class="carousel-dot h-1.5 rounded-full transition-all duration-200 cursor-pointer focus:outline-none" style="width:0.375rem;background:rgba(255,255,255,0.2);opacity:0.3;" aria-label={`${aboutMichaelCards[i].title}`}></button>
-            ))}
-          </div>
-          <button class="c-next w-9 h-9 rounded-full border border-parchment/15 flex items-center justify-center text-parchment/35 hover:text-parchment/70 hover:border-parchment/30 transition-all" aria-label="Next">
+          <div id="sw-michael-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-michael-next" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/20 flex items-center justify-center text-parchment/40 hover:text-parchment/70 hover:border-parchment/40 transition-all" aria-label="Next">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </button>
-          <span class="text-parchment/20 text-xs font-body ml-auto hidden sm:block" id="michael-count">1 of {aboutMichaelCards.length}</span>
+          <p class="text-parchment/20 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
         </div>
       </div>
 
@@ -900,55 +934,57 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 9. REFLECTIONS — bg-background — transform carousel ══════════════ -->
+  <!-- ═══ 9. REFLECTIONS : bg-background : Swiper carousel ═════════════════ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
-      <!-- Section header + editorial image -->
-      <div class="grid md:grid-cols-[1fr_auto] gap-10 items-end mb-14">
-        <div>
-          <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
-            Reflections From Parents and Young Men
-          </h2>
-          <span class="h2-accent"></span>
-          <div class="space-y-3 font-body text-sm text-muted-foreground/60 leading-relaxed max-w-lg">
-            <p>Mentorship and reflective counselling are deeply relational forms of work. The experience is often difficult to fully capture in brief descriptions because much of the value emerges slowly through trust, honesty, reflection, challenge, and sustained guidance over time.</p>
-            <p>The reflections below are shared with permission from parents, young men, and colleagues who have directly experienced aspects of this work.</p>
-          </div>
+      <!-- Section header : full width, waterfall as small right-floated accent -->
+      <div class="mb-14 max-w-3xl">
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-foreground leading-tight">
+          Reflections From Parents and Young Men
+        </h2>
+        <span class="h2-accent"></span>
+        <div class="space-y-3 font-body text-base text-muted-foreground/65 leading-relaxed">
+          <p>Mentorship and reflective counselling are deeply relational forms of work. The experience is often difficult to fully capture in brief descriptions because much of the value emerges slowly through trust, honesty, reflection, challenge, and sustained guidance over time.</p>
+          <p>The reflections below are shared with permission from parents, young men, and colleagues who have directly experienced aspects of this work.</p>
         </div>
-        <div class="rounded-xl overflow-hidden shrink-0 w-full md:w-[180px] lg:w-[200px] aspect-[4/3] md:aspect-auto md:h-[150px] lg:h-[170px]">
-          <Image
-            src={documentaryWaterfall}
-            alt="Two people in quiet conversation by a waterfall"
-            class="w-full h-full object-cover object-center opacity-75"
-            widths={[360, 480]}
-            sizes="(min-width: 768px) 200px, 100vw"
-            width={960}
-            height={720}
-            loading="lazy"
-          />
+        <!-- Waterfall as a small subordinate accent -->
+        <div class="mt-6 flex items-center gap-4">
+          <div class="w-[80px] h-[60px] rounded-lg overflow-hidden shrink-0 opacity-60">
+            <Image
+              src={documentaryWaterfall}
+              alt="Two people in quiet conversation by a waterfall"
+              class="w-full h-full object-cover object-center"
+              widths={[160, 240]}
+              sizes="80px"
+              width={960}
+              height={720}
+              loading="lazy"
+            />
+          </div>
+          <p class="text-xs font-body text-muted-foreground/35 leading-relaxed italic">The reflections below are shared with permission.</p>
         </div>
       </div>
 
-      <!-- Transform carousel — 1 testimonial at a time -->
-      <div id="carousel-testimonials" class="mb-10">
-        <div class="overflow-hidden rounded-xl">
-          <div class="c-track">
+      <!-- ── Testimonials carousel (Swiper) ───────────────────────────── -->
+      <div class="mb-10">
+        <div class="swiper sg-swiper" id="sw-testimonials">
+          <div class="swiper-wrapper">
             {testimonials.map((t) => (
-              <div class="c-slide">
-                <figure class="border border-border/30 bg-muted/8 relative overflow-hidden">
-                  <!-- Category indicator strip -->
+              <div class="swiper-slide">
+                <figure class="sg-slide border border-border/30 bg-muted/8 rounded-xl overflow-hidden relative flex flex-col">
                   <div class={`absolute top-0 left-0 right-0 h-[2px] ${t.indicatorBg}`}></div>
-                  <div class="p-8 md:p-10">
-                    <!-- Category label ABOVE quote only -->
-                    <p class="text-[10px] font-body tracking-widest uppercase text-muted-foreground/40 mb-6">{t.category}</p>
-                    <blockquote class="font-body text-base md:text-lg text-muted-foreground/70 leading-relaxed mb-6 max-w-2xl">
+                  <div class="p-8 md:p-12 flex flex-col flex-1">
+                    <p class="text-[11px] font-body tracking-widest uppercase text-muted-foreground/40 mb-8">
+                      {t.category}
+                    </p>
+                    <blockquote class="font-heading text-xl md:text-2xl text-foreground/75 leading-relaxed italic mb-8 flex-1">
                       &ldquo;{t.quote}&rdquo;
                     </blockquote>
                     <figcaption>
                       {t.name
-                        ? <p class="font-body text-xs text-muted-foreground/35">{t.name}</p>
-                        : <p class="font-body text-xs text-muted-foreground/30 italic">Shared with permission</p>
+                        ? <p class="font-body text-sm text-muted-foreground/40">{t.name}</p>
+                        : <p class="font-body text-sm text-muted-foreground/30 italic">Shared with permission</p>
                       }
                     </figcaption>
                   </div>
@@ -957,21 +993,17 @@ const jsonLd = [
             ))}
           </div>
         </div>
-
-        <div class="flex items-center gap-3 mt-5">
-          <button class="c-prev w-9 h-9 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/40 hover:text-foreground/75 hover:border-border/70 transition-all disabled:opacity-20 disabled:cursor-not-allowed" aria-label="Previous testimonial" disabled>
+        <!-- Nav -->
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-testimonials-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/70 hover:border-border/70 transition-all" aria-label="Previous testimonial">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
           </button>
-          <div class="flex gap-2 items-center c-dots">
-            {testimonials.map((_, i) => (
-              <button class="carousel-dot h-1.5 rounded-full transition-all duration-200 cursor-pointer focus:outline-none" style="width:0.375rem;background:rgba(255,255,255,0.2);opacity:0.3;" aria-label={`Testimonial ${i + 1}`}></button>
-            ))}
-          </div>
-          <button class="c-next w-9 h-9 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/40 hover:text-foreground/75 hover:border-border/70 transition-all" aria-label="Next testimonial">
+          <div id="sw-testimonials-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-testimonials-next" class="sg-nav-btn w-10 h-10 rounded-full border border-border/40 flex items-center justify-center text-muted-foreground/45 hover:text-foreground/70 hover:border-border/70 transition-all" aria-label="Next testimonial">
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </button>
-          <a href="/testimonials" class="ml-auto inline-flex items-center gap-1 text-primary/45 hover:text-primary/80 text-xs font-body transition-colors">
-            View All Reflections
+          <a href="/testimonials" class="ml-2 inline-flex items-center gap-1 text-primary/45 hover:text-primary/80 text-xs font-body transition-colors hidden sm:flex">
+            View all reflections
             <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </a>
         </div>
@@ -980,7 +1012,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 10. WHO THIS WORK IS FOR — bg-header ════════════════════════════ -->
+  <!-- ═══ 10. WHO THIS WORK IS FOR : bg-header ════════════════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
@@ -989,7 +1021,7 @@ const jsonLd = [
       </h2>
       <span class="h2-accent"></span>
 
-      <div class="space-y-3 font-body text-sm text-header-foreground/55 leading-relaxed mb-8 max-w-2xl">
+      <div class="space-y-3 font-body text-base text-header-foreground/60 leading-relaxed mb-8 max-w-2xl">
         <p>Not every young man needs this kind of mentorship, and not every situation is appropriate for this form of work. The process works best where there is at least some openness toward reflection, relationship, honesty, and gradual developmental change over time.</p>
       </div>
 
@@ -1000,11 +1032,11 @@ const jsonLd = [
       <div class="grid md:grid-cols-2 gap-4 mb-12">
         <div class="border border-header-foreground/10 rounded-xl p-7 bg-void/12">
           <p class="font-heading text-sm text-header-foreground/75 mb-2">Who This Work Is Often Helpful For</p>
-          <p class="font-body text-xs text-header-foreground/40 mb-5">This work may be supportive for adolescent or young adult men aged 12–25 who are:</p>
+          <p class="font-body text-sm text-header-foreground/45 mb-5">This work may be supportive for adolescent or young adult men aged 12-25 who are:</p>
           <ul class="space-y-3">
             {whoForPoints.map((point) => (
-              <li class="flex items-start gap-3 text-xs font-body text-header-foreground/52 leading-relaxed">
-                <span class="mt-1.5 w-1 h-1 rounded-full bg-primary/45 shrink-0"></span>
+              <li class="flex items-start gap-3 text-sm font-body text-header-foreground/58 leading-relaxed">
+                <span class="mt-2 w-1 h-1 rounded-full bg-primary/45 shrink-0"></span>
                 {point}
               </li>
             ))}
@@ -1013,11 +1045,11 @@ const jsonLd = [
 
         <div class="border border-header-foreground/8 rounded-xl p-7 bg-void/8">
           <p class="font-heading text-sm text-header-foreground/65 mb-2">Who This Work May Not Be The Right Fit For</p>
-          <p class="font-body text-xs text-header-foreground/38 mb-5">This mentorship may not be appropriate where:</p>
+          <p class="font-body text-sm text-header-foreground/42 mb-5">This mentorship may not be appropriate where:</p>
           <ul class="space-y-3">
             {whoNotForPoints.map((point) => (
-              <li class="flex items-start gap-3 text-xs font-body text-header-foreground/45 leading-relaxed">
-                <span class="mt-1.5 w-1 h-1 rounded-full bg-header-foreground/20 shrink-0"></span>
+              <li class="flex items-start gap-3 text-sm font-body text-header-foreground/50 leading-relaxed">
+                <span class="mt-2 w-1 h-1 rounded-full bg-header-foreground/20 shrink-0"></span>
                 {point}
               </li>
             ))}
@@ -1025,13 +1057,13 @@ const jsonLd = [
         </div>
       </div>
 
-      <div class="max-w-2xl space-y-3 font-body text-sm text-header-foreground/50 leading-relaxed mb-8 border-t border-header-foreground/8 pt-8">
+      <div class="max-w-2xl space-y-3 font-body text-base text-header-foreground/55 leading-relaxed mb-8 border-t border-header-foreground/8 pt-8">
         <p>There is no single formula that works for every young man. In some cases, mentorship creates meaningful developmental shifts. In others, different forms of support may be more appropriate. Part of working ethically is being honest about that distinction.</p>
       </div>
 
       <div class="border border-header-foreground/8 rounded-xl p-7 bg-void/15 mb-10 max-w-2xl">
         <p class="font-heading text-sm text-header-foreground/70 mb-4">What Parents Can Realistically Expect</p>
-        <div class="space-y-3 font-body text-xs text-header-foreground/47 leading-relaxed">
+        <div class="space-y-3 font-body text-sm text-header-foreground/52 leading-relaxed">
           <p>Parents should not expect immediate transformation, obedience, or personality change. What this work aims to support is something slower and deeper: greater honesty, self-awareness, emotional grounding, responsibility, communication, direction, and psychological maturity developed gradually over time.</p>
           <p>In many cases, the earliest changes are perceptible rather than dramatic: more openness, less defensiveness, greater consistency, improved communication, increased self-reflection, or a renewed sense of engagement with life.</p>
         </div>
@@ -1051,7 +1083,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 11. PRICING — bg-background ══════════════════════════════════════ -->
+  <!-- ═══ 11. PRICING : bg-background ══════════════════════════════════════ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
@@ -1060,7 +1092,7 @@ const jsonLd = [
       </h2>
       <span class="h2-accent"></span>
 
-      <div class="space-y-3 font-body text-sm md:text-base text-muted-foreground/60 leading-relaxed mb-8 max-w-2xl">
+      <div class="space-y-3 font-body text-base text-muted-foreground/65 leading-relaxed mb-8 max-w-2xl">
         <p>Meaningful developmental work requires consistency, trust, honesty, and time. This mentorship is therefore approached as a committed relational process rather than a once-off intervention or quick behavioural solution.</p>
       </div>
 
@@ -1070,33 +1102,42 @@ const jsonLd = [
 
       <div class="grid md:grid-cols-3 gap-4 mb-10">
 
-        <!-- Parent Consultation — R600 / ~$35 USD -->
+        <!-- Parent Consultation : R600 / ~$35 USD -->
         <div class="border border-border/40 rounded-xl p-7">
-          <p class="text-primary/45 text-[10px] tracking-widest uppercase font-body mb-4">Parent Consultation</p>
-          <p class="font-heading text-3xl text-foreground/85 mb-1">R600</p>
-          <p class="text-muted-foreground/40 text-xs font-body mb-1">45 min &middot; Online</p>
-          <p class="text-muted-foreground/35 text-[10px] font-body mb-5">Charged as approx. $35 USD via PayPal</p>
-          <p class="font-body text-xs text-muted-foreground/58 leading-relaxed">
+          <p class="text-primary/45 text-[10px] tracking-widest uppercase font-body mb-5">Parent Consultation</p>
+          <div class="flex items-start gap-1 mb-2">
+            <span class="font-heading text-2xl text-foreground/60 leading-none mt-1.5">R</span>
+            <span class="font-heading text-5xl md:text-6xl text-foreground/85 leading-none">600</span>
+          </div>
+          <p class="text-muted-foreground/45 text-sm font-body mb-1">45 min &middot; Online</p>
+          <p class="text-muted-foreground/35 text-xs font-body mb-6">Charged as approx. $35 USD via PayPal</p>
+          <p class="font-body text-sm text-muted-foreground/62 leading-relaxed">
             A dedicated initial conversation for parents to discuss concerns, ask questions, understand the mentorship approach, and explore whether this work may be the right fit.
           </p>
         </div>
 
         <!-- Ongoing Sessions -->
         <div class="border border-primary/25 rounded-xl p-7 bg-muted/5">
-          <p class="text-primary/50 text-[10px] tracking-widest uppercase font-body mb-4">Ongoing Mentorship Sessions</p>
-          <p class="font-heading text-3xl text-foreground/85 mb-1">R850 <span class="text-sm text-muted-foreground/45 font-body">/ session</span></p>
-          <p class="text-muted-foreground/40 text-xs font-body mb-5">60 min &middot; Weekly or fortnightly &middot; Online</p>
-          <p class="font-body text-xs text-muted-foreground/58 leading-relaxed">
+          <p class="text-primary/50 text-[10px] tracking-widest uppercase font-body mb-5">Ongoing Mentorship Sessions</p>
+          <div class="flex items-start gap-1 mb-2">
+            <span class="font-heading text-2xl text-foreground/60 leading-none mt-1.5">R</span>
+            <span class="font-heading text-5xl md:text-6xl text-foreground/85 leading-none">850</span>
+          </div>
+          <p class="text-muted-foreground/45 text-sm font-body mb-6">60 min &middot; Weekly or fortnightly &middot; Online</p>
+          <p class="font-body text-sm text-muted-foreground/62 leading-relaxed">
             Individual mentorship and reflective counselling sessions focused on emotional development, responsibility, self-awareness, direction, groundedness, and practical life integration.
           </p>
         </div>
 
         <!-- 5-Session -->
         <div class="border border-border/40 rounded-xl p-7">
-          <p class="text-primary/45 text-[10px] tracking-widest uppercase font-body mb-4">5-Session Commitment</p>
-          <p class="font-heading text-3xl text-foreground/85 mb-1">R3&thinsp;500</p>
-          <p class="text-primary/40 text-xs font-body mb-5">R700 per session</p>
-          <p class="font-body text-xs text-muted-foreground/58 leading-relaxed">
+          <p class="text-primary/45 text-[10px] tracking-widest uppercase font-body mb-5">5-Session Commitment</p>
+          <div class="flex items-start gap-1 mb-2">
+            <span class="font-heading text-2xl text-foreground/60 leading-none mt-1.5">R</span>
+            <span class="font-heading text-5xl md:text-6xl text-foreground/85 leading-none">3&thinsp;500</span>
+          </div>
+          <p class="text-primary/45 text-sm font-body mb-6">R700 per session</p>
+          <p class="font-body text-sm text-muted-foreground/62 leading-relaxed">
             For families seeking a more consistent developmental container. Five 60-minute sessions intended for ongoing developmental work.
           </p>
         </div>
@@ -1106,13 +1147,13 @@ const jsonLd = [
       <div class="grid md:grid-cols-2 gap-4 mb-10">
         <div class="border border-border/30 rounded-xl p-7 bg-muted/6">
           <p class="font-heading text-sm text-foreground/70 mb-3">Why Consistency Matters</p>
-          <p class="font-body text-xs text-muted-foreground/58 leading-relaxed">
+          <p class="font-body text-sm text-muted-foreground/62 leading-relaxed">
             Trust, self-awareness, emotional regulation, responsibility, and behavioural change tend to deepen gradually through consistent relational work over time. For this reason, mentorship is generally approached as an ongoing process rather than a single conversation intended to resolve everything at once.
           </p>
         </div>
         <div class="border border-border/30 rounded-xl p-7 bg-muted/6">
           <p class="font-heading text-sm text-foreground/70 mb-3">Accessibility and Fit</p>
-          <p class="font-body text-xs text-muted-foreground/58 leading-relaxed">
+          <p class="font-body text-sm text-muted-foreground/62 leading-relaxed">
             Where possible, some flexibility may occasionally be available depending on individual circumstances. The priority is ensuring that the work remains grounded, committed, and genuinely beneficial. The parent consultation is often the best first step: it allows space to slow down, discuss concerns carefully, and determine whether this approach feels appropriate.
           </p>
         </div>
@@ -1139,7 +1180,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 12. PARENTAL CONSULTATION BOOKING — bg-header ════════════════════ -->
+  <!-- ═══ 12. PARENTAL CONSULTATION BOOKING : bg-header ════════════════════ -->
   <section id="parental-cal" class="bg-header text-header-foreground border-t border-header-foreground/8">
     <div class="container mx-auto px-6 pt-16 pb-10 md:pt-20 md:pb-12 max-w-3xl">
 
@@ -1154,10 +1195,10 @@ const jsonLd = [
         <p class="text-header-foreground/40 font-body text-xs leading-relaxed mb-3">
           Charged as approximately $35 USD via PayPal at the prevailing exchange rate.
         </p>
-        <p class="text-header-foreground/50 font-body text-sm leading-relaxed">
+        <p class="text-header-foreground/55 font-body text-base leading-relaxed">
           A space for parents to discuss concerns, ask questions, and determine whether this work may be the right fit for your son and family.
         </p>
-        <p class="text-header-foreground/38 font-body text-xs mt-2 leading-relaxed">
+        <p class="text-header-foreground/40 font-body text-sm mt-2 leading-relaxed">
           The parent consultation is often the best first step. It allows space to slow down, discuss concerns carefully, understand the process more clearly, and determine whether this mentorship approach feels appropriate for the young man involved.
         </p>
       </div>
@@ -1176,17 +1217,17 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 13. FIT CALL — bg-background (distinct from above) ═══════════════ -->
+  <!-- ═══ 13. FIT CALL : bg-background (distinct from above) ═══════════════ -->
   <section id="fit-cal" class="bg-background border-t border-border/15">
     <div class="container mx-auto px-6 py-12 md:py-16 max-w-3xl">
       <div class="max-w-md mb-8">
         <p class="text-primary/35 text-[10px] tracking-widest uppercase font-body mb-2">
-          Free &middot; 15 minutes &middot; For young men 18–25 reading for themselves
+          Free &middot; 15 minutes &middot; For young men 18-25 reading for themselves
         </p>
         <h3 class="font-heading text-xl md:text-2xl text-foreground/70 mb-2">
           Start with a Free 15-Minute Fit Call
         </h3>
-        <p class="text-muted-foreground/45 font-body text-xs leading-relaxed">
+        <p class="text-muted-foreground/50 font-body text-sm leading-relaxed">
           A short conversation to see whether the approach and timing feel right. No commitment beyond the call.
         </p>
       </div>
@@ -1196,12 +1237,12 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 14. SCOPE — bg-background ════════════════════════════════════════ -->
+  <!-- ═══ 14. SCOPE : bg-background ════════════════════════════════════════ -->
   <section class="bg-background border-t border-border/15">
     <div class="container mx-auto px-6 py-8 max-w-3xl">
       <div class="bg-muted/15 border border-border/25 rounded-lg p-6">
         <p class="text-[10px] text-muted-foreground/35 tracking-widest uppercase font-body mb-2.5">Scope and what this is not</p>
-        <p class="font-body text-sm text-muted-foreground/55 leading-relaxed">
+        <p class="font-body text-sm text-muted-foreground/58 leading-relaxed">
           Sangham is supportive wellness counselling and developmental mentorship registered under the ASCHP. It is not clinical psychology, psychiatry, or psychotherapy. It is not a crisis service or emergency mental health care. If a young person is in acute crisis, is at risk, or requires clinical assessment, Michael will say so directly and refer to an appropriate professional. Honesty about scope is part of the work.
         </p>
         <a href="/scope" class="inline-flex items-center gap-1 text-primary/40 hover:text-primary/70 text-xs font-body mt-3.5 transition-colors">
@@ -1212,7 +1253,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 15. FAQ — bg-header ═══════════════════════════════════════════════ -->
+  <!-- ═══ 15. FAQ : bg-header ═══════════════════════════════════════════════ -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
 
@@ -1223,7 +1264,7 @@ const jsonLd = [
         <span class="h2-accent" style="margin-top:0"></span>
       </div>
 
-      <div class="font-body text-sm text-header-foreground/50 leading-relaxed mb-6 max-w-xl mx-auto text-center">
+      <div class="font-body text-base text-header-foreground/55 leading-relaxed mb-6 max-w-xl mx-auto text-center">
         <p>Parents often arrive with thoughtful questions, uncertainty, caution, or concern before beginning any mentorship process. That is entirely understandable.</p>
       </div>
 
@@ -1242,7 +1283,7 @@ const jsonLd = [
             </summary>
             <div class="faq-body pb-5 pr-6 space-y-3">
               {item.a.map((para) => (
-                <p class="font-body text-sm text-header-foreground/47 leading-relaxed">{para}</p>
+                <p class="font-body text-base text-header-foreground/52 leading-relaxed">{para}</p>
               ))}
             </div>
           </details>
@@ -1270,7 +1311,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 16. FINAL CTA — bg-void + very faint mountain ════════════════════ -->
+  <!-- ═══ 16. FINAL CTA : bg-void + very faint mountain ════════════════════ -->
   <section class="relative bg-void overflow-hidden">
     <Image
       src={documentaryMountain}
@@ -1296,9 +1337,9 @@ const jsonLd = [
       </blockquote>
 
       <!-- Tightened reflective paragraphs (~200 words) -->
-      <div class="space-y-4 font-body text-sm text-parchment/50 leading-relaxed mb-10 max-w-xl mx-auto">
+      <div class="space-y-4 font-body text-base text-parchment/55 leading-relaxed mb-10 max-w-xl mx-auto">
         <p>Today, many young men are attempting to navigate the passage into adulthood while increasingly isolated from the kinds of grounded relationships, structured transitions, and communal support that once helped shape psychological maturity. That isolation is not a personal failure. It is a structural one.</p>
-        <p>For some young men, the presence of a steady, honest, developmentally focused relationship becomes an important turning point — not because somebody "fixes" them, but because they gradually begin relating to themselves, their emotions, and their lives differently.</p>
+        <p>For some young men, the presence of a steady, honest, developmentally focused relationship becomes an important turning point, not because somebody "fixes" them, but because they gradually begin relating to themselves, their emotions, and their lives differently.</p>
       </div>
 
       <div class="border-t border-parchment/10 pt-10 mb-10 max-w-xl mx-auto text-center">
@@ -1306,7 +1347,7 @@ const jsonLd = [
         <p class="font-heading text-lg md:text-xl text-parchment/45 leading-snug">The goal is greater honesty, grounding, maturity, and the capacity to consciously participate in one's own life.</p>
       </div>
 
-      <div class="space-y-3 font-body text-sm text-parchment/42 leading-relaxed mb-14 max-w-xl mx-auto">
+      <div class="space-y-3 font-body text-base text-parchment/45 leading-relaxed mb-14 max-w-xl mx-auto">
         <p>If you are carrying concern for your son, the parent consultation exists as a space to begin that conversation carefully and thoughtfully. There is no pressure toward ongoing commitment. Only an opportunity to explore whether this work may be the right fit.</p>
       </div>
 
@@ -1327,7 +1368,7 @@ const jsonLd = [
       </div>
 
       <div class="flex flex-wrap justify-center gap-x-6 gap-y-2 mb-8">
-        {['Online mentorship available', 'Based in South Africa', 'ASCHP Registered Wellness Counsellor', 'Ages 12–25'].map((t) => (
+        {['Online mentorship available', 'Based in South Africa', 'ASCHP Registered Wellness Counsellor', 'Ages 12-25'].map((t) => (
           <p class="text-parchment/18 text-xs font-body">{t}</p>
         ))}
       </div>
@@ -1392,121 +1433,45 @@ const jsonLd = [
     });
   </script>
 
-  <!-- ═══ CAROUSEL SCRIPTS — DOMContentLoaded ══════════════════════════════ -->
-  <script is:inline>
-    document.addEventListener('DOMContentLoaded', function () {
-      'use strict';
+  <!-- ═══ SWIPER CAROUSEL INITIALISATION ══════════════════════════════════ -->
+  <script>
+    import Swiper from 'swiper';
+    import { Navigation, Pagination, A11y, Keyboard } from 'swiper/modules';
+    import 'swiper/css';
+    import 'swiper/css/navigation';
+    import 'swiper/css/pagination';
+    import 'swiper/css/a11y';
 
-      // ── Transform carousel (1 slide at a time) ───────────────────────────
-      function initTransform(id) {
-        var root = document.getElementById(id);
-        if (!root) return;
-        var track = root.querySelector('.c-track');
-        var slides = Array.from(root.querySelectorAll('.c-slide'));
-        var prev = root.querySelector('.c-prev');
-        var next = root.querySelector('.c-next');
-        var dots = Array.from(root.querySelectorAll('.carousel-dot'));
-        var countEl = root.querySelector('#michael-count');
-        if (!track || !slides.length) return;
+    function makeSw(
+      id: string,
+      prevId: string,
+      nextId: string,
+      pagId: string
+    ) {
+      return new Swiper('#' + id, {
+        modules: [Navigation, Pagination, A11y, Keyboard],
+        slidesPerView: 1,
+        loop: false,
+        autoplay: false,
+        keyboard: { enabled: true },
+        a11y: { enabled: true },
+        navigation: {
+          prevEl: '#' + prevId,
+          nextEl: '#' + nextId,
+        },
+        pagination: {
+          el: '#' + pagId,
+          clickable: true,
+        },
+      });
+    }
 
-        var current = 0;
-        var total = slides.length;
-        var touchX = 0;
-
-        function setDot(i, active) {
-          dots[i].style.width = active ? '1.25rem' : '0.375rem';
-          dots[i].style.opacity = active ? '0.85' : '0.28';
-          dots[i].style.background = active ? 'rgba(180,140,80,0.65)' : 'rgba(255,255,255,0.18)';
-        }
-
-        function goTo(i) {
-          var prev_idx = current;
-          current = Math.max(0, Math.min(i, total - 1));
-          track.style.transform = 'translateX(-' + (current * 100) + '%)';
-          if (prev) prev.disabled = current === 0;
-          if (next) next.disabled = current === total - 1;
-          dots.forEach(function (d, j) { setDot(j, j === current); });
-          if (countEl) countEl.textContent = (current + 1) + ' of ' + total;
-        }
-
-        // Touch swipe
-        track.addEventListener('touchstart', function (e) { touchX = e.touches[0].clientX; }, { passive: true });
-        track.addEventListener('touchend', function (e) {
-          var dx = touchX - e.changedTouches[0].clientX;
-          if (dx > 40) goTo(current + 1);
-          else if (dx < -40) goTo(current - 1);
-        }, { passive: true });
-
-        if (prev) prev.addEventListener('click', function () { goTo(current - 1); });
-        if (next) next.addEventListener('click', function () { goTo(current + 1); });
-        dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
-
-        goTo(0);
-      }
-
-      // ── Scroll carousel (multiple slides visible) ────────────────────────
-      function initScroll(id) {
-        var root = document.getElementById(id);
-        if (!root) return;
-        var track = root.querySelector('.c-scroll');
-        var slides = Array.from(root.querySelectorAll('[class*="c-slide-"]'));
-        var prev = root.querySelector('.c-prev');
-        var next = root.querySelector('.c-next');
-        var dots = Array.from(root.querySelectorAll('.carousel-dot'));
-        if (!track || !slides.length) return;
-
-        var current = 0;
-        var total = slides.length;
-
-        function getSlideWidth() {
-          if (!slides[0]) return 280;
-          var style = getComputedStyle(track);
-          var gap = parseFloat(style.gap || style.columnGap || '16');
-          return slides[0].offsetWidth + gap;
-        }
-
-        function setDot(i, active) {
-          if (!dots[i]) return;
-          dots[i].style.width = active ? '1.25rem' : '0.375rem';
-          dots[i].style.opacity = active ? '0.85' : '0.28';
-          dots[i].style.background = active ? 'rgba(180,140,80,0.65)' : 'rgba(255,255,255,0.18)';
-        }
-
-        function goTo(i) {
-          current = Math.max(0, Math.min(i, total - 1));
-          track.scrollTo({ left: current * getSlideWidth(), behavior: 'smooth' });
-          if (prev) prev.disabled = current === 0;
-          if (next) next.disabled = current >= total - 1;
-          dots.forEach(function (d, j) { setDot(j, j === current); });
-        }
-
-        // Sync on scroll (handles touch swipe natively)
-        track.addEventListener('scroll', function () {
-          var sw = getSlideWidth();
-          if (sw <= 0) return;
-          var idx = Math.round(track.scrollLeft / sw);
-          idx = Math.max(0, Math.min(idx, total - 1));
-          if (idx !== current) {
-            current = idx;
-            if (prev) prev.disabled = current === 0;
-            if (next) next.disabled = current >= total - 1;
-            dots.forEach(function (d, j) { setDot(j, j === current); });
-          }
-        }, { passive: true });
-
-        if (prev) prev.addEventListener('click', function () { goTo(current - 1); });
-        if (next) next.addEventListener('click', function () { goTo(current + 1); });
-        dots.forEach(function (d, i) { d.addEventListener('click', function () { goTo(i); }); });
-
-        goTo(0);
-      }
-
-      // Initialise all four carousels
-      initTransform('carousel-testimonials');
-      initTransform('carousel-michael');
-      initScroll('carousel-dev');
-      initScroll('carousel-process');
-    });
+    // Initialise all five carousels
+    makeSw('sw-patterns',     'sw-patterns-prev',     'sw-patterns-next',     'sw-patterns-pag');
+    makeSw('sw-dev',          'sw-dev-prev',          'sw-dev-next',          'sw-dev-pag');
+    makeSw('sw-process',      'sw-process-prev',      'sw-process-next',      'sw-process-pag');
+    makeSw('sw-michael',      'sw-michael-prev',      'sw-michael-next',      'sw-michael-pag');
+    makeSw('sw-testimonials', 'sw-testimonials-prev', 'sw-testimonials-next', 'sw-testimonials-pag');
   </script>
 
 </BaseLayout>
