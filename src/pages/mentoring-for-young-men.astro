@@ -333,11 +333,11 @@ const jsonLd = [
     height: 1px;
     margin-top: 1rem;
     margin-bottom: 2.5rem;
-    background: rgba(180, 140, 80, 0.4);
+    background: rgba(212, 169, 92, 0.55);  /* #D4A95C, saturated gold */
   }
-  /* Slightly more saturated on the pale Register 3 backgrounds */
+  /* Darker variant on the pale Register 3 backgrounds for contrast */
   .sg-r3 .h2-accent {
-    background: rgba(180, 140, 80, 0.55);
+    background: rgba(168, 124, 53, 0.7);   /* #A87C35, gold-dark for light bg */
   }
 
   /* ─── Section transitions ───────────────────────────────────────────── */
@@ -448,6 +448,20 @@ const jsonLd = [
     --color-header: hsl(217 26% 22%);          /* ~ #2A364B */
     --color-parchment: hsl(220 18% 93%);       /* ~ #E8EBF1, cool off-white */
     --color-header-foreground: hsl(220 18% 93%);
+
+    /* E1 — gold token unification (page-scoped). Eliminates the muted
+       brand gold (hsl(42 52% 42%) ~ #A67E36) and the pale gold-light
+       (hsl(42 50% 52%) ~ #C29A53) that were appearing simultaneously
+       on the page. Single saturated value used everywhere; hover state
+       derived ~12% brighter; dark variant for borders. Button text
+       contract flips to dark (foreground) so cream-on-saturated-gold
+       contrast (~1.9:1, fails AA) becomes dark-on-saturated-gold
+       (~6.7:1, AA pass) on every CTA. */
+    --color-primary: #D4A95C;
+    --color-primary-foreground: #0F1422;
+    --color-gold: #D4A95C;
+    --color-gold-light: #E6BE76;
+    --color-gold-dark: #B88A3C;
   }
 
   /* B1 — overlay opacities on image-background sections. The dark overlays
@@ -456,6 +470,19 @@ const jsonLd = [
   .m-page .sg-overlay-strong { background-color: rgb(15 20 32 / 0.88); }  /* was 0.96 */
   .m-page .sg-overlay-med    { background-color: rgb(15 20 32 / 0.78); }  /* was 0.83 */
   .m-page .sg-overlay-light  { background-color: rgb(15 20 32 / 0.62); }  /* was 0.72 */
+
+  /* E1 — gold contrast floor. After lifting --color-primary to the
+     saturated #D4A95C, low-opacity text-primary uses (decorative
+     kickers, accent text at /22-/55) need a baseline that still hits
+     AA against the new dark base. The hand-tuned RGB values below
+     give ~4.7:1 at the lower tier and ~5.5:1 at the mid tier on void;
+     full-opacity uses (text-primary, text-primary/60+) need no floor. */
+  .m-page :is(.text-primary\/22, .text-primary\/30, .text-primary\/35,
+              .text-primary\/38, .text-primary\/40, .text-primary\/42, .text-primary\/45)
+  { color: rgb(187 161 121) !important; }
+  .m-page :is(.text-primary\/48, .text-primary\/50, .text-primary\/52,
+              .text-primary\/55, .text-primary\/58)
+  { color: rgb(204 175 121) !important; }
 
   /* B2 — text contrast floors. Tailwind's text-parchment/N renders as
      color-mix(parchment, transparent, N%). On low-alpha values this drops
@@ -556,11 +583,18 @@ const jsonLd = [
     }
   }
 
-  /* B6 — section H2 minimum sizing. Most H2s already use text-3xl md:text-4xl
-     lg:text-5xl (30/36/48), which is in the brief's range. The outliers are
-     the two H2s at text-2xl md:text-3xl (24/30); lift those to 28/32 mobile
-     and 40/48 desktop so no section heading falls below the demographic
-     threshold. */
+  /* B6 / E2 — section H2 minimum sizing. Most H2s already use text-3xl
+     md:text-4xl lg:text-5xl (30/36/48); brief target 28-32 mobile and
+     40-48 desktop. Mobile 30 is within range. Desktop md=36 is below
+     the 40-floor; lift it to 40 at the md breakpoint so tablet-width
+     headings hit the brief's lower bound. lg sizing (48) already at
+     the top. The two outlier H2s at text-2xl md:text-3xl (24/30) are
+     lifted to 28/40 by a more specific rule below. */
+  @media (min-width: 768px) {
+    .m-page section h2.font-heading.md\:text-4xl {
+      font-size: 40px;
+    }
+  }
   .m-page section h2.font-heading.text-2xl {
     font-size: 28px;
   }
@@ -617,11 +651,11 @@ const jsonLd = [
     <div class="container mx-auto px-6 py-16 md:py-24 max-w-6xl">
       <div class="grid md:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
 
-        <div class="order-2 md:order-1">
+        <div class="md:order-1">
           <p class="text-primary/40 text-xs tracking-widest uppercase font-body mb-8">
             Sangham &middot; Online Sessions Worldwide
           </p>
-          <h1 class="font-heading text-4xl md:text-5xl lg:text-[3.25rem] text-parchment/95 leading-tight mb-8">
+          <h1 class="font-heading text-[40px] sm:text-5xl md:text-6xl lg:text-7xl text-parchment/95 leading-[1.05] mb-8">
             A Different Kind of Support{' '}<br class="hidden sm:block" /><span class="text-gold-gradient">for Young Men</span>
           </h1>
           <p class="font-body text-base md:text-lg text-parchment/60 leading-relaxed mb-10 max-w-lg">
@@ -670,7 +704,7 @@ const jsonLd = [
           </div>
         </div>
 
-        <div class="order-1 md:order-2 flex justify-center md:justify-end">
+        <div class="md:order-2 mt-10 md:mt-0 flex justify-center md:justify-end">
           <div class="w-full max-w-[200px] md:max-w-[230px] lg:max-w-[250px]">
             <div class="rounded-xl overflow-hidden mb-4 border border-parchment/8">
               <div class="aspect-[4/5] overflow-hidden">
@@ -961,7 +995,7 @@ const jsonLd = [
 
       <!-- Session structure -->
       <div class="border border-parchment/12 rounded-xl p-7 bg-[#070B14]/45 mb-12">
-        <p class="font-heading text-xs text-parchment/50 tracking-widest uppercase mb-5">Typical Session Structure</p>
+        <h4 class="font-heading text-[15px] md:text-[17px] text-parchment/70 tracking-[0.18em] uppercase mb-5">Typical Session Structure</h4>
         <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3">
           {[
             'Sessions are typically held online',
@@ -1038,25 +1072,25 @@ const jsonLd = [
 
       <!-- What This Work Is: three blocks -->
       <div class="border border-[#1A1F2E]/12 rounded-2xl p-8 md:p-10 bg-[#1A1F2E]/5 mb-12">
-        <h3 class="font-heading text-xs text-[#A87C35] mb-8 tracking-widest uppercase">
+        <h3 class="font-heading text-[15px] md:text-[17px] text-[#A87C35] mb-8 tracking-[0.18em] uppercase">
           What This Work Is
         </h3>
-        <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        <div class="grid md:grid-cols-3 gap-8 md:gap-10">
           <div>
-            <p class="font-heading text-sm text-[#0F1422] mb-3">Grounded Developmental Work</p>
-            <p class="font-body text-sm text-[#1A1F2E]/72 leading-relaxed">
+            <h4 class="font-heading text-[20px] md:text-[24px] text-[#0F1422] leading-snug mb-3">Grounded Developmental Work</h4>
+            <p class="font-body text-[15px] md:text-base text-[#1A1F2E]/72 leading-relaxed">
               The aim is grounded self-awareness, responsibility, resilience, and inner stability, rather than hyper-productivity or an externally imposed identity.
             </p>
           </div>
           <div>
-            <p class="font-heading text-sm text-[#0F1422] mb-3">Reflection That Lands in Action</p>
-            <p class="font-body text-sm text-[#1A1F2E]/72 leading-relaxed">
+            <h4 class="font-heading text-[20px] md:text-[24px] text-[#0F1422] leading-snug mb-3">Reflection That Lands in Action</h4>
+            <p class="font-body text-[15px] md:text-base text-[#1A1F2E]/72 leading-relaxed">
               Emotional reflection matters, and so does what comes from it. Insight gradually becomes embodied through action, communication, self-observation, and lived change.
             </p>
           </div>
           <div>
-            <p class="font-heading text-sm text-[#0F1422] mb-3">Contemplative Practice as a Practical Tool</p>
-            <p class="font-body text-sm text-[#1A1F2E]/72 leading-relaxed">
+            <h4 class="font-heading text-[20px] md:text-[24px] text-[#0F1422] leading-snug mb-3">Contemplative Practice as a Practical Tool</h4>
+            <p class="font-body text-[15px] md:text-base text-[#1A1F2E]/72 leading-relaxed">
               Meditation and breathwork serve attention, nervous system regulation, and self-observation. The work stays anchored in real life: relationships, study, work, health, and honest engagement with reality.
             </p>
           </div>
@@ -1420,7 +1454,7 @@ const jsonLd = [
       </div>
 
       <div class="border border-parchment/10 rounded-xl p-7 bg-header/25 mb-10 max-w-2xl">
-        <p class="font-heading text-sm text-parchment/72 mb-4">What Parents Can Realistically Expect</p>
+        <h4 class="font-heading text-[20px] md:text-[24px] text-parchment/85 leading-snug mb-4">What Parents Can Realistically Expect</h4>
         <div class="space-y-3 font-body text-sm text-parchment/55 leading-relaxed">
           <p>What this work supports is something slower and deeper than immediate transformation: greater honesty, emotional grounding, responsibility, and psychological maturity, developed gradually.</p>
           <p>The earliest changes are usually perceptible rather than dramatic: more openness, less defensiveness, greater consistency, increased self-reflection, or a renewed engagement with life.</p>
@@ -1522,7 +1556,7 @@ const jsonLd = [
             <div class="w-px flex-1 bg-[#1A1F2E]/10 mt-3"></div>
           </div>
           <div class="pt-1 pb-2">
-            <p class="text-[#A87C35] text-[10px] tracking-[0.14em] uppercase font-body mb-2">Parent Consultation</p>
+            <h4 class="text-[#A87C35] text-[15px] md:text-[17px] tracking-[0.12em] uppercase font-heading mb-2">Parent Consultation</h4>
             <div class="flex items-baseline gap-1 mb-1">
               <span class="font-heading text-lg text-[#0F1422]/50">R</span>
               <span class="font-heading text-4xl text-[#0F1422] leading-none">600</span>
@@ -1544,7 +1578,7 @@ const jsonLd = [
             <div class="w-px flex-1 bg-[#1A1F2E]/10 mt-3"></div>
           </div>
           <div class="pt-1 pb-2">
-            <p class="text-[#A87C35] text-[10px] tracking-[0.14em] uppercase font-body mb-2">Individual Sessions</p>
+            <h4 class="text-[#A87C35] text-[15px] md:text-[17px] tracking-[0.12em] uppercase font-heading mb-2">Individual Sessions</h4>
             <div class="flex items-baseline gap-1 mb-1">
               <span class="font-heading text-lg text-[#0F1422]/50">R</span>
               <span class="font-heading text-4xl text-[#0F1422] leading-none">850</span>
@@ -1565,7 +1599,7 @@ const jsonLd = [
             </div>
           </div>
           <div class="pt-1">
-            <p class="text-[#A87C35] text-[10px] tracking-[0.14em] uppercase font-body mb-2">5-Session Commitment</p>
+            <h4 class="text-[#A87C35] text-[15px] md:text-[17px] tracking-[0.12em] uppercase font-heading mb-2">5-Session Commitment</h4>
             <div class="flex items-baseline gap-1 mb-1">
               <span class="font-heading text-lg text-[#0F1422]/50">R</span>
               <span class="font-heading text-4xl text-[#0F1422] leading-none">3&thinsp;400</span>
@@ -1714,7 +1748,7 @@ const jsonLd = [
         {faqItems.map((item) => (
           <details class="group py-0">
             <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none text-header-foreground/70 hover:text-header-foreground/92 transition-colors select-none">
-              <span class="font-heading text-sm">{item.q}</span>
+              <span class="font-heading text-base md:text-lg leading-snug">{item.q}</span>
               <svg class="w-3.5 h-3.5 shrink-0 text-primary/38 transition-transform duration-200 group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
               </svg>
