@@ -569,6 +569,34 @@ const jsonLd = [
       font-size: 40px;
     }
   }
+
+  /* D3 — carousel slide heading sizing. The three card carousels
+     (patterns, development, process) all use text-xl md:text-2xl
+     lg:text-[26px] for the slide h3, which renders 20/24/26 — small
+     for the parental demographic. Lift to 22 mobile, 28 desktop so the
+     card title reads as the visual anchor it's meant to be. */
+  .m-page .swiper-slide h3.font-heading {
+    font-size: 22px !important;
+    line-height: 1.25;
+  }
+  @media (min-width: 768px) {
+    .m-page .swiper-slide h3.font-heading {
+      font-size: 28px !important;
+    }
+  }
+
+  /* D5 — saturated gold for h2 headings. The default text-gold-gradient
+     uses muted Sangham brand gold (hsl(42 52% 42%)) which doesn't have
+     enough contrast against the new (lifted) dark base. Re-tint the
+     gradient inside .m-page to the pull-gold tone for proper visibility.
+     Site-wide token untouched. */
+  .m-page .text-gold-gradient {
+    background: linear-gradient(135deg, #DBAE5E, #D4A95C, #B88A3C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
 </style>
 
 <BaseLayout
@@ -594,8 +622,7 @@ const jsonLd = [
             Sangham &middot; Online Sessions Worldwide
           </p>
           <h1 class="font-heading text-4xl md:text-5xl lg:text-[3.25rem] text-parchment/95 leading-tight mb-8">
-            A Different Kind of Support<br class="hidden sm:block" />
-            <span class="text-gold-gradient">for Young Men</span>
+            A Different Kind of Support{' '}<br class="hidden sm:block" /><span class="text-gold-gradient">for Young Men</span>
           </h1>
           <p class="font-body text-base md:text-lg text-parchment/60 leading-relaxed mb-10 max-w-lg">
             Grounded mentorship and reflective counselling for adolescent and young adult men aged 12-25 navigating direction, identity, emotional maturity, responsibility, and the transition into adulthood.
@@ -703,16 +730,16 @@ const jsonLd = [
     <div class="container mx-auto px-6 py-16 md:py-20 max-w-5xl">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-header-foreground/8">
         <div class="sm:pr-10 xl:pr-16">
-          <p class="font-heading text-5xl md:text-6xl text-gold-gradient mb-3 leading-none">10+</p>
-          <p class="font-body text-sm text-header-foreground/55 leading-relaxed">years working directly with adolescent and young adult men</p>
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl pull-gold mb-3 leading-none">10+</p>
+          <p class="font-body text-[15px] md:text-[16px] text-header-foreground/68 leading-relaxed">years working directly with adolescent and young adult men</p>
         </div>
         <div class="sm:px-10 xl:px-16">
-          <p class="font-heading text-4xl md:text-5xl text-gold-gradient mb-3 leading-tight">Hundreds</p>
-          <p class="font-body text-sm text-header-foreground/55 leading-relaxed">of one-on-one and group sessions facilitated across Cape Town and online</p>
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl pull-gold mb-3 leading-none">Hundreds</p>
+          <p class="font-body text-[15px] md:text-[16px] text-header-foreground/68 leading-relaxed">of one-on-one and group sessions facilitated across Cape Town and online</p>
         </div>
         <div class="sm:pl-10 xl:pl-16">
-          <p class="font-heading text-2xl md:text-3xl text-parchment/75 mb-3 leading-snug">Trained under</p>
-          <p class="font-body text-sm text-header-foreground/55 leading-relaxed">a clinical and forensic psychologist in adolescent developmental work</p>
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl pull-gold mb-3 leading-none tracking-tight">Trained under</p>
+          <p class="font-body text-[15px] md:text-[16px] text-header-foreground/68 leading-relaxed">a clinical and forensic psychologist in adolescent developmental work</p>
         </div>
       </div>
     </div>
@@ -725,7 +752,7 @@ const jsonLd = [
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
       <div class="max-w-3xl mb-14">
-        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-parchment/90 leading-tight">
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight">
           Something Is Missing For Many Young Men
         </h2>
         <span class="h2-accent"></span>
@@ -816,9 +843,14 @@ const jsonLd = [
             {developmentCards.map((card, i) => (
               <div class="swiper-slide">
                 <div class="sg-slide border border-header-foreground/12 rounded-xl p-8 md:p-12 bg-void/25 flex flex-col">
-                  <span class="font-heading text-6xl md:text-7xl text-primary/20 leading-none block mb-5">
-                    0{i + 1}
-                  </span>
+                  <div class="mb-5">
+                    <p class="font-heading text-[32px] md:text-[40px] leading-none pull-gold mb-1 tabular-nums">
+                      0{i + 1}
+                    </p>
+                    <p class="text-[11px] md:text-[12px] font-body tracking-[0.18em] uppercase text-primary/55">
+                      {i + 1} of {developmentCards.length}
+                    </p>
+                  </div>
                   <h3 class="font-heading text-xl md:text-2xl lg:text-[26px] text-header-foreground/85 leading-snug mb-5">
                     {card.title}
                   </h3>
@@ -900,7 +932,7 @@ const jsonLd = [
               <div class="swiper-slide">
                 <div class="sg-slide border border-parchment/15 rounded-xl p-8 md:p-12 bg-[#070B14]/55 flex flex-col">
                   <div class="flex items-start gap-4 mb-6">
-                    <span class="font-heading text-4xl md:text-5xl text-primary/35 leading-none shrink-0">
+                    <span class="font-heading text-[32px] md:text-[40px] pull-gold leading-none shrink-0 tabular-nums">
                       {stage.stage}
                     </span>
                     <h3 class="font-heading text-xl md:text-2xl lg:text-[26px] text-parchment/88 leading-snug pt-1">
@@ -1207,7 +1239,7 @@ const jsonLd = [
     <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
       <div class="mb-12">
-        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-parchment/92 leading-tight mb-4">
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight mb-4">
           Reflections From Parents and Young Men
         </h2>
         <span class="h2-accent"></span>
@@ -1425,7 +1457,7 @@ const jsonLd = [
     <div class="absolute inset-0 bg-[#070B14]/75"></div>
     <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl">
 
-      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-parchment/92 leading-tight max-w-2xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight max-w-2xl">
         Who This Is Not The Right Fit For
       </h2>
       <span class="h2-accent"></span>
@@ -1584,22 +1616,22 @@ const jsonLd = [
     <div class="container mx-auto px-6 pt-16 pb-10 md:pt-20 md:pb-12 max-w-3xl">
 
       <div class="mb-10 max-w-xl">
-        <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-4">Parent consultation &middot; Paid &middot; 45 minutes</p>
-        <h2 class="font-heading text-2xl md:text-3xl text-parchment/90 mb-3">
+        <p class="text-primary/55 text-xs tracking-widest uppercase font-body mb-4">Parent consultation &middot; Paid &middot; 45 minutes</p>
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight mb-4">
           Book a Parent Consultation
         </h2>
-        <p class="text-parchment/60 font-body text-sm leading-relaxed mb-2">
+        <p class="text-parchment/72 font-body text-base leading-relaxed mb-2">
           R600 &middot; 45 minutes &middot; Online
         </p>
-        <p class="text-parchment/42 font-body text-xs leading-relaxed mb-3">
+        <p class="text-parchment/55 font-body text-sm leading-relaxed mb-4">
           Charged as approximately $35 USD via PayPal at the prevailing exchange rate.
         </p>
-        <p class="text-parchment/58 font-body text-base leading-relaxed">
+        <p class="text-parchment/68 font-body text-base leading-relaxed">
           A space for parents to slow down, discuss concerns, ask questions, and determine whether this work may be the right fit for your son and family.
         </p>
       </div>
 
-      <p class="text-parchment/65 font-body text-base leading-relaxed mb-8 max-w-xl">
+      <p class="text-parchment/70 font-body text-base leading-relaxed mb-8 max-w-xl">
         Reaching out is not a failure. It is the response a thoughtful parent makes when they recognise that no one or two people can provide everything a young person needs to grow well. Mentorship is not a replacement for the relationship you have with your son. It is the addition of an outside perspective at a stage of life where outside perspective has always mattered.
       </p>
 
@@ -1607,7 +1639,7 @@ const jsonLd = [
         <div id="cal-parental-embed"></div>
       </div>
 
-      <p class="text-parchment/30 text-xs font-body leading-relaxed">
+      <p class="text-parchment/50 text-sm font-body leading-relaxed">
         If a slot doesn't suit your timezone or schedule, reach out via
         <a href="/contact" class="text-primary/55 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/15">the contact form</a>
         or
