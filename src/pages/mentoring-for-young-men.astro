@@ -434,6 +434,143 @@ const jsonLd = [
     width: 100%;
     border: 0;
   }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     READABILITY / CONTRAST PASS (B1-B6), scoped to this page only
+     Targets the 50-65 parental demographic on mobile; lifts base luminance,
+     cools and brightens text, increases minimum type sizes, and saturates
+     gold for pull statements only. Site-wide tokens untouched.
+  ═══════════════════════════════════════════════════════════════════════ */
+
+  /* B1 — lighter dark base. Redefined inside .m-page so site-wide tokens
+     are untouched. void becomes a softer blue-grey; header lifts to a
+     slightly-paler variant for the existing "two-tier dark" rhythm. */
+  .m-page {
+    --color-void: hsl(218 32% 15%);            /* ~ #1A2333 */
+    --color-header: hsl(217 26% 22%);          /* ~ #2A364B */
+    --color-parchment: hsl(220 18% 93%);       /* ~ #E8EBF1, cool off-white */
+    --color-header-foreground: hsl(220 18% 93%);
+  }
+
+  /* B1 — overlay opacities on image-background sections. The dark overlays
+     used to sit at 72-96%; with the lighter base the 96% felt nearly black.
+     Soften by a few points so the image still anchors but doesn't crush. */
+  .m-page .sg-overlay-strong { background-color: rgb(15 20 32 / 0.88); }  /* was 0.96 */
+  .m-page .sg-overlay-med    { background-color: rgb(15 20 32 / 0.78); }  /* was 0.83 */
+  .m-page .sg-overlay-light  { background-color: rgb(15 20 32 / 0.62); }  /* was 0.72 */
+
+  /* B2 — text contrast floors. Tailwind's text-parchment/N renders as
+     color-mix(parchment, transparent, N%). On low-alpha values this drops
+     below WCAG AA on the new base; here we lift the floor for the very
+     dim opacities the original design used as decorative greys. The hand-
+     picked target tiers are primary ≈ #E8EBF0 (~7:1 on new base), secondary
+     ≈ #B8C0CC (~4.7:1), tertiary ≈ #8A94A3 (~4.6:1). */
+  .m-page :is(.text-parchment\/20, .text-parchment\/22, .text-parchment\/25,
+              .text-header-foreground\/20, .text-header-foreground\/22, .text-header-foreground\/25)
+  { color: rgb(138 148 163) !important; }
+  .m-page :is(.text-parchment\/30, .text-parchment\/35, .text-parchment\/38, .text-parchment\/40,
+              .text-header-foreground\/25, .text-header-foreground\/30, .text-header-foreground\/35, .text-header-foreground\/40)
+  { color: rgb(155 164 178) !important; }
+  .m-page :is(.text-parchment\/42, .text-parchment\/45, .text-parchment\/48, .text-parchment\/50,
+              .text-header-foreground\/42, .text-header-foreground\/45, .text-header-foreground\/50)
+  { color: rgb(174 182 195) !important; }
+
+  /* B3 — minimum font sizes. Lifts the smallest utility classes used in
+     this page so no rendered text falls below 13px. Specificity (0,2,0)
+     wins over Tailwind's single-class utilities. */
+  .m-page .text-\[10px\] { font-size: 13px !important; letter-spacing: 0.14em; }
+  .m-page .text-xs       { font-size: 14px !important; }
+  .m-page .text-sm       { font-size: 15px !important; line-height: 1.55; }
+  @media (min-width: 768px) {
+    .m-page .text-sm     { font-size: 16px !important; }
+  }
+  .m-page .text-base     { font-size: 17px !important; line-height: 1.65; }
+  @media (min-width: 768px) {
+    .m-page .text-base   { font-size: 18px !important; }
+  }
+  .m-page .text-\[17px\] { font-size: 18px !important; line-height: 1.65; }
+  @media (min-width: 768px) {
+    .m-page .text-\[17px\] { font-size: 19px !important; }
+  }
+  /* Carousel slide bodies use text-[17px] md:text-lg; lift the md:text-lg too. */
+  @media (min-width: 768px) {
+    .m-page .swiper-slide .md\:text-lg { font-size: 20px !important; line-height: 1.65; }
+  }
+
+  /* B4 — saturated gold for pull statements only. Applied via the
+     .pull-gold class on the specific paragraphs the brief enumerates. */
+  .m-page .pull-gold {
+    color: #D4A95C;
+  }
+
+  /* B5 — pagination dots: larger visual, generous tap target, saturated
+     gold active state. The visual lives in ::after so the bullet itself
+     can be a 24/28px transparent click target on mobile. !important is
+     needed because the existing rules earlier in this block use a direct
+     background on the bullet. */
+  .m-page .sg-pag {
+    padding: 16px 0;
+  }
+  .m-page .sg-pag .swiper-pagination-bullet {
+    position: relative;
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 5px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    opacity: 1 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .m-page .sg-pag .swiper-pagination-bullet::after {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: rgba(232, 235, 240, 0.55);
+    transition: width 0.22s ease, height 0.22s ease, background 0.22s ease;
+  }
+  .m-page .sg-pag .swiper-pagination-bullet:hover::after {
+    background: rgba(232, 235, 240, 0.85);
+  }
+  .m-page .sg-pag .swiper-pagination-bullet-active::after {
+    width: 18px;
+    height: 14px;
+    border-radius: 7px;
+    background: #D4A95C;
+  }
+  @media (max-width: 767px) {
+    .m-page .sg-pag .swiper-pagination-bullet {
+      width: 28px !important;
+      height: 28px !important;
+      margin: 0 6px !important;
+    }
+    .m-page .sg-pag .swiper-pagination-bullet::after {
+      width: 16px;
+      height: 16px;
+    }
+    .m-page .sg-pag .swiper-pagination-bullet-active::after {
+      width: 20px;
+      height: 16px;
+      border-radius: 8px;
+    }
+  }
+
+  /* B6 — section H2 minimum sizing. Most H2s already use text-3xl md:text-4xl
+     lg:text-5xl (30/36/48), which is in the brief's range. The outliers are
+     the two H2s at text-2xl md:text-3xl (24/30); lift those to 28/32 mobile
+     and 40/48 desktop so no section heading falls below the demographic
+     threshold. */
+  .m-page section h2.font-heading.text-2xl {
+    font-size: 28px;
+  }
+  @media (min-width: 768px) {
+    .m-page section h2.font-heading.text-2xl.md\:text-3xl {
+      font-size: 40px;
+    }
+  }
 </style>
 
 <BaseLayout
@@ -445,6 +582,7 @@ const jsonLd = [
   minimalNav={true}
   hideStickyBar={true}
 >
+<div class="m-page">
 
   <!-- ══════════════════════════════════════════════════════════════════════
        1. HERO — Dark Base (bg-void)
@@ -554,7 +692,7 @@ const jsonLd = [
     />
     <div class="absolute inset-0 bg-[#070B14]/72"></div>
     <div class="relative z-10 container mx-auto px-6 py-40 md:py-56 max-w-4xl text-center">
-      <p class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl text-parchment/92 leading-tight tracking-tight">
+      <p class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl pull-gold leading-tight tracking-tight">
         The years between twelve and twenty-five do not repeat.
       </p>
     </div>
@@ -616,9 +754,14 @@ const jsonLd = [
             {patternCards.map((card, i) => (
               <div class="swiper-slide">
                 <div class="sg-slide border border-parchment/12 rounded-xl p-8 md:p-12 bg-header/30 flex flex-col">
-                  <p class="text-xs font-body tracking-widest uppercase text-primary/55 mb-4">
-                    Pattern {i + 1} of {patternCards.length}
-                  </p>
+                  <div class="mb-5">
+                    <p class="font-heading text-[32px] md:text-[36px] leading-none pull-gold mb-1 tabular-nums">
+                      {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <p class="text-[11px] md:text-[12px] font-body tracking-[0.18em] uppercase text-primary/55">
+                      {i + 1} of {patternCards.length}
+                    </p>
+                  </div>
                   <h3 class="font-heading text-xl md:text-2xl lg:text-[26px] text-parchment/85 leading-snug mb-6">
                     {card.title}
                   </h3>
@@ -838,10 +981,10 @@ const jsonLd = [
   ══════════════════════════════════════════════════════════════════════════ -->
   <section class="bg-void">
     <div class="container mx-auto px-6 py-40 md:py-52 max-w-4xl">
-      <p class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-parchment/85 leading-tight mb-6">
-        The question is not<br class="hidden sm:block" /><span class="text-parchment/50">"what is wrong with him?"</span>
+      <p class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-parchment/70 leading-tight mb-10 md:mb-12">
+        The question is not<br class="hidden sm:block" /><span class="text-parchment/45">"what is wrong with him?"</span>
       </p>
-      <p class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl text-primary/70 leading-snug">
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl pull-gold leading-snug">
         Sometimes the better question is:<br class="hidden sm:block" />"What has he not yet been given?"
       </p>
     </div>
@@ -925,7 +1068,7 @@ const jsonLd = [
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-[#070B14]/92"></div>
+    <div class="absolute inset-0 bg-[#070B14]/85"></div>
     <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
       <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight">
@@ -1564,15 +1707,15 @@ const jsonLd = [
       sizes="100vw"
       loading="lazy"
     />
-    <div class="absolute inset-0 bg-[#070B14]/96"></div>
+    <div class="absolute inset-0 bg-[#070B14]/88"></div>
 
     <div class="relative z-10 container mx-auto px-6 py-40 md:py-52 max-w-2xl text-center">
 
       <blockquote class="mb-12">
-        <p class="font-heading text-3xl md:text-4xl text-parchment/85 leading-snug mb-5">
+        <p class="font-heading text-3xl md:text-4xl pull-gold leading-snug mb-5">
           A young man does not become grounded merely because he grows older.
         </p>
-        <p class="font-heading text-xl md:text-2xl text-primary/60 leading-snug">
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 leading-snug">
           Sometimes he needs guidance, reflection, challenge, honesty, and trustworthy relationship in order to consciously grow into himself.
         </p>
       </blockquote>
@@ -1692,4 +1835,5 @@ const jsonLd = [
     makeSw('sw-testimonials', 'sw-testimonials-prev', 'sw-testimonials-next', 'sw-testimonials-pag');
   </script>
 
+</div>
 </BaseLayout>
