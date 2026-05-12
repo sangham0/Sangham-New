@@ -109,7 +109,7 @@ const processStages = [
   {
     stage: '04',
     title: 'Embodied Practices',
-    text: 'Where beneficial and appropriate, sessions may incorporate simple breathwork, grounding practices, nervous system regulation tools, meditation, body-awareness work, or reflective exercises designed to help young men become more present, emotionally aware, and internally regulated. These practices are introduced practically and carefully rather than ideologically or dogmatically.',
+    text: 'Where beneficial and appropriate, sessions may incorporate simple breathwork, grounding practices, nervous system regulation tools, meditation, body-awareness work, or reflective exercises designed to help young men become more present, emotionally aware, and internally regulated. These practices are introduced selectively and carefully rather than ideologically or dogmatically.',
   },
   {
     stage: '05',
@@ -631,6 +631,14 @@ const jsonLd = [
     -webkit-text-fill-color: transparent;
     color: transparent;
   }
+
+  /* F7 — safe bottom padding on mobile. The floating WhatsApp CTA
+     button sits at bottom-6 (~24px) and is ~48px tall, giving ~72px
+     of overlay. Adding 88px bottom padding to the page wrapper on
+     mobile ensures the last section's content is never obscured. */
+  @media (max-width: 767px) {
+    .m-page { padding-bottom: 88px; }
+  }
 </style>
 
 <BaseLayout
@@ -866,7 +874,7 @@ const jsonLd = [
         </p>
       </div>
 
-      <p class="font-heading text-xl md:text-2xl text-header-foreground/75 leading-snug max-w-2xl border-t border-header-foreground/10 pt-8 mb-12">
+      <p class="font-heading text-xl md:text-2xl text-header-foreground/88 leading-snug max-w-2xl border-t border-header-foreground/10 pt-8 mb-12">
         The goal is not to manufacture a new identity. The goal is to help a young man become more deeply connected, responsible, aware, and capable within his own life.
       </p>
 
@@ -912,15 +920,15 @@ const jsonLd = [
         <p>Different young men arrive with different struggles, personalities, and developmental histories. The mentorship is shaped around the actual human being sitting in the room rather than forcing every individual into the same system.</p>
       </div>
 
-      <p class="font-heading text-xl md:text-2xl text-header-foreground/78 leading-snug max-w-xl mb-8">
+      <p class="font-heading text-xl md:text-2xl text-header-foreground/88 leading-snug max-w-xl mb-8">
         Real growth rarely happens through advice alone.
-        <span class="block text-header-foreground/52 mt-1">It happens through relationship, reflection, challenge, practice, honesty, and time.</span>
+        <span class="block text-header-foreground/68 mt-1">It happens through relationship, reflection, challenge, practice, honesty, and time.</span>
       </p>
 
       <a href="#how-it-works" class="inline-flex items-center gap-1.5 text-primary/55 hover:text-primary text-sm font-body transition-colors">
         Learn how the mentorship process works
         <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12l7 7 7-7" />
         </svg>
       </a>
 
@@ -998,7 +1006,7 @@ const jsonLd = [
         <h4 class="font-heading text-[15px] md:text-[17px] text-parchment/70 tracking-[0.18em] uppercase mb-5">Typical Session Structure</h4>
         <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3">
           {[
-            'Sessions are typically held online',
+            'Sessions are usually held online',
             'Individual sessions are approximately 60 minutes',
             'Frequency is usually weekly or fortnightly depending on the individual situation',
             'The process is developmental rather than crisis-driven',
@@ -1037,10 +1045,10 @@ const jsonLd = [
   <section class="bg-void">
     <div class="container mx-auto px-6 py-40 md:py-52 max-w-4xl">
       <p class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-parchment/70 leading-tight mb-10 md:mb-12">
-        The question is not<br class="hidden sm:block" /><span class="text-parchment/45">"what is wrong with him?"</span>
+        The question is not{' '}<br class="hidden sm:block" /><span class="text-parchment/45">"what is wrong with him?"</span>
       </p>
       <p class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl pull-gold leading-snug">
-        Sometimes the better question is:<br class="hidden sm:block" />"What has he not yet been given?"
+        Sometimes the better question is:{' '}<br class="hidden sm:block" />"What has he not yet been given?"
       </p>
     </div>
   </section>
