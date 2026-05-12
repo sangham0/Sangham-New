@@ -13,6 +13,19 @@ import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg';
 
 const canonicalURL = 'https://www.sangham.org/mentoring-for-young-men';
 
+// Per-testimonial photo crop. The photo container uses `object-fit: cover`,
+// which defaults to `center center` and clips edges when the container
+// aspect ratio differs from the source (most acutely on mobile, where the
+// photo strip is ~200px tall against a 3:4 portrait source). Override per
+// portrait so the subject's face stays in frame. Any CSS `object-position`
+// value works: "center top", "50% 20%", "50% 25%", etc. When adding a new
+// testimonial photo, add an entry here; otherwise the default applies.
+const TESTIMONIAL_CROP_DEFAULT = 'center center';
+const testimonialPhotos: Record<string, { cropPosition: string }> = {
+  jacob:  { cropPosition: 'center top' },
+  antony: { cropPosition: 'center top' },
+};
+
 // ─── DATA ───────────────────────────────────────────────────────────────────
 
 const patternCards = [
@@ -397,6 +410,29 @@ const jsonLd = [
   /* Adequate tap target via parent padding */
   .sg-pag {
     padding: 8px 0;
+  }
+
+  /* ─── Cal.com inline embed containers ──────────────────────────────────
+     Defensive sizing so the embed never collapses on mobile. Cal.com's
+     embed.js injects an iframe at runtime; if the parent has min-height: 0
+     the iframe renders 0px tall and looks like a missing calendar. Mobile
+     gets the larger min-height because the month grid stacks vertically. */
+  #cal-parental-embed,
+  #cal-fit-embed {
+    width: 100%;
+    min-height: 700px;
+  }
+  @media (min-width: 768px) {
+    #cal-parental-embed,
+    #cal-fit-embed {
+      min-height: 650px;
+    }
+  }
+  #cal-parental-embed iframe,
+  #cal-fit-embed iframe {
+    display: block;
+    width: 100%;
+    border: 0;
   }
 </style>
 
@@ -1034,7 +1070,8 @@ const jsonLd = [
                       <Image
                         src={jacobSPortrait}
                         alt="Jacob S., mentee of Michael's who has worked with him across adolescence and into adulthood"
-                        class="w-full h-full object-cover object-top"
+                        class="w-full h-full object-cover"
+                        style={`object-position: ${testimonialPhotos.jacob?.cropPosition ?? TESTIMONIAL_CROP_DEFAULT};`}
                         widths={[320, 500, 640]}
                         sizes="(min-width: 768px) 36vw, 100vw"
                         width={4284}
@@ -1094,7 +1131,8 @@ const jsonLd = [
                       <Image
                         src={antonySPortrait}
                         alt="Antony S., community elder who has known Michael through group and individual work"
-                        class="w-full h-full object-cover object-center"
+                        class="w-full h-full object-cover"
+                        style={`object-position: ${testimonialPhotos.antony?.cropPosition ?? TESTIMONIAL_CROP_DEFAULT};`}
                         widths={[320, 500, 640]}
                         sizes="(min-width: 768px) 36vw, 100vw"
                         width={1200}
@@ -1400,7 +1438,7 @@ const jsonLd = [
       </div>
 
       <div class="rounded-xl overflow-hidden border border-parchment/8 mb-6">
-        <div id="cal-parental-embed" style="min-height:700px; width:100%;"></div>
+        <div id="cal-parental-embed"></div>
       </div>
 
       <p class="text-parchment/30 text-xs font-body leading-relaxed">
@@ -1430,7 +1468,7 @@ const jsonLd = [
         </p>
       </div>
       <div class="border border-header-foreground/10 rounded-xl overflow-hidden">
-        <div id="cal-fit-embed" style="min-height:700px; width:100%;"></div>
+        <div id="cal-fit-embed"></div>
       </div>
     </div>
   </section>
@@ -1540,7 +1578,7 @@ const jsonLd = [
       </blockquote>
 
       <div class="space-y-4 font-body text-base text-parchment/52 leading-relaxed mb-14 max-w-lg mx-auto">
-        <p>For some young men, the presence of a steady, honest, developmentally focused relationship becomes an important turning point — not because somebody fixes them, but because they gradually begin relating to themselves and their lives differently.</p>
+        <p>For some young men, the presence of a steady, honest, developmentally focused relationship becomes an important turning point, not because somebody fixes them, but because they gradually begin relating to themselves and their lives differently.</p>
         <p>If you are carrying concern for your son, the parent consultation is a space to begin that conversation carefully and without pressure.</p>
       </div>
 
