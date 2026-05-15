@@ -1,0 +1,1936 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { Image } from 'astro:assets';
+import michaelPortrait from '../assets/michael-portrait-new.jpg';
+import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
+import antonySPortrait from '../assets/antony-s-portrait.jpg';
+import himalayaEditA from '../assets/himalaya-edit-a.jpg';
+import documentaryWaterfall from '../assets/documentary-waterfall.jpg';
+import documentaryMountain from '../assets/documentary-mountain.jpg';
+import mistyValley from '../assets/misty-valley.jpg';
+import himalayaForestSunset from '../assets/himalaya-forest-sunset.jpg';
+import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg';
+
+const canonicalURL = 'https://www.sangham.org/mentoring-for-young-men';
+
+// Per-testimonial photo crop. The photo container uses `object-fit: cover`,
+// which defaults to `center center` and clips edges when the container
+// aspect ratio differs from the source (most acutely on mobile, where the
+// photo strip is ~200px tall against a 3:4 portrait source). Override per
+// portrait so the subject's face stays in frame. Any CSS `object-position`
+// value works: "center top", "50% 20%", "50% 25%", etc. When adding a new
+// testimonial photo, add an entry here; otherwise the default applies.
+const TESTIMONIAL_CROP_DEFAULT = 'center center';
+const testimonialPhotos: Record<string, { cropPosition: string }> = {
+  jacob:  { cropPosition: 'center top' },
+  antony: { cropPosition: 'center top' },
+};
+
+// ─── DATA ───────────────────────────────────────────────────────────────────
+
+const patternCards = [
+  {
+    title: 'Withdrawal and Isolation',
+    text: 'A young man who increasingly retreats into screens, distraction, avoidance, or emotional distance while becoming harder to meaningfully reach.',
+  },
+  {
+    title: 'Lack of Direction',
+    text: 'Intelligent and capable, yet unable to sustain momentum, make decisions, commit himself fully, or move forward with clarity and confidence.',
+  },
+  {
+    title: 'Emotional Reactivity',
+    text: 'Anger, defensiveness, emotional shutdown, impulsivity, or difficulty expressing vulnerability beneath an appearance of indifference or control.',
+  },
+  {
+    title: 'Quiet Loss of Self-Trust',
+    text: 'A growing sense that he no longer fully trusts himself, his decisions, his direction, or his own inner stability.',
+  },
+  {
+    title: 'Difficulty Carrying Responsibility',
+    text: 'Avoidance of challenge, inconsistency, dependence, or difficulty developing the internal structure needed for adult life.',
+  },
+  {
+    title: 'Disconnection From Meaning',
+    text: 'A subtle but painful sense of drifting through life without deeper orientation, purpose, belonging, or grounded identity.',
+  },
+];
+
+const developmentCards = [
+  {
+    title: 'Emotional Regulation',
+    text: 'Learning to recognise emotional states without immediately becoming overwhelmed, reactive, avoidant, or shut down by them. Building greater steadiness, reflection, and capacity under pressure.',
+  },
+  {
+    title: 'Self-Awareness',
+    text: 'Developing the ability to honestly observe patterns of thought, behaviour, avoidance, fear, defensiveness, and self-sabotage without collapsing into shame.',
+  },
+  {
+    title: 'Direction and Responsibility',
+    text: 'Strengthening the ability to make decisions, sustain commitments, follow through consistently, and gradually take ownership of one\'s life and choices.',
+  },
+  {
+    title: 'Communication and Relational Maturity',
+    text: 'Learning to express oneself more honestly and clearly while developing greater capacity for listening, accountability, vulnerability, and respectful engagement with others.',
+  },
+  {
+    title: 'Embodied Awareness',
+    text: 'Becoming more connected to the body, nervous system, stress patterns, breath, energy levels, and emotional states rather than living entirely inside compulsive thinking or distraction.',
+  },
+  {
+    title: 'Confidence Rooted In Reality',
+    text: 'Not performance, arrogance, or image management, but the quieter confidence that gradually emerges through honesty, competence, self-trust, and lived experience.',
+  },
+  {
+    title: 'Capacity For Challenge',
+    text: 'Learning to remain present in difficulty rather than constantly escaping discomfort through distraction, avoidance, withdrawal, or impulsive behaviour.',
+  },
+  {
+    title: 'Meaning and Orientation',
+    text: 'Helping a young man gradually clarify what genuinely matters to him beyond external pressure, social comparison, or inherited expectations.',
+  },
+];
+
+const processStages = [
+  {
+    stage: '01',
+    title: 'Parent Consultation',
+    text: 'The process usually begins with a parent consultation. This creates space to discuss concerns, patterns that may have emerged, family dynamics, developmental history, and whether the mentorship approach appears appropriate for the young man involved. It also allows parents to ask questions and gain a clearer understanding of how the work is approached before any ongoing process begins.',
+  },
+  {
+    stage: '02',
+    title: 'Initial Sessions',
+    text: 'Early sessions focus on building rapport, trust, psychological safety, and honest communication. Rather than forcing immediate vulnerability or compliance, the aim is to gradually create a space where meaningful reflection and authentic engagement can emerge naturally.',
+  },
+  {
+    stage: '03',
+    title: 'Ongoing Mentorship and Reflective Counselling',
+    text: 'Sessions may involve reflective dialogue, developmental guidance, emotional processing, behavioural reflection, accountability work, nervous system awareness, practical life structure, and carefully introduced contemplative practices where appropriate. The work is grounded in real life: relationships, responsibility, study, work, health, direction, communication, and emotional maturity.',
+  },
+  {
+    stage: '04',
+    title: 'Embodied Practices',
+    text: 'Where beneficial and appropriate, sessions may incorporate simple breathwork, grounding practices, nervous system regulation tools, meditation, body-awareness work, or reflective exercises designed to help young men become more present, emotionally aware, and internally regulated. These practices are introduced selectively and carefully rather than ideologically or dogmatically.',
+  },
+  {
+    stage: '05',
+    title: 'Parental Reflection and Communication',
+    text: 'Parents may periodically be included in broader reflective conversations where useful and appropriate. The aim is not to create surveillance or remove the young man\'s autonomy, but to support healthier communication, understanding, and alignment around the developmental process where possible.',
+  },
+  {
+    stage: '06',
+    title: 'Long-Term Development',
+    text: 'Meaningful developmental change rarely happens instantly. Some young men may benefit from shorter periods of focused support, while others benefit more from consistent mentorship over longer periods as they gradually stabilise emotionally, relationally, and practically within their lives.',
+  },
+];
+
+// Testimonials rendered as static HTML below (asymmetric layouts per slide)
+
+const aboutMichaelCards = [
+  {
+    title: 'Experience With Young Men',
+    paragraphs: [
+      'My work with young men began long before formal counselling registration.',
+      'As a teenager, I entered a deep process of mentorship, psychological work, and personal development myself under the guidance of clinical and forensic psychologist Bernard Altman through the organisation Boys to Men. Over the years, that gradually evolved into leadership, facilitation, mentorship, and direct work with large numbers of adolescent and young adult men. I also became involved with connected organisations in the same lineage (BoysQuest and The Homestead Project), each focused on different aspects of adolescent development across Cape Town.',
+      'Much of this work was with boys from at-risk communities across Cape Town, including Ocean View, Lavender Hill, and Hanover Park, young men navigating identity, emotional struggle, belonging, conflict, responsibility, direction, masculinity, and the difficult transition into adulthood.',
+    ],
+  },
+  {
+    title: 'Counselling and Developmental Approach',
+    paragraphs: [
+      'I am registered with the ASCHP as a Wellness Counsellor. My approach integrates reflective counselling, developmental mentorship, nervous system awareness, embodied practice, emotional reflection, behavioural observation, and practical life-oriented guidance.',
+      'The emphasis is not on fixing people or imposing ideology, but on helping individuals gradually develop greater awareness, responsibility, emotional maturity, groundedness, and psychological stability within their own lives.',
+    ],
+  },
+  {
+    title: 'Meditation and Embodied Practice',
+    paragraphs: [
+      'Over recent years, I have also spent extensive time in India studying and practising meditation, breathwork, yoga, contemplative psychology, and embodied awareness practices under experienced teachers and within traditional settings.',
+      'These elements are not approached as dogma or spiritual performance. Where relevant, they are integrated carefully and practically as tools for attention, nervous system regulation, emotional awareness, self-observation, grounding, and inner stability. Many sessions involve no formal contemplative practice at all.',
+    ],
+  },
+  {
+    title: 'A Grounded Approach to Mentorship',
+    paragraphs: [
+      'I do not believe young men need endless shaming, performance pressure, emotional suppression, or rigid identity systems in order to mature. Nor do I believe all struggle should immediately be pathologised.',
+      'In many cases, young men need something both simpler and more demanding: honest relationship, clear reflection, accountability, guidance, challenge, self-awareness, and meaningful opportunities to consciously participate in shaping who they are becoming.',
+    ],
+  },
+  {
+    title: 'Scope and Responsibility',
+    paragraphs: [
+      'This mentorship work is developmental and relational in nature. It is not a substitute for psychiatric care, emergency psychological intervention, addiction treatment, or specialist clinical services where these are required.',
+      'Where appropriate, referrals or collaborative support with other professionals may be recommended. Honesty about scope is part of how this work is conducted.',
+    ],
+  },
+];
+
+const whoForPoints = [
+  'Struggling with direction, motivation, identity, or life transition',
+  'Emotionally withdrawn, disconnected, or difficult to meaningfully reach',
+  'Intelligent and capable but unable to consistently apply themselves',
+  'Experiencing low confidence, confusion, or loss of self-trust',
+  'Becoming increasingly isolated, avoidant, or dependent on distraction',
+  'Navigating tension around masculinity, responsibility, belonging, or adulthood',
+  'Open to honest conversation, reflection, and gradual developmental work',
+  'Looking for grounded guidance rather than rigid ideology or performance pressure',
+];
+
+const whoNotForPoints = [
+  'Immediate psychiatric or emergency psychological intervention is required',
+  'Severe addiction or acute crisis care is the primary concern',
+  'The expectation is rapid behavioural compliance without relational process',
+  'A parent is seeking control over the young man rather than developmental support',
+  'The young man is entirely unwilling to engage in any form of conversation or reflection',
+  'The hope is for motivation tactics, discipline systems, or high-performance coaching alone',
+  'Spiritual ideology or dogmatic belief systems are being sought',
+];
+
+const faqItems = [
+  {
+    q: 'Is this therapy?',
+    a: [
+      'No.',
+      'This work is better understood as developmental mentorship combined with reflective counselling. While emotional reflection, self-awareness, and psychological insight are certainly part of the process, the work is not positioned as formal psychotherapy or clinical treatment.',
+      'The emphasis is developmental and relational: helping young men build greater emotional grounding, responsibility, self-awareness, maturity, direction, and internal stability over time.',
+    ],
+  },
+  {
+    q: 'What ages do you generally work with?',
+    a: [
+      'The mentorship is primarily oriented toward adolescent and young adult men aged 12 to 25, navigating the transition into adulthood. The exact fit depends on maturity, circumstances, openness to the process, and developmental context.',
+    ],
+  },
+  {
+    q: 'Does my son need to be interested in meditation or spirituality?',
+    a: [
+      'No.',
+      'The work is grounded, practical, and psychologically oriented rather than religious or ideological. Where contemplative practices are introduced, they are approached carefully as tools for awareness, nervous system regulation, grounding, emotional reflection, and self-observation rather than spiritual belief systems.',
+      'Many sessions involve no formal contemplative practice at all.',
+    ],
+  },
+  {
+    q: 'What if my son is resistant or unwilling?',
+    a: [
+      'Some hesitation is normal, especially early on. Young men are often understandably cautious about opening up to someone unfamiliar. The process focuses first on building trust and psychological safety rather than forcing vulnerability.',
+      'That said, some minimal willingness to engage in conversation and reflection is generally necessary for meaningful mentorship to develop.',
+    ],
+  },
+  {
+    q: 'How involved are parents in the process?',
+    a: [
+      'Parents are important participants in the broader developmental environment surrounding a young man. At the same time, mentorship also depends on the young man having space to speak honestly and develop trust within the process.',
+      'Where appropriate, parents may be included in periodic reflective conversations while still respecting the integrity and confidentiality of the mentorship relationship itself.',
+    ],
+  },
+  {
+    q: 'How long does the process usually last?',
+    a: [
+      'There is no fixed timeline.',
+      'Some young men benefit from shorter periods of focused support; others benefit more from longer-term mentorship as they gradually stabilise. The work is developmental rather than crisis-oriented, and meaningful change tends to develop gradually.',
+    ],
+  },
+  {
+    q: 'What kinds of issues do young men usually bring into this work?',
+    a: [
+      'Every individual is different, but common themes often include lack of direction, emotional shutdown, withdrawal, anxiety, self-esteem difficulties, family conflict, motivation struggles, identity confusion, relationship difficulties, responsibility, discipline, purpose, masculinity, and difficulty navigating the transition into adulthood.',
+    ],
+  },
+  {
+    q: 'Is this a replacement for psychiatric or specialist psychological care?',
+    a: [
+      'No.',
+      'This work supports developmental and relational growth. Acute psychiatric intervention, crisis management, addiction treatment, and specialist clinical care belong with appropriately licensed professionals, and a referral can be discussed where helpful.',
+    ],
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a.join(' ') },
+  })),
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Mentoring and Counselling for Young Men',
+    url: canonicalURL,
+    description:
+      'Developmental mentorship and reflective counselling for adolescent and young adult men aged 12-25. ASCHP-registered wellness counselling. Online sessions worldwide.',
+    serviceType: 'Wellness Counselling and Developmental Mentorship',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      jobTitle: 'ASCHP Registered Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Association for Supportive Counsellors and Holistic Practitioners',
+        alternateName: 'ASCHP',
+        identifier: 'Reg. No. 10559',
+      },
+    },
+    audience: [
+      { '@type': 'Audience', audienceType: 'Parent' },
+      { '@type': 'Audience', audienceType: 'Young Adult' },
+    ],
+    areaServed: [
+      { '@type': 'Country', name: 'South Africa' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Parent Consultation',
+        price: '600',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: '45-minute online consultation for parents. R600 (charged as approx. $35 USD via PayPal).',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Individual Mentorship Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: '60-minute individual mentorship and reflective counselling session.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Five-Session Mentorship Commitment',
+        price: '3400',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'Five 60-minute sessions. R680 per session.',
+      },
+    ],
+  },
+];
+---
+
+<style is:global>
+  /* ─── FAQ accordion animation ──────────────────────────────────────── */
+  details > .faq-body { animation: faqOpen 0.18s ease; }
+  @keyframes faqOpen {
+    from { opacity: 0; transform: translateY(-3px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ─── H2 accent line ────────────────────────────────────────────────── */
+  .h2-accent {
+    display: block;
+    width: 4rem;
+    height: 1px;
+    margin-top: 1rem;
+    margin-bottom: 2.5rem;
+    background: rgba(212, 169, 92, 0.55);  /* #D4A95C, saturated gold */
+  }
+  /* Darker variant on the pale Register 3 backgrounds for contrast */
+  .sg-r3 .h2-accent {
+    background: rgba(168, 124, 53, 0.7);   /* #A87C35, gold-dark for light bg */
+  }
+
+  /* ─── Section transitions ───────────────────────────────────────────── */
+  /* Gradient bleed: dark → pale-R3 transitions feel gradual at the entry */
+  .sg-r3-entry::before {
+    content: '';
+    display: block;
+    height: 60px;
+    background: linear-gradient(to bottom, rgba(7, 11, 20, 0.08), transparent);
+    margin-bottom: -60px;
+    position: relative;
+    z-index: 1;
+  }
+  /* Thin gold seam above certain sections to signal deliberate register change */
+  .sg-seam-top {
+    border-top: 1px solid rgba(180, 140, 80, 0.18);
+  }
+
+  /* ─── Swiper: base overrides ────────────────────────────────────────── */
+  .sg-swiper {
+    overflow: hidden;
+    width: 100%;
+  }
+  /* Equal-height slides */
+  .sg-swiper .swiper-wrapper {
+    align-items: stretch;
+  }
+  .sg-swiper .swiper-slide {
+    height: auto;
+    box-sizing: border-box;
+  }
+  .sg-swiper .sg-slide {
+    height: 100%;
+    box-sizing: border-box;
+  }
+
+  /* ─── Swiper: disabled nav button ─────────────────────────────────── */
+  .sg-nav-btn.swiper-button-disabled {
+    opacity: 0.15 !important;
+    cursor: not-allowed;
+    pointer-events: none;
+  }
+
+  /* ─── Swiper: pagination bullets (Sangham brand) ─────────────────── */
+  /* Larger, more visible dots */
+  .sg-pag .swiper-pagination-bullet {
+    width: 10px !important;
+    height: 10px !important;
+    border-radius: 9999px;
+    background: rgba(255, 255, 255, 0.45);
+    opacity: 1;
+    margin: 0 6px !important;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    transition: width 0.22s ease, height 0.22s ease, background 0.22s ease, opacity 0.22s ease;
+  }
+  .sg-pag .swiper-pagination-bullet:hover {
+    background: rgba(255, 255, 255, 0.72);
+  }
+  .sg-pag .swiper-pagination-bullet-active {
+    width: 1.25rem !important;
+    height: 10px !important;
+    border-radius: 5px;
+    background: rgba(180, 140, 80, 0.85) !important;
+    opacity: 1 !important;
+  }
+  /* Adequate tap target via parent padding */
+  .sg-pag {
+    padding: 8px 0;
+  }
+
+  /* ─── Cal.com inline embed containers ──────────────────────────────────
+     Defensive sizing so the embed never collapses on mobile. Cal.com's
+     embed.js injects an iframe at runtime; if the parent has min-height: 0
+     the iframe renders 0px tall and looks like a missing calendar. Mobile
+     gets the larger min-height because the month grid stacks vertically. */
+  #cal-parental-embed,
+  #cal-fit-embed {
+    width: 100%;
+    min-height: 700px;
+  }
+  @media (min-width: 768px) {
+    #cal-parental-embed,
+    #cal-fit-embed {
+      min-height: 650px;
+    }
+  }
+  #cal-parental-embed iframe,
+  #cal-fit-embed iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+
+  /* ═══════════════════════════════════════════════════════════════════════
+     READABILITY / CONTRAST PASS (B1-B6), scoped to this page only
+     Targets the 50-65 parental demographic on mobile; lifts base luminance,
+     cools and brightens text, increases minimum type sizes, and saturates
+     gold for pull statements only. Site-wide tokens untouched.
+  ═══════════════════════════════════════════════════════════════════════ */
+
+  /* B1 — lighter dark base. Redefined inside .m-page so site-wide tokens
+     are untouched. void becomes a softer blue-grey; header lifts to a
+     slightly-paler variant for the existing "two-tier dark" rhythm. */
+  .m-page {
+    --color-void: hsl(218 32% 15%);            /* ~ #1A2333 */
+    --color-header: hsl(217 26% 22%);          /* ~ #2A364B */
+    --color-parchment: hsl(220 18% 93%);       /* ~ #E8EBF1, cool off-white */
+    --color-header-foreground: hsl(220 18% 93%);
+
+    /* E1 — gold token unification (page-scoped). Eliminates the muted
+       brand gold (hsl(42 52% 42%) ~ #A67E36) and the pale gold-light
+       (hsl(42 50% 52%) ~ #C29A53) that were appearing simultaneously
+       on the page. Single saturated value used everywhere; hover state
+       derived ~12% brighter; dark variant for borders. Button text
+       contract flips to dark (foreground) so cream-on-saturated-gold
+       contrast (~1.9:1, fails AA) becomes dark-on-saturated-gold
+       (~6.7:1, AA pass) on every CTA. */
+    --color-primary: #D4A95C;
+    --color-primary-foreground: #0F1422;
+    --color-gold: #D4A95C;
+    --color-gold-light: #E6BE76;
+    --color-gold-dark: #B88A3C;
+  }
+
+  /* B1 — overlay opacities on image-background sections. The dark overlays
+     used to sit at 72-96%; with the lighter base the 96% felt nearly black.
+     Soften by a few points so the image still anchors but doesn't crush. */
+  .m-page .sg-overlay-strong { background-color: rgb(15 20 32 / 0.88); }  /* was 0.96 */
+  .m-page .sg-overlay-med    { background-color: rgb(15 20 32 / 0.78); }  /* was 0.83 */
+  .m-page .sg-overlay-light  { background-color: rgb(15 20 32 / 0.62); }  /* was 0.72 */
+
+  /* E1 — gold contrast floor. After lifting --color-primary to the
+     saturated #D4A95C, low-opacity text-primary uses (decorative
+     kickers, accent text at /22-/55) need a baseline that still hits
+     AA against the new dark base. The hand-tuned RGB values below
+     give ~4.7:1 at the lower tier and ~5.5:1 at the mid tier on void;
+     full-opacity uses (text-primary, text-primary/60+) need no floor. */
+  .m-page :is(.text-primary\/22, .text-primary\/30, .text-primary\/35,
+              .text-primary\/38, .text-primary\/40, .text-primary\/42, .text-primary\/45)
+  { color: rgb(187 161 121) !important; }
+  .m-page :is(.text-primary\/48, .text-primary\/50, .text-primary\/52,
+              .text-primary\/55, .text-primary\/58)
+  { color: rgb(204 175 121) !important; }
+
+  /* B2 — text contrast floors. Tailwind's text-parchment/N renders as
+     color-mix(parchment, transparent, N%). On low-alpha values this drops
+     below WCAG AA on the new base; here we lift the floor for the very
+     dim opacities the original design used as decorative greys. The hand-
+     picked target tiers are primary ≈ #E8EBF0 (~7:1 on new base), secondary
+     ≈ #B8C0CC (~4.7:1), tertiary ≈ #8A94A3 (~4.6:1). */
+  .m-page :is(.text-parchment\/20, .text-parchment\/22, .text-parchment\/25,
+              .text-header-foreground\/20, .text-header-foreground\/22, .text-header-foreground\/25)
+  { color: rgb(138 148 163) !important; }
+  .m-page :is(.text-parchment\/30, .text-parchment\/35, .text-parchment\/38, .text-parchment\/40,
+              .text-header-foreground\/25, .text-header-foreground\/30, .text-header-foreground\/35, .text-header-foreground\/40)
+  { color: rgb(155 164 178) !important; }
+  .m-page :is(.text-parchment\/42, .text-parchment\/45, .text-parchment\/48, .text-parchment\/50,
+              .text-header-foreground\/42, .text-header-foreground\/45, .text-header-foreground\/50)
+  { color: rgb(174 182 195) !important; }
+
+  /* B3 — minimum font sizes. Lifts the smallest utility classes used in
+     this page so no rendered text falls below 13px. Specificity (0,2,0)
+     wins over Tailwind's single-class utilities. */
+  .m-page .text-\[10px\] { font-size: 13px !important; letter-spacing: 0.14em; }
+  .m-page .text-xs       { font-size: 14px !important; }
+  .m-page .text-sm       { font-size: 15px !important; line-height: 1.55; }
+  @media (min-width: 768px) {
+    .m-page .text-sm     { font-size: 16px !important; }
+  }
+  .m-page .text-base     { font-size: 17px !important; line-height: 1.65; }
+  @media (min-width: 768px) {
+    .m-page .text-base   { font-size: 18px !important; }
+  }
+  .m-page .text-\[17px\] { font-size: 18px !important; line-height: 1.65; }
+  @media (min-width: 768px) {
+    .m-page .text-\[17px\] { font-size: 19px !important; }
+  }
+  /* Carousel slide bodies use text-[17px] md:text-lg; lift the md:text-lg too. */
+  @media (min-width: 768px) {
+    .m-page .swiper-slide .md\:text-lg { font-size: 20px !important; line-height: 1.65; }
+  }
+
+  /* B4 — saturated gold for pull statements only. Applied via the
+     .pull-gold class on the specific paragraphs the brief enumerates. */
+  .m-page .pull-gold {
+    color: #D4A95C;
+  }
+
+  /* B5 — pagination dots: larger visual, generous tap target, saturated
+     gold active state. The visual lives in ::after so the bullet itself
+     can be a 24/28px transparent click target on mobile. !important is
+     needed because the existing rules earlier in this block use a direct
+     background on the bullet. */
+  .m-page .sg-pag {
+    padding: 16px 0;
+  }
+  .m-page .sg-pag .swiper-pagination-bullet {
+    position: relative;
+    width: 24px !important;
+    height: 24px !important;
+    margin: 0 5px !important;
+    background: transparent !important;
+    border-radius: 0 !important;
+    opacity: 1 !important;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .m-page .sg-pag .swiper-pagination-bullet::after {
+    content: '';
+    display: block;
+    width: 14px;
+    height: 14px;
+    border-radius: 9999px;
+    background: rgba(232, 235, 240, 0.55);
+    transition: width 0.22s ease, height 0.22s ease, background 0.22s ease;
+  }
+  .m-page .sg-pag .swiper-pagination-bullet:hover::after {
+    background: rgba(232, 235, 240, 0.85);
+  }
+  .m-page .sg-pag .swiper-pagination-bullet-active::after {
+    width: 18px;
+    height: 14px;
+    border-radius: 7px;
+    background: #D4A95C;
+  }
+  @media (max-width: 767px) {
+    .m-page .sg-pag .swiper-pagination-bullet {
+      width: 28px !important;
+      height: 28px !important;
+      margin: 0 6px !important;
+    }
+    .m-page .sg-pag .swiper-pagination-bullet::after {
+      width: 16px;
+      height: 16px;
+    }
+    .m-page .sg-pag .swiper-pagination-bullet-active::after {
+      width: 20px;
+      height: 16px;
+      border-radius: 8px;
+    }
+  }
+
+  /* B6 / E2 — section H2 minimum sizing. Most H2s already use text-3xl
+     md:text-4xl lg:text-5xl (30/36/48); brief target 28-32 mobile and
+     40-48 desktop. Mobile 30 is within range. Desktop md=36 is below
+     the 40-floor; lift it to 40 at the md breakpoint so tablet-width
+     headings hit the brief's lower bound. lg sizing (48) already at
+     the top. The two outlier H2s at text-2xl md:text-3xl (24/30) are
+     lifted to 28/40 by a more specific rule below. */
+  @media (min-width: 768px) {
+    .m-page section h2.font-heading.md\:text-4xl {
+      font-size: 40px;
+    }
+  }
+  .m-page section h2.font-heading.text-2xl {
+    font-size: 28px;
+  }
+  @media (min-width: 768px) {
+    .m-page section h2.font-heading.text-2xl.md\:text-3xl {
+      font-size: 40px;
+    }
+  }
+
+  /* D3 — carousel slide heading sizing. The three card carousels
+     (patterns, development, process) all use text-xl md:text-2xl
+     lg:text-[26px] for the slide h3, which renders 20/24/26 — small
+     for the parental demographic. Lift to 22 mobile, 28 desktop so the
+     card title reads as the visual anchor it's meant to be. */
+  .m-page .swiper-slide h3.font-heading {
+    font-size: 22px !important;
+    line-height: 1.25;
+  }
+  @media (min-width: 768px) {
+    .m-page .swiper-slide h3.font-heading {
+      font-size: 28px !important;
+    }
+  }
+
+  /* D5 — saturated gold for h2 headings. The default text-gold-gradient
+     uses muted Sangham brand gold (hsl(42 52% 42%)) which doesn't have
+     enough contrast against the new (lifted) dark base. Re-tint the
+     gradient inside .m-page to the pull-gold tone for proper visibility.
+     Site-wide token untouched. */
+  .m-page .text-gold-gradient {
+    background: linear-gradient(135deg, #DBAE5E, #D4A95C, #B88A3C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+
+  /* F7 — safe bottom padding on mobile. The floating WhatsApp CTA
+     button sits at bottom-6 (~24px) and is ~48px tall, giving ~72px
+     of overlay. Adding 88px bottom padding to the page wrapper on
+     mobile ensures the last section's content is never obscured. */
+  @media (max-width: 767px) {
+    .m-page { padding-bottom: 88px; }
+  }
+</style>
+
+<BaseLayout
+  title="Mentoring and Counselling for Young Men | Sangham"
+  description="Developmental mentorship and reflective counselling for adolescent and young adult men aged 12-25. ASCHP-registered. Online worldwide. Parental consultation available."
+  canonicalURL={canonicalURL}
+  image="/images/og-default.jpg"
+  jsonLd={[...jsonLd, faqJsonLd]}
+  minimalNav={true}
+  hideStickyBar={true}
+>
+<div class="m-page">
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       1. HERO — Dark Base (bg-void)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void -mt-[72px] pt-[72px]">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-6xl">
+      <div class="grid md:grid-cols-[3fr_2fr] gap-12 lg:gap-20 items-center">
+
+        <div class="md:order-1">
+          <p class="text-primary/40 text-xs tracking-widest uppercase font-body mb-8">
+            Sangham &middot; Online Sessions Worldwide
+          </p>
+          <h1 class="font-heading text-[40px] sm:text-5xl md:text-6xl lg:text-7xl text-parchment/95 leading-[1.05] mb-8">
+            A Different Kind of Support{' '}<br class="hidden sm:block" /><span class="text-gold-gradient">for Young Men</span>
+          </h1>
+          <p class="font-body text-base md:text-lg text-parchment/60 leading-relaxed mb-10 max-w-lg">
+            Grounded mentorship and reflective counselling for adolescent and young adult men aged 12-25 navigating direction, identity, emotional maturity, responsibility, and the transition into adulthood.
+          </p>
+
+          <blockquote class="pl-6 border-l-2 border-primary/40 mb-10 pb-10 border-b border-b-parchment/10">
+            <p class="font-heading text-2xl md:text-3xl text-parchment/85 leading-snug">
+              Your son is not broken. He might just be unsupported at a stage of life that was never meant to be crossed alone.
+            </p>
+          </blockquote>
+
+          <div class="space-y-3 font-body text-base text-parchment/60 leading-relaxed mb-10">
+            <p>Most young men respond to something simpler than pressure or constant management: someone steady who will meet them honestly.</p>
+            <div class="pl-4 border-l border-primary/20 space-y-1.5 py-1">
+              <p class="text-parchment/75">They need guidance.</p>
+              <p class="text-parchment/75">They need challenge.</p>
+              <p class="text-parchment/75">They need honesty.</p>
+              <p>They need a trustworthy relationship with someone capable of helping them develop self-awareness, emotional grounding, direction, and responsibility, without shame or posturing.</p>
+            </div>
+            <p>This work exists to provide that space.</p>
+          </div>
+
+          <div class="flex flex-col sm:flex-row sm:items-center gap-5 mb-8">
+            <a
+              href="#parental-cal"
+              class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
+            >
+              Book a Parent Consultation
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a href="#how-it-works" class="inline-flex items-center gap-1.5 text-parchment/40 hover:text-parchment/70 text-sm font-body transition-colors">
+              How the Mentorship Works
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          </div>
+
+          <div class="flex flex-wrap gap-x-5 gap-y-1.5">
+            {['Online sessions available', 'Based in South Africa', 'Ages 12-25', 'Not a replacement for psychiatric care'].map((t) => (
+              <p class="text-parchment/25 text-xs font-body">{t}</p>
+            ))}
+          </div>
+        </div>
+
+        <div class="md:order-2 mt-10 md:mt-0 flex justify-center md:justify-end">
+          <div class="w-full max-w-[200px] md:max-w-[230px] lg:max-w-[250px]">
+            <div class="rounded-xl overflow-hidden mb-4 border border-parchment/8">
+              <div class="aspect-[4/5] overflow-hidden">
+                <Image
+                  src={michaelPortrait}
+                  alt="Michael Kaplan, ASCHP Registered Wellness Counsellor and developmental mentor for young men"
+                  class="w-full h-full object-cover object-center"
+                  widths={[500, 580, 625]}
+                  sizes="(min-width: 1024px) 313px, (min-width: 768px) 288px, 250px"
+                  width={1254}
+                  height={1254}
+                  loading="eager"
+                  fetchpriority="high"
+                />
+              </div>
+            </div>
+            <div class="px-1 mb-3">
+              <p class="font-heading text-sm text-parchment/75">Michael Kaplan</p>
+              <p class="text-primary/50 text-[11px] font-body tracking-wide mt-0.5 leading-snug">ASCHP Registered Wellness Counsellor</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 px-1">
+              <span class="px-2.5 py-1 rounded-full border border-parchment/10 text-parchment/30 text-[10px] font-body">ASCHP Reg.&nbsp;10559</span>
+              <span class="px-2.5 py-1 rounded-full border border-parchment/10 text-parchment/30 text-[10px] font-body">RYS&nbsp;300</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       2. PULL STATEMENT — Image Background (himalayaEditA)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-void">
+    <Image
+      src={himalayaEditA}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/72"></div>
+    <div class="relative z-10 container mx-auto px-6 py-40 md:py-56 max-w-4xl text-center">
+      <p class="font-heading text-4xl sm:text-5xl md:text-6xl lg:text-7xl pull-gold leading-tight tracking-tight">
+        The years between twelve and twenty-five do not repeat.
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       3. CREDIBILITY STRIP — Dark Base (bg-header, slightly lighter)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-5xl">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-header-foreground/8">
+        <div class="sm:pr-10 xl:pr-16">
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl pull-gold mb-3 leading-none">10+</p>
+          <p class="font-body text-[15px] md:text-[16px] text-header-foreground/68 leading-relaxed">years working directly with adolescent and young adult men</p>
+        </div>
+        <div class="sm:px-10 xl:px-16">
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl pull-gold mb-3 leading-none">Hundreds</p>
+          <p class="font-body text-[15px] md:text-[16px] text-header-foreground/68 leading-relaxed">of one-on-one and group sessions facilitated across Cape Town and online</p>
+        </div>
+        <div class="sm:pl-10 xl:pl-16">
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl pull-gold mb-3 leading-none tracking-tight">Trained under</p>
+          <p class="font-body text-[15px] md:text-[16px] text-header-foreground/68 leading-relaxed">a clinical and forensic psychologist in adolescent developmental work</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       4. SOMETHING IS MISSING — Dark Base (bg-void)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <div class="max-w-3xl mb-14">
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight">
+          Something Is Missing For Many Young Men
+        </h2>
+        <span class="h2-accent"></span>
+        <div class="space-y-4 font-body text-base text-parchment/60 leading-relaxed">
+          <p>Many parents can sense when something in their son's life is not fully settling into place, even when there is no dramatic crisis.</p>
+          <div class="pl-4 border-l border-parchment/15 space-y-1 py-1 text-parchment/50">
+            <p>Sometimes it appears as withdrawal.</p>
+            <p>Sometimes as passivity.</p>
+            <p>Sometimes as irritability, defensiveness, or a loss of confidence.</p>
+          </div>
+          <p>What parents are often witnessing is a young man struggling to find stable ground within himself while moving through one of the most psychologically demanding transitions of life.</p>
+        </div>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl lg:text-3xl text-parchment/75 leading-snug max-w-2xl border-t border-parchment/10 pt-10 mb-14">
+        Many young men today are growing older without ever truly being guided into adulthood.
+      </p>
+
+      <!-- Patterns carousel (Swiper) -->
+      <div class="mb-14">
+        <div class="swiper sg-swiper" id="sw-patterns">
+          <div class="swiper-wrapper">
+            {patternCards.map((card, i) => (
+              <div class="swiper-slide">
+                <div class="sg-slide border border-parchment/12 rounded-xl p-8 md:p-12 bg-header/30 flex flex-col">
+                  <div class="mb-5">
+                    <p class="font-heading text-[32px] md:text-[36px] leading-none pull-gold mb-1 tabular-nums">
+                      {String(i + 1).padStart(2, '0')}
+                    </p>
+                    <p class="text-[11px] md:text-[12px] font-body tracking-[0.18em] uppercase text-primary/55">
+                      {i + 1} of {patternCards.length}
+                    </p>
+                  </div>
+                  <h3 class="font-heading text-xl md:text-2xl lg:text-[26px] text-parchment/85 leading-snug mb-6">
+                    {card.title}
+                  </h3>
+                  <p class="font-body text-[17px] md:text-lg text-parchment/62 leading-relaxed flex-1">
+                    {card.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-patterns-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/20 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/40 transition-all" aria-label="Previous pattern">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <div id="sw-patterns-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-patterns-next" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/20 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/40 transition-all" aria-label="Next pattern">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
+          <p class="text-parchment/20 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
+        </div>
+      </div>
+
+      <div class="max-w-3xl space-y-4 font-body text-base text-parchment/58 leading-relaxed border-t border-parchment/10 pt-10">
+        <p>What many young men need is something far simpler and far older: a grounded developmental relationship capable of helping them build self-awareness, emotional steadiness, direction, honesty, and responsibility over time.</p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       5. WHAT THIS WORK DEVELOPS — Dark Base (bg-header)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground overflow-hidden">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <div class="max-w-2xl mb-8">
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight">
+          What This Work Actually Develops
+        </h2>
+        <span class="h2-accent"></span>
+        <p class="font-body text-base text-header-foreground/60 leading-relaxed">
+          This mentorship works gradually and relationally. Over time, the aim is to help young men develop greater grounding, responsibility, and clarity in how they relate to themselves and the direction of their lives.
+        </p>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-header-foreground/88 leading-snug max-w-2xl border-t border-header-foreground/10 pt-8 mb-12">
+        The goal is not to manufacture a new identity. The goal is to help a young man become more deeply connected, responsible, aware, and capable within his own life.
+      </p>
+
+      <!-- Development carousel (Swiper) -->
+      <div class="mb-14">
+        <div class="swiper sg-swiper" id="sw-dev">
+          <div class="swiper-wrapper">
+            {developmentCards.map((card, i) => (
+              <div class="swiper-slide">
+                <div class="sg-slide border border-header-foreground/12 rounded-xl p-8 md:p-12 bg-void/25 flex flex-col">
+                  <div class="mb-5">
+                    <p class="font-heading text-[32px] md:text-[40px] leading-none pull-gold mb-1 tabular-nums">
+                      0{i + 1}
+                    </p>
+                    <p class="text-[11px] md:text-[12px] font-body tracking-[0.18em] uppercase text-primary/55">
+                      {i + 1} of {developmentCards.length}
+                    </p>
+                  </div>
+                  <h3 class="font-heading text-xl md:text-2xl lg:text-[26px] text-header-foreground/85 leading-snug mb-5">
+                    {card.title}
+                  </h3>
+                  <p class="font-body text-[17px] md:text-lg text-header-foreground/62 leading-relaxed flex-1">
+                    {card.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-dev-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-header-foreground/20 flex items-center justify-center text-header-foreground/45 hover:text-header-foreground/75 hover:border-header-foreground/40 transition-all" aria-label="Previous">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <div id="sw-dev-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-dev-next" class="sg-nav-btn w-10 h-10 rounded-full border border-header-foreground/20 flex items-center justify-center text-header-foreground/45 hover:text-header-foreground/75 hover:border-header-foreground/40 transition-all" aria-label="Next">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
+          <p class="text-header-foreground/25 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
+        </div>
+      </div>
+
+      <div class="max-w-3xl space-y-4 font-body text-base text-header-foreground/60 leading-relaxed border-t border-header-foreground/10 pt-10 mb-8">
+        <p>Different young men arrive with different struggles, personalities, and developmental histories. The mentorship is shaped around the actual human being sitting in the room rather than forcing every individual into the same system.</p>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-header-foreground/88 leading-snug max-w-xl mb-8">
+        Real growth rarely happens through advice alone.
+        <span class="block text-header-foreground/68 mt-1">It happens through relationship, reflection, challenge, practice, honesty, and time.</span>
+      </p>
+
+      <a href="#how-it-works" class="inline-flex items-center gap-1.5 text-primary/55 hover:text-primary text-sm font-body transition-colors">
+        Learn how the mentorship process works
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 5v14M5 12l7 7 7-7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       6. HOW THE MENTORSHIP WORKS — Image Background (documentaryWaterfall)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section id="how-it-works" class="relative overflow-hidden bg-void">
+    <Image
+      src={documentaryWaterfall}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/78"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight max-w-2xl">
+        How The Mentorship Works
+      </h2>
+      <span class="h2-accent"></span>
+
+      <div class="space-y-4 font-body text-base text-parchment/62 leading-relaxed mb-8 max-w-2xl">
+        <p>Each young man arrives with a different personality, developmental history, family context, and set of challenges. The mentorship is individualised within a clear structure of consistency, accountability, and direction.</p>
+      </div>
+
+      <blockquote class="pl-6 border-l-2 border-primary/45 mb-14 max-w-xl">
+        <p class="font-heading text-xl md:text-2xl text-parchment/85 leading-snug">
+          The relationship itself is part of the work. Trust, honesty, consistency, and psychological safety are not secondary to the process. They are central to it.
+        </p>
+      </blockquote>
+
+      <!-- Process carousel (Swiper) -->
+      <div class="mb-14">
+        <div class="swiper sg-swiper" id="sw-process">
+          <div class="swiper-wrapper">
+            {processStages.map((stage) => (
+              <div class="swiper-slide">
+                <div class="sg-slide border border-parchment/15 rounded-xl p-8 md:p-12 bg-[#070B14]/55 flex flex-col">
+                  <div class="flex items-start gap-4 mb-6">
+                    <span class="font-heading text-[32px] md:text-[40px] pull-gold leading-none shrink-0 tabular-nums">
+                      {stage.stage}
+                    </span>
+                    <h3 class="font-heading text-xl md:text-2xl lg:text-[26px] text-parchment/88 leading-snug pt-1">
+                      {stage.title}
+                    </h3>
+                  </div>
+                  <p class="font-body text-[17px] md:text-lg text-parchment/65 leading-relaxed flex-1">
+                    {stage.text}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-process-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/22 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/45 transition-all" aria-label="Previous">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <div id="sw-process-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-process-next" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/22 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/45 transition-all" aria-label="Next">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
+          <p class="text-parchment/22 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
+        </div>
+      </div>
+
+      <!-- Session structure -->
+      <div class="border border-parchment/12 rounded-xl p-7 bg-[#070B14]/45 mb-12">
+        <h4 class="font-heading text-[15px] md:text-[17px] text-parchment/70 tracking-[0.18em] uppercase mb-5">Typical Session Structure</h4>
+        <ul class="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+          {[
+            'Sessions are usually held online',
+            'Individual sessions are approximately 60 minutes',
+            'Frequency is usually weekly or fortnightly depending on the individual situation',
+            'The process is developmental rather than crisis-driven',
+            'This work is not designed as emergency psychological care or acute psychiatric intervention',
+          ].map((item) => (
+            <li class="flex items-start gap-3 text-sm font-body text-parchment/55 leading-relaxed">
+              <span class="mt-2 w-1 h-1 rounded-full bg-primary/40 shrink-0"></span>
+              {item}
+            </li>
+          ))}
+        </ul>
+      </div>
+
+      <blockquote class="pl-6 border-l-2 border-primary/38 mb-12 max-w-xl">
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 leading-snug">
+          The purpose of mentorship is not control. It is the gradual development of self-trust, maturity, and grounded autonomy.
+        </p>
+      </blockquote>
+
+      <a
+        href="#parental-cal"
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
+      >
+        Book a Parent Consultation
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       6B. PULL QUESTION — Dark Base (bg-void, standalone reframe)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-40 md:py-52 max-w-4xl">
+      <p class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-parchment/70 leading-tight mb-10 md:mb-12">
+        The question is not{' '}<br class="hidden sm:block" /><span class="text-parchment/45">"what is wrong with him?"</span>
+      </p>
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl pull-gold leading-snug">
+        Sometimes the better question is:{' '}<br class="hidden sm:block" />"What has he not yet been given?"
+      </p>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       7. A DIFFERENT WAY OF UNDERSTANDING — Register 3 (pale blue-grey)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[#D8DDE8] sg-r3 sg-r3-entry">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <h2 class="font-heading text-2xl md:text-3xl text-[#0F1422] leading-tight">
+        A Different Way Of Understanding The Problem
+      </h2>
+      <span class="h2-accent"></span>
+
+      <div class="max-w-3xl space-y-4 font-body text-base text-[#1A1F2E]/80 leading-relaxed mb-14">
+        <p>For most of human history, the transition into adulthood did not happen in isolation.</p>
+        <p>Young men were gradually shaped through responsibility, challenge, guidance, brotherhood, mentorship, embodied practice, meaningful expectations, and relationships with older men capable of helping them mature psychologically and emotionally.</p>
+        <p>Today, many young men are attempting to navigate that transition largely alone.</p>
+        <p>They are surrounded by stimulation, information, pressure, comparison, distraction, and performance demands, yet often lack meaningful spaces where they can slow down enough to develop genuine self-understanding, emotional steadiness, direction, and internal structure.</p>
+        <p>In many cases, the issue is not simply motivation.</p>
+        <p>It is disconnection:<br class="hidden sm:block" />
+        from self,<br class="hidden sm:block" />
+        from responsibility,<br class="hidden sm:block" />
+        from embodied presence,<br class="hidden sm:block" />
+        from meaningful challenge,<br class="hidden sm:block" />
+        and from trustworthy forms of guidance.</p>
+      </div>
+
+      <!-- What This Work Is: three blocks -->
+      <div class="border border-[#1A1F2E]/12 rounded-2xl p-8 md:p-10 bg-[#1A1F2E]/5 mb-12">
+        <h3 class="font-heading text-[15px] md:text-[17px] text-[#A87C35] mb-8 tracking-[0.18em] uppercase">
+          What This Work Is
+        </h3>
+        <div class="grid md:grid-cols-3 gap-8 md:gap-10">
+          <div>
+            <h4 class="font-heading text-[20px] md:text-[24px] text-[#0F1422] leading-snug mb-3">Grounded Developmental Work</h4>
+            <p class="font-body text-[15px] md:text-base text-[#1A1F2E]/72 leading-relaxed">
+              The aim is grounded self-awareness, responsibility, resilience, and inner stability, rather than hyper-productivity or an externally imposed identity.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-heading text-[20px] md:text-[24px] text-[#0F1422] leading-snug mb-3">Reflection That Lands in Action</h4>
+            <p class="font-body text-[15px] md:text-base text-[#1A1F2E]/72 leading-relaxed">
+              Emotional reflection matters, and so does what comes from it. Insight gradually becomes embodied through action, communication, self-observation, and lived change.
+            </p>
+          </div>
+          <div>
+            <h4 class="font-heading text-[20px] md:text-[24px] text-[#0F1422] leading-snug mb-3">Contemplative Practice as a Practical Tool</h4>
+            <p class="font-body text-[15px] md:text-base text-[#1A1F2E]/72 leading-relaxed">
+              Meditation and breathwork serve attention, nervous system regulation, and self-observation. The work stays anchored in real life: relationships, study, work, health, and honest engagement with reality.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="max-w-2xl space-y-4 font-body text-base text-[#1A1F2E]/75 leading-relaxed">
+        <p>Most young men want to become more themselves, not somebody else:
+          <span class="block pl-4 border-l border-[#1A1F2E]/12 mt-2 space-y-1 text-[#1A1F2E]/62">
+            more honest,<br />more grounded,<br />more capable of responsibility,<br />and more able to consciously shape the direction of their lives.
+          </span>
+        </p>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       7B. VILLAGE PULL STATEMENT — Image Background (himalayaSnowPeak)
+       Addresses the parental dynamic: feeling inadequate or excluded when
+       another adult fills a mentor role. Reframes structurally rather than
+       personally. Layout Type B (narrow editorial, full-width image).
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-void">
+    <Image
+      src={himalayaSnowPeak}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/82"></div>
+    <div class="relative z-10 container mx-auto px-6 py-40 md:py-52 max-w-3xl">
+
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl lg:text-5xl pull-gold leading-tight mb-10 md:mb-14">
+        It has always taken more than parents to raise a young man.
+      </p>
+
+      <div class="space-y-4 mb-10 md:mb-14">
+        <p class="font-heading text-xl sm:text-2xl md:text-3xl text-parchment/78 leading-snug">
+          That has always been true.
+        </p>
+        <p class="font-heading text-xl sm:text-2xl md:text-3xl text-parchment/72 leading-snug">
+          The role of someone outside the family, without the personal investment parents naturally carry, is not a replacement for what you offer.
+        </p>
+      </div>
+
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl pull-gold leading-snug">
+        It is the role that used to be filled by extended community, and rarely is now.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       8. ABOUT MICHAEL — Dark Base (bg-void + faint image)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-void">
+    <Image
+      src={mistyValley}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/85"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight">
+        About Michael
+      </h2>
+      <span class="h2-accent"></span>
+
+      <!-- Portrait: larger, circular, prominent -->
+      <div class="flex flex-col sm:flex-row sm:items-start gap-6 md:gap-8 mb-12">
+        <div class="shrink-0">
+          <div class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] rounded-full overflow-hidden border-2 border-parchment/12 shadow-2xl">
+            <Image
+              src={michaelPortrait}
+              alt="Michael Kaplan, ASCHP Registered Wellness Counsellor"
+              class="w-full h-full object-cover object-center"
+              widths={[240, 480]}
+              sizes="(min-width: 768px) 240px, 200px"
+              width={1254}
+              height={1254}
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="pt-2">
+          <p class="font-heading text-xl md:text-2xl text-parchment/88 mb-1">Michael Kaplan</p>
+          <p class="text-primary/55 text-sm font-body mt-0.5 leading-snug mb-4">ASCHP Registered Wellness Counsellor</p>
+          <div class="flex flex-wrap gap-1.5">
+            <span class="px-2.5 py-1 border border-parchment/12 rounded-full text-[10px] font-body text-parchment/35">ASCHP Reg.&nbsp;10559</span>
+            <span class="px-2.5 py-1 border border-parchment/12 rounded-full text-[10px] font-body text-parchment/35">Yoga Alliance RYS&nbsp;300</span>
+            <span class="px-2.5 py-1 border border-parchment/12 rounded-full text-[10px] font-body text-parchment/35">Currently accepting new clients</span>
+          </div>
+        </div>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/72 leading-snug max-w-xl mb-12">
+        Much of what shapes a young man's life happens in the spaces where he feels he cannot speak honestly.
+      </p>
+
+      <!-- About Michael carousel (Swiper) -->
+      <div class="mb-12">
+        <div class="swiper sg-swiper" id="sw-michael">
+          <div class="swiper-wrapper">
+            {aboutMichaelCards.map((card) => (
+              <div class="swiper-slide">
+                <div class="sg-slide border border-parchment/12 rounded-xl p-8 md:p-10 bg-header/30 flex flex-col">
+                  <p class="font-heading text-[10px] text-primary/58 tracking-widest uppercase mb-5">
+                    {card.title}
+                  </p>
+                  <div class="space-y-4 flex-1">
+                    {card.paragraphs.map((para) => (
+                      <p class="font-body text-[17px] md:text-lg text-parchment/65 leading-relaxed">{para}</p>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-michael-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/22 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/45 transition-all" aria-label="Previous">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <div id="sw-michael-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-michael-next" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/22 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/45 transition-all" aria-label="Next">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
+          <p class="text-parchment/22 text-xs font-body hidden sm:block ml-2">Use arrows to navigate</p>
+        </div>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/72 leading-snug max-w-xl mb-12 border-t border-parchment/10 pt-10 italic">
+        I do this work because I needed it myself, and I know what it cost not to have it.
+      </p>
+
+      <div class="space-y-3 font-body text-base text-parchment/58 leading-relaxed max-w-2xl mb-10">
+        <p>At its core, this work is the steady support of a developmental relationship over time.</p>
+        <p class="pl-4 border-l border-parchment/15 text-parchment/45">Through relationship, reflection, challenge, practice, and trust built carefully.</p>
+      </div>
+
+      <blockquote class="pl-6 border-l-2 border-primary/38 mb-8 max-w-xl">
+        <p class="font-heading text-xl md:text-2xl text-parchment/72 leading-snug italic">
+          A young man does not become mature merely because time passes. Maturity must be consciously developed, embodied, and lived.
+        </p>
+      </blockquote>
+
+      <a href="/about" class="inline-flex items-center gap-1.5 text-primary/52 hover:text-primary text-sm font-body transition-colors">
+        Read more on the About page
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       9. REFLECTIONS — Image Background (himalayaForestSunset)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-void">
+    <Image
+      src={himalayaForestSunset}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/75"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <div class="mb-12">
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight mb-4">
+          Reflections From Parents and Young Men
+        </h2>
+        <span class="h2-accent"></span>
+        <p class="font-body text-base text-parchment/58 leading-relaxed max-w-lg">
+          Reflections shared with permission from people who have engaged with this work directly.
+        </p>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/78 leading-snug max-w-2xl mb-12 border-t border-parchment/10 pt-10">
+        Often, what changes first is not behaviour alone.
+        <span class="block text-parchment/48 mt-1.5">It is the feeling that a young man is finally beginning to genuinely reconnect with himself.</span>
+      </p>
+
+      <!-- Testimonials carousel (Swiper) — asymmetric per-slide layouts -->
+      <div class="mb-6">
+        <div class="swiper sg-swiper" id="sw-testimonials">
+          <div class="swiper-wrapper">
+
+            <!-- Slide 1: Jacob S. — photo LEFT, quote RIGHT -->
+            <div class="swiper-slide">
+              <figure class="sg-slide border border-parchment/15 bg-[#070B14]/62 rounded-xl overflow-hidden">
+                <div class="flex flex-col md:flex-row">
+                  <div class="md:w-[36%] shrink-0">
+                    <div class="h-[200px] md:h-full overflow-hidden shadow-lg shadow-black/40">
+                      <Image
+                        src={jacobSPortrait}
+                        alt="Jacob S., mentee of Michael's who has worked with him across adolescence and into adulthood"
+                        class="w-full h-full object-cover"
+                        style={`object-position: ${testimonialPhotos.jacob?.cropPosition ?? TESTIMONIAL_CROP_DEFAULT};`}
+                        widths={[320, 500, 640]}
+                        sizes="(min-width: 768px) 36vw, 100vw"
+                        width={4284}
+                        height={5712}
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                  <div class="p-8 md:p-10 lg:p-12 flex flex-col flex-1">
+                    <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">Young Man Reflection</p>
+                    <blockquote class="flex-1 mb-7 space-y-4">
+                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
+                        &ldquo;Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we&rsquo;ve worked through has left me feeling clearer and more at peace.&rdquo;
+                      </p>
+                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/75 leading-relaxed italic">
+                        &ldquo;What strikes me most about him is his integrity. Whether one-on-one or in a group, his care is genuine and never for his own benefit. He is a pure soul who truly wants to see people thrive. I&rsquo;m so grateful for his availability and his dedication to helping me improve my life.&rdquo;
+                      </p>
+                    </blockquote>
+                    <figcaption>
+                      <p class="font-body text-sm text-parchment/45">Jacob S. &middot; has worked with Michael across adolescence and into adulthood</p>
+                    </figcaption>
+                  </div>
+                </div>
+              </figure>
+            </div>
+
+            <!-- Slide 2: Parent (anonymous) — no photo, quote centred -->
+            <div class="swiper-slide">
+              <figure class="sg-slide border border-parchment/15 bg-[#070B14]/62 rounded-xl overflow-hidden">
+                <div class="px-8 py-10 md:px-16 md:py-14 lg:px-24 lg:py-16 md:max-w-[80%] mx-auto flex flex-col">
+                  <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-5 text-center">Parent Reflection</p>
+                  <p class="font-heading text-[5.5rem] md:text-[7rem] text-primary/22 leading-none text-center select-none mb-2" aria-hidden="true">&ldquo;</p>
+                  <blockquote class="flex-1 mb-8 space-y-4 text-center">
+                    <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
+                      The continued mentorship and guidance Michael has provided for my son has helped us all enormously, and it&rsquo;s amazing to see how much more joyful and energised he feels after his sessions.
+                    </p>
+                    <p class="font-heading text-lg md:text-[1.2rem] text-parchment/80 leading-relaxed italic">
+                      When we started with Michael we were in a difficult place, and the changes didn&rsquo;t come all at once. But in retrospect, I can see how the process with Michael has helped guide my son into becoming the well-rounded, driven, and kind-hearted young man he has grown into being.
+                    </p>
+                    <p class="font-heading text-lg md:text-[1.2rem] text-parchment/75 leading-relaxed italic">
+                      I remain grateful to Michael for what he has done not just for my son, but for our whole family.
+                    </p>
+                  </blockquote>
+                  <figcaption class="text-center">
+                    <p class="font-body text-sm text-parchment/45">Parent of a teenage son, 3 years of work together</p>
+                  </figcaption>
+                </div>
+              </figure>
+            </div>
+
+            <!-- Slide 3: Antony S. — quote LEFT, photo RIGHT -->
+            <div class="swiper-slide">
+              <figure class="sg-slide border border-parchment/15 bg-[#070B14]/62 rounded-xl overflow-hidden">
+                <div class="flex flex-col md:flex-row-reverse">
+                  <div class="md:w-[36%] shrink-0">
+                    <div class="h-[200px] md:h-full overflow-hidden shadow-lg shadow-black/40">
+                      <Image
+                        src={antonySPortrait}
+                        alt="Antony S., community elder who has known Michael through group and individual work"
+                        class="w-full h-full object-cover"
+                        style={`object-position: ${testimonialPhotos.antony?.cropPosition ?? TESTIMONIAL_CROP_DEFAULT};`}
+                        widths={[320, 500, 640]}
+                        sizes="(min-width: 768px) 36vw, 100vw"
+                        width={1200}
+                        height={1600}
+                        loading="lazy"
+                      />
+                    </div>
+                  </div>
+                  <div class="p-8 md:p-10 lg:p-12 flex flex-col flex-1">
+                    <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">Professional Reflection</p>
+                    <blockquote class="flex-1 mb-7 space-y-4">
+                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
+                        &ldquo;On meeting Michael for the first time, I was immediately drawn to his insightful, grounded approach. There is a depth to him that carries a sense of wisdom beyond his years.&rdquo;
+                      </p>
+                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/80 leading-relaxed italic">
+                        &ldquo;What stood out most for me was his ability to create a space where men can simply be as they are. A space where they can show up without pressure or expectation. The way he holds space comes from a place of genuine love and care.&rdquo;
+                      </p>
+                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/75 leading-relaxed italic">
+                        &ldquo;There is a natural quality in him that is rare, something that usually takes years to build in friendship, but was present from the moment we met.&rdquo;
+                      </p>
+                    </blockquote>
+                    <figcaption>
+                      <p class="font-body text-sm text-parchment/45">Antony S. &middot; community elder, has known Michael through group and individual work</p>
+                    </figcaption>
+                  </div>
+                </div>
+              </figure>
+            </div>
+
+          </div>
+        </div>
+        <div class="flex items-center gap-3 mt-6">
+          <button id="sw-testimonials-prev" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/22 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/45 transition-all" aria-label="Previous testimonial">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M19 12H5M12 19l-7-7 7-7" /></svg>
+          </button>
+          <div id="sw-testimonials-pag" class="flex-1 flex justify-center sg-pag"></div>
+          <button id="sw-testimonials-next" class="sg-nav-btn w-10 h-10 rounded-full border border-parchment/22 flex items-center justify-center text-parchment/45 hover:text-parchment/75 hover:border-parchment/45 transition-all" aria-label="Next testimonial">
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="mt-6 mb-12">
+        <a href="/testimonials" class="inline-flex items-center gap-1.5 text-primary/52 hover:text-primary/80 text-sm font-body transition-colors">
+          Read more reflections
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/62 leading-snug max-w-xl border-t border-parchment/10 pt-10">
+        Real trust is built slowly.
+        <span class="block text-parchment/38 mt-1">And often, real growth is too.</span>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       10. WHO THIS WORK IS FOR — Dark Base (bg-void), full-width
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void text-parchment">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight max-w-2xl">
+        Who This Work Is Often Helpful For
+      </h2>
+      <span class="h2-accent"></span>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/75 leading-snug max-w-xl mb-8">
+        Good mentorship depends not only on skill, but on fit, readiness, trust, and willingness to engage honestly.
+      </p>
+
+      <p class="font-body text-base md:text-lg text-parchment/65 leading-relaxed mb-12 max-w-2xl">
+        This work may be supportive for adolescent or young adult men who are:
+      </p>
+
+      <div class="space-y-1 mb-14">
+        {whoForPoints.map((point) => (
+          <div class="flex items-start gap-5 py-4 border-b border-parchment/8">
+            <span class="mt-2.5 w-2 h-2 rounded-full bg-primary/65 shrink-0"></span>
+            <p class="font-body text-base md:text-lg text-parchment/72 leading-relaxed">{point}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="max-w-2xl space-y-3 font-body text-base text-parchment/55 leading-relaxed mb-8 border-t border-parchment/10 pt-10">
+        <p>There is no single formula that works for every young man. Part of working ethically is being honest about when this is the right fit and when something else would help more.</p>
+      </div>
+
+      <div class="border border-parchment/10 rounded-xl p-7 bg-header/25 mb-10 max-w-2xl">
+        <h4 class="font-heading text-[20px] md:text-[24px] text-parchment/85 leading-snug mb-4">What Parents Can Realistically Expect</h4>
+        <div class="space-y-3 font-body text-sm text-parchment/55 leading-relaxed">
+          <p>What this work supports is something slower and deeper than immediate transformation: greater honesty, emotional grounding, responsibility, and psychological maturity, developed gradually.</p>
+          <p>The earliest changes are usually perceptible rather than dramatic: more openness, less defensiveness, greater consistency, increased self-reflection, or a renewed engagement with life.</p>
+        </div>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/72 leading-snug max-w-xl mb-10">
+        If your son's situation looks like several of these, the parental consultation is a good first step.
+      </p>
+
+      <a href="#parental-cal" class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors">
+        Begin with a parent consultation
+        <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       11. WHO THIS IS NOT FOR — Image Background (documentaryMountain)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden bg-void">
+    <Image
+      src={documentaryMountain}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/75"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight max-w-2xl">
+        Who This Is Not The Right Fit For
+      </h2>
+      <span class="h2-accent"></span>
+
+      <p class="font-body text-base md:text-lg text-parchment/68 leading-relaxed mb-12 max-w-2xl">
+        Honesty about who this work serves well requires honesty about who it does not.
+      </p>
+
+      <div class="space-y-1 mb-14">
+        {whoNotForPoints.map((point) => (
+          <div class="flex items-start gap-5 py-4 border-b border-parchment/10">
+            <span class="mt-2 w-5 h-5 rounded-full border border-parchment/30 flex items-center justify-center shrink-0">
+              <svg class="w-2.5 h-2.5 text-parchment/40" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </span>
+            <p class="font-body text-base md:text-lg text-parchment/65 leading-relaxed">{point}</p>
+          </div>
+        ))}
+      </div>
+
+      <div class="max-w-2xl font-body text-base text-parchment/58 leading-relaxed border-t border-parchment/12 pt-10 mb-10">
+        <p>If any of these describe your situation, the parental consultation is still worth having, even if only to clarify what would actually help and to refer appropriately. Honesty about fit is part of the practice.</p>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-parchment/62 leading-snug max-w-xl">
+        The goal is not to create dependence on mentorship.
+        <span class="block text-parchment/38 mt-1.5">It is to help a young man become more capable of consciously standing within his own life.</span>
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       12. PRICING — Register 3 (pale blue-grey) — second deliberate tonal break
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[#D8DDE8] sg-r3 sg-r3-entry">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-[#0F1422] leading-tight max-w-2xl">
+        Mentorship Structure and Investment
+      </h2>
+      <span class="h2-accent"></span>
+
+      <div class="space-y-3 font-body text-base text-[#1A1F2E]/78 leading-relaxed mb-8 max-w-2xl">
+        <p>Meaningful developmental work requires consistency, trust, honesty, and time. This mentorship is approached as a committed relational process, not a once-off intervention.</p>
+      </div>
+
+      <p class="font-heading text-xl md:text-2xl text-[#0F1422] leading-snug max-w-xl border-t border-[#1A1F2E]/12 pt-8 mb-14">
+        The aim is not short-term motivation. The aim is long-term developmental grounding.
+      </p>
+
+      <!-- Commitment ladder — vertical progression -->
+      <div class="space-y-0 mb-12 max-w-2xl">
+
+        <!-- Step 1 -->
+        <div class="flex gap-6 md:gap-8 pb-10 relative">
+          <div class="flex flex-col items-center shrink-0">
+            <div class="w-8 h-8 rounded-full border border-[#A87C35]/50 flex items-center justify-center bg-white/30">
+              <span class="font-heading text-xs text-[#A87C35]">01</span>
+            </div>
+            <div class="w-px flex-1 bg-[#1A1F2E]/10 mt-3"></div>
+          </div>
+          <div class="pt-1 pb-2">
+            <h4 class="text-[#A87C35] text-[15px] md:text-[17px] tracking-[0.12em] uppercase font-heading mb-2">Parent Consultation</h4>
+            <div class="flex items-baseline gap-1 mb-1">
+              <span class="font-heading text-lg text-[#0F1422]/50">R</span>
+              <span class="font-heading text-4xl text-[#0F1422] leading-none">600</span>
+              <span class="font-body text-sm text-[#1A1F2E]/45 ml-1">/ 45 min</span>
+            </div>
+            <p class="text-[#1A1F2E]/38 text-xs font-body mb-3">Charged as approx. $35 USD via PayPal</p>
+            <p class="font-body text-sm text-[#1A1F2E]/72 leading-relaxed">
+              A dedicated conversation for parents to discuss concerns, ask questions, understand the approach, and determine whether this work may be the right fit for your son and family.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 2 -->
+        <div class="flex gap-6 md:gap-8 pb-10 relative">
+          <div class="flex flex-col items-center shrink-0">
+            <div class="w-8 h-8 rounded-full border border-[#A87C35]/50 flex items-center justify-center bg-white/30">
+              <span class="font-heading text-xs text-[#A87C35]">02</span>
+            </div>
+            <div class="w-px flex-1 bg-[#1A1F2E]/10 mt-3"></div>
+          </div>
+          <div class="pt-1 pb-2">
+            <h4 class="text-[#A87C35] text-[15px] md:text-[17px] tracking-[0.12em] uppercase font-heading mb-2">Individual Sessions</h4>
+            <div class="flex items-baseline gap-1 mb-1">
+              <span class="font-heading text-lg text-[#0F1422]/50">R</span>
+              <span class="font-heading text-4xl text-[#0F1422] leading-none">850</span>
+              <span class="font-body text-sm text-[#1A1F2E]/45 ml-1">/ 60 min</span>
+            </div>
+            <p class="text-[#1A1F2E]/38 text-xs font-body mb-3">Weekly or fortnightly &middot; Online</p>
+            <p class="font-body text-sm text-[#1A1F2E]/72 leading-relaxed">
+              Individual mentorship and reflective counselling focused on emotional development, responsibility, self-awareness, direction, and practical life integration.
+            </p>
+          </div>
+        </div>
+
+        <!-- Step 3 -->
+        <div class="flex gap-6 md:gap-8">
+          <div class="flex flex-col items-center shrink-0">
+            <div class="w-8 h-8 rounded-full bg-[#A87C35]/15 border border-[#A87C35]/60 flex items-center justify-center">
+              <span class="font-heading text-xs text-[#A87C35]">03</span>
+            </div>
+          </div>
+          <div class="pt-1">
+            <h4 class="text-[#A87C35] text-[15px] md:text-[17px] tracking-[0.12em] uppercase font-heading mb-2">5-Session Commitment</h4>
+            <div class="flex items-baseline gap-1 mb-1">
+              <span class="font-heading text-lg text-[#0F1422]/50">R</span>
+              <span class="font-heading text-4xl text-[#0F1422] leading-none">3&thinsp;400</span>
+            </div>
+            <p class="text-[#A87C35]/70 text-sm font-body mb-3">R680 per session &middot; Five 60-minute sessions</p>
+            <p class="font-body text-sm text-[#1A1F2E]/72 leading-relaxed">
+              For families seeking a more consistent developmental container. Five sessions intended for sustained mentorship work, allowing trust and meaningful momentum to develop over time.
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="border-t border-[#1A1F2E]/10 pt-8 mb-10 max-w-2xl space-y-3">
+        <p class="font-body text-sm text-[#1A1F2E]/62 leading-relaxed">
+          Trust, self-awareness, emotional regulation, and genuine behavioural change tend to deepen gradually through consistent relational work.
+        </p>
+        <p class="font-body text-sm text-[#1A1F2E]/50 leading-relaxed">
+          A small number of reduced-rate spaces may occasionally be available for families where the standard investment is genuinely prohibitive. This can be discussed directly during the parent consultation.
+        </p>
+      </div>
+
+      <div class="flex flex-col sm:flex-row sm:items-center gap-5">
+        <a
+          href="#parental-cal"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-[#0F1422] text-[#E8D9B5] hover:bg-[#1A1F2E] transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg"
+        >
+          Book a Parent Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="/contact" class="inline-flex items-center gap-1.5 text-[#1A1F2E]/50 hover:text-[#1A1F2E]/80 text-sm font-body transition-colors">
+          Questions before booking
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       13. PARENTAL CONSULTATION BOOKING — Dark Base (bg-void)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section id="parental-cal" class="bg-void text-parchment border-t border-parchment/8">
+    <div class="container mx-auto px-6 pt-16 pb-10 md:pt-20 md:pb-12 max-w-3xl">
+
+      <div class="mb-10 max-w-xl">
+        <p class="text-primary/55 text-xs tracking-widest uppercase font-body mb-4">Parent consultation &middot; Paid &middot; 45 minutes</p>
+        <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight mb-4">
+          Book a Parent Consultation
+        </h2>
+        <p class="text-parchment/72 font-body text-base leading-relaxed mb-2">
+          R600 &middot; 45 minutes &middot; Online
+        </p>
+        <p class="text-parchment/55 font-body text-sm leading-relaxed mb-4">
+          Charged as approximately $35 USD via PayPal at the prevailing exchange rate.
+        </p>
+        <p class="text-parchment/68 font-body text-base leading-relaxed">
+          A space for parents to slow down, discuss concerns, ask questions, and determine whether this work may be the right fit for your son and family.
+        </p>
+      </div>
+
+      <p class="text-parchment/70 font-body text-base leading-relaxed mb-8 max-w-xl">
+        Reaching out is not a failure. It is the response a thoughtful parent makes when they recognise that no one or two people can provide everything a young person needs to grow well. Mentorship is not a replacement for the relationship you have with your son. It is the addition of an outside perspective at a stage of life where outside perspective has always mattered.
+      </p>
+
+      <div class="rounded-xl overflow-hidden border border-parchment/8 mb-6">
+        <div id="cal-parental-embed"></div>
+      </div>
+
+      <p class="text-parchment/50 text-sm font-body leading-relaxed">
+        If a slot doesn't suit your timezone or schedule, reach out via
+        <a href="/contact" class="text-primary/55 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/15">the contact form</a>
+        or
+        <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="text-primary/55 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/15">WhatsApp</a>.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       14. FIT CALL — Dark Base (bg-header, slight variation)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section id="fit-cal" class="bg-header text-header-foreground border-t border-header-foreground/8">
+    <div class="container mx-auto px-6 py-12 md:py-16 max-w-3xl">
+      <div class="max-w-md mb-8">
+        <p class="text-primary/35 text-[10px] tracking-widest uppercase font-body mb-2">
+          Free &middot; 15 minutes &middot; For young men 18-25 reading for themselves
+        </p>
+        <h3 class="font-heading text-xl md:text-2xl text-header-foreground/72 mb-2">
+          Start with a Free 15-Minute Fit Call
+        </h3>
+        <p class="text-header-foreground/50 font-body text-sm leading-relaxed">
+          A short conversation to see whether the approach and timing feel right. No commitment beyond the call.
+        </p>
+      </div>
+      <div class="border border-header-foreground/10 rounded-xl overflow-hidden">
+        <div id="cal-fit-embed"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       15. SCOPE — Dark Base (bg-void, tight)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void border-t border-parchment/8">
+    <div class="container mx-auto px-6 py-8 max-w-3xl">
+      <div class="bg-header/30 border border-parchment/10 rounded-lg p-6">
+        <p class="text-[10px] text-parchment/38 tracking-widest uppercase font-body mb-2.5">Scope and what this is not</p>
+        <p class="font-body text-sm text-parchment/55 leading-relaxed">
+          Sangham is supportive wellness counselling and developmental mentorship registered under the ASCHP. It is distinct from clinical psychology, psychiatry, psychotherapy, and from crisis or emergency mental health care. If a young person is in acute crisis, is at risk, or requires clinical assessment, Michael will say so directly and refer to an appropriate professional. Honesty about scope is part of the work.
+        </p>
+        <a href="/scope" class="inline-flex items-center gap-1 text-primary/42 hover:text-primary/72 text-xs font-body mt-3.5 transition-colors">
+          Full scope and ethics
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       16. FAQ — Dark Base (bg-header)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground sg-seam-top">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient text-center mb-4">
+        Frequently Asked Questions
+      </h2>
+      <div class="flex justify-center mb-10">
+        <span class="h2-accent" style="margin-top:0"></span>
+      </div>
+
+      <div class="font-body text-base text-header-foreground/58 leading-relaxed mb-6 max-w-xl mx-auto text-center">
+        <p>Parents often arrive with thoughtful questions, uncertainty, caution, or concern before beginning any mentorship process. That is entirely understandable.</p>
+      </div>
+
+      <p class="font-heading text-lg md:text-xl text-header-foreground/68 leading-snug max-w-lg mx-auto text-center border-t border-header-foreground/8 pt-8 mb-12">
+        A thoughtful parent should ask careful questions before placing trust in any developmental relationship.
+      </p>
+
+      <div class="divide-y divide-header-foreground/6 mb-14">
+        {faqItems.map((item) => (
+          <details class="group py-0">
+            <summary class="flex items-center justify-between gap-4 py-5 cursor-pointer list-none text-header-foreground/70 hover:text-header-foreground/92 transition-colors select-none">
+              <span class="font-heading text-base md:text-lg leading-snug">{item.q}</span>
+              <svg class="w-3.5 h-3.5 shrink-0 text-primary/38 transition-transform duration-200 group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4" />
+              </svg>
+            </summary>
+            <div class="faq-body pb-5 pr-6 space-y-3">
+              {item.a.map((para) => (
+                <p class="font-body text-base text-header-foreground/55 leading-relaxed">{para}</p>
+              ))}
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <div class="text-center space-y-5">
+        <a
+          href="#parental-cal"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
+        >
+          Book a Parent Consultation
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <div>
+          <a href="/contact" class="inline-flex items-center justify-center gap-1.5 text-header-foreground/42 hover:text-header-foreground/72 text-sm font-body transition-colors">
+            Still unsure? Reach out
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       17. CLOSING — Image Background (himalayaSnowPeak, near-opaque)
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <section class="relative bg-void overflow-hidden">
+    <Image
+      src={himalayaSnowPeak}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070B14]/88"></div>
+
+    <div class="relative z-10 container mx-auto px-6 py-40 md:py-52 max-w-2xl text-center">
+
+      <blockquote class="mb-12">
+        <p class="font-heading text-3xl md:text-4xl pull-gold leading-snug mb-5">
+          A young man does not become grounded merely because he grows older.
+        </p>
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 leading-snug">
+          Sometimes he needs guidance, reflection, challenge, honesty, and trustworthy relationship in order to consciously grow into himself.
+        </p>
+      </blockquote>
+
+      <div class="space-y-4 font-body text-base text-parchment/52 leading-relaxed mb-14 max-w-lg mx-auto">
+        <p>For some young men, the presence of a steady, honest, developmentally focused relationship becomes an important turning point, not because somebody fixes them, but because they gradually begin relating to themselves and their lives differently.</p>
+        <p>If you are carrying concern for your son, the parent consultation is a space to begin that conversation carefully and without pressure.</p>
+      </div>
+
+      <a
+        href="#parental-cal"
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
+      >
+        Book a Parent Consultation
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       CAL.COM SCRIPTS
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <script is:inline>
+    (function (C, A, L) {
+      let p = function (a, ar) { a.q.push(ar); };
+      let d = C.document;
+      C.Cal = C.Cal || function () {
+        let cal = C.Cal;
+        let ar = arguments;
+        if (!cal.loaded) {
+          cal.ns = {};
+          cal.q = cal.q || [];
+          d.head.appendChild(d.createElement("script")).src = A;
+          cal.loaded = true;
+        }
+        if (ar[0] === L) {
+          const api = function () { p(api, arguments); };
+          const namespace = ar[1];
+          api.q = api.q || [];
+          if (typeof namespace === "string") {
+            cal.ns[namespace] = cal.ns[namespace] || api;
+            p(cal.ns[namespace], ar);
+            p(cal, ["initNamespace", namespace]);
+          } else { p(cal, ar); }
+          return;
+        }
+        p(cal, ar);
+      };
+    })(window, "https://app.cal.com/embed/embed.js", "init");
+
+    Cal("init", "parental-consultation", { origin: "https://cal.com" });
+    Cal.ns["parental-consultation"]("inline", { elementOrSelector: "#cal-parental-embed", calLink: "sangham/parental-consultation", layout: "month_view" });
+    Cal.ns["parental-consultation"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
+    Cal.ns["parental-consultation"]("on", {
+      action: "bookingSuccessful",
+      callback: function (e) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "parental_consultation_booked", cal_event_slug: "parental-consultation", cal_booking_uid: (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "" });
+      },
+    });
+
+    Cal("init", "fit-call", { origin: "https://cal.com" });
+    Cal.ns["fit-call"]("inline", { elementOrSelector: "#cal-fit-embed", calLink: "sangham/fit", layout: "month_view" });
+    Cal.ns["fit-call"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
+    Cal.ns["fit-call"]("on", {
+      action: "bookingSuccessful",
+      callback: function (e) {
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push({ event: "fit_call_booked", cal_event_slug: "fit", cal_booking_uid: (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "" });
+        window.location.href = "/thank-you-consultation";
+      },
+    });
+  </script>
+
+  <!-- ══════════════════════════════════════════════════════════════════════
+       SWIPER CAROUSEL INITIALISATION
+  ══════════════════════════════════════════════════════════════════════════ -->
+  <script>
+    import Swiper from 'swiper';
+    import { Navigation, Pagination, A11y, Keyboard } from 'swiper/modules';
+    import 'swiper/css';
+    import 'swiper/css/navigation';
+    import 'swiper/css/pagination';
+    import 'swiper/css/a11y';
+
+    function makeSw(
+      id: string,
+      prevId: string,
+      nextId: string,
+      pagId: string
+    ) {
+      return new Swiper('#' + id, {
+        modules: [Navigation, Pagination, A11y, Keyboard],
+        slidesPerView: 1,
+        loop: false,
+        autoplay: false,
+        keyboard: { enabled: true },
+        a11y: { enabled: true },
+        navigation: {
+          prevEl: '#' + prevId,
+          nextEl: '#' + nextId,
+        },
+        pagination: {
+          el: '#' + pagId,
+          clickable: true,
+        },
+      });
+    }
+
+    makeSw('sw-patterns',     'sw-patterns-prev',     'sw-patterns-next',     'sw-patterns-pag');
+    makeSw('sw-dev',          'sw-dev-prev',          'sw-dev-next',          'sw-dev-pag');
+    makeSw('sw-process',      'sw-process-prev',      'sw-process-next',      'sw-process-pag');
+    makeSw('sw-michael',      'sw-michael-prev',      'sw-michael-next',      'sw-michael-pag');
+    makeSw('sw-testimonials', 'sw-testimonials-prev', 'sw-testimonials-next', 'sw-testimonials-pag');
+  </script>
+
+</div>
+</BaseLayout>

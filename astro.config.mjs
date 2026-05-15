@@ -23,8 +23,11 @@ export default defineConfig({
           return { ...item, changefreq: 'weekly', priority: 1.0 };
         }
 
-        // Primary commercial page — counselling
-        if (url.startsWith(`${SITE}/counselling`)) {
+        // Primary commercial pages
+        if (
+          url.startsWith(`${SITE}/counselling`) ||
+          url.startsWith(`${SITE}/mentoring-for-young-men`)
+        ) {
           return { ...item, changefreq: 'monthly', priority: 0.9 };
         }
 
