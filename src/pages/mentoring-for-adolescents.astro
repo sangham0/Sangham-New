@@ -5,6 +5,7 @@ import michaelPortrait from '../assets/michael-portrait-new.jpg';
 import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
 import antonySPortrait from '../assets/antony-s-portrait.jpg';
 import documentaryWaterfall from '../assets/documentary-waterfall.jpg';
+import caveMeditation from '../assets/cave-meditation.jpg';
 import documentaryMountain from '../assets/documentary-mountain.jpg';
 import mistyValley from '../assets/misty-valley.jpg';
 import himalayaForestSunset from '../assets/himalaya-forest-sunset.jpg';
@@ -869,16 +870,26 @@ const jsonLd = [
     </div>
   </section>
 
-  <section class="bg-[#D8DDE8] sg-r3">
-    <div class="container mx-auto px-6 py-40 md:py-52 max-w-3xl text-center">
-      <p class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-[#0F1422]/78 leading-tight mb-10 md:mb-12">
+  <section class="relative overflow-hidden bg-void">
+    <Image
+      src={caveMeditation}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 sg-overlay-strong"></div>
+    <div class="relative z-10 container mx-auto px-6 py-40 md:py-52 max-w-3xl text-center">
+      <p class="font-heading text-3xl sm:text-4xl md:text-5xl lg:text-6xl text-parchment/82 leading-tight mb-10 md:mb-12">
         The question is not<br class="hidden sm:block" />
-        <span class="text-[#0F1422]/50">"what is wrong with him?"</span>
+        <span class="text-parchment/50">"what is wrong with him?"</span>
       </p>
-      <p class="font-heading text-xl md:text-2xl text-[#1A1F2E]/52 leading-snug mb-8">
+      <p class="font-heading text-xl md:text-2xl text-parchment/52 leading-snug mb-8">
         Often the better question is
       </p>
-      <p class="font-heading text-3xl sm:text-4xl md:text-5xl text-[#A87C35] leading-snug">
+      <p class="font-heading text-3xl sm:text-4xl md:text-5xl pull-gold leading-snug">
         "what has he not yet been given?"
       </p>
     </div>
