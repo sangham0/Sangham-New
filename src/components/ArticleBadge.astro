@@ -1,0 +1,56 @@
+---
+/**
+ * ArticleBadge
+ * Renders an "Essay" or "Practice Guide" classification badge.
+ *
+ * Props:
+ *   type     – 'essay' | 'practice-guide'
+ *   context  – 'header' (dark bg-header) | 'card' (light bg-card). Defaults to 'card'.
+ *   showPrint – when true (practice guides only), renders a "Save for practice"
+ *               print affordance beside the badge.
+ */
+interface Props {
+  type: 'essay' | 'practice-guide';
+  context?: 'header' | 'card';
+  showPrint?: boolean;
+}
+
+const { type, context = 'card', showPrint = false } = Astro.props;
+const isGuide = type === 'practice-guide';
+const isHeader = context === 'header';
+---
+
+<span class="inline-flex items-center gap-3">
+
+  <!-- Badge pill -->
+  <span
+    class:list={[
+      'inline-block text-[11px] font-heading italic tracking-wide rounded-sm border px-2.5 py-[3px] leading-none',
+      isGuide
+        ? 'border-primary/25 bg-primary/10 text-primary/65'
+        : isHeader
+          ? 'border-header-foreground/25 text-header-foreground/45'
+          : 'border-border/70 text-muted-foreground/55',
+    ]}
+  >
+    {isGuide ? 'Practice Guide' : 'Essay'}
+  </span>
+
+  <!-- Print affordance — practice guides only, hidden when printing -->
+  {showPrint && isGuide && (
+    <button
+      type="button"
+      onclick="window.print()"
+      class:list={[
+        'text-[11px] font-body transition-colors print:hidden',
+        isHeader
+          ? 'text-header-foreground/30 hover:text-header-foreground/60'
+          : 'text-muted-foreground/35 hover:text-muted-foreground/65',
+      ]}
+      aria-label="Print or save this practice guide"
+    >
+      Save for practice
+    </button>
+  )}
+
+</span>

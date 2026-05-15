@@ -1,0 +1,271 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ArticleBadge from '../../components/ArticleBadge.astro';
+
+const canonicalURL = 'https://www.sangham.org/wisdom/kings-and-queens';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sangham.org/' },
+      { '@type': 'ListItem', position: 2, name: 'Wisdom', item: 'https://www.sangham.org/wisdom' },
+      { '@type': 'ListItem', position: 3, name: 'You Are Not the Beggar You Think You Are', item: canonicalURL },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: 'You Are Not the Beggar You Think You Are',
+    description: 'On the strange dream most people are sleeping inside — the posture of the beggar, and what is waiting underneath it when the performing stops.',
+    url: canonicalURL,
+    datePublished: '2026-05-07',
+    dateModified: '2026-05-07',
+    articleSection: 'Essay',
+    inLanguage: 'en',
+    image: {
+      '@type': 'ImageObject',
+      url: 'https://www.sangham.org/images/og-default.jpg',
+    },
+    author: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      url: 'https://www.sangham.org/about',
+    },
+    publisher: {
+      '@type': 'Organization',
+      name: 'Sangham',
+      url: 'https://www.sangham.org',
+      logo: {
+        '@type': 'ImageObject',
+        url: 'https://www.sangham.org/sangham-logo.png',
+      },
+    },
+    isPartOf: {
+      '@type': 'WebPage',
+      url: 'https://www.sangham.org/wisdom/',
+      name: 'Sangham Wisdom',
+    },
+  },
+];
+---
+
+<BaseLayout
+  title="You Are Not the Beggar You Think You Are | Sangham Wisdom"
+  description="On the strange dream most people are sleeping inside — the posture of the beggar, and what is waiting underneath it when the performing stops."
+  type="article"
+  publishedDate="2026-05-07"
+  canonicalURL={canonicalURL}
+  jsonLd={jsonLd}
+>
+
+  <!-- ESSAY HEADER -->
+  <section class="bg-header py-20 md:py-28">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <a
+        href="/wisdom"
+        class="inline-flex items-center gap-2 text-sm text-header-foreground/50 hover:text-header-foreground/80 font-body transition-colors mb-10"
+      >
+        <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5 3 12m0 0 7.5-7.5M3 12h18" />
+        </svg>
+        Back to Wisdom
+      </a>
+
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
+        You Are Not the Beggar You Think You Are
+      </h1>
+      <div class="mb-4">
+        <ArticleBadge type="essay" context="header" />
+      </div>
+      <p class="font-body text-sm text-header-foreground/45 italic mb-5 leading-relaxed">
+        On the strange dream most people are sleeping inside, and what is waiting underneath it.
+      </p>
+      <div class="flex items-center gap-3 text-sm text-header-foreground/40 font-body">
+        <span>May 2026</span>
+        <span class="text-header-foreground/20">&middot;</span>
+        <span>6 min read</span>
+        <span class="text-header-foreground/20">&middot;</span>
+        <span class="inline-block px-2 py-0.5 text-[10px] font-body tracking-wider uppercase rounded-full border border-primary/15 text-primary/50">Psychology</span>
+        <span class="inline-block px-2 py-0.5 text-[10px] font-body tracking-wider uppercase rounded-full border border-primary/15 text-primary/50">Contemplative</span>
+      </div>
+      <div class="divider-gold w-24 mt-8"></div>
+    </div>
+  </section>
+
+  <!-- ESSAY BODY -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-2xl">
+      <div class="space-y-6 text-muted-foreground font-body leading-relaxed text-[15px]">
+
+        <p>Most adults move through the world in a way that, when you slow down enough to see it, is genuinely tragic.</p>
+        <p>If you watch carefully, in airports, in offices, in the small interactions at coffee counters and in the passing glances between people on the street, you will see it. The posture of someone trying to be acceptable. The slightly tilted smile, ready in advance. The shoulders held a little high. The quick recalculation that flickers across the face when a conversation does not go quite as expected. The small managing of voice, of eye contact, of how much enthusiasm to show, of when to laugh and how loudly.</p>
+        <p>The body is doing this even when nothing important is at stake. A coffee order. A small-talk exchange with a colleague. A passing comment from a stranger. The same micro-adjustments are running, all day, in nearly everyone, almost without ceasing.</p>
+        <p>What you are watching is not, exactly, vanity. It is something much sadder than vanity. It is the posture of a beggar, and a beggar has no choice but to be careful.</p>
+
+        <div class="flex items-center gap-4 py-4">
+          <div class="flex-1 border-t border-border/30"></div>
+          <div class="w-1 h-1 rounded-full bg-primary/25"></div>
+          <div class="flex-1 border-t border-border/30"></div>
+        </div>
+
+        <p>A beggar has to smile at the people they secretly resent, because if they do not, they may not eat that day. A beggar has to perform gratitude for whatever scraps are tossed their way, often accompanied by unsolicited instructions on how the scraps ought to be spent. A beggar has to absorb the small humiliations of being lectured by people who have never lived a single day in their position, and to do this without flinching, because flinching might be punished. A beggar has to keep their actual feelings invisible, because their actual feelings are not what the situation rewards. This is a hard life, and we recognise it as hard when we see it on the street.</p>
+        <p>What is harder to recognise is that nearly all of us are living this life, in a slightly different costume, in nearly every relationship we have. We are smiling at people we secretly find tedious because their approval feels necessary to us. We are performing gratitude for affection that comes wrapped in conditions. We are absorbing condescension from people who do not actually understand us, and we are doing it without flinching, because we are afraid of what might happen if we did. We are keeping our real feelings hidden, because our real feelings are not what the situation rewards.</p>
+        <p>We have made beggars of ourselves. The metaphor is exact. And the begging is so constant, so woven into the texture of our daily lives, that we no longer notice we are doing it. The posture has become the way we stand.</p>
+
+        <div class="flex items-center gap-4 py-4">
+          <div class="flex-1 border-t border-border/30"></div>
+          <div class="w-1 h-1 rounded-full bg-primary/25"></div>
+          <div class="flex-1 border-t border-border/30"></div>
+        </div>
+
+        <p>The strange thing, the thing worth slowing down for, is that none of this is actually necessary. It is not necessary in the way that breathing is necessary, or that food is necessary. It is only necessary if a particular belief is true. The belief, almost always unspoken, is that we are small. That what we are, in ourselves, is not enough to draw love or attention or care, and that we therefore have to compensate by making ourselves agreeable, palatable, easy to be around. The whole posture of begging rests on this single underlying conviction. That what is here, when nothing is being performed, is insufficient. It is worth pausing on that conviction, because it is the lie at the centre of nearly every adult life.</p>
+        <p>You are not insufficient.</p>
+        <p>What is here, in you, beneath all the small performances and adjustments, is not a small thing trying to make itself bigger. It is a vast thing that has forgotten what it is, and is now contracted into a posture of pleading because it has been told, repeatedly and from a young age, that the vastness is too much, too inconvenient, too strange. So it learned to make itself manageable. It learned to ask permission for things it could simply have done. It learned to negotiate for love that was already its birthright.</p>
+        <p>This is the dream most people are sleeping inside. In the dream, you are a beggar. In the dream, you must be careful. In the dream, every smile must be earned, every kindness paid for, every connection negotiated. In the dream, you are forever almost-running-out of whatever currency it is that other people seem to require of you, and you must always be slightly anxious, slightly performative, slightly on. The dream is exhausting. But the dream is also, by the time most of us reach adulthood, so familiar that we mistake it for the texture of life itself.</p>
+        <p>It is not the texture of life itself. It is just a particular dream that almost everyone happens to be having at the same time.</p>
+
+        <div class="flex items-center gap-4 py-4">
+          <div class="flex-1 border-t border-border/30"></div>
+          <div class="w-1 h-1 rounded-full bg-primary/25"></div>
+          <div class="flex-1 border-t border-border/30"></div>
+        </div>
+
+        <p>The contemplative traditions, the ones that have lasted, almost all say something like this. They say that what you are, in your unguarded reality, is not what you have been told you are. That you are not the small, careful, slightly anxious thing you take yourself to be. That you are, to use the language of the old teachings, something more like royalty.</p>
+        <p>This is not a flattering claim about your particular personality. It is not saying that the masked self you currently identify with is wonderful. It is saying something more precise. That underneath that masked self, beneath the patterns of behaviour you have built up to survive, there is a presence that does not need to beg. A presence that is already complete. A presence that, if you ever fully met it, you would recognise as something closer to what you actually are.</p>
+        <p>The Sufis sometimes called this the original face, borrowing from the Zen tradition. Other lineages have used different words. What they all share is the conviction that the begging is unnecessary. That what is asking for love so anxiously is already loved. That the part of you scraping for approval is a kind of confused royalty, a king or a queen, dreaming a long and frightening dream of being a beggar, and forced inside that dream to do humiliating things just to collect mere scraps.</p>
+        <p>You can do those humiliating things for a lifetime. Most people do.</p>
+        <p>Or you can begin, slowly, to wake up. It does not happen all at once.</p>
+
+        <div class="flex items-center gap-4 py-4">
+          <div class="flex-1 border-t border-border/30"></div>
+          <div class="w-1 h-1 rounded-full bg-primary/25"></div>
+          <div class="flex-1 border-t border-border/30"></div>
+        </div>
+        <p>It happens, mostly, in small flashes. A moment of unexpected stillness in the middle of an ordinary afternoon, when something in you sees, very briefly, that the entire dance you have been performing is unnecessary. A conversation in which you forget, for a few minutes, to manage how you are being received, and discover that the person across from you has not in fact recoiled, and that something easy and warm is happening between you that you have rarely felt before. A quiet hour alone, when the usual anxious commentary in the head goes silent, and you notice that what is left, when the begging stops, is not nothing. It is a kind of fullness you do not know how to describe.</p>
+        <p>These flashes are not the destination. They are pointings.</p>
+        <p>They are pointings toward what is here, all the time, underneath the dream. They tell you that the begging is not the whole of you. That the careful, calibrating self that has been managing your life is just a layer, and not the deepest one. That something else is closer than your own breath, and has been waiting, patiently, for you to remember it.</p>
+        <p>When you begin to attend to those flashes, instead of rushing past them, they multiply. Slowly. Not because you have done anything special, but because attention itself is a kind of nourishment, and what is real in you grows in the light of being noticed. The flashes lengthen. The intervals between them shorten. Eventually, on some unspectacular ordinary day, you may notice that the basic posture of your life has shifted. That the small bracing you used to feel before every interaction has loosened. That you are not, in this moment, performing anything, and that the moment is fine.</p>
+        <p>This is not enlightenment. It is not awakening with a capital A. It is something smaller and more ordinary and more true. It is what happens when a beggar, slowly, remembers they were never poor.</p>
+
+        <div class="flex items-center gap-4 py-4">
+          <div class="flex-1 border-t border-border/30"></div>
+          <div class="w-1 h-1 rounded-full bg-primary/25"></div>
+          <div class="flex-1 border-t border-border/30"></div>
+        </div>
+
+        <p>What does this mean for your actual life, now, this week? It does not mean storming into your relationships and announcing that you have decided to stop performing. It does not mean a campaign of bold reinvention. It does not mean any large, theatrical shift. The dream of the beggar will, predictably, try to reassert itself in those forms, and the reinvention will become just another mask, more strenuous than the last.</p>
+        <p>It means something quieter. It means noticing, the next time you feel the small flicker of <em>I had better be acceptable here</em>, that the flicker is the dream. It means letting that flicker be seen, without trying to suppress it or argue with it. It means staying in the moment for one extra breath, just to feel what is underneath the flicker, what would be there if the flicker stopped. It means trusting that what is underneath is not nothing, and that the more you attend to it, the more it will reveal itself.</p>
+        <p>It means, slowly, refusing to be a beggar in your own life. Not by force, not by performance, but by the simple, patient willingness to remember, again and again and again, that you were never small to begin with.</p>
+
+        <div class="flex items-center gap-4 py-4">
+          <div class="flex-1 border-t border-border/30"></div>
+          <div class="w-1 h-1 rounded-full bg-primary/25"></div>
+          <div class="flex-1 border-t border-border/30"></div>
+        </div>
+
+        <p>There is a particular line, in some of the older mystical writings, that captures this better than any modern phrase has managed.</p>
+
+        <blockquote class="border-l-2 border-primary/30 pl-6 my-2">
+          <p class="font-heading text-lg text-foreground/70 italic leading-relaxed">You are kings and queens, dreaming a terrible dream of being a beggar.</p>
+        </blockquote>
+
+        <p>The line is not metaphor. Or rather, it is metaphor in the way that all the deepest things must be: pointing at something that ordinary language cannot quite hold. What it is pointing at is that the smallness you have been living inside is not the truth of you. It is a long, vivid, almost convincing dream. And dreams, however vivid, do not have the final word about what is real.</p>
+        <p>The waking is gradual. It does not happen because you read an essay. It happens, if it happens, because something in you, having heard the line, begins to suspect that the line might be true, and starts to look more carefully at the texture of its own daily begging. The looking is the practice. The line is just the doorway.</p>
+        <p>You can walk through the doorway. You will find, on the other side, that the world has not changed. The same people are still in your life. The same situations are still there. The same conversations still happen.</p>
+        <p>What has changed is who is having them.</p>
+
+      </div>
+
+      <!-- CLOSING FOOTNOTE -->
+      <div class="mt-16">
+        <div class="divider-gold w-24 mx-auto mb-10"></div>
+        <p class="text-muted-foreground/55 font-body text-sm leading-relaxed text-center italic">
+          This essay extends a thread from Key IV of <em>Heart Keys</em>, a contemplative work written by Michael (Swami Ramarishi) on returning to the intelligence of the heart.
+        </p>
+      </div>
+
+      <!-- PDF GATE -->
+      <div class="mt-14 border-t border-border/30 pt-12">
+        <p class="text-muted-foreground font-body text-sm leading-relaxed mb-8">
+          A longer companion piece, <em>Beneath the Mask: A Field Guide to Recognising the Faces You Wear</em>, extends the work of this essay over twelve pages, including a contemplative exercise for surfacing the fears beneath your social performances. It is offered without charge, and without a newsletter pitch attached. If you would like a copy, leave your email below and I will send it to you.
+        </p>
+        <div id="pdf-gate-container">
+          <form id="pdf-gate-form" class="flex flex-col sm:flex-row gap-3 max-w-sm">
+            <input type="hidden" name="_subject" value="Beneath the Mask guide request | Kings and Queens essay | Sangham" />
+            <input type="hidden" name="note" value="Requested the Beneath the Mask PDF from the Kings and Queens essay page" />
+            <input
+              type="email"
+              name="email"
+              required
+              placeholder="your@email.com"
+              class="flex-1 bg-transparent border border-border/60 rounded px-4 py-2.5 text-foreground/80 font-body text-sm placeholder:text-muted-foreground/35 focus:outline-none focus:border-primary/40 transition-colors"
+            />
+            <button
+              type="submit"
+              class="px-5 py-2.5 border border-border/60 hover:border-primary/40 text-muted-foreground hover:text-foreground/80 transition-all duration-300 rounded font-body text-sm whitespace-nowrap"
+            >
+              Send me the guide
+            </button>
+          </form>
+        </div>
+      </div>
+
+      <!-- STANDARD ESSAY FOOTER -->
+      <div class="mt-16 border border-border rounded-lg p-8 md:p-10 text-center bg-muted/30">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-4">
+          Explore This Work Directly
+        </h3>
+        <p class="text-muted-foreground font-body text-sm leading-relaxed max-w-lg mx-auto mb-8">
+          If something in this essay resonates, the next step is a conversation. One-on-one counselling, breathwork, and meditation, integrated into a single, grounded process.
+        </p>
+        <a
+          href="/contact"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Enquire About Working Together
+          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
+        </a>
+      </div>
+
+      <div class="divider-gold w-24 mx-auto mt-16"></div>
+
+      <div class="mt-10 text-center">
+        <a
+          href="/wisdom"
+          class="text-sm text-primary/70 hover:text-primary font-body transition-colors"
+        >
+          &larr; Back to all essays
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('pdf-gate-form') as HTMLFormElement | null;
+  const container = document.getElementById('pdf-gate-container');
+  if (form && container) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const data = new FormData(form);
+      try {
+        const response = await fetch('https://formspree.io/f/mojpzywj', {
+          method: 'POST',
+          body: data,
+          headers: { Accept: 'application/json' },
+        });
+        if (response.ok) {
+          container.innerHTML = `<p class="font-body text-sm text-muted-foreground/70 leading-relaxed">Thank you. The guide is available <a href="/downloads/beneath-the-mask.pdf" class="text-primary/70 hover:text-primary underline underline-offset-2 transition-colors">here</a>. You will not be added to any mailing list.</p>`;
+        } else {
+          throw new Error('failed');
+        }
+      } catch {
+        container.innerHTML = `<p class="font-body text-sm text-muted-foreground/70 leading-relaxed">Something went wrong. Please email <a href="mailto:ramarishi@sangham.org" class="text-primary/70 hover:text-primary transition-colors">ramarishi@sangham.org</a> and I will send it directly.</p>`;
+      }
+    });
+  }
+</script>

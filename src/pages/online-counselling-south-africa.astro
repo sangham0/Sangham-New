@@ -155,6 +155,16 @@ const faqItems = [
     a: 'Most enquiries receive a response within one to two business days, with a simple way to arrange an initial consultation time.',
   },
 ];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
 ---
 
 <BaseLayout
@@ -162,9 +172,15 @@ const faqItems = [
   description="Online wellness counselling for people who understand their patterns but still find themselves caught in them. Five-session process available. ASCHP-registered. Sessions worldwide."
   canonicalURL={canonicalURL}
   image="/images/og-default.jpg"
-  jsonLd={jsonLd}
+  jsonLd={[...jsonLd, faqJsonLd]}
   minimalNav={true}
 >
+
+  <Fragment slot="head">
+    <link rel="alternate" hreflang="en" href="https://www.sangham.org/counselling" />
+    <link rel="alternate" hreflang="en-ZA" href="https://www.sangham.org/online-counselling-south-africa" />
+    <link rel="alternate" hreflang="x-default" href="https://www.sangham.org/counselling" />
+  </Fragment>
 
   <!-- ═══ 1. HERO ═══════════════════════════════════════════════════════ -->
   <!-- Pure CSS background — no image, fast LCP (H1 text is the LCP element) -->
