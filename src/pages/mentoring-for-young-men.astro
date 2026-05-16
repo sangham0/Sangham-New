@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import { Image } from 'astro:assets';
 import michaelPortrait from '../assets/michael-portrait-new.jpg';
+import michaelPortrait2 from '../assets/Michael-portrait-2.PNG';
 import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
 import antonySPortrait from '../assets/antony-s-portrait.jpg';
 import himalayaEditA from '../assets/himalaya-edit-a.jpg';
@@ -1179,15 +1180,15 @@ const jsonLd = [
       <!-- Portrait: larger, circular, prominent -->
       <div class="flex flex-col sm:flex-row sm:items-start gap-6 md:gap-8 mb-12">
         <div class="shrink-0">
-          <div class="w-[160px] h-[160px] sm:w-[200px] sm:h-[200px] md:w-[240px] md:h-[240px] rounded-full overflow-hidden border-2 border-parchment/12 shadow-2xl">
+          <div class="w-full max-w-[300px] sm:w-[260px] md:w-[300px] aspect-[7/5] rounded-xl overflow-hidden border border-parchment/12 shadow-2xl">
             <Image
-              src={michaelPortrait}
+              src={michaelPortrait2}
               alt="Michael Kaplan, ASCHP Registered Wellness Counsellor"
-              class="w-full h-full object-cover object-center"
-              widths={[240, 480]}
-              sizes="(min-width: 768px) 240px, 200px"
-              width={1254}
-              height={1254}
+              class="w-full h-full object-cover object-top"
+              widths={[300, 600]}
+              sizes="(min-width: 768px) 300px, (min-width: 640px) 260px, 300px"
+              width={1402}
+              height={1122}
               loading="lazy"
             />
           </div>
