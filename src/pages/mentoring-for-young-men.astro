@@ -505,17 +505,22 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       05 · ABOUT MICHAEL — Type A: Deep navy
+       05 · ABOUT MICHAEL — Editorial carousel · Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
-  <section class="bg-void">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+  <section class="bg-void" id="about-michael">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
 
-      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-10">
-        About Michael
-      </h2>
-
-      <div class="flex flex-col sm:flex-row gap-8 sm:gap-12 items-start mb-14">
-        <div class="w-full max-w-[160px] sm:max-w-[180px] shrink-0">
+      <!-- Header row: title + portrait -->
+      <div class="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-8 mb-16 max-w-3xl mx-auto">
+        <div>
+          <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-6">
+            About Michael
+          </h2>
+          <p class="font-heading text-xl text-parchment/90 mb-1">Michael Kaplan</p>
+          <p class="font-body text-sm text-parchment/50 mb-1">ASCHP Registered Wellness Counsellor</p>
+          <p class="font-body text-xs text-parchment/35">ASCHP Reg. 10559 &middot; Yoga Alliance RYS 300</p>
+        </div>
+        <div class="w-full max-w-[140px] sm:max-w-[150px] shrink-0">
           <div class="rounded-xl overflow-hidden border border-parchment/8">
             <div class="aspect-[4/5] overflow-hidden">
               <Image
@@ -523,65 +528,153 @@ const jsonLd = [
                 alt="Michael Kaplan"
                 class="w-full h-full object-cover object-top"
                 widths={[320, 400]}
-                sizes="180px"
+                sizes="150px"
                 loading="lazy"
               />
             </div>
           </div>
         </div>
-        <div>
-          <p class="font-heading text-xl text-parchment/90 mb-1">Michael Kaplan</p>
-          <p class="font-body text-sm text-parchment/50 mb-1">ASCHP Registered Wellness Counsellor</p>
-          <p class="font-body text-xs text-parchment/35">ASCHP Reg. 10559 &middot; Yoga Alliance RYS 300</p>
-        </div>
       </div>
 
-      <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-8">
-        <p><strong class="text-parchment/85">On working with men of this generation.</strong></p>
+      <!-- Carousel -->
+      <div class="ym-carousel relative max-w-3xl mx-auto" role="region" aria-label="About Michael" aria-roledescription="carousel">
 
-        <p>I am of the generation I work with. I grew up with a phone in my hand, inside the same algorithmic culture, with the same fractured messages about masculinity, identity, success, and self-worth.</p>
+        <!-- Slides container -->
+        <div class="ym-carousel-track overflow-hidden">
+          <div class="ym-carousel-inner transition-transform duration-500 ease-out" style="transform: translateX(0%); position: relative;">
 
-        <p>I mention this only because it matters in practice.</p>
+            <!-- Slide 1 -->
+            <div class="ym-slide w-full px-1" role="tabpanel" aria-roledescription="slide" aria-label="Slide 1 of 4">
+              <p class="text-primary/50 text-xs tracking-[0.15em] uppercase font-body mb-4">01</p>
+              <h3 class="font-heading text-2xl md:text-3xl text-parchment/90 leading-snug mb-10">Working with men of this generation</h3>
+              <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-7">
+                <p>I am of the generation I work with. I grew up with a phone in my hand, inside the same algorithmic culture, with the same fractured messages about masculinity, identity, success, and self-worth.</p>
+                <p>I mention this only because it matters in practice.</p>
+                <p>The territory young men are navigating now is not abstract to me. I am not interpreting it from the outside.</p>
+              </div>
+            </div>
 
-        <p>The territory young men are navigating now is not abstract to me. I am not interpreting it from the outside.</p>
+            <!-- Slide 2 -->
+            <div class="ym-slide w-full px-1" role="tabpanel" aria-roledescription="slide" aria-label="Slide 2 of 4">
+              <p class="text-primary/50 text-xs tracking-[0.15em] uppercase font-body mb-4">02</p>
+              <h3 class="font-heading text-2xl md:text-3xl text-parchment/90 leading-snug mb-10">Counselling &amp; facilitation work</h3>
+              <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-7">
+                <p>I am registered with the ASCHP as a Wellness Counsellor. My approach combines reflective counselling with developmental mentorship, grounded in careful attention to behaviour, emotional patterns, relationships, and the broader circumstances shaping a person's life.</p>
+                <p>Much of my early work happened under the supervision of clinical psychologist Bernard Altman, and through several years inside a long-running mentorship organisation for young men.</p>
+                <p>During that time I facilitated hundreds of group processes with adolescents and young adult men across very different social environments in Cape Town. The work included psychodynamic group process, conflict, family dynamics, rites-of-passage work, and direct mentorship.</p>
+                <p>More importantly, it taught me how young men actually open up, what they avoid speaking about, and what kinds of space allow honesty to emerge at all.</p>
+                <p>The aim has never been to impose ideology or manufacture a personality. It is to help someone develop greater clarity, steadiness, self-awareness, and ownership within the reality of their own life.</p>
+              </div>
+            </div>
 
-        <p><strong class="text-parchment/85">On the counselling and facilitation work.</strong></p>
+            <!-- Slide 3 -->
+            <div class="ym-slide w-full px-1" role="tabpanel" aria-roledescription="slide" aria-label="Slide 3 of 4">
+              <p class="text-primary/50 text-xs tracking-[0.15em] uppercase font-body mb-4">03</p>
+              <h3 class="font-heading text-2xl md:text-3xl text-parchment/90 leading-snug mb-10">Contemplative training</h3>
+              <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-7">
+                <p>I have spent nearly three years living and training in India within traditional contemplative settings, working with experienced teachers in meditation, pranayama, hatha yoga, and related disciplines.</p>
+                <p>Where useful, aspects of this work may be integrated into sessions in grounded and practical ways. Breath, attention, nervous system regulation, and embodied awareness.</p>
+                <p>Not as spiritual performance. As tools that help someone become more present, regulated, and capable within their own life.</p>
+                <p>Many sessions involve none of this directly. The focus is always on what is genuinely useful for the person in front of me.</p>
+              </div>
+            </div>
 
-        <p>I am registered with the ASCHP as a Wellness Counsellor. My approach combines reflective counselling with developmental mentorship, grounded in careful attention to behaviour, emotional patterns, relationships, and the broader circumstances shaping a person's life.</p>
+            <!-- Slide 4 -->
+            <div class="ym-slide w-full px-1" role="tabpanel" aria-roledescription="slide" aria-label="Slide 4 of 4">
+              <p class="text-primary/50 text-xs tracking-[0.15em] uppercase font-body mb-4">04</p>
+              <h3 class="font-heading text-2xl md:text-3xl text-parchment/90 leading-snug mb-10">Overall approach</h3>
+              <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-7">
+                <p>I do not believe young men need to be shamed, hardened, or forced into rigid models of masculinity in order to mature.</p>
+                <p>I also do not believe every struggle should immediately be treated as pathology.</p>
+                <p>Most of the men I work with already know, somewhere in themselves, that something is not working.</p>
+                <p>What is usually missing is a space where they can think honestly, speak directly, and be met with both real understanding and real challenge.</p>
+                <p>That is the space this work exists to provide.</p>
+              </div>
+            </div>
 
-        <p>Much of my early work happened under the supervision of clinical psychologist Bernard Altman, and through several years inside a long-running mentorship organisation for young men.</p>
+          </div>
+        </div>
 
-        <p>During that time I facilitated hundreds of group processes with adolescents and young adult men across very different social environments in Cape Town. The work included psychodynamic group process, conflict, family dynamics, rites-of-passage work, and direct mentorship.</p>
+        <!-- Navigation -->
+        <div class="flex items-center justify-between mt-12 pt-8 border-t border-parchment/8">
+          <p class="font-body text-sm text-parchment/40 tabular-nums">
+            <span class="ym-carousel-current text-parchment/70">01</span>
+            <span class="mx-2">/</span>
+            <span>04</span>
+          </p>
+          <div class="flex items-center gap-6">
+            <button class="ym-carousel-prev text-parchment/25 hover:text-parchment/60 transition-colors duration-200 disabled:opacity-20 disabled:cursor-default" aria-label="Previous slide" disabled>
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+            </button>
+            <button class="ym-carousel-next text-parchment/25 hover:text-parchment/60 transition-colors duration-200 disabled:opacity-20 disabled:cursor-default" aria-label="Next slide">
+              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+            </button>
+          </div>
+        </div>
 
-        <p>More importantly, it taught me how young men actually open up, what they avoid speaking about, and what kinds of space allow honesty to emerge at all.</p>
-
-        <p>The aim has never been to impose ideology or manufacture a personality. It is to help someone develop greater clarity, steadiness, self-awareness, and ownership within the reality of their own life.</p>
-
-        <p><strong class="text-parchment/85">On contemplative training.</strong></p>
-
-        <p>I have spent nearly three years living and training in India within traditional contemplative settings, working with experienced teachers in meditation, pranayama, hatha yoga, and related disciplines.</p>
-
-        <p>Where useful, aspects of this work may be integrated into sessions in grounded and practical ways. Breath, attention, nervous system regulation, and embodied awareness.</p>
-
-        <p>Not as spiritual performance. As tools that help someone become more present, regulated, and capable within their own life.</p>
-
-        <p>Many sessions involve none of this directly. The focus is always on what is genuinely useful for the person in front of me.</p>
-
-        <p><strong class="text-parchment/85">On the approach overall.</strong></p>
-
-        <p>I do not believe young men need to be shamed, hardened, or forced into rigid models of masculinity in order to mature.</p>
-
-        <p>I also do not believe every struggle should immediately be treated as pathology.</p>
-
-        <p>Most of the men I work with already know, somewhere in themselves, that something is not working.</p>
-
-        <p>What is usually missing is a space where they can think honestly, speak directly, and be met with both real understanding and real challenge.</p>
-
-        <p>That is the space this work exists to provide.</p>
       </div>
 
     </div>
   </section>
+
+  <script is:inline>
+  (function () {
+    var root = document.querySelector('.ym-carousel');
+    if (!root) return;
+    var track = root.querySelector('.ym-carousel-track');
+    var inner = root.querySelector('.ym-carousel-inner');
+    var slides = root.querySelectorAll('.ym-slide');
+    var prev = root.querySelector('.ym-carousel-prev');
+    var next = root.querySelector('.ym-carousel-next');
+    var counter = root.querySelector('.ym-carousel-current');
+    var total = slides.length;
+    var idx = 0;
+
+    function go(n) {
+      idx = Math.max(0, Math.min(total - 1, n));
+      counter.textContent = String(idx + 1).padStart(2, '0');
+      prev.disabled = idx === 0;
+      next.disabled = idx === total - 1;
+      slides.forEach(function (s, i) {
+        var active = i === idx;
+        s.setAttribute('aria-hidden', active ? 'false' : 'true');
+        s.style.opacity = active ? '1' : '0';
+        s.style.position = active ? 'relative' : 'absolute';
+        s.style.top = '0';
+        s.style.left = (i * 100) + '%';
+        s.style.transition = 'opacity 0.45s ease';
+        s.style.pointerEvents = active ? 'auto' : 'none';
+      });
+      inner.style.transform = 'translateX(-' + (idx * 100) + '%)';
+    }
+
+    prev.addEventListener('click', function () { go(idx - 1); });
+    next.addEventListener('click', function () { go(idx + 1); });
+
+    root.addEventListener('keydown', function (e) {
+      if (e.key === 'ArrowLeft') { go(idx - 1); e.preventDefault(); }
+      if (e.key === 'ArrowRight') { go(idx + 1); e.preventDefault(); }
+    });
+
+    var startX = 0;
+    var tracking = false;
+    root.addEventListener('touchstart', function (e) {
+      startX = e.touches[0].clientX;
+      tracking = true;
+    }, { passive: true });
+    root.addEventListener('touchend', function (e) {
+      if (!tracking) return;
+      tracking = false;
+      var diff = e.changedTouches[0].clientX - startX;
+      if (Math.abs(diff) > 40) {
+        go(diff < 0 ? idx + 1 : idx - 1);
+      }
+    }, { passive: true });
+
+    inner.style.position = 'relative';
+    go(0);
+  })();
+  </script>
 
   <!-- ═══════════════════════════════════════════════════════════════════
        06 · TESTIMONIALS — Type B: Slightly lighter navy
