@@ -196,14 +196,10 @@ const jsonLd = [
             Book a Free 15-Minute Call
           </a>
 
-          <p class="text-parchment/35 text-xs font-body tracking-wide mb-14">
-            Online worldwide &nbsp;&middot;&nbsp; Based in South Africa &nbsp;&middot;&nbsp; ASCHP Registered &nbsp;&middot;&nbsp; Not a replacement for psychiatric care
-          </p>
-
-          <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 pt-10 border-t border-parchment/8">
-            <p class="font-body text-sm text-parchment/45 leading-relaxed">10+ years working directly with adolescent and young adult men</p>
-            <p class="font-body text-sm text-parchment/45 leading-relaxed">Hundreds of one-on-one and group sessions facilitated across Cape Town and online</p>
-            <p class="font-body text-sm text-parchment/45 leading-relaxed">Trained under a clinical and forensic psychologist in adolescent developmental work</p>
+          <div class="flex flex-wrap gap-x-5 gap-y-1.5">
+            {['ASCHP Registered', 'Online sessions available', 'Based in South Africa', 'Ages 18 to 25'].map((t) => (
+              <p class="text-parchment/25 text-xs font-body">{t}</p>
+            ))}
           </div>
         </div>
 
@@ -224,9 +220,39 @@ const jsonLd = [
                 />
               </div>
             </div>
+            <div class="px-1 mb-3 mt-3">
+              <p class="font-heading text-sm text-parchment/75">Michael Kaplan</p>
+              <p class="text-primary/50 text-[11px] font-body tracking-wide mt-0.5 leading-snug">ASCHP Registered Wellness Counsellor</p>
+            </div>
+            <div class="flex flex-wrap gap-1.5 px-1">
+              <span class="px-2.5 py-1 rounded-full border border-parchment/10 text-parchment/30 text-[10px] font-body">ASCHP Reg.&nbsp;10559</span>
+              <span class="px-2.5 py-1 rounded-full border border-parchment/10 text-parchment/30 text-[10px] font-body">RYS&nbsp;300</span>
+            </div>
           </div>
         </div>
 
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CREDIBILITY STRIP — Light break between hero and content
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-[#D8DDE8]">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-5xl">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-[#1A1F2E]/10">
+        <div class="sm:pr-10 xl:pr-16">
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl text-[#A87C35] mb-3 leading-none">10+</p>
+          <p class="font-body text-[15px] md:text-[16px] text-[#1A1F2E]/70 leading-relaxed">years working directly with adolescent and young adult men</p>
+        </div>
+        <div class="sm:px-10 xl:px-16">
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl text-[#A87C35] mb-3 leading-none">Hundreds</p>
+          <p class="font-body text-[15px] md:text-[16px] text-[#1A1F2E]/70 leading-relaxed">of one-on-one and group sessions facilitated across Cape Town and online</p>
+        </div>
+        <div class="sm:pl-10 xl:pl-16">
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl text-[#A87C35] mb-3 leading-none tracking-tight">Trained under</p>
+          <p class="font-body text-[15px] md:text-[16px] text-[#1A1F2E]/70 leading-relaxed">a clinical and forensic psychologist in adolescent developmental work</p>
+        </div>
       </div>
     </div>
   </section>
