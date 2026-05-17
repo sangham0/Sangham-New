@@ -596,19 +596,29 @@ const jsonLd = [
         </div>
 
         <!-- Navigation -->
-        <div class="flex items-center justify-between mt-12 pt-8 border-t border-parchment/8">
-          <p class="font-body text-sm text-parchment/40 tabular-nums">
-            <span class="ym-carousel-current text-parchment/70">01</span>
-            <span class="mx-2">/</span>
-            <span>04</span>
-          </p>
-          <div class="flex items-center gap-6">
-            <button class="ym-carousel-prev text-parchment/25 hover:text-parchment/60 transition-colors duration-200 disabled:opacity-20 disabled:cursor-default" aria-label="Previous slide" disabled>
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
-            </button>
-            <button class="ym-carousel-next text-parchment/25 hover:text-parchment/60 transition-colors duration-200 disabled:opacity-20 disabled:cursor-default" aria-label="Next slide">
-              <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
-            </button>
+        <div class="mt-12 pt-8 border-t border-parchment/8">
+          <div class="flex items-center justify-between">
+            <div class="flex items-center gap-4">
+              <p class="font-body text-sm text-parchment/40 tabular-nums">
+                <span class="ym-carousel-current text-parchment/70">01</span>
+                <span class="mx-1.5">/</span>
+                <span>04</span>
+              </p>
+              <div class="flex items-center gap-1.5 ym-carousel-dots">
+                <span class="w-6 h-[2px] bg-primary/70 rounded-full transition-all duration-300"></span>
+                <span class="w-4 h-[2px] bg-parchment/15 rounded-full transition-all duration-300"></span>
+                <span class="w-4 h-[2px] bg-parchment/15 rounded-full transition-all duration-300"></span>
+                <span class="w-4 h-[2px] bg-parchment/15 rounded-full transition-all duration-300"></span>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <button class="ym-carousel-prev w-10 h-10 flex items-center justify-center rounded-full border border-parchment/12 text-parchment/30 hover:text-parchment/70 hover:border-parchment/25 transition-all duration-200 disabled:opacity-15 disabled:cursor-default" aria-label="Previous slide" disabled>
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" /></svg>
+              </button>
+              <button class="ym-carousel-next w-10 h-10 flex items-center justify-center rounded-full border border-primary/30 text-primary/70 hover:text-primary hover:border-primary/50 transition-all duration-200 disabled:opacity-15 disabled:cursor-default" aria-label="Next slide">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" /></svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -627,6 +637,7 @@ const jsonLd = [
     var prev = root.querySelector('.ym-carousel-prev');
     var next = root.querySelector('.ym-carousel-next');
     var counter = root.querySelector('.ym-carousel-current');
+    var dots = root.querySelectorAll('.ym-carousel-dots span');
     var total = slides.length;
     var idx = 0;
 
@@ -635,6 +646,12 @@ const jsonLd = [
       counter.textContent = String(idx + 1).padStart(2, '0');
       prev.disabled = idx === 0;
       next.disabled = idx === total - 1;
+      dots.forEach(function (d, i) {
+        d.style.width = i === idx ? '1.5rem' : '1rem';
+        d.className = i === idx
+          ? 'w-6 h-[2px] bg-primary/70 rounded-full transition-all duration-300'
+          : 'w-4 h-[2px] bg-parchment/15 rounded-full transition-all duration-300';
+      });
       slides.forEach(function (s, i) {
         var active = i === idx;
         s.setAttribute('aria-hidden', active ? 'false' : 'true');
