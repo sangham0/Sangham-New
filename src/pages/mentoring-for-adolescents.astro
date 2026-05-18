@@ -4,7 +4,7 @@ import { Image } from 'astro:assets';
 import michaelPortrait from '../assets/michael-portrait-new.jpg';
 import michaelPortrait2 from '../assets/Michael-portrait-2.PNG';
 import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
-import antonySPortrait from '../assets/antony-s-portrait.jpg';
+import bernardAltmanPortrait from '../assets/bernard-altman-portrait.jpg';
 import documentaryWaterfall from '../assets/documentary-waterfall.jpg';
 import caveMeditation from '../assets/cave-meditation.jpg';
 import documentaryMountain from '../assets/documentary-mountain.jpg';
@@ -24,7 +24,7 @@ const canonicalURL = 'https://www.sangham.org/mentoring-for-adolescents';
 const TESTIMONIAL_CROP_DEFAULT = 'center center';
 const testimonialPhotos: Record<string, { cropPosition: string }> = {
   jacob:  { cropPosition: 'center top' },
-  antony: { cropPosition: 'center top' },
+  bernard: { cropPosition: 'center top' },
 };
 
 // ─── DATA ───────────────────────────────────────────────────────────────────
@@ -1065,11 +1065,16 @@ const jsonLd = [
         Much of what shapes an adolescent's life happens in the spaces where he feels he cannot speak honestly.
       </p>
 
-      <blockquote class="border-l-4 border-[#A87C35]/50 pl-6 py-2 mb-12 max-w-2xl">
+      <blockquote class="border-l-4 border-[#A87C35]/50 pl-6 py-2 mb-10 max-w-2xl">
         <p class="font-heading text-2xl md:text-3xl text-[#0F1422]/80 leading-snug italic">
           &ldquo;I do this work because I needed it myself, and I know what it cost not to have it.&rdquo;
         </p>
         <footer class="mt-3 font-body text-sm text-[#1A1F2E]/50">Michael Kaplan</footer>
+      </blockquote>
+
+      <blockquote class="border-l-2 border-[#A87C35]/30 pl-6 py-2 mb-12 max-w-2xl">
+        <p class="font-heading text-xl md:text-[22px] text-[#0F1422]/70 italic leading-relaxed mb-3">Michael is well suited to counselling and mentorship work, particularly with young men navigating identity, direction, emotional difficulty, and the transition into adulthood. I would recommend him with confidence.</p>
+        <footer class="font-body text-sm text-[#1A1F2E]/45">Bernard Altman, Clinical Psychologist, Founder of Boys to Men</footer>
       </blockquote>
 
       <!-- About Michael carousel (Swiper) -->
@@ -1219,21 +1224,21 @@ const jsonLd = [
               </figure>
             </div>
 
-            <!-- Slide 3: Antony S. - quote LEFT, photo RIGHT -->
+            <!-- Slide 3: Bernard Altman - quote LEFT, photo RIGHT -->
             <div class="swiper-slide">
               <figure class="sg-slide border border-parchment/15 bg-[#070B14]/62 rounded-xl overflow-hidden">
                 <div class="flex flex-col md:flex-row-reverse">
                   <div class="md:w-[36%] shrink-0">
                     <div class="h-[200px] md:h-full overflow-hidden shadow-lg shadow-black/40">
                       <Image
-                        src={antonySPortrait}
-                        alt="Antony S., community elder who has known Michael through group and individual work"
+                        src={bernardAltmanPortrait}
+                        alt="Bernard Altman, Clinical Psychologist, Founder of Boys to Men"
                         class="w-full h-full object-cover"
-                        style={`object-position: ${testimonialPhotos.antony?.cropPosition ?? TESTIMONIAL_CROP_DEFAULT};`}
+                        style={`object-position: ${testimonialPhotos.bernard?.cropPosition ?? TESTIMONIAL_CROP_DEFAULT};`}
                         widths={[320, 500, 640]}
                         sizes="(min-width: 768px) 36vw, 100vw"
-                        width={1200}
-                        height={1600}
+                        width={400}
+                        height={400}
                         loading="lazy"
                       />
                     </div>
@@ -1242,17 +1247,14 @@ const jsonLd = [
                     <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">Professional Reflection</p>
                     <blockquote class="flex-1 mb-7 space-y-4">
                       <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
-                        &ldquo;On meeting Michael for the first time, I was immediately drawn to his insightful, grounded approach. There is a depth to him that carries a sense of wisdom beyond his years.&rdquo;
+                        &ldquo;I have known Michael for many years through his involvement with Boys to Men, first as a participant in the work and later in leadership and facilitation roles. Over time, I have watched him develop into a capable, thoughtful, and committed facilitator with a genuine ability to work with people in a grounded and sincere way.&rdquo;
                       </p>
                       <p class="font-heading text-lg md:text-[1.2rem] text-parchment/80 leading-relaxed italic">
-                        &ldquo;What stood out most for me was his ability to create a space where men can simply be as they are. A space where they can show up without pressure or expectation. The way he holds space comes from a place of genuine love and care.&rdquo;
-                      </p>
-                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/75 leading-relaxed italic">
-                        &ldquo;There is a natural quality in him that is rare, something that usually takes years to build in friendship, but was present from the moment we met.&rdquo;
+                        &ldquo;He brings presence, emotional intelligence, maturity, and a strong capacity to engage honestly with difficult human experiences. I have consistently found him to approach this work with integrity, responsibility, and real care for the people he works with.&rdquo;
                       </p>
                     </blockquote>
                     <figcaption>
-                      <p class="font-body text-sm text-parchment/45">Antony S. &middot; community elder, has known Michael through group and individual work</p>
+                      <p class="font-body text-sm text-parchment/45">Bernard Altman &middot; Clinical Psychologist &middot; Founder of Boys to Men</p>
                     </figcaption>
                   </div>
                 </div>
@@ -1272,11 +1274,6 @@ const jsonLd = [
         </div>
       </div>
 
-      <div class="mt-6 mb-12">
-        <p class="font-body text-xs text-parchment/32 leading-relaxed max-w-lg">
-          Additional professional references will be added here once approved for publication.
-        </p>
-      </div>
 
       <p class="font-heading text-xl md:text-2xl text-parchment/62 leading-snug max-w-xl border-t border-parchment/10 pt-10">
         Some changes only become visible over time.
