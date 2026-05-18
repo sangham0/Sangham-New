@@ -703,57 +703,71 @@ const jsonLd = [
        06 · TESTIMONIALS — Type B: Slightly lighter navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-header">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
 
       <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-4">
         Reflections from people who have worked with this directly
       </h2>
       <p class="font-body text-sm text-parchment/45 italic mb-16">Shared with permission.</p>
 
-      <div class="space-y-16">
+      <div class="space-y-10 md:space-y-14">
 
         <!-- Jacob S. -->
-        <div class="flex flex-col sm:flex-row gap-6 sm:gap-10">
-          <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-full overflow-hidden border border-parchment/10">
-            <Image
-              src={jacobSPortrait}
-              alt="Jacob S."
-              class="w-full h-full object-cover"
-              style="object-position: center 30%;"
-              widths={[192]}
-              sizes="96px"
-              loading="lazy"
-            />
+        <figure class="border border-parchment/10 bg-[#070B14]/40 rounded-xl overflow-hidden">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-[34%] shrink-0">
+              <div class="h-[240px] md:h-full overflow-hidden">
+                <Image
+                  src={jacobSPortrait}
+                  alt="Jacob S."
+                  class="w-full h-full object-cover"
+                  style="object-position: center 30%;"
+                  widths={[320, 500, 640]}
+                  sizes="(min-width: 768px) 34vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="p-7 md:p-10 flex flex-col flex-1">
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-6">Personal Reflection</p>
+              <blockquote class="flex-1 mb-6 space-y-4">
+                <p class="font-heading text-lg md:text-xl text-parchment/80 italic leading-relaxed">Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we've worked through has left me feeling clearer and more at peace.</p>
+                <p class="font-heading text-lg md:text-xl text-parchment/70 italic leading-relaxed">What strikes me most about him is his integrity. Whether one-on-one or in a group, his care is genuine and never for his own benefit. He is a pure soul who truly wants to see people thrive. I'm so grateful for his availability and his dedication to helping me improve my life.</p>
+              </blockquote>
+              <figcaption>
+                <p class="font-body text-sm text-parchment/45">Jacob S. &middot; Has worked with Michael across adolescence and into adulthood</p>
+              </figcaption>
+            </div>
           </div>
-          <div>
-            <blockquote class="font-heading text-lg md:text-xl text-parchment/75 italic leading-relaxed space-y-4 mb-4">
-              <p>Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we've worked through has left me feeling clearer and more at peace.</p>
-              <p>What strikes me most about him is his integrity. Whether one-on-one or in a group, his care is genuine and never for his own benefit. He is a pure soul who truly wants to see people thrive. I'm so grateful for his availability and his dedication to helping me improve my life.</p>
-            </blockquote>
-            <p class="font-body text-sm text-parchment/45 italic">Jacob S. &middot; Has worked with Michael across adolescence and into adulthood</p>
-          </div>
-        </div>
+        </figure>
 
         <!-- Bernard Altman -->
-        <div class="flex flex-col sm:flex-row gap-6 sm:gap-10">
-          <div class="w-20 h-20 sm:w-24 sm:h-24 shrink-0 rounded-full overflow-hidden border border-parchment/10">
-            <Image
-              src={bernardAltmanPortrait}
-              alt="Bernard Altman"
-              class="w-full h-full object-cover object-center"
-              widths={[192]}
-              sizes="96px"
-              loading="lazy"
-            />
+        <figure class="border border-parchment/10 bg-[#070B14]/40 rounded-xl overflow-hidden">
+          <div class="flex flex-col md:flex-row-reverse">
+            <div class="md:w-[34%] shrink-0">
+              <div class="h-[240px] md:h-full overflow-hidden">
+                <Image
+                  src={bernardAltmanPortrait}
+                  alt="Bernard Altman"
+                  class="w-full h-full object-cover object-center"
+                  widths={[320, 500, 640]}
+                  sizes="(min-width: 768px) 34vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="p-7 md:p-10 flex flex-col flex-1">
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-6">Professional Reflection</p>
+              <blockquote class="flex-1 mb-6 space-y-4">
+                <p class="font-heading text-lg md:text-xl text-parchment/80 italic leading-relaxed">I have known Michael for many years through his involvement with Boys to Men, first as a participant in the work and later in leadership and facilitation roles. Over time, I have watched him develop into a capable, thoughtful, and committed facilitator with a genuine ability to work with people in a grounded and sincere way.</p>
+                <p class="font-heading text-lg md:text-xl text-parchment/70 italic leading-relaxed">He brings presence, emotional intelligence, maturity, and a strong capacity to engage honestly with difficult human experiences. I have consistently found him to approach this work with integrity, responsibility, and real care for the people he works with.</p>
+              </blockquote>
+              <figcaption>
+                <p class="font-body text-sm text-parchment/45">Bernard Altman &middot; Clinical Psychologist &middot; Founder of Boys to Men</p>
+              </figcaption>
+            </div>
           </div>
-          <div>
-            <blockquote class="font-heading text-lg md:text-xl text-parchment/75 italic leading-relaxed space-y-4 mb-4">
-              <p>I have known Michael for many years through his involvement with Boys to Men, first as a participant in the work and later in leadership and facilitation roles. Over time, I have watched him develop into a capable, thoughtful, and committed facilitator with a genuine ability to work with people in a grounded and sincere way.</p>
-              <p>He brings presence, emotional intelligence, maturity, and a strong capacity to engage honestly with difficult human experiences. I have consistently found him to approach this work with integrity, responsibility, and real care for the people he works with.</p>
-            </blockquote>
-            <p class="font-body text-sm text-parchment/45 italic">Bernard Altman &middot; Clinical Psychologist &middot; Founder of Boys to Men</p>
-          </div>
-        </div>
+        </figure>
 
       </div>
 
