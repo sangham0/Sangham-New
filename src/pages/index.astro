@@ -7,7 +7,7 @@ import caveMeditation from '../assets/cave-meditation.jpg';
 import sanghamCeremony from '../assets/sangham-ceremony.jpg';
 import mistyValley from '../assets/misty-valley.jpg';
 import aboveClouds from '../assets/above-clouds.jpg';
-import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
+import michaelPortrait from '../assets/michael-portrait-new.jpg';
 
 const jsonLd = [
   {
@@ -19,6 +19,41 @@ const jsonLd = [
     potentialAction: {
       '@type': 'ReadAction',
       target: 'https://www.sangham.org/wisdom',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ProfessionalService',
+    name: 'Sangham',
+    url: 'https://www.sangham.org',
+    description: 'Wellness counselling, breathwork, and body-based practice integrated into one coherent process. Online sessions worldwide.',
+    founder: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'ASCHP Registered Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      image: 'https://www.sangham.org/images/michael-kaplan.jpg',
+      sameAs: ['https://www.instagram.com/sangham.space'],
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional Registration',
+        name: 'Wellness Counsellor',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Association for Supportive Counsellors and Holistic Practitioners',
+          alternateName: 'ASCHP',
+        },
+        identifier: 'Reg. No. 10559',
+      },
+    },
+    serviceType: ['Wellness Counselling', 'Breathwork', 'Meditation', 'Developmental Mentorship'],
+    areaServed: { '@type': 'Place', name: 'Worldwide (online)' },
+    priceRange: 'R850 per session (~$45 USD)',
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
     },
   },
 ];
@@ -98,13 +133,13 @@ const waysCards = [
       <Image
         src={sanghamLogo}
         alt="Sangham"
-        class="h-20 md:h-28 w-auto mx-auto mb-10"
+        class="h-28 md:h-40 w-auto mx-auto mb-10"
         width={224}
         height={224}
         loading="eager"
       />
 
-      <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-parchment/90 leading-tight mb-6">
+      <h1 class="font-heading text-3xl md:text-4xl lg:text-[44px] xl:text-5xl text-parchment/90 leading-tight mb-6">
         A place for careful, grounded<br />
         <span class="text-gold-light">inner work.</span>
       </h1>
@@ -268,7 +303,7 @@ const waysCards = [
       <div class="flex justify-center mb-10">
         <div class="w-44 h-44 md:w-52 md:h-52 rounded-full overflow-hidden border-2 border-primary/20">
           <Image
-            src={swamiPortrait}
+            src={michaelPortrait}
             alt="Michael Kaplan (Swami Ramarishi)"
             class="w-full h-full object-cover"
             width={208}

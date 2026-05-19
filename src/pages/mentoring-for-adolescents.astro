@@ -244,13 +244,26 @@ const jsonLd = [
     provider: {
       '@type': 'Person',
       name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
       jobTitle: 'ASCHP Registered Wellness Counsellor',
       url: 'https://www.sangham.org/about',
+      image: 'https://www.sangham.org/images/michael-kaplan.jpg',
+      sameAs: ['https://www.instagram.com/sangham.space'],
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional Registration',
+        name: 'Wellness Counsellor',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Association for Supportive Counsellors and Holistic Practitioners',
+          alternateName: 'ASCHP',
+        },
+        identifier: 'Reg. No. 10559',
+      },
       affiliation: {
         '@type': 'Organization',
         name: 'Association for Supportive Counsellors and Holistic Practitioners',
         alternateName: 'ASCHP',
-        identifier: 'Reg. No. 10559',
       },
     },
     audience: { '@type': 'Audience', audienceType: 'Parents and guardians of young men aged 12 to 17' },
@@ -637,7 +650,7 @@ const jsonLd = [
   title="Mentoring for Young Men Aged 12 to 17"
   description="Parent-facing developmental mentorship and reflective counselling for young men in the adolescent years. ASCHP-registered. Online worldwide."
   canonicalURL={canonicalURL}
-  image="/images/og-default.jpg"
+  image="/images/og-mentoring-adolescents.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
   minimalNav={true}
   hideStickyBar={true}

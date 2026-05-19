@@ -202,6 +202,12 @@ const jsonLd = [
             ></textarea>
           </div>
 
+          <!-- Honeypot field — hidden from humans, filled by bots -->
+          <div class="absolute -left-[9999px]" aria-hidden="true">
+            <label for="website_url">Website</label>
+            <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
+          </div>
+
           <p class="text-xs text-header-foreground/35 font-body text-center">
             No sales pressure. No obligation beyond the first conversation.
           </p>
@@ -263,7 +269,27 @@ const jsonLd = [
 
     const data = new FormData(form);
 
+    // Honeypot check — if filled, silently reject (bot submission)
+    const honeypot = (document.getElementById('website_url') as HTMLInputElement)?.value;
+    if (honeypot) {
+      // Fake success to avoid revealing the trap
+      window.location.href = '/thank-you-consultation';
+      return;
+    }
+
     try {
+      // reCAPTCHA v3 — get token if available
+      // Site key must be set in RECAPTCHA_SITE_KEY; skip gracefully if not configured
+      if (typeof (window as any).grecaptcha !== 'undefined') {
+        try {
+          const token = await (window as any).grecaptcha.execute(
+            (window as any).__RECAPTCHA_SITE_KEY || '',
+            { action: 'contact_submit' }
+          );
+          data.append('g-recaptcha-response', token);
+        } catch { /* proceed without reCAPTCHA if it fails */ }
+      }
+
       const response = await fetch('https://formspree.io/f/mojpzywj', {
         method: 'POST',
         body: data,

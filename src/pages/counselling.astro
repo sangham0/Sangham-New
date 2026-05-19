@@ -3,9 +3,11 @@ import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import FAQ from '../components/FAQ.astro';
 import { Image } from 'astro:assets';
-import sanghamQuote from '../assets/sangham-quote.jpg';
+import mountainLake from '../assets/mountain-lake.jpg';
 import twilightCoast from '../assets/twilight-coast.jpg';
 import forestPond from '../assets/forest-pond.jpg';
+import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
+import bernardAltmanPortrait from '../assets/bernard-altman-portrait.jpg';
 
 const jsonLd = [
   {
@@ -371,21 +373,42 @@ const faqJsonLd = {
         This work is not one-size-fits-all. It tends to be most relevant in certain contexts.
       </p>
 
-      <!-- Adolescents and Young Adults -->
+      <!-- Adolescents and Young Adults — Two-card split -->
       <div class="mb-14 border-b border-border/30 pb-14">
-        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-5">
+        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-8">
           Adolescents and Young Adults
         </h3>
-        <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
-          <p>
-            The teenage years and early twenties are a period of extraordinary internal upheaval. Identity is still forming. Emotional responses can be intense and confusing. Social pressure is constant. And the gap between how things look on the outside and how they feel on the inside can be enormous.
-          </p>
-          <p>
-            This work provides a grounded, practical space to reflect, to understand what is happening beneath the surface, and to develop real strategies for responding. Where appropriate, simple practices in breathwork, attention, and body awareness can be introduced to help regulate emotion, improve focus, and build a stronger sense of internal ground.
-          </p>
-          <p class="text-sm text-muted-foreground/60 italic">
-            This area draws on extensive experience working with young people in both individual and group settings, including school environments, rites-of-passage programmes, and one-on-one mentoring.
-          </p>
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Card 1: Adolescents -->
+          <div class="border border-border/20 rounded-xl p-7 md:p-8 bg-background/50 flex flex-col">
+            <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-4">Ages 12–17</p>
+            <h4 class="font-heading text-lg md:text-xl text-foreground mb-4">Mentorship for Adolescents</h4>
+            <p class="text-muted-foreground font-body leading-relaxed mb-4 flex-1">
+              A grounded space for teenage boys navigating identity, emotional difficulty, and the pressures of growing up. The work combines reflective counselling with developmental mentorship, helping young men build self-awareness and internal steadiness during a critical period of formation.
+            </p>
+            <p class="text-muted-foreground/60 font-body text-sm leading-relaxed mb-6">
+              Designed primarily for parents seeking structured support for their son.
+            </p>
+            <a href="/mentoring-for-adolescents" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm font-body tracking-wide self-start">
+              Learn more about adolescent mentorship
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </a>
+          </div>
+          <!-- Card 2: Young Men -->
+          <div class="border border-border/20 rounded-xl p-7 md:p-8 bg-background/50 flex flex-col">
+            <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-4">Ages 18–25</p>
+            <h4 class="font-heading text-lg md:text-xl text-foreground mb-4">Mentorship for Young Men</h4>
+            <p class="text-muted-foreground font-body leading-relaxed mb-4 flex-1">
+              Reflective counselling and developmental mentorship for young men navigating direction, identity, emotional shutdown, and the often-unspoken difficulty of becoming an adult man consciously rather than accidentally.
+            </p>
+            <p class="text-muted-foreground/60 font-body text-sm leading-relaxed mb-6">
+              Designed for young men themselves, or for families seeking support on their behalf.
+            </p>
+            <a href="/mentoring-for-young-men" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm font-body tracking-wide self-start">
+              Learn more about young men's mentorship
+              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+            </a>
+          </div>
         </div>
       </div>
 
@@ -424,7 +447,7 @@ const faqJsonLd = {
   <!-- VISUAL DIVIDER / QUOTE -->
   <section class="relative overflow-hidden">
     <Image
-      src={sanghamQuote}
+      src={mountainLake}
       alt=""
       class="absolute inset-0 w-full h-full object-cover"
       widths={[640, 1024, 1536]}
@@ -461,6 +484,79 @@ const faqJsonLd = {
           Michael's professional registration is held in South Africa through the ASCHP. Sessions are offered internationally in a supportive counselling and integrative wellbeing capacity, not as locally licensed clinical mental health treatment in each country where a client may reside. Where appropriate, clients may be encouraged to work alongside, or be referred to, local medical, psychological, or psychiatric professionals.
         </p>
       </div>
+    </div>
+  </section>
+
+  <!-- TESTIMONIALS -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Reflections from people who have worked with this directly
+      </h2>
+      <p class="font-body text-sm text-muted-foreground/60 italic text-center mb-14">Shared with permission.</p>
+
+      <div class="space-y-10 md:space-y-14">
+
+        <!-- Bernard Altman — Professional Reflection -->
+        <figure class="border border-border/20 bg-header/5 rounded-xl overflow-hidden">
+          <div class="flex flex-col md:flex-row-reverse">
+            <div class="md:w-[34%] shrink-0 bg-[#070B14]">
+              <div class="h-[240px] md:h-full overflow-hidden">
+                <Image
+                  src={bernardAltmanPortrait}
+                  alt="Bernard Altman"
+                  class="w-full h-auto md:h-full object-contain md:object-cover md:object-center"
+                  widths={[316, 500]}
+                  sizes="(min-width: 768px) 34vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="p-7 md:p-10 flex flex-col flex-1">
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">Professional Reflection</p>
+              <blockquote class="flex-1 mb-6 space-y-4">
+                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">I have known Michael for many years through his involvement with Boys to Men, first as a participant in the work and later in leadership and facilitation roles. Over time, I have watched him develop into a capable, thoughtful, and committed facilitator with a genuine ability to work with people in a grounded and sincere way.</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">He brings presence, emotional intelligence, maturity, and a strong capacity to engage honestly with difficult human experiences. I have consistently found him to approach this work with integrity, responsibility, and real care for the people he works with.</p>
+              </blockquote>
+              <figcaption>
+                <p class="font-body text-sm text-muted-foreground/60">Bernard Altman &middot; Clinical Psychologist &middot; Founder of Boys to Men</p>
+              </figcaption>
+            </div>
+          </div>
+        </figure>
+
+        <!-- Jacob S. — Personal Reflection -->
+        <figure class="border border-border/20 bg-header/5 rounded-xl overflow-hidden">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-[34%] shrink-0">
+              <div class="h-[240px] md:h-full overflow-hidden">
+                <Image
+                  src={jacobSPortrait}
+                  alt="Jacob S."
+                  class="w-full h-full object-cover"
+                  style="object-position: center 30%;"
+                  widths={[320, 500, 640]}
+                  sizes="(min-width: 768px) 34vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="p-7 md:p-10 flex flex-col flex-1">
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">Personal Reflection</p>
+              <blockquote class="flex-1 mb-6 space-y-4">
+                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we've worked through has left me feeling clearer and more at peace.</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">What strikes me most about him is his integrity. Whether one-on-one or in a group, his care is genuine and never for his own benefit. He is a pure soul who truly wants to see people thrive. I'm so grateful for his availability and his dedication to helping me improve my life.</p>
+              </blockquote>
+              <figcaption>
+                <p class="font-body text-sm text-muted-foreground/60">Jacob S. &middot; Has worked with Michael across adolescence and into adulthood</p>
+              </figcaption>
+            </div>
+          </div>
+        </figure>
+
+      </div>
+
     </div>
   </section>
 

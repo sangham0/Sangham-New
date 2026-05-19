@@ -111,11 +111,43 @@ const siteJsonLd = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <!-- Google Tag Manager (production only) -->
+    <!-- Google Consent Mode v2 — MUST load before GTM (production only) -->
     {import.meta.env.PROD && (
       <script is:inline>
         window.dataLayer = window.dataLayer || [];
+        function gtag(){window.dataLayer.push(arguments);}
+
+        // Determine if visitor is in EEA (conservative: treat unknown as EEA)
+        var tz = Intl.DateTimeFormat().resolvedOptions().timeZone || '';
+        var eeaZones = ['Europe/'];
+        var isEEA = eeaZones.some(function(z){ return tz.indexOf(z) === 0; });
+
+        // Default consent state
+        gtag('consent', 'default', {
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied',
+          analytics_storage: isEEA ? 'denied' : 'granted',
+          wait_for_update: 500
+        });
+
+        // Check for previously stored consent
+        try {
+          var stored = JSON.parse(localStorage.getItem('sangham_consent') || 'null');
+          if (stored && stored.ts && (Date.now() - stored.ts < 31536000000)) {
+            gtag('consent', 'update', {
+              ad_storage: stored.ad ? 'granted' : 'denied',
+              ad_user_data: stored.ad ? 'granted' : 'denied',
+              ad_personalization: stored.ad ? 'granted' : 'denied',
+              analytics_storage: stored.analytics ? 'granted' : 'denied'
+            });
+          }
+        } catch(e){}
       </script>
+    )}
+
+    <!-- Google Tag Manager (production only) -->
+    {import.meta.env.PROD && (
       <script is:inline>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
 new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
 j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
@@ -153,9 +185,27 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           <a href="/" class="flex items-center gap-3" aria-label="Sangham home">
             <Image src={sanghamLogo} alt="Sangham" class="h-10 w-auto" widths={[80, 160]} loading="eager" />
           </a>
-          <div class="flex items-center gap-5">
+          <div class="flex items-center gap-3 sm:gap-5">
+            <a href="/about" class="hidden sm:block text-sm tracking-widest uppercase font-body text-nav-foreground/60 hover:text-nav-foreground transition-colors duration-200">About</a>
             <a href="/counselling" class="hidden sm:block text-sm tracking-widest uppercase font-body text-nav-foreground/60 hover:text-nav-foreground transition-colors duration-200">Counselling</a>
-            <a href="/contact" class="px-5 py-2 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body">Get in Touch</a>
+            <a href="/contact" class="px-5 py-2 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body" data-cta="header-get-in-touch">Get in Touch</a>
+            <a
+              href="https://wa.me/27736738063"
+              target="_blank"
+              rel="noopener"
+              class="hidden sm:inline-flex items-center gap-2 px-5 py-2 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body"
+              data-cta="header-whatsapp"
+            >WhatsApp Me</a>
+            <a
+              href="https://wa.me/27736738063"
+              target="_blank"
+              rel="noopener"
+              class="sm:hidden flex items-center justify-center w-9 h-9 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg"
+              data-cta="header-whatsapp"
+              aria-label="WhatsApp Me"
+            >
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
           </div>
         </div>
       </nav>
@@ -183,5 +233,110 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </svg>
       <span class="text-white text-sm font-body font-medium">Chat on WhatsApp</span>
     </a>
+
+    <!-- Cookie Consent Banner -->
+    <div
+      id="consent-banner"
+      class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-[60] bg-nav border border-nav-foreground/10 rounded-xl shadow-xl shadow-black/20 p-5 hidden"
+      role="dialog"
+      aria-label="Cookie consent"
+    >
+      <p class="font-body text-sm text-nav-foreground/70 leading-relaxed mb-4">
+        This site uses cookies for analytics and advertising measurement.
+        <a href="/privacy" class="underline text-nav-foreground/50 hover:text-gold-light transition-colors">Privacy policy</a>
+      </p>
+      <div class="flex flex-wrap gap-2">
+        <button
+          id="consent-accept"
+          class="px-4 py-2 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body"
+        >Accept all</button>
+        <button
+          id="consent-reject"
+          class="px-4 py-2 border border-nav-foreground/15 text-nav-foreground/60 hover:text-nav-foreground hover:border-nav-foreground/30 transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body"
+        >Reject all</button>
+        <button
+          id="consent-prefs"
+          class="px-4 py-2 text-nav-foreground/40 hover:text-nav-foreground/60 transition-colors text-xs tracking-wider uppercase font-body"
+        >Preferences</button>
+      </div>
+      <!-- Preferences panel (hidden by default) -->
+      <div id="consent-prefs-panel" class="hidden mt-4 pt-4 border-t border-nav-foreground/10 space-y-3">
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="consent-analytics" checked class="accent-primary w-4 h-4" />
+          <span class="font-body text-sm text-nav-foreground/60">Analytics (site improvement)</span>
+        </label>
+        <label class="flex items-center gap-3 cursor-pointer">
+          <input type="checkbox" id="consent-ads" class="accent-primary w-4 h-4" />
+          <span class="font-body text-sm text-nav-foreground/60">Advertising measurement</span>
+        </label>
+        <button
+          id="consent-save"
+          class="w-full mt-2 px-4 py-2 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-xs tracking-wider uppercase font-body"
+        >Save preferences</button>
+      </div>
+    </div>
+
+    <!-- Consent + Analytics Script -->
+    <script>
+      import '../scripts/analytics';
+
+      // Cookie Consent Banner Logic
+      (function() {
+        const banner = document.getElementById('consent-banner');
+        const acceptBtn = document.getElementById('consent-accept');
+        const rejectBtn = document.getElementById('consent-reject');
+        const prefsBtn = document.getElementById('consent-prefs');
+        const prefsPanel = document.getElementById('consent-prefs-panel');
+        const saveBtn = document.getElementById('consent-save');
+        const analyticsCheck = document.getElementById('consent-analytics') as HTMLInputElement;
+        const adsCheck = document.getElementById('consent-ads') as HTMLInputElement;
+
+        function hasConsent(): boolean {
+          try {
+            const stored = JSON.parse(localStorage.getItem('sangham_consent') || 'null');
+            return stored && stored.ts && (Date.now() - stored.ts < 31536000000);
+          } catch { return false; }
+        }
+
+        function saveConsent(analytics: boolean, ad: boolean) {
+          const consent = { analytics, ad, ts: Date.now() };
+          localStorage.setItem('sangham_consent', JSON.stringify(consent));
+
+          // Update Consent Mode
+          if (typeof window.dataLayer !== 'undefined') {
+            function gtag(...args: any[]) { window.dataLayer.push(args); }
+            window.dataLayer.push('consent', 'update', {
+              ad_storage: ad ? 'granted' : 'denied',
+              ad_user_data: ad ? 'granted' : 'denied',
+              ad_personalization: ad ? 'granted' : 'denied',
+              analytics_storage: analytics ? 'granted' : 'denied',
+            });
+          }
+
+          banner?.classList.add('hidden');
+        }
+
+        // Show banner if no stored consent
+        if (!hasConsent() && banner) {
+          banner.classList.remove('hidden');
+        }
+
+        acceptBtn?.addEventListener('click', () => saveConsent(true, true));
+        rejectBtn?.addEventListener('click', () => saveConsent(false, false));
+        prefsBtn?.addEventListener('click', () => prefsPanel?.classList.toggle('hidden'));
+        saveBtn?.addEventListener('click', () => {
+          saveConsent(analyticsCheck?.checked ?? false, adsCheck?.checked ?? false);
+        });
+      })();
+
+      // "Cookie Preferences" footer link handler
+      document.querySelectorAll('a[data-consent-reopen]').forEach(el => {
+        el.addEventListener('click', (e) => {
+          e.preventDefault();
+          const banner = document.getElementById('consent-banner');
+          banner?.classList.remove('hidden');
+        });
+      });
+    </script>
   </body>
 </html>
