@@ -1,16 +1,38 @@
+---
+interface Props {
+  /** Visible link text. */
+  label?: string;
+  /** Where the link points. */
+  href?: string;
+  /**
+   * Optional CSS selector for an element the reader must scroll past before the
+   * bar becomes available. When omitted, the bar appears after 60% scroll depth
+   * (the original, site-wide behaviour).
+   */
+  afterSelector?: string;
+}
+
+const {
+  label = 'Ready to begin? Book an initial consultation →',
+  href = '/contact',
+  afterSelector = '',
+} = Astro.props;
+---
+
 <div
   id="sticky-cta"
   class="fixed bottom-0 left-0 right-0 z-40 translate-y-full transition-transform duration-500 ease-out"
   role="complementary"
   aria-label="Consultation prompt"
+  data-after={afterSelector}
 >
   <div class="bg-nav/95 backdrop-blur-md border-t border-nav-foreground/10">
     <div class="container mx-auto px-6 py-3 flex items-center justify-between max-w-4xl">
       <a
-        href="/contact"
+        href={href}
         class="text-sm font-body text-nav-foreground/70 hover:text-gold-light transition-colors"
       >
-        Ready to begin? Book an initial consultation &rarr;
+        {label}
       </a>
       <button
         id="sticky-cta-dismiss"
@@ -25,28 +47,53 @@
   </div>
 </div>
 
+<style>
+  /* Honour reduced-motion: appear without sliding */
+  @media (prefers-reduced-motion: reduce) {
+    #sticky-cta {
+      transition: none;
+    }
+  }
+</style>
+
 <script>
   const cta = document.getElementById('sticky-cta');
   const dismiss = document.getElementById('sticky-cta-dismiss');
 
   if (cta && !sessionStorage.getItem('sticky-cta-dismissed')) {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        // Show when user has scrolled past 60% of the page
-      },
-      { threshold: 0 }
-    );
-
     let shown = false;
-    window.addEventListener('scroll', () => {
+
+    const reveal = () => {
       if (shown) return;
-      const scrollPercent = window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
-      if (scrollPercent > 0.6) {
-        shown = true;
-        cta.classList.remove('translate-y-full');
-        cta.classList.add('translate-y-0');
-      }
-    });
+      shown = true;
+      cta.classList.remove('translate-y-full');
+      cta.classList.add('translate-y-0');
+    };
+
+    const afterSel = cta.dataset.after;
+    const marker = afterSel ? document.querySelector(afterSel) : null;
+
+    if (marker) {
+      // Reveal once the marker has been scrolled up out of view (the reader has
+      // moved beyond the opening / recognition section).
+      const io = new IntersectionObserver((entries) => {
+        for (const entry of entries) {
+          if (!entry.isIntersecting && entry.boundingClientRect.top < 0) {
+            reveal();
+            io.disconnect();
+          }
+        }
+      });
+      io.observe(marker);
+    } else {
+      // Original behaviour: reveal after 60% scroll depth.
+      window.addEventListener('scroll', () => {
+        if (shown) return;
+        const scrollPercent =
+          window.scrollY / (document.documentElement.scrollHeight - window.innerHeight);
+        if (scrollPercent > 0.6) reveal();
+      });
+    }
 
     dismiss?.addEventListener('click', () => {
       cta.classList.remove('translate-y-0');

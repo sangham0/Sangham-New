@@ -1,0 +1,821 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import StickyConsultationCTA from '../components/StickyConsultationCTA.astro';
+import FAQ from '../components/FAQ.astro';
+import CalEmbed from '../components/CalEmbed.astro';
+import { Image } from 'astro:assets';
+import michaelPortrait from '../assets/michael-portrait-new.jpg';
+import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
+import himalayaForestSunset from '../assets/himalaya-forest-sunset.jpg';
+import loneTreeSunset from '../assets/lone-tree-sunset.jpg';
+
+const canonicalURL = 'https://www.sangham.org/counselling-for-meditators';
+
+// ── Section 11 · "What this work often meets" — progressive-disclosure cards ──
+const meetsCards = [
+  {
+    head: "Something happened in practice, and you don't know what to make of it.",
+    body: 'An experience that felt important, beautiful, frightening, or all at once, and that you have had no way to place.',
+  },
+  {
+    head: 'A retreat or a powerful insight has changed how you see your life.',
+    body: 'Something opened, and now you are unsure what comes next, or how to live from it.',
+  },
+  {
+    head: 'Your practice is affecting your relationships.',
+    body: 'You are changing, or trying to share something that matters to you, and the people closest to you do not quite understand what is happening.',
+  },
+  {
+    head: "There are energetic or bodily experiences you can't account for.",
+    body: 'Changes in sleep, appetite, sexuality, perception, or mood, and you want to understand them without either dismissing or inflating them.',
+  },
+  {
+    head: 'You feel caught between explanations.',
+    body: 'One teacher says one thing, another says the opposite, psychology says something else, and your own experience seems to say something else again.',
+  },
+  {
+    head: 'There is a quiet fear that something is wrong with you.',
+    body: 'Or the opposite fear: that something important is happening, and you might lose contact with it.',
+  },
+  {
+    head: 'You feel alone in it.',
+    body: 'Not for lack of people around you, but because there is no one you can speak to honestly about what you are living through.',
+  },
+  {
+    head: 'There is no dramatic experience at all.',
+    body: 'Only a sense that practice has brought you somewhere the old answers no longer reach, and you are unsure of the next step.',
+  },
+];
+
+// ── Section 9 · "A different way of looking" — four lenses (static) ──
+const lenses = [
+  {
+    label: 'Through the body.',
+    body: 'Intensive practice changes the nervous system. A shift like this can have a real physiological dimension: how you are sleeping, breathing, eating, and regulating energy all shape what arises and how stable it feels.',
+  },
+  {
+    label: 'Through the psyche.',
+    body: 'An experience like this often touches personal history: what the loss of a familiar self-sense stirs up, the fear or relief it brings, and the meaning you find yourself reaching for.',
+  },
+  {
+    label: 'Through relationships and culture.',
+    body: 'How an experience lands depends partly on the people around you and the language your background gives you. The same event can feel isolating in one setting and intelligible in another.',
+  },
+  {
+    label: 'Through contemplative tradition.',
+    body: 'Many traditions have described states like this for centuries, with detailed maps of what they are, how they move, and how to relate to them. That lineage can offer real context, though it is not the only valid one.',
+  },
+];
+
+// ── Section 15 · "About Michael" — four stacked panels ──
+const michaelPanels = [
+  {
+    title: 'Psychology and counselling',
+    paras: [
+      'For more than a decade I have worked in and around human development, transformation, and self-understanding: facilitating group processes, supporting people through periods of significant change, and working with questions of identity, meaning, purpose, and relationship.',
+      'My formal training is in psychology and counselling. But the question that has always interested me most sits underneath both: how do we come to understand ourselves more honestly?',
+    ],
+  },
+  {
+    title: 'Contemplative practice',
+    paras: [
+      'For more than eight years, contemplative practice has been at the centre of my life. That has meant extended silent retreats, long periods of solitude, traditional training in India, and immersion in contemplative communities and ways of living.',
+      'Much of that time has gone into questions that sit awkwardly in either psychological or spiritual categories: awareness, suffering, identity, and what remains when our ordinary assumptions about ourselves begin to loosen. I mention it only because it is part of the ground I work from. Much of what people bring to these conversations is not abstract to me.',
+    ],
+  },
+  {
+    title: 'Where psychology and spirituality meet',
+    paras: [
+      'One thing the years have taught me is that neither psychology nor spirituality, on its own, captures the whole of a human life. Psychology offers real insight, language, and support. The contemplative traditions offer context, depth, and the reassurance of others who have walked similar paths. Both matter. Both also narrow things when treated as the only valid lens. Much of my work lives in the conversation between them.',
+    ],
+  },
+  {
+    title: 'How I work',
+    paras: [
+      "I don't see my role as handing over answers, diagnoses, or interpretations for you to adopt. More often it means listening closely, reflecting back what I hear, asking the questions that have not yet been asked, and helping you examine the stories and conclusions that have formed around your experience.",
+      'Sometimes a new perspective emerges. Sometimes an old one deepens. Sometimes the most useful discovery is that a question needs more time before it can be answered honestly. Throughout, the work stays yours. My part is to help create the conditions in which your own understanding can come into focus.',
+    ],
+  },
+];
+
+// ── Section 18 · FAQ ──
+const faqItems = [
+  {
+    q: 'Is this therapy?',
+    a: 'No. This is reflective counselling rather than psychotherapy or clinical treatment. Psychological insight and emotional exploration are often part of the conversation, but the primary focus is helping people understand and integrate experiences arising through spiritual practice and inner development.',
+  },
+  {
+    q: 'Do I need to belong to a particular tradition?',
+    a: 'No. People come from many different backgrounds and practices, including meditation, yoga, contemplative Christianity, Buddhism, non-dual traditions, devotional paths, and sometimes no formal tradition at all. What matters is not which path you are on, but whether you want to understand your experience more deeply.',
+  },
+  {
+    q: 'Will you tell me what my experiences mean?',
+    a: 'No. My role is not to provide definitive interpretations. The work involves exploring experiences together, questioning assumptions, considering different perspectives, and making space for your own understanding to emerge.',
+  },
+  {
+    q: "What if I'm not sure whether this is right for me?",
+    a: 'That uncertainty is completely fine. The introductory conversation exists precisely so we can look at what is happening, whether this work is likely to help, and whether we feel like a good fit to work together. There is no obligation to continue.',
+  },
+  {
+    q: 'How do sessions work?',
+    a: 'Sessions take place online by video call. The work is conversational rather than curriculum-based. Some people come with a specific experience to explore; others arrive with broader questions about practice, direction, relationships, or meaning. The pace and focus follow what you are actually living through, not a predetermined programme.',
+  },
+];
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Counselling for Meditators and Contemplative Practitioners',
+    url: canonicalURL,
+    description:
+      'Reflective counselling for people on a serious contemplative path. A grounded space to understand what your practice and experiences may be opening, with someone who has spent years in similar terrain. ASCHP registered. Online worldwide.',
+    serviceType: 'Wellness Counselling',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'ASCHP Registered Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      sameAs: ['https://www.instagram.com/sangham.space'],
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional Registration',
+        name: 'Wellness Counsellor',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Association for Supportive Counsellors and Holistic Practitioners',
+          alternateName: 'ASCHP',
+        },
+        identifier: 'Reg. No. 10559',
+      },
+      affiliation: {
+        '@type': 'Organization',
+        name: 'Association for Supportive Counsellors and Holistic Practitioners',
+        alternateName: 'ASCHP',
+      },
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'South Africa' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Introductory Conversation',
+        price: '0',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'An unhurried, free introductory conversation. No obligation to continue.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Ongoing Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: '60-minute reflective counselling session, online via video.',
+      },
+    ],
+  },
+];
+---
+
+<style is:global>
+  /* Progressive-disclosure cards + lens list share the FAQ height transition */
+  .cfm-card > .cfm-card-body {
+    display: grid;
+    grid-template-rows: 0fr;
+    transition: grid-template-rows 0.28s ease;
+  }
+  .cfm-card[open] > .cfm-card-body {
+    grid-template-rows: 1fr;
+  }
+  .cfm-card > .cfm-card-body > div {
+    overflow: hidden;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cfm-card > .cfm-card-body {
+      transition: none;
+    }
+  }
+
+  /* Page-scoped design tokens (mirrors the mentoring page register) */
+  .cfm-page {
+    --color-void: hsl(220 28% 9%);
+    --color-header: hsl(218 24% 14%);
+    --color-parchment: hsl(36 18% 92%);
+    --color-header-foreground: hsl(36 18% 92%);
+    --color-primary: #d4a95c;
+    --color-primary-foreground: #0f1422;
+    --color-gold: #d4a95c;
+    --color-gold-light: #e6be76;
+    --color-gold-dark: #b88a3c;
+  }
+
+  .cfm-page .text-gold-gradient {
+    background: linear-gradient(135deg, #dbae5e, #d4a95c, #b88a3c);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+  }
+</style>
+
+<BaseLayout
+  title="Counselling for Meditators & Contemplative Practitioners"
+  description="Reflective counselling for people on a serious contemplative path. A grounded space to understand what your practice and experiences may be opening, with someone who has spent years in similar terrain. ASCHP registered. Online worldwide."
+  canonicalURL={canonicalURL}
+  jsonLd={[...jsonLd, faqJsonLd]}
+  hideStickyBar={true}
+>
+<div class="cfm-page">
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       01 · HERO
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void -mt-[72px] pt-[72px]">
+    <div class="container mx-auto px-6 py-20 md:py-28 lg:py-32 max-w-5xl">
+      <div class="grid md:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-start">
+
+        <div class="md:order-1">
+          <p class="text-parchment/40 text-xs tracking-[0.2em] uppercase font-body mb-8">
+            Sangham &middot; Counselling for Meditators &amp; Contemplative Practitioners &middot; Online Worldwide
+          </p>
+
+          <h1 class="font-heading text-[36px] sm:text-5xl md:text-[56px] lg:text-[64px] text-gold-gradient leading-[1.1] mb-9">
+            <span class="block mb-3">Meditation can open profound questions.</span>
+            <span class="block">You do not have to navigate them alone.</span>
+          </h1>
+
+          <p class="font-body text-lg md:text-xl text-parchment/70 leading-relaxed mb-10 max-w-2xl">
+            A reflective counselling space for people on a serious contemplative path. Somewhere to make sense of what your practice and experiences may be opening, with someone who has spent years in similar terrain.
+          </p>
+
+          <a
+            href="#begin"
+            class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-3"
+            data-cta="hero-introductory-conversation"
+          >
+            Book an Introductory Conversation
+          </a>
+
+          <p class="font-body text-sm italic text-parchment/45 mb-8">
+            Unhurried, and free. No obligation to continue.
+          </p>
+
+          <div class="flex flex-wrap gap-x-4 gap-y-1.5">
+            {['ASCHP Registered Wellness Counsellor', 'BA Psychology', 'Certified Yoga Teacher (RYS 300)', 'Online Worldwide'].map((t) => (
+              <span class="px-3 py-1 rounded-full border border-parchment/10 text-parchment/35 text-[11px] font-body">{t}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="md:order-2 flex justify-center md:justify-end">
+          <div class="w-full max-w-[230px] md:max-w-[240px] lg:max-w-[260px]">
+            <div class="rounded-xl overflow-hidden border border-parchment/8">
+              <div class="aspect-[4/5] overflow-hidden">
+                <Image
+                  src={michaelPortrait}
+                  alt="Michael Kaplan (Swami Ramarishi), ASCHP Registered Wellness Counsellor"
+                  class="w-full h-full object-cover object-center"
+                  widths={[400, 500, 550]}
+                  sizes="(min-width: 1024px) 260px, (min-width: 768px) 240px, 230px"
+                  width={1254}
+                  height={1254}
+                  loading="eager"
+                  fetchpriority="high"
+                />
+              </div>
+            </div>
+            <div class="px-1 mt-3 mb-3">
+              <p class="font-heading text-base text-parchment/80">Michael Kaplan (Swami Ramarishi)</p>
+              <p class="text-primary/55 text-[11px] font-body tracking-wide mt-1 leading-snug">
+                ASCHP Registered Wellness Counsellor (Reg. 10559) &middot; RYS 300
+              </p>
+            </div>
+            <ul class="px-1 space-y-1.5 text-parchment/45 text-[12px] font-body leading-snug list-none">
+              <li>10+ years facilitating transformative and contemplative work</li>
+              <li>8+ years of dedicated contemplative practice across several traditions</li>
+              <li>Extended periods of silence, solitude, retreat, and traditional training</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       02 · SOMETHING MANY PEOPLE ON THIS PATH COME TO KNOW
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-12">
+        Something many people on this path come to know
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7">
+        <p>There are experiences that arise through spiritual practice that turn out to be surprisingly hard to speak about.</p>
+        <p>A period of unusual clarity, where everything feels simple and obvious, can give way to a period where you cannot find your footing at all. Questions about who you are refuse to settle. Something fundamental seems to have shifted, and parts of the life you built around an earlier version of yourself no longer fit in quite the same way.</p>
+        <p>Old grief, fear, anger, or longing can surface with an intensity that seems out of all proportion to your present circumstances. Experiences in meditation, prayer, or solitude feel deeply significant and yet remain almost impossible to explain to the people around you. There are stretches of profound peace, and stretches of contraction and doubt. There can be powerful energetic phenomena, or changes in sleep, appetite, sexuality, perception, and the way you inhabit your own body. Some traditions would name parts of this Kundalini, awakening, non-duality, or grace.</p>
+        <p>Sometimes these experiences are beautiful. Sometimes they are frightening. Often they are both.</p>
+        <p>What makes them harder still is that most people have no context for them. The people closest to you may be worried. Your family may not understand. Your therapist may never have encountered anything like it. And so you find yourself reading late into the night, trying to work out whether you are waking up, breaking down, or losing your mind.</p>
+        <p>For most of history, experiences like these were held within traditions that had language for them, and people who had walked similar ground before. Whether that ground was always read wisely is another question. What mattered was that the experience sat inside some wider understanding. Today, many people meet the same territory almost entirely alone.</p>
+        <p>The experience itself is often not the hardest part. The hardest part is not knowing what to make of it.</p>
+        <p class="text-parchment/80">Sometimes what is needed is not an answer, but a place where the question can be held properly.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CONTENT BREAK 01 — full-bleed image + quote
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={himalayaForestSunset}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070b14]/68"></div>
+    <div class="relative z-10 container mx-auto px-6 py-32 md:py-44 max-w-3xl text-center">
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl text-parchment/85 italic leading-relaxed">
+        Sometimes the experience is not the hardest part. The hardest part is not knowing what to make of it.
+      </p>
+    </div>
+  </section>
+
+  <!-- Persistent CTA becomes available beyond this point -->
+  <div id="after-recognition" aria-hidden="true"></div>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       04 · FOR MOST OF HISTORY, PEOPLE RARELY WALKED THESE PATHS ALONE
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-12">
+        For most of history, people rarely walked these paths alone
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7">
+        <p>For as long as human beings have explored consciousness deliberately, they have usually done so within some form of living context. Monasteries, ashrams, mystery schools, contemplative communities, teachers, elders, fellow practitioners. The forms varied from culture to culture, but the principle was often the same: if practice opened something difficult, confusing, or destabilising, there was usually someone nearby who had met similar territory before.</p>
+        <p>This was not because such people had all the answers. It was because they understood that the inner life can move in unexpected directions, that clarity is often followed by uncertainty, and that a profound experience does not always arrive with its meaning attached.</p>
+        <p>Access to practice has since expanded enormously. Books, retreats, online teachings, apps, courses, and traditions are available to almost anyone with a connection. A person can now encounter more spiritual instruction in a week than most people would have met in a lifetime a few generations ago.</p>
+        <p class="text-parchment/80">What has not kept pace is guidance.</p>
+        <p>Many people today have powerful practices, real commitment, and a sincere wish to understand themselves more deeply. What they lack is a reflective space in which the experiences that emerge can be looked at carefully, with someone familiar with the ground. So they are left to navigate difficult questions largely alone, not for any want of practice, but for want of company that understands.</p>
+        <p>That is the gap this work is intended to meet.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CONTENT BREAK 02 — quote only, text-led
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-24 md:py-32 max-w-3xl text-center">
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl text-parchment/80 italic leading-relaxed">
+        We have never had greater access to spiritual practice. We have rarely had less access to ongoing guidance.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       06 · WHAT THIS IS
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-12">
+        What this is
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7 mb-14">
+        <p>This is a reflective counselling relationship. At its simplest, it is a space to bring the questions, uncertainties, and insights that arise through spiritual practice into honest conversation.</p>
+        <p>Sometimes that conversation is about a single experience. Sometimes it is about a period of life that no longer makes sense the way it once did. Sometimes it is about practice itself: what is helping, what is not, what feels clear, and what does not.</p>
+        <p>The aim is not to reach conclusions as quickly as possible. It is to understand more fully what is actually happening.</p>
+        <p class="text-parchment/80">The work draws on three strands.</p>
+      </div>
+
+      <div class="grid md:grid-cols-3 gap-6 mb-14">
+        <div class="border border-parchment/10 rounded-xl p-7 bg-[#070b14]/30">
+          <h3 class="font-heading text-xl text-parchment/85 mb-4">Reflective counselling</h3>
+          <p class="font-body text-base text-parchment/60 leading-relaxed">The foundation is dialogue. Together we look carefully at your experience: not only what is happening, but how you are relating to it, the meaning you are making of it, and the assumptions quietly shaping that meaning. This is held within my training and registration as a Wellness Counsellor through the ASCHP.</p>
+        </div>
+        <div class="border border-parchment/10 rounded-xl p-7 bg-[#070b14]/30">
+          <h3 class="font-heading text-xl text-parchment/85 mb-4">Contemplative familiarity</h3>
+          <p class="font-body text-base text-parchment/60 leading-relaxed">Alongside it sits many years of personal practice, retreat, and traditional training, and direct acquaintance with the kinds of questions and difficulties that can emerge on an inner path. Not because my experience is the same as yours, but because some territory is easier to explore in the company of someone who has travelled through similar landscapes themselves.</p>
+        </div>
+        <div class="border border-parchment/10 rounded-xl p-7 bg-[#070b14]/30">
+          <h3 class="font-heading text-xl text-parchment/85 mb-4">Your own clarity</h3>
+          <p class="font-body text-base text-parchment/60 leading-relaxed">The purpose of this work is not for you to adopt my beliefs or conclusions. It is not a guru-disciple relationship, and it is not a matter of being told what your experiences "really mean." The aim is for your own understanding to deepen, whether through questioning, through reflection, or through seeing something from an angle you had not considered. The goal is not dependence. The goal is clarity.</p>
+        </div>
+      </div>
+
+      <blockquote class="border-l-2 border-primary/40 pl-7 max-w-2xl">
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 italic leading-relaxed">
+          Clarity is not something I can give you. It is something we can make room for.
+        </p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       07 · MINI SECTION — What a conversation often looks like
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-2xl">
+      <div class="border border-parchment/12 rounded-2xl bg-header/60 p-8 md:p-12">
+        <p class="text-primary/55 text-xs tracking-[0.16em] uppercase font-body mb-5">What a conversation often looks like</p>
+        <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-6">
+          <p>Sessions are unhurried and conversational. There is no curriculum and no fixed sequence.</p>
+          <p>We usually begin with whatever is most alive for you: a specific experience, a question that will not leave you, or simply the sense that something has shifted and you want to think it through with someone. From there the conversation moves at its own pace, looking at what happened, how you are relating to it, and what it might be asking of you.</p>
+          <p>Some people come with a single experience they want to understand. Others come with broader questions about practice, direction, relationships, or meaning. Either is a good place to start.</p>
+          <p>Nothing is forced, and nothing is performed. The work follows the reality of what you are living, not a programme decided in advance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CONTENT BREAK 03 — large type, text-led
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-24 md:py-32 max-w-3xl text-center">
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl text-parchment/80 italic leading-relaxed">
+        My role is not to tell you what your experience means. It is to help create the conditions in which your own understanding can emerge.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       09 · A DIFFERENT WAY OF LOOKING
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-12">
+        A different way of looking
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7 mb-12">
+        <p>Most of us are taught to relate to an unusual experience by explaining it as quickly as possible. We reach for the right label, the correct interpretation, the framework that will finally settle the question.</p>
+        <p>Yet many of the experiences that arise through practice do not lend themselves to that kind of certainty. The same experience can be understood in more than one way, and each way may reveal something true. Psychology can illuminate one aspect of what is happening; a contemplative tradition can illuminate another; the languages of neuroscience, trauma, development, and culture may each add something. The trouble begins only when one explanation is mistaken for the whole story.</p>
+        <p>So much of this work is less about deciding which interpretation is correct than about making enough room for a real exploration to take place. What is actually being experienced? How are you relating to it? Which assumptions are shaping the way you understand it? Which explanations help you meet your life more clearly, and which quietly produce confusion, isolation, or premature certainty?</p>
+        <p>These are not questions I answer for you. They are questions we sit with together.</p>
+        <p>Sometimes that changes how an experience is understood. Sometimes it changes nothing at all. Often it simply reveals what the rush to explain had kept out of view. The aim is not to swap one interpretation for another, but to arrive at an understanding that is your own, and that helps you meet your life, your relationships, and your practice with greater clarity.</p>
+      </div>
+
+      <blockquote class="border-l-2 border-primary/40 pl-7 max-w-2xl mb-14">
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 italic leading-relaxed">
+          The most important questions are often not the ones that can be answered quickly.
+        </p>
+      </blockquote>
+
+      <!-- Four lenses, one experience (static) -->
+      <div class="border-t border-parchment/10 pt-12">
+        <div class="space-y-8">
+          {lenses.map((lens) => (
+            <div>
+              <h3 class="font-heading text-lg md:text-xl text-parchment/85 mb-2">{lens.label}</h3>
+              <p class="font-body text-base text-parchment/60 leading-relaxed">{lens.body}</p>
+            </div>
+          ))}
+        </div>
+        <p class="font-body text-base md:text-lg text-parchment/55 italic leading-relaxed mt-10">
+          None of these is the whole story. The work is to hold them together until your own understanding forms.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CONTENT BREAK 04 — minimal, text-led
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-28 md:py-40 max-w-3xl text-center">
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl text-parchment/80 italic leading-relaxed">
+        Human experience is often larger than the explanations we place upon it.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       11 · WHAT THIS WORK OFTEN MEETS — progressive-disclosure cards
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-6">
+        What this work often meets
+      </h2>
+      <p class="font-body text-lg text-parchment/68 leading-relaxed mb-12 max-w-2xl">
+        People arrive for many different reasons, but certain themes appear again and again.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-4 mb-12">
+        {meetsCards.map((card) => (
+          <details class="cfm-card group border border-parchment/12 rounded-xl bg-[#070b14]/30 hover:bg-[#070b14]/50 transition-colors">
+            <summary class="flex items-start justify-between gap-4 px-6 py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+              <span class="font-heading text-lg text-parchment/85 leading-snug">{card.head}</span>
+              <svg
+                class="w-4 h-4 shrink-0 mt-1.5 text-parchment/30 transition-transform duration-200 group-open:rotate-45"
+                fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+              >
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+              </svg>
+            </summary>
+            <div class="cfm-card-body">
+              <div class="px-6 pb-5">
+                <p class="font-body text-base text-parchment/60 leading-relaxed">{card.body}</p>
+              </div>
+            </div>
+          </details>
+        ))}
+      </div>
+
+      <p class="font-body text-lg text-parchment/68 leading-relaxed mb-4 max-w-2xl">
+        None of these necessarily call for solutions. More often they call for understanding: room to think, feel, question, and find what is true for you, rather than what someone else says should be true.
+      </p>
+      <p class="font-body text-base text-parchment/55 italic leading-relaxed mb-10 max-w-2xl">
+        If several of these feel familiar, an introductory conversation may be a good place to begin.
+      </p>
+
+      <a
+        href="#begin"
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
+        data-cta="meets-introductory-conversation"
+      >
+        Book an Introductory Conversation
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CONTENT BREAK 05 — most resonant image + quote
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={loneTreeSunset}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover object-center"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-[#070b14]/64"></div>
+    <div class="relative z-10 container mx-auto px-6 py-32 md:py-44 max-w-3xl text-center">
+      <p class="font-heading text-2xl sm:text-3xl md:text-4xl text-parchment/85 italic leading-relaxed">
+        You do not have to decide all at once what is happening. You do not have to navigate it entirely alone.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       13 · A CAREFUL AND IMPORTANT POINT
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-12">
+        A careful and important point
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7 mb-12">
+        <p>Some experiences that arise through practice are difficult to understand, especially when they involve marked changes in perception, identity, emotion, energy, or the ordinary rhythms of daily life. In the face of that, people understandably look for certainty. Sometimes it arrives as a clinical explanation; sometimes as a spiritual one. Both can be valuable, and both can become limiting when they are reached for too quickly or held too tightly.</p>
+        <p class="text-parchment/80">The honest position is that a human life rarely fits a single explanation.</p>
+        <p>There are times when psychological, psychiatric, or medical support is essential and can make a real difference to a person's wellbeing. There are also times when the contemplative traditions offer context that helps someone feel less frightened, less alone, and more able to meet what is happening. These possibilities are not necessarily opposed.</p>
+        <p>Part of this work is making space for that kind of careful reflection: so that support is sought where it is needed, assumptions are questioned where that helps, and an experience is understood as fully as it can be. This is not a stance against therapy, psychiatry, or medicine, and it does not assume that every unusual experience is spiritual. It simply holds that experiences deserve to be looked at thoughtfully rather than reduced too soon to a single answer.</p>
+        <p>Where specialist support is needed, I will say so directly, and help point you towards it.</p>
+      </div>
+
+      <blockquote class="border-l-2 border-primary/40 pl-7 max-w-2xl">
+        <p class="font-heading text-xl md:text-2xl text-parchment/75 italic leading-relaxed">
+          Understanding begins the moment we are willing to look more carefully than our first explanation allows.
+        </p>
+      </blockquote>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       14 · WHAT THIS IS NOT
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-2xl">
+      <h2 class="font-heading text-2xl md:text-3xl text-parchment/85 leading-tight mb-8">
+        What this is not
+      </h2>
+      <div class="font-body text-base md:text-lg text-parchment/62 leading-relaxed space-y-6">
+        <p>This work is not psychotherapy, psychiatric treatment, diagnosis, or medical care, and it is not a substitute for professional mental health support where that is needed. Where I believe specialist care would help, I will say so directly.</p>
+        <p>It is not a guru-disciple relationship. My role is not to tell you what to believe, what your experiences mean, or which path to follow. I do not offer final answers, or a system of interpretation into which every experience must fit.</p>
+        <p>What I offer is a reflective counselling space: somewhere experiences, questions, and insights can be looked at carefully and honestly, so that your own understanding has room to emerge. The aim is not dependence. It is greater clarity, grounding, and freedom in your relationship with your own experience.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       15 · ABOUT MICHAEL — four stacked panels
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-3">
+        About Michael
+      </h2>
+      <p class="font-heading text-lg text-parchment/80 mb-1">Michael Kaplan (Swami Ramarishi)</p>
+      <p class="font-body text-sm text-primary/55 tracking-wide mb-14">
+        BA Psychology &middot; ASCHP Registered Wellness Counsellor (Reg. 10559) &middot; Certified Yoga Teacher (RYS 300)
+      </p>
+
+      <div class="space-y-5">
+        {michaelPanels.map((panel, i) => (
+          <div class:list={[
+            'rounded-2xl p-8 md:p-10 border border-parchment/10',
+            i % 2 === 0 ? 'bg-header/60' : 'bg-[#070b14]/30',
+          ]}>
+            <h3 class="font-heading text-xl md:text-2xl text-parchment/85 mb-5">{panel.title}</h3>
+            <div class="font-body text-base md:text-lg text-parchment/62 leading-relaxed space-y-5">
+              {panel.paras.map((p) => (<p>{p}</p>))}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       CONTENT BREAK 06 — portrait + understated caption
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-3xl">
+      <figure class="flex flex-col items-center text-center">
+        <div class="w-full max-w-sm rounded-2xl overflow-hidden border border-parchment/8">
+          <Image
+            src={swamiPortrait}
+            alt="Michael Kaplan (Swami Ramarishi)"
+            class="w-full h-auto object-cover"
+            widths={[400, 600, 800]}
+            sizes="(min-width: 768px) 384px, 100vw"
+            loading="lazy"
+          />
+        </div>
+        <figcaption class="font-body text-sm text-parchment/40 italic mt-5">
+          The person behind the work.
+        </figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       17 · REFLECTIONS
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-3">
+        Reflections from people who have worked with Michael
+      </h2>
+      <p class="font-body text-sm text-parchment/45 italic mb-16">Shared with permission.</p>
+
+      <!-- Two personal reflections, in the reader's eye-line -->
+      <div class="space-y-14">
+        <figure>
+          <blockquote class="font-heading text-xl md:text-2xl text-parchment/78 italic leading-relaxed">
+            Michael is a truly special person. Beyond the depth of wisdom and knowledge he shares, there is something deeply healing about his presence. During the workshop, I found myself softening, opening, and gently meeting parts of myself I had long found difficult to face. He holds space with a rare combination of patience, authenticity, and humility, making it easy to feel safe and fully present with oneself. I left feeling more connected to myself, and deeply grateful for the experience.
+          </blockquote>
+          <figcaption class="font-body text-sm text-parchment/50 mt-6">Vera &middot; Workshop participant</figcaption>
+        </figure>
+
+        <figure>
+          <blockquote class="font-heading text-xl md:text-2xl text-parchment/78 italic leading-relaxed">
+            It is a rare thing to encounter so much wisdom in one person. In my time with Michael, I have experienced a peace that only comes with deep trust: of being held without judgement, in a field of infinite compassion. I have felt my best parts come forward, and a relatability to all sides of humanity, expressed with love and equanimity. It is rare for me to give so easily to the guidance of a man, and rare to find one with such a capacity to guide.
+          </blockquote>
+          <figcaption class="font-body text-sm text-parchment/50 mt-6">Ashraf Vahed &middot; Has known Michael through community work</figcaption>
+        </figure>
+      </div>
+
+      <!-- Professional note, set slightly apart -->
+      <figure class="mt-16 pt-12 border-t border-parchment/10">
+        <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-5">Professional note</p>
+        <blockquote class="font-heading text-lg md:text-xl text-parchment/70 italic leading-relaxed">
+          He brings presence, emotional intelligence, and a strong capacity to engage honestly with difficult human experiences. I would recommend him with confidence.
+        </blockquote>
+        <figcaption class="font-body text-sm text-parchment/50 mt-5">Bernard Altman &middot; Clinical Psychologist</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       18 · QUESTIONS THAT OFTEN COME UP
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-12">
+        Questions that often come up
+      </h2>
+      <FAQ items={faqItems} dark={true} />
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       19 · HOW TO BEGIN — pricing
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section id="begin" class="bg-void scroll-mt-[72px]">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-10">
+        How to begin
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7 mb-10">
+        <p>The first step is simply an introductory conversation. It is unhurried and free: a chance to look at what is happening, to sense whether this work fits your situation, and whether we are a good fit to work together. There is no obligation to continue.</p>
+        <p>Sessions take place online by video, usually around 60 minutes, at a rhythm that suits you. Ongoing sessions are R850 (approximately $50 USD) each. Where that fee is a real obstacle, reduced rates are available in a limited number of cases, and this is something we can discuss in the introductory conversation.</p>
+      </div>
+
+      <a
+        href="#cal-inline-embed"
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-4"
+        data-cta="begin-introductory-conversation"
+      >
+        Book an Introductory Conversation
+      </a>
+      <p class="font-body text-sm text-parchment/45 italic mb-14">
+        You will usually receive a response within 1 to 2 business days.
+      </p>
+
+      <CalEmbed minHeight="640px" />
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       20 · A CLOSING INVITATION
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-10">
+        A closing invitation
+      </h2>
+      <div class="font-body text-lg text-parchment/68 leading-relaxed space-y-7 mb-12">
+        <p>Sometimes understanding arrives through practice itself. Sometimes it arrives through conversation: through being listened to carefully, through being asked a question that opens something, through finding that an experience which felt isolating becomes easier to carry once it is explored in the company of someone familiar with the ground.</p>
+        <p>If you are moving through questions, uncertainty, or experiences that are hard to make sense of alone, you are welcome to reach out. The first step is simply a conversation: a chance to look at what is happening, to see whether this work feels right for your situation, and whether we are a good fit to work together. There is no obligation to continue.</p>
+      </div>
+
+      <a
+        href="#begin"
+        class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-6"
+        data-cta="closing-introductory-conversation"
+      >
+        Book an Introductory Conversation
+      </a>
+      <p class="font-body text-sm text-parchment/40 tracking-wide">
+        Online worldwide &nbsp;&middot;&nbsp; Sessions in English &nbsp;&middot;&nbsp; Initial conversation free and without obligation
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══════════════════════════════════════════════════════════════════
+       21 · FOOTER — Scope & Ethics (expandable)
+  ═══════════════════════════════════════════════════════════════════ -->
+  <section class="bg-void border-t border-parchment/8">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
+      <details class="cfm-card group border border-parchment/12 rounded-xl bg-[#070b14]/30">
+        <summary class="flex items-center justify-between gap-4 px-6 py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+          <span class="font-heading text-lg text-parchment/80">Scope &amp; Ethics</span>
+          <svg
+            class="w-4 h-4 shrink-0 text-parchment/30 transition-transform duration-200 group-open:rotate-45"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"
+          >
+            <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
+          </svg>
+        </summary>
+        <div class="cfm-card-body">
+          <div class="px-6 pb-6">
+            <div class="font-body text-sm text-parchment/55 leading-relaxed space-y-4">
+              <p>This work is offered as supportive wellness counselling under registration with the ASCHP. It is distinct from clinical psychology, psychiatry, psychotherapy, and emergency mental health services, and is not a substitute for medical or psychiatric care.</p>
+              <p>Where specialist assessment, treatment, or support appears appropriate, I will say so directly and, where possible, help point you towards the relevant professional resources. Part of my responsibility is recognising the limits of this work as well as its possibilities.</p>
+              <p>Confidentiality, honesty, appropriate boundaries, and respect for client autonomy are foundational to the process. The aim of this work is not to provide diagnosis, certainty, or dependence, but to support greater understanding, integration, and clarity in relation to your own experience.</p>
+            </div>
+            <a href="/scope" class="inline-block font-body text-sm text-primary/70 hover:text-primary transition-colors mt-5">
+              Full Scope &amp; Ethics &rarr;
+            </a>
+          </div>
+        </div>
+      </details>
+    </div>
+  </section>
+
+</div>
+
+<StickyConsultationCTA
+  label="Book an Introductory Conversation →"
+  href="#begin"
+  afterSelector="#after-recognition"
+/>
+</BaseLayout>
