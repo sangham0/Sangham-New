@@ -12,7 +12,7 @@ import majesticHills from '../assets/majestic landscape hills and clouds.JPG'; /
 import himalayaEditB from '../assets/himalaya-edit-b.jpg';       // break 03
 import mistyJungle from '../assets/misty jungle.JPG';            // break 04
 import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg'; // break 05
-import ramaRooftop from '../assets/Rama-Teaching-Yoga-To-group-rooftop.JPG'; // break 06
+import ramaRooftop from '../assets/Rama-silhoute-in-yoga-hall.PNG'; // break 06
 import michaelPortrait from '../assets/michael-portrait-new.jpg'; // hero portrait
 import veraPortrait from '../assets/Vera-Pic.PNG';
 import ashrafPortrait from '../assets/Ashraf-pic.jpg';
@@ -407,9 +407,8 @@ const jsonLd = [
         </div>
         {lenses.map((lens, i) => (
           <div role="tabpanel" id={`lens-panel-${i}`} aria-labelledby={`lens-tab-${i}`} tabindex="0" class="cfm-tabpanel focus:outline-none" hidden={i !== 0}>
-            <p class="font-body text-lg text-foreground/80 leading-relaxed max-w-[60ch]">
-              <span class="font-heading cfm-gold-text text-xl">{lens.lead}</span> {lens.body}
-            </p>
+            <p class="font-heading cfm-gold-text text-xl mb-3">{lens.lead}</p>
+            <p class="font-body text-lg text-foreground/80 leading-relaxed max-w-[60ch]">{lens.body}</p>
           </div>
         ))}
         <p class="font-body text-base text-foreground/60 italic leading-relaxed mt-8 pt-6 border-t border-border/60 max-w-[60ch]">None of these is the whole story. The work is to hold them together until your own understanding forms.</p>
@@ -527,10 +526,9 @@ const jsonLd = [
 
   <!-- ═══ CONTENT BREAK 06 — portrait of the work ═══ -->
   <section class="relative overflow-hidden cfm-graded">
-    <Image src={ramaRooftop} alt="Michael facilitating a contemplative circle at dusk" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
+    <Image src={ramaRooftop} alt="Michael sitting in meditation in a light-filled yoga hall" class="absolute inset-0 w-full h-full object-cover object-[center_70%] cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
     <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.5), hsl(36 18% 90% / 0.32) 45%, hsl(36 18% 90% / 0.7));"></div>
     <div class="relative z-10 container mx-auto px-6 py-40 md:py-56 max-w-3xl flex items-end justify-center">
-      <p class="font-body text-sm text-foreground/70 italic">The person behind the work.</p>
     </div>
   </section>
 
