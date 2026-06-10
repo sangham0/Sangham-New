@@ -13,12 +13,16 @@ const mainLinks = [
 
 const counsellingSubItems = [
   { path: '/counselling', label: 'Counselling Overview' },
+  { path: '/counselling-for-meditators', label: 'Counselling for Meditators' },
   { path: '/mentoring-for-adolescents', label: 'Mentoring for Teenagers' },
   { path: '/mentoring-for-young-men', label: 'Mentoring for Young Men' },
 ];
 
 const currentPath = Astro.url.pathname;
-const isCounsellingActive = currentPath === '/counselling' || currentPath.startsWith('/mentoring-');
+const isCounsellingActive =
+  currentPath === '/counselling' ||
+  currentPath === '/counselling-for-meditators' ||
+  currentPath.startsWith('/mentoring-');
 ---
 
 <nav
