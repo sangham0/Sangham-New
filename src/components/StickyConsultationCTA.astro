@@ -14,6 +14,12 @@ interface Props {
   variant?: 'dark' | 'light';
   /** Optional WhatsApp link rendered as a quiet secondary action. */
   whatsappHref?: string;
+  /**
+   * When true, render a slim full-width bar on mobile and an unobtrusive
+   * floating pill anchored bottom-right on desktop. When false (default), the
+   * original single full-width bar is used at every width.
+   */
+  desktopFloating?: boolean;
 }
 
 const {
@@ -22,6 +28,7 @@ const {
   afterSelector = '',
   variant = 'dark',
   whatsappHref = '',
+  desktopFloating = false,
 } = Astro.props;
 
 const light = variant === 'light';
@@ -34,55 +41,140 @@ const light = variant === 'light';
   aria-label="Consultation prompt"
   data-after={afterSelector}
 >
-  <div
-    class:list={[
-      'backdrop-blur-md border-t',
-      light ? 'bg-background/95 border-border' : 'bg-nav/95 border-nav-foreground/10',
-    ]}
-  >
-    <div class="container mx-auto px-6 py-3 flex items-center justify-between gap-4 max-w-4xl">
-      <a
-        href={href}
+  {desktopFloating ? (
+    <div class="pointer-events-none">
+      <!-- Mobile: slim full-width bar -->
+      <div
         class:list={[
-          'text-sm font-body transition-colors',
-          light
-            ? 'text-foreground/80 hover:text-primary'
-            : 'text-nav-foreground/70 hover:text-gold-light',
+          'md:hidden pointer-events-auto backdrop-blur-md border-t',
+          light ? 'bg-background/95 border-border' : 'bg-nav/95 border-nav-foreground/10',
         ]}
-        data-cta="sticky-book"
       >
-        {label}
-      </a>
-      <div class="flex items-center gap-3">
-        {whatsappHref && (
+        <div class="container mx-auto px-6 py-3 flex items-center justify-between gap-4 max-w-4xl">
           <a
-            href={whatsappHref}
-            target="_blank"
-            rel="noopener noreferrer"
+            href={href}
             class:list={[
-              'hidden sm:inline text-xs font-body transition-colors',
-              light ? 'text-muted-foreground hover:text-primary' : 'text-nav-foreground/45 hover:text-gold-light',
+              'text-sm font-body transition-colors',
+              light ? 'text-foreground/80 hover:text-primary' : 'text-nav-foreground/70 hover:text-gold-light',
             ]}
-            data-cta="sticky-whatsapp"
+            data-cta="sticky-book"
           >
-            or WhatsApp
+            {label}
           </a>
-        )}
-        <button
-          id="sticky-cta-dismiss"
+          <div class="flex items-center gap-3">
+            {whatsappHref && (
+              <a
+                href={whatsappHref}
+                target="_blank"
+                rel="noopener noreferrer"
+                class:list={[
+                  'hidden sm:inline text-xs font-body transition-colors',
+                  light ? 'text-muted-foreground hover:text-primary' : 'text-nav-foreground/45 hover:text-gold-light',
+                ]}
+                data-cta="sticky-whatsapp"
+              >
+                or WhatsApp
+              </a>
+            )}
+            <button
+              data-cta-dismiss
+              class:list={[
+                'transition-colors p-1',
+                light ? 'text-muted-foreground/60 hover:text-foreground' : 'text-nav-foreground/40 hover:text-nav-foreground/70',
+              ]}
+              aria-label="Dismiss consultation prompt"
+            >
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Desktop: unobtrusive gold-accented floating pill, bottom-right -->
+      <div class="hidden md:flex justify-end px-6 lg:px-8 pb-5">
+        <div
           class:list={[
-            'transition-colors p-1',
-            light ? 'text-muted-foreground/60 hover:text-foreground' : 'text-nav-foreground/40 hover:text-nav-foreground/70',
+            'pointer-events-auto flex items-center gap-2.5 rounded-full border backdrop-blur-md pl-5 pr-2.5 py-2.5',
+            light ? 'bg-background/95 border-primary/30 shadow-lg shadow-black/10' : 'bg-nav/95 border-gold-light/25 shadow-lg shadow-black/30',
           ]}
-          aria-label="Dismiss consultation prompt"
         >
-          <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+          <span class:list={['w-1.5 h-1.5 rounded-full shrink-0', light ? 'bg-primary' : 'bg-gold-light']}></span>
+          <a
+            href={href}
+            class:list={[
+              'text-sm font-body transition-colors',
+              light ? 'text-foreground/80 hover:text-primary' : 'text-nav-foreground/75 hover:text-gold-light',
+            ]}
+            data-cta="sticky-book"
+          >
+            {label}
+          </a>
+          <button
+            data-cta-dismiss
+            class:list={[
+              'transition-colors p-1 rounded-full',
+              light ? 'text-muted-foreground/50 hover:text-foreground' : 'text-nav-foreground/40 hover:text-nav-foreground/70',
+            ]}
+            aria-label="Dismiss consultation prompt"
+          >
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
     </div>
-  </div>
+  ) : (
+    <div
+      class:list={[
+        'backdrop-blur-md border-t',
+        light ? 'bg-background/95 border-border' : 'bg-nav/95 border-nav-foreground/10',
+      ]}
+    >
+      <div class="container mx-auto px-6 py-3 flex items-center justify-between gap-4 max-w-4xl">
+        <a
+          href={href}
+          class:list={[
+            'text-sm font-body transition-colors',
+            light ? 'text-foreground/80 hover:text-primary' : 'text-nav-foreground/70 hover:text-gold-light',
+          ]}
+          data-cta="sticky-book"
+        >
+          {label}
+        </a>
+        <div class="flex items-center gap-3">
+          {whatsappHref && (
+            <a
+              href={whatsappHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              class:list={[
+                'hidden sm:inline text-xs font-body transition-colors',
+                light ? 'text-muted-foreground hover:text-primary' : 'text-nav-foreground/45 hover:text-gold-light',
+              ]}
+              data-cta="sticky-whatsapp"
+            >
+              or WhatsApp
+            </a>
+          )}
+          <button
+            data-cta-dismiss
+            class:list={[
+              'transition-colors p-1',
+              light ? 'text-muted-foreground/60 hover:text-foreground' : 'text-nav-foreground/40 hover:text-nav-foreground/70',
+            ]}
+            aria-label="Dismiss consultation prompt"
+          >
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  )}
 </div>
 
 <style>
@@ -96,7 +188,7 @@ const light = variant === 'light';
 
 <script>
   const cta = document.getElementById('sticky-cta');
-  const dismiss = document.getElementById('sticky-cta-dismiss');
+  const dismissBtns = cta ? Array.from(cta.querySelectorAll('[data-cta-dismiss]')) : [];
 
   if (cta && !sessionStorage.getItem('sticky-cta-dismissed')) {
     let shown = false;
@@ -133,10 +225,12 @@ const light = variant === 'light';
       });
     }
 
-    dismiss?.addEventListener('click', () => {
+    const hide = () => {
       cta.classList.remove('translate-y-0');
       cta.classList.add('translate-y-full');
       sessionStorage.setItem('sticky-cta-dismissed', 'true');
-    });
+    };
+
+    dismissBtns.forEach((btn) => btn.addEventListener('click', hide));
   }
 </script>
