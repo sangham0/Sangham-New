@@ -5,14 +5,14 @@ import FAQ from '../components/FAQ.astro';
 import CalEmbed from '../components/CalEmbed.astro';
 import { Image } from 'astro:assets';
 
-// ── Imagery (every slot a distinct image; six of seven are newly-added originals) ──
-import mistyForest from '../assets/misty forest.JPG';            // hero
-import forestPath from '../assets/mysterious forest path.JPG';   // break 01
-import majesticHills from '../assets/majestic landscape hills and clouds.JPG'; // break 02
-import himalayaEditB from '../assets/himalaya-edit-b.jpg';       // break 03
-import mistyJungle from '../assets/misty jungle.JPG';            // break 04
-import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg'; // break 05
-import ramaRooftop from '../assets/Rama-silhoute-in-yoga-hall.PNG'; // break 06
+// ── Imagery (every slot a distinct image; warm-graded into one coherent set) ──
+import moonlitShore from '../assets/moonlit-shore-meditation.jpg'; // hero — dark anchor
+import forestPath from '../assets/mysterious forest path.JPG';   // break 01 — light
+import majesticHills from '../assets/majestic landscape hills and clouds.JPG'; // break 02 — light
+import mountainDusk from '../assets/mountain-dusk-vista.jpg';     // break 03 — dark anchor
+import mistyRidge from '../assets/misty-mountain-ridge.jpg';      // break 04 — light
+import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg'; // break 05 — light
+import ramaRooftop from '../assets/Rama-silhoute-in-yoga-hall.PNG'; // break 06 — light
 import michaelPortrait from '../assets/michael-portrait-new.jpg'; // hero portrait
 import veraPortrait from '../assets/Vera-Pic.PNG';
 import ashrafPortrait from '../assets/Ashraf-pic.jpg';
@@ -149,18 +149,36 @@ const jsonLd = [
   .cfm {
     --cfm-cream: hsl(36 18% 88%);
     --cfm-warm: hsl(38 30% 84%);
-    --cfm-gold: hsl(42 45% 32%);   /* AA: 4.6:1 on cream — safe for headings, links, accents */
+    --cfm-gold: hsl(41 48% 31%);        /* large headings & links on light — ~4.7:1 on cream */
+    --cfm-gold-deep: hsl(40 52% 26%);   /* small labels on light — ~5.3:1 on cream/warm */
+    --cfm-gold-light: hsl(42 54% 57%);  /* gold on deep navy — ~5.6:1, safe for small text */
     --cfm-ink: hsl(30 12% 20%);
+    --cfm-navy: hsl(220 22% 12%);
+    --cfm-navy-deep: hsl(220 26% 8%);
+    --cfm-parch: hsl(36 22% 86%);
   }
   .cfm-warm-bg { background-color: var(--cfm-warm); }
+
+  /* Deep anchor sections — light text on navy, used for the most charged moments */
+  .cfm-dark { background-color: var(--cfm-navy); color: var(--cfm-parch); }
+  .cfm-dark-deep { background-color: var(--cfm-navy-deep); color: var(--cfm-parch); }
+  .cfm-dark p, .cfm-dark li { color: hsl(36 20% 86% / 0.84); }
+  .cfm-dark .cfm-emph { color: hsl(36 24% 92%); }
+
   .cfm-gold-text { color: var(--cfm-gold); }
-  .cfm-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--cfm-gold), transparent); opacity: 0.45; }
+  .cfm-gold-deep-text { color: var(--cfm-gold-deep); }
+  .cfm-gold-light-text { color: var(--cfm-gold-light); }
+  .cfm-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--cfm-gold), transparent); opacity: 0.5; }
+  .cfm-rule-light { height: 1px; background: linear-gradient(90deg, transparent, var(--cfm-gold-light), transparent); opacity: 0.55; }
 
-  /* Pull-quote over an image: gold serif on a light scrim, with a soft light halo for legibility */
-  .cfm-quote { color: var(--cfm-gold); text-shadow: 0 1px 14px hsl(36 30% 96% / 0.75); }
+  /* Pull-quote over a LIGHT break: ink serif on a strong cream scrim — bulletproof contrast */
+  .cfm-quote { color: hsl(30 14% 18%); text-shadow: 0 1px 16px hsl(36 30% 96% / 0.6); }
+  /* Pull-quote over a DARK break: warm gold serif glowing on a navy scrim */
+  .cfm-quote-dark { color: var(--cfm-gold-light); text-shadow: 0 2px 30px hsl(220 30% 4% / 0.6); }
 
-  /* Warm, consistent grade so old and new photographs feel like one set */
-  .cfm-graded img { filter: saturate(0.94) brightness(1.02) contrast(0.98) sepia(0.06); }
+  /* Warm, consistent grade so the sunset, snow, misty and moonlit shots read as one set */
+  .cfm-graded img { filter: saturate(0.95) brightness(1.02) contrast(0.99) sepia(0.07); }
+  .cfm-graded-dark img { filter: saturate(0.9) brightness(0.92) contrast(1.04) sepia(0.06); }
 
   /* Underline-grow links */
   .cfm-link {
@@ -206,57 +224,79 @@ const jsonLd = [
 >
 <div class="cfm bg-background text-foreground">
 
-  <!-- ═══ 01 · HERO ═══ -->
-  <section class="relative overflow-hidden -mt-[72px] pt-[72px]">
-    <div class="absolute inset-0 cfm-graded">
-      <Image src={mistyForest} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={68} sizes="100vw" loading="eager" fetchpriority="high" />
+  <!-- ═══ 01 · HERO — deep anchor (moonlit shore) ═══ -->
+  <section class="relative overflow-hidden -mt-[72px] pt-[72px] cfm-dark-deep">
+    <div class="absolute inset-0 cfm-graded-dark">
+      <Image src={moonlitShore} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_38%] cfm-kb-img" widths={[768, 1280, 1600]} quality={72} sizes="100vw" loading="eager" fetchpriority="high" />
     </div>
-    <div class="absolute inset-0" style="background: linear-gradient(105deg, var(--cfm-cream) 0%, hsl(36 18% 88% / 0.92) 42%, hsl(36 18% 88% / 0.62) 72%, hsl(36 18% 88% / 0.4) 100%);"></div>
+    <!-- Legibility scrim: dense on the text (left) side, opening to the moonlit sky on the right -->
+    <div class="absolute inset-0" style="background: linear-gradient(100deg, hsl(220 26% 8% / 0.96) 0%, hsl(220 26% 8% / 0.9) 38%, hsl(220 26% 8% / 0.66) 66%, hsl(220 26% 8% / 0.42) 100%);"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.55) 0%, transparent 22%, transparent 72%, hsl(220 26% 8% / 0.6) 100%);"></div>
     <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 lg:py-32 max-w-5xl">
       <div class="grid md:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-center">
         <div>
-          <p class="text-foreground/55 text-xs tracking-[0.2em] uppercase font-body mb-8">
+          <p class="text-parchment/55 text-xs tracking-[0.2em] uppercase font-body mb-8">
             Sangham &middot; Counselling for Meditators &amp; Contemplative Practitioners &middot; Online Worldwide
           </p>
-          <h1 class="font-heading cfm-gold-text text-[34px] sm:text-5xl md:text-[54px] lg:text-[62px] leading-[1.1] mb-9">
+          <h1 class="font-heading text-gold-gradient text-[34px] sm:text-5xl md:text-[54px] lg:text-[62px] leading-[1.1] mb-9">
             <span class="block mb-3">Meditation can open profound questions.</span>
             <span class="block">You do not have to navigate them alone.</span>
           </h1>
-          <p class="font-body text-lg md:text-xl text-foreground/80 leading-relaxed mb-9 max-w-xl">
+          <p class="font-body text-lg md:text-xl text-parchment/82 leading-relaxed mb-9 max-w-xl">
             A reflective counselling space for people exploring consciousness in meaningful ways. Somewhere to make sense of what your practice and experiences may be opening, with someone who has spent years in similar terrain.
           </p>
           <div class="flex flex-col sm:flex-row gap-3 mb-3">
-            <a href="#begin" data-cta="hero-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">
+            <a href="#begin" data-cta="hero-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-black/25">
               Book an Introductory Conversation
             </a>
-            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="hero-whatsapp" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-primary/40 text-foreground/80 hover:border-primary hover:bg-primary/10 hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wide font-body">
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="hero-whatsapp" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-parchment/30 text-parchment/85 hover:border-gold-light hover:text-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wide font-body">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
               Message on WhatsApp
             </a>
           </div>
-          <p class="font-body text-sm italic text-foreground/55 mb-8">Unhurried, and free. No obligation to continue.</p>
+          <p class="font-body text-sm italic text-parchment/55 mb-8">Unhurried, and free. No obligation to continue.</p>
           <div class="flex flex-wrap gap-x-3 gap-y-2">
             {['ASCHP Registered Wellness Counsellor', 'BA Psychology', 'Certified Yoga Teacher (RYS 300)', 'Online Worldwide'].map((t) => (
-              <span class="px-3 py-1 rounded-full border border-primary/25 text-foreground/60 text-[11px] font-body bg-background/40">{t}</span>
+              <span class="px-3 py-1 rounded-full border border-gold-light/30 text-parchment/75 text-[11px] font-body bg-white/[0.04]">{t}</span>
             ))}
           </div>
         </div>
 
         <div class="flex justify-center md:justify-end">
           <div class="w-full max-w-[230px] lg:max-w-[250px]">
-            <div class="rounded-xl overflow-hidden border border-primary/15 shadow-lg shadow-black/5 cfm-graded">
+            <div class="rounded-xl overflow-hidden border border-parchment/15 shadow-xl shadow-black/30 cfm-graded">
               <div class="aspect-[4/5] overflow-hidden">
                 <Image src={michaelPortrait} alt="Michael Kaplan (Swami Ramarishi), ASCHP Registered Wellness Counsellor" class="w-full h-full object-cover object-center" widths={[400, 500]} sizes="250px" width={1254} height={1254} loading="eager" />
               </div>
             </div>
-            <p class="font-heading text-base text-foreground/85 mt-3">Michael Kaplan (Swami Ramarishi)</p>
-            <p class="cfm-gold-text text-[11px] font-body tracking-wide mt-1 leading-snug">ASCHP Registered Wellness Counsellor (Reg. 10559) &middot; RYS 300</p>
-            <ul class="mt-3 space-y-1.5 text-foreground/60 text-[12px] font-body leading-snug list-none">
+            <p class="font-heading text-base text-parchment/90 mt-3">Michael Kaplan (Swami Ramarishi)</p>
+            <p class="cfm-gold-light-text text-[11px] font-body tracking-wide mt-1 leading-snug">ASCHP Registered Wellness Counsellor (Reg. 10559) &middot; RYS 300</p>
+            <ul class="mt-3 space-y-1.5 text-parchment/65 text-[12px] font-body leading-snug list-none">
               <li>10+ years facilitating transformative and contemplative work</li>
               <li>8+ years of dedicated contemplative practice across several traditions</li>
               <li>Extended periods of silence, solitude, retreat, and traditional training</li>
             </ul>
           </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 01b · EXPERIENTIAL CREDIBILITY — editorial pause between hero and reading ═══ -->
+  <section class="cfm-warm-bg border-b border-border/50">
+    <div class="container mx-auto px-6 py-14 md:py-20 max-w-5xl cfm-reveal">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-border/70">
+        <div class="sm:pr-10 lg:pr-14">
+          <p class="font-heading cfm-gold-text text-4xl md:text-5xl lg:text-[56px] leading-none mb-3">10+ Years</p>
+          <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[26ch] mx-auto sm:mx-0">facilitating transformative and contemplative work</p>
+        </div>
+        <div class="sm:px-10 lg:px-14">
+          <p class="font-heading cfm-gold-text text-4xl md:text-5xl lg:text-[56px] leading-none mb-3">8+ Years</p>
+          <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[26ch] mx-auto sm:mx-0">of dedicated contemplative practice across several traditions</p>
+        </div>
+        <div class="sm:pl-10 lg:pl-14">
+          <p class="font-heading cfm-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-3">Extended Periods</p>
+          <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[26ch] mx-auto sm:mx-0">of silence, solitude, retreat, and traditional training</p>
         </div>
       </div>
     </div>
@@ -279,40 +319,43 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 01 ═══ -->
+  <!-- ═══ CONTENT BREAK 01 — light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={forestPath} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.8), hsl(36 18% 90% / 0.5) 50%, hsl(36 18% 90% / 0.8));"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.86), hsl(36 18% 90% / 0.74) 50%, hsl(36 18% 90% / 0.86));"></div>
     <div class="relative z-10 container mx-auto px-6 py-32 md:py-44 max-w-3xl text-center cfm-reveal">
+      <div class="cfm-rule w-16 mx-auto mb-8"></div>
       <p class="font-heading cfm-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Sometimes the experience is not the hardest part. The hardest part is not knowing what to make of it.</p>
     </div>
   </section>
 
   <div id="after-recognition" aria-hidden="true"></div>
 
-  <!-- ═══ 04 · FOR MOST OF HISTORY ═══ -->
-  <section class="cfm-warm-bg">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
-      <h2 class="font-heading cfm-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">For most of history, people rarely walked these paths alone</h2>
-      <div class="font-body text-lg text-foreground/75 leading-relaxed space-y-7 max-w-[65ch]">
+  <!-- ═══ 04 · FOR MOST OF HISTORY — deep anchor ═══ -->
+  <section class="cfm-dark relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+    <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
+      <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">For most of history, people rarely walked these paths alone</h2>
+      <div class="font-body text-lg leading-relaxed space-y-7 max-w-[65ch]">
         <p>For as long as human beings have explored consciousness deliberately, they have usually done so within some form of living context. Monasteries, ashrams, mystery schools, contemplative communities, teachers, elders, fellow practitioners. The forms varied from culture to culture, but the principle was often the same: if practice opened something difficult, confusing, or destabilising, there was usually someone nearby who had met similar territory before.</p>
         <p>This was not because such people had all the answers. It was because they understood that the inner life can move in unexpected directions, that clarity is often followed by uncertainty, and that a profound experience does not always arrive with its meaning attached.</p>
         <p>Access to practice has since expanded enormously. Books, retreats, online teachings, apps, courses, and traditions are available to almost anyone with a connection. A person can now encounter more spiritual instruction in a week than most people would have met in a lifetime a few generations ago.</p>
-        <p class="text-foreground/90">What has not kept pace is guidance.</p>
+        <p class="cfm-emph">What has not kept pace is guidance.</p>
         <p>Many people today have powerful practices, real commitment, and a sincere wish to understand themselves more deeply. What they lack is a reflective space in which the experiences that emerge can be looked at carefully, with someone familiar with the ground. So they are left to navigate difficult questions largely alone, not for any want of practice, but for want of company that understands.</p>
         <p>That is the gap this work is intended to meet.</p>
       </div>
       <p class="mt-10">
-        <a href="#begin" data-cta="context-book" class="cfm-link cfm-gold-text font-body text-sm tracking-wide">Book an introductory conversation &rarr;</a>
+        <a href="#begin" data-cta="context-book" class="cfm-link cfm-gold-light-text font-body text-sm tracking-wide">Book an introductory conversation &rarr;</a>
       </p>
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 02 ═══ -->
+  <!-- ═══ CONTENT BREAK 02 — light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={majesticHills} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.82), hsl(36 18% 90% / 0.52) 50%, hsl(36 18% 90% / 0.82));"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.86), hsl(36 18% 90% / 0.74) 50%, hsl(36 18% 90% / 0.86));"></div>
     <div class="relative z-10 container mx-auto px-6 py-32 md:py-44 max-w-3xl text-center cfm-reveal">
+      <div class="cfm-rule w-16 mx-auto mb-8"></div>
       <p class="font-heading cfm-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">We have never had greater access to spiritual practice. We have rarely had less access to ongoing guidance.</p>
     </div>
   </section>
@@ -350,11 +393,11 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 07 · MINI — WHAT A CONVERSATION OFTEN LOOKS LIKE ═══ -->
+  <!-- ═══ 07 · WHAT A CONVERSATION OFTEN LOOKS LIKE ═══ -->
   <section class="cfm-warm-bg">
     <div class="container mx-auto px-6 py-16 md:py-24 max-w-2xl cfm-reveal">
       <div class="rounded-2xl border border-border/60 bg-background/70 shadow-sm p-8 md:p-12">
-        <p class="cfm-gold-text text-xs tracking-[0.16em] uppercase font-body mb-5">What a conversation often looks like</p>
+        <h2 class="font-heading cfm-gold-text text-2xl md:text-3xl leading-tight mb-7">What a conversation often looks like</h2>
         <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-6">
           <p>Sessions are unhurried and conversational. There is no curriculum and no fixed sequence.</p>
           <p>We usually begin with whatever is most alive for you: a specific experience, a question that will not leave you, or simply the sense that something has shifted and you want to think it through with someone. From there the conversation moves at its own pace, looking at what happened, how you are relating to it, and what it might be asking of you.</p>
@@ -365,12 +408,13 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 03 ═══ -->
-  <section class="relative overflow-hidden cfm-graded">
-    <Image src={himalayaEditB} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.8), hsl(36 18% 90% / 0.5) 50%, hsl(36 18% 90% / 0.8));"></div>
+  <!-- ═══ CONTENT BREAK 03 — dark anchor ═══ -->
+  <section class="relative overflow-hidden cfm-graded-dark bg-[hsl(220_26%_8%)]">
+    <Image src={mountainDusk} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024, 1600]} quality={64} sizes="100vw" loading="lazy" />
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.74), hsl(220 26% 8% / 0.62) 50%, hsl(220 26% 8% / 0.82));"></div>
     <div class="relative z-10 container mx-auto px-6 py-32 md:py-44 max-w-3xl text-center cfm-reveal">
-      <p class="font-heading cfm-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">My role is not to tell you what your experience means. It is to help create the conditions in which your own understanding can emerge.</p>
+      <div class="cfm-rule-light w-16 mx-auto mb-8"></div>
+      <p class="font-heading cfm-quote-dark text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">My role is not to tell you what your experience means. It is to help create the conditions in which your own understanding can emerge.</p>
     </div>
   </section>
 
@@ -416,11 +460,12 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 04 ═══ -->
+  <!-- ═══ CONTENT BREAK 04 — light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
-    <Image src={mistyJungle} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.78), hsl(36 18% 90% / 0.48) 50%, hsl(36 18% 90% / 0.78));"></div>
+    <Image src={mistyRidge} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_60%] cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.86), hsl(36 18% 90% / 0.74) 50%, hsl(36 18% 90% / 0.86));"></div>
     <div class="relative z-10 container mx-auto px-6 py-32 md:py-44 max-w-3xl text-center cfm-reveal">
+      <div class="cfm-rule w-16 mx-auto mb-8"></div>
       <p class="font-heading cfm-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Human experience is often larger than the explanations we place upon it.</p>
     </div>
   </section>
@@ -454,28 +499,30 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 05 ═══ -->
+  <!-- ═══ CONTENT BREAK 05 — light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={himalayaSnowPeak} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.78), hsl(36 18% 90% / 0.46) 50%, hsl(36 18% 90% / 0.78));"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.85), hsl(36 18% 90% / 0.73) 50%, hsl(36 18% 90% / 0.85));"></div>
     <div class="relative z-10 container mx-auto px-6 py-36 md:py-48 max-w-3xl text-center cfm-reveal">
+      <div class="cfm-rule w-16 mx-auto mb-8"></div>
       <p class="font-heading cfm-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">You do not have to decide all at once what is happening. You do not have to navigate it entirely alone.</p>
     </div>
   </section>
 
-  <!-- ═══ 13 · AN IMPORTANT DISTINCTION ═══ -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
-      <h2 class="font-heading cfm-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">An important distinction</h2>
-      <div class="font-body text-lg text-foreground/75 leading-relaxed space-y-7 max-w-[65ch] mb-12">
+  <!-- ═══ 13 · AN IMPORTANT DISTINCTION — deep anchor ═══ -->
+  <section class="cfm-dark relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+    <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
+      <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">An important distinction</h2>
+      <div class="font-body text-lg leading-relaxed space-y-7 max-w-[65ch] mb-12">
         <p>Some experiences that arise through practice are difficult to understand, especially when they involve marked changes in perception, identity, emotion, energy, or the ordinary rhythms of daily life. In the face of that, people understandably look for certainty. Sometimes it arrives as a clinical explanation; sometimes as a spiritual one. Both can be valuable, and both can become limiting when they are reached for too quickly or held too tightly.</p>
-        <p class="text-foreground/90">The honest position is that a human life rarely fits a single explanation.</p>
+        <p class="cfm-emph">The honest position is that a human life rarely fits a single explanation.</p>
         <p>There are times when psychological, psychiatric, or medical support is essential and can make a real difference to a person's wellbeing. There are also times when the contemplative traditions offer context that helps someone feel less frightened, less alone, and more able to meet what is happening. These possibilities are not necessarily opposed.</p>
         <p>Part of this work is making space for that kind of careful reflection: so that support is sought where it is needed, assumptions are questioned where that helps, and an experience is understood as fully as it can be. This is not a stance against therapy, psychiatry, or medicine, and it does not assume that every unusual experience is spiritual. It simply holds that experiences deserve to be looked at thoughtfully rather than reduced too soon to a single answer.</p>
         <p>Where specialist support is needed, I will say so directly, and help point you towards it.</p>
       </div>
-      <blockquote class="border-l-2 border-primary/50 pl-7">
-        <p class="font-heading cfm-gold-text text-2xl md:text-3xl italic leading-relaxed">Understanding begins the moment we are willing to look more carefully than our first explanation allows.</p>
+      <blockquote class="border-l-2 border-gold-light/50 pl-7">
+        <p class="font-heading cfm-gold-light-text text-2xl md:text-3xl italic leading-relaxed">Understanding begins the moment we are willing to look more carefully than our first explanation allows.</p>
       </blockquote>
     </div>
   </section>
@@ -527,7 +574,7 @@ const jsonLd = [
   <!-- ═══ CONTENT BREAK 06 — portrait of the work ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={ramaRooftop} alt="Michael sitting in meditation in a light-filled yoga hall" class="absolute inset-0 w-full h-full object-cover object-[center_70%] cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
-    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.5), hsl(36 18% 90% / 0.32) 45%, hsl(36 18% 90% / 0.7));"></div>
+    <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.55), hsl(36 18% 90% / 0.12) 42%, hsl(36 18% 90% / 0.62));"></div>
     <div class="relative z-10 container mx-auto px-6 py-40 md:py-56 max-w-3xl flex items-end justify-center">
     </div>
   </section>
@@ -545,7 +592,7 @@ const jsonLd = [
               <Image src={r.img} alt={r.name} class={`w-full h-full object-cover ${r.pos}`} widths={[320, 500, 640]} sizes="(min-width: 768px) 33vw, 100vw" loading="lazy" />
             </div>
             <div class="flex flex-col flex-1 p-7">
-              <p class="text-[10px] font-body tracking-[0.14em] uppercase cfm-gold-text mb-5">{r.label}</p>
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase cfm-gold-deep-text mb-5">{r.label}</p>
               <blockquote class="flex-1 mb-6">
                 <p class="font-heading text-lg text-foreground/82 italic leading-relaxed">{r.quote}</p>
               </blockquote>
@@ -595,19 +642,20 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 20 · A CLOSING INVITATION ═══ -->
-  <section class="bg-background">
-    <div class="container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center cfm-reveal">
-      <h2 class="font-heading cfm-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">A closing invitation</h2>
-      <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 mb-12">
+  <!-- ═══ 20 · A CLOSING INVITATION — deep anchor ═══ -->
+  <section class="cfm-dark-deep relative overflow-hidden">
+    <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(110% 80% at 50% 100%, hsl(42 40% 32% / 0.12), transparent 60%);"></div>
+    <div class="relative container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center cfm-reveal">
+      <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">A closing invitation</h2>
+      <div class="font-body text-lg leading-relaxed space-y-7 mb-12">
         <p>Sometimes understanding arrives through practice itself. Sometimes it arrives through conversation: through being listened to carefully, through being asked a question that opens something, through finding that an experience which felt isolating becomes easier to carry once it is explored in the company of someone familiar with the ground.</p>
         <p>If you are moving through questions, uncertainty, or experiences that are hard to make sense of alone, you are welcome to reach out. The first step is simply a conversation: a chance to look at what is happening, to see whether this work feels right for your situation, and whether we are a good fit to work together. There is no obligation to continue.</p>
       </div>
-      <a href="#begin" data-cta="closing-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-5">Book an Introductory Conversation</a>
+      <a href="#begin" data-cta="closing-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-black/30 mb-5">Book an Introductory Conversation</a>
       <p class="mb-6">
-        <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="closing-whatsapp" class="cfm-link text-foreground/60 hover:text-primary font-body text-sm">Or message on WhatsApp</a>
+        <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="closing-whatsapp" class="cfm-link text-parchment/60 hover:text-gold-light font-body text-sm">Or message on WhatsApp</a>
       </p>
-      <p class="font-body text-sm text-foreground/50 tracking-wide">Online worldwide &nbsp;&middot;&nbsp; Sessions in English &nbsp;&middot;&nbsp; Initial conversation free and without obligation</p>
+      <p class="font-body text-sm text-parchment/45 tracking-wide">Online worldwide &nbsp;&middot;&nbsp; Sessions in English &nbsp;&middot;&nbsp; Initial conversation free and without obligation</p>
     </div>
   </section>
 
