@@ -62,7 +62,8 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── CalEmbed.astro
     │   ├── StickyConsultationCTA.astro
     │   ├── PageHeader.astro
-    │   └── ArticleBadge.astro
+    │   ├── ArticleBadge.astro
+    │   └── CounsellingForMeditatorsPage.astro  # Full meditators page; rendered by two routes
     ├── data/
     │   ├── essays.ts          # Essay metadata + body as TypeScript arrays
     │   └── practice-guides.ts # Practice guide metadata + body as TypeScript arrays
@@ -72,7 +73,7 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── index.astro                         # Homepage
     │   ├── about.astro
     │   ├── counselling.astro                   # Main counselling offer
-    │   ├── counselling-for-meditators.astro    # Niche landing page
+    │   ├── counselling-for-meditators.astro    # Thin wrapper; edit the component instead
     │   ├── online-counselling-south-africa.astro  # SEO landing page (hreflang pair with /counselling)
     │   ├── mentoring-for-adolescents.astro
     │   ├── mentoring-for-young-men.astro
@@ -113,9 +114,9 @@ For example: `title="Online Counselling"` renders as `Online Counselling | Sangh
   as `en-ZA` and `en` alternates.
 - **Redirects** live in `vercel.json`: apex domain redirects to www (permanent); the legacy
   `/counselling-for-adolescents-and-young-adults` URL redirects permanently to
-  `/mentoring-for-young-men`; a `/c4m` safety redirect points to
-  `/counselling-for-meditators`.
-- **JSON-LD** structured data (Person + WebSite) is injected by `BaseLayout.astro`.
+  `/mentoring-for-young-men`; a temporary `/c4m` safety redirect points to `/c4m-2`.
+- **JSON-LD**: `BaseLayout.astro` injects the site-wide Organization schema; pages pass
+  additional schemas (Service, FAQPage, Article) via the `jsonLd` prop.
 
 ---
 

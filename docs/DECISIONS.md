@@ -156,7 +156,7 @@ expectations.
   `src/pages/mentoring-for-young-men.astro`
 - The two-card split on `src/pages/counselling.astro`
 - The audience router cards on `src/pages/index.astro`
-- Footer link labels in `src/components/Footer.astro`
+- The contact-form enquiry options in `src/pages/contact.astro`
 
 **Recommendation:** Agree on one label pair and update all locations in a single pass to
 avoid further drift.
@@ -168,11 +168,13 @@ avoid further drift.
 
 ## 6. Testimonials and proof
 
-**Context.** Testimonial slots are already designed on the service pages but the sections are
-empty. This is the single highest-impact trust gap identified in the audit. Three specific
-testimonials are needed: one parent testimonial for the adolescents page, one adult counselling
-outcome testimonial for `/counselling`, and ideally one practice-difficulty story for
-`/counselling-for-meditators`.
+**Context.** The site already carries strong testimonials (Bernard Altman's professional
+reference, Jacob S., Vera, Ashraf), but they are character references rather than outcome
+stories, and key voices are missing. This is the single highest-impact trust gap identified
+in the audit. Three specific additions are needed: one parent testimonial for the adolescents
+page, one adult counselling outcome testimonial for `/counselling`, and ideally one
+practice-difficulty story for `/counselling-for-meditators`. The testimonial sections already
+exist, so each new quote slots into a designed layout.
 
 **Options.**
 
@@ -209,7 +211,7 @@ they are likely the most willing to speak briefly and publicly.
 testimonial copy before it is published.
 
 **Files affected:** `src/pages/counselling.astro`, `src/pages/mentoring-for-adolescents.astro`,
-`src/pages/counselling-for-meditators.astro`
+`src/components/CounsellingForMeditatorsPage.astro`
 
 ---
 
@@ -260,7 +262,7 @@ founder-owned.
 **What is needed from Michael:** The canonical values.
 
 **Files affected:** `src/pages/about.astro`, `src/pages/mentoring-for-adolescents.astro`,
-`src/pages/mentoring-for-young-men.astro`, `src/pages/counselling-for-meditators.astro`
+`src/pages/mentoring-for-young-men.astro`, `src/components/CounsellingForMeditatorsPage.astro`
 
 ---
 
@@ -283,9 +285,11 @@ or not.
 ## 10. /c4m-2 route retirement
 
 **Context.** `/c4m-2` is a thin wrapper that mirrors the content of
-`/counselling-for-meditators`, created for a specific ad campaign. It is excluded from the
-sitemap and a `/c4m` safety redirect exists in `vercel.json` pointing to the canonical page.
-As an orphan route it adds low-level maintenance overhead.
+`/counselling-for-meditators` (both routes render the shared
+`src/components/CounsellingForMeditatorsPage.astro`), created for a specific ad campaign.
+It is excluded from the sitemap, its canonical tag points at the main page, and a `/c4m`
+safety redirect exists in `vercel.json` pointing to `/c4m-2` in case the ads were set up
+with the shorter URL. As an orphan route it adds low-level maintenance overhead.
 
 **Options.**
 
@@ -355,7 +359,7 @@ content.
 
 **Options.**
 
-- **A. Add `"trailingSlash": "true"` to `vercel.json`** to issue 308 redirects from
+- **A. Add `"trailingSlash": true` to `vercel.json`** to issue 308 redirects from
   non-slash to slash URLs. This enforces a single canonical form and eliminates the
   duplication.
 - **B. Leave as-is.** The risk is low; search engines generally resolve this correctly, and
@@ -392,7 +396,7 @@ length, Michael should decide based on how these calls actually run in practice.
 
 **What is needed from Michael:** Confirmation on the slot length.
 
-**Files affected:** `src/pages/counselling-for-meditators.astro`
+**Files affected:** `src/components/CounsellingForMeditatorsPage.astro`
 
 ---
 
@@ -414,5 +418,5 @@ throughout.
 
 **What is needed from Michael:** Preference for A, B, or C; and if B, the chosen figure.
 
-**Files affected:** `src/pages/counselling.astro`, `src/pages/counselling-for-meditators.astro`,
+**Files affected:** `src/pages/counselling.astro`, `src/components/CounsellingForMeditatorsPage.astro`,
 `src/pages/mentoring-for-young-men.astro`, possibly others.

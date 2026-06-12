@@ -181,9 +181,10 @@ orphans to keep the repository lean.
 _Files: `src/assets/`_
 
 **F4. Add per-page OG images for key pages.**
-The OG image script (`scripts/generate-og-images.mjs`) currently generates a site-wide
-default. Consider generating distinct images for `/counselling`, `/about`, `/practices`,
-and `/workshops`, which are the pages most likely to be shared directly.
+The OG image script (`scripts/generate-og-images.mjs`) currently generates the two
+mentoring-page images and recompresses the site-wide default. Consider adding distinct
+images for `/counselling`, `/about`, `/practices`, and `/workshops`, which are the pages
+most likely to be shared directly.
 _Rationale: page-specific OG images improve social share appearance and click-through._
 _Files: `scripts/generate-og-images.mjs`, `src/layouts/BaseLayout.astro`_
 
