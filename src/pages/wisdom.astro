@@ -1,13 +1,13 @@
 ---
+import { getCollection } from 'astro:content';
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import ArticleBadge from '../components/ArticleBadge.astro';
-import { essays } from '../data/essays';
-import { practiceGuides } from '../data/practice-guides';
+import { staticEssays } from '../data/static-essays';
 
 // ─── Reading time ─────────────────────────────────────────────────────────────
-function getReadingTime(paragraphs: string[]): number {
-  const wordCount = paragraphs.join(' ').split(/\s+/).length;
+function getReadingTime(body: string): number {
+  const wordCount = body.split(/\s+/).length;
   return Math.max(1, Math.round(wordCount / 200));
 }
 
@@ -43,38 +43,15 @@ const cardTagLabels: Partial<Record<FilterId, string>> = {
   contemplative: 'Contemplative',
 };
 
-// ─── Article → category assignment ───────────────────────────────────────────
-const categoryMap: Record<string, FilterId[]> = {
-  // Essays
-  'kings-and-queens':              ['psychology', 'contemplative'],
-  'authenticity-as-a-mask':        ['psychology', 'contemplative'],
-  'the-art-of-becoming-invisible': ['start-here', 'psychology'],
-  // Contemplative notebooks (rendered in their own section, not the grid)
-  'what-is-meditation':            ['meditation', 'contemplative'],
-  'what-is-hatha-yoga':            ['body', 'contemplative'],
-  'on-living':                     ['contemplative'],
-  'how-we-love':                   ['relationship'],
-  'on-human-relationships':        ['relationship', 'contemplative'],
-  // Practice guides
-  'how-to-sit':                          ['meditation', 'practice-guides'],
-  'when-effort-drops':                   ['meditation', 'practice-guides'],
-  'using-breath-to-stabilise-attention': ['start-here', 'meditation', 'breathwork', 'practice-guides'],
-  'breathwork-explained':                ['breathwork', 'practice-guides'],
-  'preparing-the-system':               ['breathwork', 'practice-guides'],
-  'when-breathwork-goes-wrong':         ['breathwork', 'practice-guides'],
-  'training-the-body':                   ['body', 'practice-guides'],
-  'softness-and-power':                  ['body', 'practice-guides'],
-  'body-keeps-the-score':               ['start-here', 'psychology', 'body', 'practice-guides'],
-};
-
 // ─── Unified item list ────────────────────────────────────────────────────────
+// Filter categories live in each piece's frontmatter (`categories`); the three
+// art-directed essays contribute metadata from src/data/static-essays.ts.
 interface LibraryItem {
   id: string;
   title: string;
   excerpt: string;
   datePublished: string;
   dateLabel: string;
-  paragraphs: string[];
   isGuide: boolean;
   notebook: boolean;
   cats: FilterId[];
@@ -82,40 +59,40 @@ interface LibraryItem {
   displayCats: FilterId[];
 }
 
+const entries = await getCollection('writing', ({ data }) => !data.draft);
+
 const allItems: LibraryItem[] = [
-  ...essays.map(e => {
-    const cats = (categoryMap[e.id] ?? []) as FilterId[];
+  ...staticEssays.map((e) => {
+    const cats = e.categories as FilterId[];
     return {
       id: e.id,
       title: e.title,
-      excerpt: e.excerpt ?? '',
+      excerpt: e.excerpt,
       datePublished: e.datePublished,
       dateLabel: e.dateLabel,
-      paragraphs: e.paragraphs,
       isGuide: false,
-      notebook: !!e.notebook,
-      cats,
-      readTime: getReadingTime(e.paragraphs),
-      displayCats: cats.filter(c => c !== 'start-here' && c !== 'practice-guides') as FilterId[],
-    };
-  }),
-  ...practiceGuides.map(g => {
-    const cats = (categoryMap[g.id] ?? []) as FilterId[];
-    return {
-      id: g.id,
-      title: g.title,
-      excerpt: g.excerpt ?? '',
-      datePublished: g.datePublished,
-      dateLabel: g.dateLabel,
-      paragraphs: g.paragraphs,
-      isGuide: true,
       notebook: false,
       cats,
-      readTime: getReadingTime(g.paragraphs),
+      readTime: e.readTime,
       displayCats: cats.filter(c => c !== 'start-here' && c !== 'practice-guides') as FilterId[],
     };
   }),
-];
+  ...entries.map((entry) => {
+    const cats = entry.data.categories as FilterId[];
+    return {
+      id: entry.id,
+      title: entry.data.title,
+      excerpt: entry.data.excerpt,
+      datePublished: entry.data.publishedDate.toISOString().slice(0, 10),
+      dateLabel: entry.data.dateLabel,
+      isGuide: entry.data.category === 'practice-guide',
+      notebook: entry.data.notebook,
+      cats,
+      readTime: getReadingTime(entry.body ?? ''),
+      displayCats: cats.filter(c => c !== 'start-here' && c !== 'practice-guides') as FilterId[],
+    };
+  }),
+].sort((a, b) => b.datePublished.localeCompare(a.datePublished));
 
 // The contemplative notebooks are presented in their own framed section
 // below the main library rather than in the filterable grid.

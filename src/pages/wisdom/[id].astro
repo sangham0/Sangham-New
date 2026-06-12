@@ -1,32 +1,32 @@
 ---
+import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleBadge from '../../components/ArticleBadge.astro';
-import { essays } from '../../data/essays';
-import { practiceGuides } from '../../data/practice-guides';
 
-export function getStaticPaths() {
-  const staticEssayIds = new Set([
-    'authenticity-as-a-mask',
-    'kings-and-queens',
-    'the-art-of-becoming-invisible',
-  ]);
-  const allEssays = [...essays, ...practiceGuides].filter((essay) => !staticEssayIds.has(essay.id));
-  return allEssays.map((essay) => ({
-    params: { id: essay.id },
-    props: { essay },
+export async function getStaticPaths() {
+  // Drafts never build. The three art-directed essays are not in the
+  // collection; they live as hand-built pages alongside this route.
+  const entries = await getCollection('writing', ({ data }) => !data.draft);
+  return entries.map((entry) => ({
+    params: { id: entry.id },
+    props: { entry },
   }));
 }
 
-const { essay } = Astro.props;
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+const data = entry.data;
 
-const wordCount = essay.paragraphs.join(' ').split(/\s+/).length;
+const publishedDate = data.publishedDate.toISOString().slice(0, 10);
+const wordCount = (entry.body ?? '').split(/\s+/).length;
 const readingTime = Math.max(1, Math.round(wordCount / 200));
 
 // Practice guides and meditation/breathwork pieces bridge to the dedicated
 // meditators page rather than only the generic counselling CTA.
 const showMeditatorBridge =
-  essay.category === 'practice-guide' ||
-  (essay.tags ?? []).some((tag: string) => tag === 'meditation' || tag === 'breathwork');
+  data.category === 'practice-guide' ||
+  data.tags.includes('meditation') ||
+  data.tags.includes('breathwork');
 
 const jsonLd = [
   {
@@ -35,18 +35,18 @@ const jsonLd = [
     itemListElement: [
       { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sangham.org/' },
       { '@type': 'ListItem', position: 2, name: 'Writing', item: 'https://www.sangham.org/wisdom' },
-      { '@type': 'ListItem', position: 3, name: essay.title, item: `https://www.sangham.org/wisdom/${essay.id}` },
+      { '@type': 'ListItem', position: 3, name: data.title, item: `https://www.sangham.org/wisdom/${entry.id}` },
     ],
   },
   {
     '@context': 'https://schema.org',
     '@type': 'Article',
-    headline: essay.title,
-    description: essay.excerpt,
-    url: `https://www.sangham.org/wisdom/${essay.id}`,
-    datePublished: essay.datePublished,
-    dateModified: essay.datePublished,
-    articleSection: essay.category === 'practice-guide' ? 'Practice Guide' : 'Essay',
+    headline: data.title,
+    description: data.excerpt,
+    url: `https://www.sangham.org/wisdom/${entry.id}`,
+    datePublished: publishedDate,
+    dateModified: publishedDate,
+    articleSection: data.category === 'practice-guide' ? 'Practice Guide' : 'Essay',
     inLanguage: 'en',
     image: {
       '@type': 'ImageObject',
@@ -77,10 +77,10 @@ const jsonLd = [
 ---
 
 <BaseLayout
-  title={essay.title}
-  description={essay.excerpt}
+  title={data.title}
+  description={data.excerpt}
   type="article"
-  publishedDate={essay.datePublished}
+  publishedDate={publishedDate}
   jsonLd={jsonLd}
 >
 
@@ -98,21 +98,21 @@ const jsonLd = [
       </a>
 
       <h1 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient mb-4">
-        {essay.title}
+        {data.title}
       </h1>
       <div class="mb-4">
         <ArticleBadge
-          type={(essay.category ?? 'essay') as 'essay' | 'practice-guide'}
+          type={data.category}
           context="header"
-          showPrint={essay.category === 'practice-guide'}
+          showPrint={data.category === 'practice-guide'}
         />
       </div>
       <div class="flex items-center gap-3 text-sm text-header-foreground/40 font-body">
-        <span>{essay.dateLabel}</span>
+        <span>{data.dateLabel}</span>
         <span class="text-header-foreground/20">&middot;</span>
         <span>{readingTime} min read</span>
       </div>
-      {'notebook' in essay && essay.notebook && (
+      {data.notebook && (
         <p class="font-body text-sm italic text-header-foreground/55 leading-relaxed mt-6 max-w-xl">
           From the contemplative notebooks: written during traditional training years in India, in the language of the traditions themselves. It sits alongside the counselling work as a different mode of inquiry.
         </p>
@@ -124,25 +124,9 @@ const jsonLd = [
   <!-- ESSAY BODY -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-16 md:py-24 max-w-2xl">
-      <div class="space-y-6 text-muted-foreground font-body leading-relaxed text-[15px]">
-        {essay.paragraphs.map((paragraph: string) => (
-          <p>{paragraph}</p>
-        ))}
+      <div class="essay-content text-muted-foreground font-body leading-relaxed text-[15px]">
+        <Content />
       </div>
-
-      {essay.closingBridge && (
-        <div class="mt-16">
-          <div class="divider-gold w-24 mx-auto mb-10"></div>
-          <p class="text-muted-foreground/70 font-body text-sm leading-relaxed text-center">
-            {essay.closingBridge.text.split(/(Practices|counselling process|counselling page)/).map((part: string) => {
-              const link = essay.closingBridge!.links.find((l: { text: string; href: string }) => l.text === part);
-              return link
-                ? <a href={link.href} class="text-primary/70 hover:text-primary transition-colors">{part}</a>
-                : part;
-            })}
-          </p>
-        </div>
-      )}
 
       <!-- AUTHOR -->
       <div class="mt-14 border-t border-border/40 pt-8 flex items-start gap-4">
@@ -201,3 +185,50 @@ const jsonLd = [
   </section>
 
 </BaseLayout>
+
+<style>
+  /* Markdown body styling — mirrors the previous space-y-6 paragraph render. */
+  .essay-content :global(p) {
+    margin-bottom: 1.5rem;
+  }
+  .essay-content :global(p:last-child) {
+    margin-bottom: 0;
+  }
+  .essay-content :global(ol),
+  .essay-content :global(ul) {
+    margin: 0 0 1.5rem 1.5rem;
+    list-style: decimal outside;
+  }
+  .essay-content :global(ul) {
+    list-style: disc outside;
+  }
+  .essay-content :global(li) {
+    margin-bottom: 0.75rem;
+  }
+  /* Closing-bridge treatment: a thin gold rule followed by a quiet italic note. */
+  .essay-content :global(hr) {
+    border: none;
+    height: 1px;
+    width: 6rem;
+    margin: 2.5rem auto;
+    background: linear-gradient(90deg, transparent, hsl(42 52% 40% / 0.4), transparent);
+  }
+  .essay-content :global(hr + p) {
+    text-align: center;
+    font-size: 0.875rem;
+    color: color-mix(in srgb, var(--color-muted-foreground) 70%, transparent);
+  }
+  .essay-content :global(a) {
+    color: hsl(42 52% 42% / 0.8);
+    transition: color 0.2s ease;
+  }
+  .essay-content :global(a:hover) {
+    color: hsl(42 52% 42%);
+  }
+  .essay-content :global(blockquote) {
+    border-left: 2px solid hsl(42 52% 42% / 0.3);
+    padding-left: 1.5rem;
+    font-style: italic;
+    margin-bottom: 1.5rem;
+  }
+</style>
