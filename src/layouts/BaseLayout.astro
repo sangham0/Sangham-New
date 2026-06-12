@@ -33,7 +33,12 @@ const {
 } = Astro.props;
 
 const siteName = 'Sangham';
-const fullTitle = title === siteName ? title : `${title} | ${siteName}`;
+// Pages should pass bare titles; the suffix is appended here. The endsWith
+// guard prevents a double "| Sangham" if a page slips the suffix in anyway.
+const fullTitle =
+  title === siteName || title.endsWith(`| ${siteName}`)
+    ? title
+    : `${title} | ${siteName}`;
 
 const siteJsonLd = {
   '@context': 'https://schema.org',
@@ -104,7 +109,7 @@ const siteJsonLd = {
     ))}
 
     <!-- Open Graph locale -->
-    <meta property="og:locale" content="en_US" />
+    <meta property="og:locale" content="en_ZA" />
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />

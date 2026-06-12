@@ -13,8 +13,13 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // Exclude utility/legal pages from primary crawl priority
-      filter: (page) => !page.includes('/404'),
+      // Exclude error pages, the post-conversion thank-you page (noindexed),
+      // and the temporary /c4m-2 ad mirror (canonicalised to
+      // /counselling-for-meditators) from the sitemap.
+      filter: (page) =>
+        !page.includes('/404') &&
+        !page.includes('/thank-you-consultation') &&
+        !page.includes('/c4m-2'),
       serialize(item) {
         const url = item.url;
 
