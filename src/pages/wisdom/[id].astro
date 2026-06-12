@@ -22,6 +22,12 @@ const { essay } = Astro.props;
 const wordCount = essay.paragraphs.join(' ').split(/\s+/).length;
 const readingTime = Math.max(1, Math.round(wordCount / 200));
 
+// Practice guides and meditation/breathwork pieces bridge to the dedicated
+// meditators page rather than only the generic counselling CTA.
+const showMeditatorBridge =
+  essay.category === 'practice-guide' ||
+  (essay.tags ?? []).some((tag: string) => tag === 'meditation' || tag === 'breathwork');
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -133,8 +139,28 @@ const jsonLd = [
         </div>
       )}
 
+      <!-- AUTHOR -->
+      <div class="mt-14 border-t border-border/40 pt-8 flex items-start gap-4">
+        <img
+          src="/images/michael-kaplan.jpg"
+          alt="Michael Kaplan"
+          width="56"
+          height="56"
+          loading="lazy"
+          class="rounded-full object-cover w-14 h-14 shrink-0 border border-border/60"
+        />
+        <div>
+          <p class="font-body text-sm text-foreground/80">
+            Written by <a href="/about" class="text-primary/80 hover:text-primary transition-colors">Michael Kaplan (Swami Ramarishi)</a>
+          </p>
+          <p class="font-body text-xs text-muted-foreground/70 leading-relaxed mt-1">
+            BA Psychology &middot; ASCHP Registered Wellness Counsellor (Reg. 10559). Michael works with individuals online across South Africa and internationally.
+          </p>
+        </div>
+      </div>
+
       <!-- CTA -->
-      <div class="mt-16 border border-border rounded-lg p-8 md:p-10 text-center bg-muted/30">
+      <div class="mt-12 border border-border rounded-lg p-8 md:p-10 text-center bg-muted/30">
         <h3 class="font-heading text-xl md:text-2xl text-foreground mb-4">
           Explore This Work Directly
         </h3>
@@ -148,6 +174,12 @@ const jsonLd = [
           Enquire About Working Together
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </a>
+        {showMeditatorBridge && (
+          <p class="text-muted-foreground/70 font-body text-sm leading-relaxed max-w-lg mx-auto mt-6">
+            Working with questions arising from meditation or practice itself? See
+            <a href="/counselling-for-meditators" class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30 transition-colors">Counselling for Meditators</a>.
+          </p>
+        )}
       </div>
 
       <div class="divider-gold w-24 mx-auto mt-16"></div>

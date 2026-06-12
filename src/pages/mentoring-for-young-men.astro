@@ -1,5 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import StickyConsultationCTA from '../components/StickyConsultationCTA.astro';
 import { Image } from 'astro:assets';
 import michaelPortrait from '../assets/michael-portrait-new.jpg';
 import michaelPortrait2 from '../assets/Michael-portrait-2.PNG';
@@ -939,4 +940,12 @@ const jsonLd = [
   </script>
 
 </div>
+
+<StickyConsultationCTA
+  label="Book a free 15-minute call →"
+  href="#book-call"
+  variant="dark"
+  whatsappHref="https://wa.me/27736738063"
+  desktopFloating={true}
+/>
 </BaseLayout>
