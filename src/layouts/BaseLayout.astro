@@ -176,6 +176,10 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
       </noscript>
     )}
     <!-- End Google Tag Manager (noscript) -->
+    <a
+      href="#main-content"
+      class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[70] focus:px-4 focus:py-2 focus:bg-primary focus:text-primary-foreground focus:rounded-lg font-body text-sm"
+    >Skip to content</a>
     {noNav ? (
       <div class="fixed top-0 left-0 right-0 z-50 bg-nav/95 backdrop-blur-md border-b border-nav-foreground/10">
         <div class="container mx-auto px-6 py-4 flex items-center justify-center">
@@ -217,15 +221,18 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     ) : (
       <Navigation />
     )}
-    <main class="pt-[72px]">
+    <main id="main-content" class="pt-[72px]">
       <slot />
     </main>
     <Footer />
 
     {!hideStickyBar && <StickyConsultationCTA />}
 
-    <!-- WhatsApp floating button — mobile only -->
+    <!-- WhatsApp floating button — mobile only. Hidden while the consent
+         banner or a sticky CTA bar occupies the bottom edge, to avoid
+         stacking three fixed elements on small screens. -->
     <a
+      id="whatsapp-float"
       href="https://wa.me/27736738063"
       target="_blank"
       rel="noopener noreferrer"
@@ -319,11 +326,19 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           }
 
           banner?.classList.add('hidden');
+          const float = document.getElementById('whatsapp-float');
+          if (float && !document.querySelector('#sticky-cta.translate-y-0')) {
+            float.style.display = '';
+          }
         }
 
-        // Show banner if no stored consent
+        // Show banner if no stored consent. While it is open, tuck the
+        // WhatsApp float away so the bottom edge is not triple-stacked
+        // on mobile.
+        const waFloat = document.getElementById('whatsapp-float');
         if (!hasConsent() && banner) {
           banner.classList.remove('hidden');
+          if (waFloat) waFloat.style.display = 'none';
         }
 
         acceptBtn?.addEventListener('click', () => saveConsent(true, true));

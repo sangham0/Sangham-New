@@ -198,6 +198,10 @@ const light = variant === 'light';
       shown = true;
       cta.classList.remove('translate-y-full');
       cta.classList.add('translate-y-0');
+      // The bar carries its own WhatsApp link; hide the floating WhatsApp
+      // button so the bottom edge holds one prompt at a time on mobile.
+      const waFloat = document.getElementById('whatsapp-float');
+      if (waFloat) waFloat.style.display = 'none';
     };
 
     const afterSel = cta.dataset.after;
@@ -229,6 +233,8 @@ const light = variant === 'light';
       cta.classList.remove('translate-y-0');
       cta.classList.add('translate-y-full');
       sessionStorage.setItem('sticky-cta-dismissed', 'true');
+      const waFloat = document.getElementById('whatsapp-float');
+      if (waFloat) waFloat.style.display = '';
     };
 
     dismissBtns.forEach((btn) => btn.addEventListener('click', hide));
