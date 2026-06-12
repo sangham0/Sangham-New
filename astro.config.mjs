@@ -13,13 +13,11 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // Exclude error pages, the post-conversion thank-you page (noindexed),
-      // and the temporary /c4m-2 ad mirror (canonicalised to
-      // /counselling-for-meditators) from the sitemap.
+      // Exclude error pages and the post-conversion thank-you page
+      // (noindexed) from the sitemap.
       filter: (page) =>
         !page.includes('/404') &&
-        !page.includes('/thank-you-consultation') &&
-        !page.includes('/c4m-2'),
+        !page.includes('/thank-you-consultation'),
       serialize(item) {
         const url = item.url;
 
