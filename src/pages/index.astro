@@ -5,7 +5,6 @@ import sanghamLogo from '../assets/sangham-logo.png';
 import heroBg from '../assets/hero-bg.jpg';
 import caveMeditation from '../assets/cave-meditation.jpg';
 import sanghamCeremony from '../assets/sangham-ceremony.jpg';
-import mistyValley from '../assets/misty-valley.jpg';
 import aboveClouds from '../assets/above-clouds.jpg';
 import michaelPortrait from '../assets/michael-portrait-new.jpg';
 
@@ -15,7 +14,7 @@ const jsonLd = [
     '@type': 'WebSite',
     name: 'Sangham',
     url: 'https://www.sangham.org',
-    description: 'A place for careful, grounded inner work.',
+    description: 'Counselling, breathwork, and contemplative practice, integrated into one structured process. Online worldwide.',
     potentialAction: {
       '@type': 'ReadAction',
       target: 'https://www.sangham.org/wisdom',
@@ -129,7 +128,7 @@ const waysCards = [
   },
   {
     title: 'Workshops',
-    text: 'Occasional spaces to explore aspects of the work in a shared, focused setting. These are offered from time to time and can serve as a strong entry point, particularly for those who prefer to begin in a group context before committing to individual work.',
+    text: 'Occasional spaces to explore aspects of the work in a shared, focused setting. These are arranged on request rather than on a fixed schedule, and can serve as a strong entry point for those who prefer to begin in a group context before committing to individual work.',
     path: '/workshops',
     cta: 'Learn about workshops',
     highlight: false,
@@ -167,36 +166,32 @@ const waysCards = [
       />
 
       <h1 class="font-heading text-3xl md:text-4xl lg:text-[44px] xl:text-5xl text-parchment/90 leading-tight mb-6">
-        A place for careful, grounded<br />
-        <span class="text-gold-light">inner work.</span>
+        Counselling for people who understand their patterns,<br class="hidden md:block" />
+        <span class="text-gold-light">and are still caught in them.</span>
       </h1>
 
       <p class="text-parchment/65 font-body text-base md:text-lg max-w-xl mx-auto mt-6 leading-relaxed">
-        If you understand what tends to go wrong but still find yourself caught in it, this work is designed for that gap.
-      </p>
-
-      <p class="text-parchment/55 font-body text-sm max-w-lg mx-auto mt-4 leading-relaxed">
-        A structured approach to counselling, breathwork, and body-based practice, integrated into one coherent process conducted online via video call.
+        A structured process combining counselling, breathwork, and contemplative practice, conducted online.
       </p>
 
       <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
         <a
-          href="/counselling"
+          href="/contact#cal-section"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
         >
-          Explore the Counselling Process
+          Book a Free Fit Call
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </a>
         <a
-          href="/about"
+          href="/counselling"
           class="inline-flex items-center justify-center gap-2 px-8 py-3 text-parchment/45 hover:text-parchment/70 transition-all duration-300 text-sm tracking-wider uppercase font-body"
         >
-          About the Approach
+          Explore the Approach
         </a>
       </div>
 
       <p class="mt-6 text-parchment/50 font-body text-xs tracking-wide">
-        Currently accepting new clients. Free 15-minute fit call available.
+        Currently accepting new clients &middot; Online sessions worldwide
       </p>
     </div>
   </section>
@@ -493,44 +488,6 @@ const waysCards = [
             </span>
           </a>
         ))}
-      </div>
-    </div>
-  </section>
-
-  <!-- ENVIRONMENT AND AWARENESS -->
-  <section class="relative overflow-hidden">
-    <Image
-      src={mistyValley}
-      alt=""
-      class="absolute inset-0 w-full h-full object-cover"
-      widths={[640, 1024, 1536]}
-      sizes="100vw"
-    />
-    <div class="absolute inset-0 bg-void/78"></div>
-    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-3xl">
-      <h2 class="font-heading text-2xl md:text-3xl text-gold-gradient text-center mb-10">
-        Environment and Awareness
-      </h2>
-
-      <div class="space-y-6 text-parchment/60 font-body leading-relaxed text-center">
-        <p class="text-parchment/75">
-          Modern life often disconnects us from the environments our systems were shaped within.
-        </p>
-        <p>
-          Attention, sound, rhythm, and place all influence how we feel and function, often more than we realise. The nervous system did not evolve for constant screens, artificial light, and the relentless pace of modern information. Part of this work includes restoring sensitivity to these factors, allowing awareness to become both inwardly clear and outwardly responsive.
-        </p>
-        <p>
-          This is not about romanticising nature or retreating from the world. It is about recognising that where we are and what we surround ourselves with directly shapes how we think, feel, and respond. Reconnecting with that reality is part of the process.
-        </p>
-        <div>
-          <a
-            href="/workshops"
-            class="inline-flex items-center gap-2 text-primary/60 hover:text-primary/90 font-body text-sm tracking-wide transition-colors mt-4"
-          >
-            This dimension is explored more directly through specific workshops
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
-          </a>
-        </div>
       </div>
     </div>
   </section>
