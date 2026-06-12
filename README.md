@@ -62,8 +62,7 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── CalEmbed.astro
     │   ├── StickyConsultationCTA.astro
     │   ├── PageHeader.astro
-    │   ├── ArticleBadge.astro
-    │   └── CounsellingForMeditatorsPage.astro  # Full meditators page; rendered by two routes
+    │   └── ArticleBadge.astro
     ├── data/
     │   ├── essays.ts          # Essay metadata + body as TypeScript arrays
     │   └── practice-guides.ts # Practice guide metadata + body as TypeScript arrays
@@ -73,7 +72,7 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── index.astro                         # Homepage
     │   ├── about.astro
     │   ├── counselling.astro                   # Main counselling offer
-    │   ├── counselling-for-meditators.astro    # Thin wrapper; edit the component instead
+    │   ├── counselling-for-meditators.astro    # Niche landing page for meditators & practitioners
     │   ├── online-counselling-south-africa.astro  # SEO landing page (hreflang pair with /counselling)
     │   ├── mentoring-for-adolescents.astro
     │   ├── mentoring-for-young-men.astro
@@ -88,11 +87,11 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── contact.astro
     │   ├── scope.astro
     │   ├── privacy.astro
-    │   ├── thank-you-consultation.astro        # Post-form confirmation (excluded from sitemap)
-    │   └── c4m-2.astro                        # Ad campaign mirror of /counselling-for-meditators (excluded from sitemap)
+    │   └── thank-you-consultation.astro        # Post-form confirmation (excluded from sitemap)
     ├── content.config.ts      # Astro content collection definition (currently unused; only example.md)
     ├── scripts/
-    │   └── analytics.ts       # dataLayer event helpers; `data-cta` attribute tracking; `fit_call_booked` event
+    │   ├── analytics.ts       # dataLayer event helpers; `data-cta` attribute tracking; `fit_call_booked` event
+    │   └── usd-rate.ts        # Live USD estimates for fixed ZAR prices (progressive enhancement)
     └── styles/
         └── global.css         # Tailwind v4 @theme design tokens (colours, fonts, spacing)
 ```
@@ -106,15 +105,22 @@ For example: `title="Online Counselling"` renders as `Online Counselling | Sangh
 
 ## SEO notes
 
-- **Sitemap** is configured in `astro.config.mjs` with priority tiers; utility and ad-campaign
-  routes (`/c4m-2`, `/thank-you-consultation`) and the legacy adolescents URL are excluded or
-  handled via redirect.
+- **Sitemap** is configured in `astro.config.mjs` with priority tiers; `/404` and
+  `/thank-you-consultation` are excluded.
 - **Canonical URLs** use trailing slashes throughout, matching the sitemap output.
 - **hreflang** pair: `/counselling` and `/online-counselling-south-africa` reference each other
   as `en-ZA` and `en` alternates.
-- **Redirects** live in `vercel.json`: apex domain redirects to www (permanent); the legacy
-  `/counselling-for-adolescents-and-young-adults` URL redirects permanently to
-  `/mentoring-for-young-men`; a temporary `/c4m` safety redirect points to `/c4m-2`.
+- **Redirects** live in `vercel.json`: apex `sangham.org` redirects to `www` (permanent);
+  `/counselling-for-adolescents-and-young-adults` redirects permanently to
+  `/mentoring-for-young-men`; `/c4m` and `/c4m-2` redirect permanently to
+  `/counselling-for-meditators`; `/wisdom/crazy-times` redirects permanently to `/wisdom`.
+- **Trailing-slash enforcement:** `vercel.json` sets `"trailingSlash": true`, so any
+  non-slash URL (e.g. `/counselling`) issues a 308 redirect to the trailing-slash form,
+  matching canonicals and the sitemap.
+- **Nav label:** the nav item for `/wisdom` is labelled "Writing" (a label-only rename;
+  the URL is unchanged). Five earlier essays are grouped under a "From the Contemplative
+  Notebooks" section on the index and on each essay page, controlled by a `notebook: true`
+  flag in `src/data/essays.ts`.
 - **JSON-LD**: `BaseLayout.astro` injects the site-wide Organization schema; pages pass
   additional schemas (Service, FAQPage, Article) via the `jsonLd` prop.
 
@@ -137,6 +143,10 @@ before writing anything new.
   - R850 per session (approximately $45-50 USD)
   - R3,400 for a five-session process
   - R600 parent consultation (approximately $35 USD)
+  USD equivalents are displayed as a static "approx. $45-50 USD" fallback. Elements marked
+  with `data-usd-from-zar="850"` are upgraded client-side to a current single figure by
+  `src/scripts/usd-rate.ts` (open.er-api.com, cached 24 h in localStorage). Do not remove
+  the static fallback text when editing prices.
 - **Decorative images** use empty `alt=""` attributes.
 - **Body text opacity** should not go below approximately 55% on dark backgrounds, or 60%
   on light backgrounds, to maintain readability.
@@ -155,8 +165,8 @@ before writing anything new.
 
 ## Further reading
 
-- `docs/DECISIONS.md` - open founder decisions that have not been implemented; read before
-  touching homepage hero, nav labels, pricing ladders, or testimonials.
+- `docs/DECISIONS.md` - founder decisions resolved in June 2026; read before touching
+  homepage hero, nav labels, pricing ladders, or testimonials.
 - `docs/TODO.md` - implementation backlog for the next engineering passes.
 - `docs/counselling-for-meditators-copy.md` - canonical copy document for the meditators
   landing page; use as the source of truth for that page's messaging.

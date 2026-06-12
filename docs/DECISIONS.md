@@ -1,13 +1,14 @@
-# Founder Decisions Required - Sangham.org
+# Founder Decisions - Sangham.org
 
-These are judgement calls deliberately NOT made autonomously during the production pass of
-June 2026. Each item has options and a recommendation; nothing here is implemented. Decisions
-marked with a recommendation reflect the engineer's best read of the evidence, not a directive.
-Michael has final authority on all of them.
+These decisions were put to Michael and resolved in June 2026. Each item below records the
+decision taken and its implementation status. The original options and context are retained
+as a historical record.
 
 ---
 
 ## 1. Homepage hero positioning
+
+**RESOLVED - Option A, implemented.** The hero now reads "Counselling for people who understand their patterns, and are still caught in them." with the structured-process sub-line; primary CTA "Book a Free Fit Call", secondary "Explore the Approach".
 
 **Context.** The current H1 reads "A place for careful, grounded inner work." with the
 sub-line "If you understand what tends to go wrong but still find yourself caught in it, this
@@ -54,6 +55,8 @@ in his own words.
 
 ## 2. Wisdom library curation - the positioning conflict
 
+**RESOLVED - Options A + C, implemented.** The five earlier essays are grouped under "From the Contemplative Notebooks" with the approved framing note (on the index and condensed on each essay page). "Crazy Times" is unpublished and /wisdom/crazy-times redirects to /wisdom.
+
 **Context.** Service pages consistently position the work as "psychologically grounded, not
 a guru-disciple relationship, no spiritual ideology imposed." Several older essays in
 `src/data/essays.ts` were written in a traditional teacher voice and contain metaphysical
@@ -90,6 +93,8 @@ essays (if any) to unpublish.
 
 ## 3. Nav label "Wisdom"
 
+**RESOLVED - Option B, implemented.** Nav, footer, page title, breadcrumbs and back-links now say "Writing". URLs unchanged (/wisdom).
+
 **Context.** The main navigation currently includes a "Wisdom" label
 (src/components/Navigation.astro, approximately line 10). The label carries a mild guru
 register. The service pages and bio explicitly disclaim guru positioning. Several common
@@ -115,6 +120,8 @@ on individual essay pages.
 
 ## 4. Parent offer ladder on /mentoring-for-adolescents
 
+**RESOLVED - Option B, implemented.** The page already carried a free 15-minute parent fit call section (#fit-cal, using the shared Cal event sangham/fit); it is now surfaced inside the investment ladder and beside the booking CTAs. If Michael later creates a dedicated parent Cal event, only the calLink needs swapping.
+
 **Context.** Every audience on the site can book a free 15-minute fit call before spending
 money. The exception is parents enquiring about the adolescent mentorship: the first step
 currently offered to them is a paid R600 45-minute parent consultation. This inconsistency
@@ -139,6 +146,8 @@ Cal.com event type for the parent fit call.
 ---
 
 ## 5. Mentorship taxonomy naming
+
+**RESOLVED - "Mentoring for Teenagers" (12-17), implemented** across page title, structured data, and the counselling-page card; the nav already used it. The 18-25 offer remains "Mentoring for Young Men (Ages 18 to 25)".
 
 **Context.** The current naming is inconsistent across the site. The nav dropdown reads
 "Mentoring for Teenagers"; the page title reads "Mentoring for Young Men Aged 12 to 17"; the
@@ -167,6 +176,8 @@ avoid further drift.
 ---
 
 ## 6. Testimonials and proof
+
+**RESOLVED - Option B (wait).** Additional testimonials are not presently available; no outreach for now. The consent template below is retained for when material exists.
 
 **Context.** The site already carries strong testimonials (Bernard Altman's professional
 reference, Jacob S., Vera, Ashraf), but they are character references rather than outcome
@@ -217,6 +228,8 @@ testimonial copy before it is published.
 
 ## 7. Intro video
 
+**DEFERRED by Michael.** The script outline below is retained for the future.
+
 **Context.** No video currently exists on the site. A short, honest video on `/counselling`
 and the adolescents page would address the single most common barrier for new clients: not
 knowing who they are talking to. Phone with a window for natural light is sufficient.
@@ -241,6 +254,8 @@ adapt a second version for the adolescents/parent audience.
 
 ## 8. Canonical fact sheet - experience claims
 
+**RESOLVED - canonical facts confirmed and implemented.** Training under Bernard Altman: 2013-2023 (10 years). Facilitating groups and rites-of-passage work: since 2013, ongoing (12+ years). Formal meditative practice training: since 2018, ongoing (8+ years). Implemented: credibility strips updated from "10+" to "12+", "more than a decade" became "more than twelve years", and a Boys to Men start-year reference was corrected from 2012 to 2013.
+
 **Context.** The site states Michael's experience differently in different places:
 "more than twelve years" appears on the About page and the adolescents page; "10+ years"
 appears on credibility strips on the meditators and young-men pages; "more than a decade"
@@ -253,9 +268,9 @@ founder-owned.
 
 | Claim | Canonical value | Pages where it currently appears |
 | --- | --- | --- |
-| Years in practice (counselling/wellness work) | ? | About, adolescents page, young-men page, meditators page |
-| Years of contemplative practice | ? | Meditators page |
-| Any other experience claims | ? | To be identified |
+| Years in practice (counselling/wellness work) | 12+ years (since 2013, ongoing) | About, adolescents page, young-men page, meditators page |
+| Years of contemplative practice | 8+ years (since 2018, ongoing) | Meditators page |
+| Training under Bernard Altman | 10 years (2013-2023) | About, meditators page |
 
 **Recommendation:** Agree on one number per claim and update all pages in a single pass.
 
@@ -267,6 +282,8 @@ founder-owned.
 ---
 
 ## 9. Workshops page honesty line
+
+**RESOLVED - confirmed and implemented.** No public workshops are scheduled; the workshops page now states this plainly and links to the notify list.
 
 **Context.** If no public workshops are currently scheduled, the workshops page should say
 so plainly. This cannot be added autonomously because only Michael knows the current state
@@ -283,6 +300,8 @@ or not.
 ---
 
 ## 10. /c4m-2 route retirement
+
+**RESOLVED - deleted.** Michael confirmed /c4m and /c4m-2 were private review links with no campaigns targeting them. Both routes are removed; both URLs 308-redirect to /counselling-for-meditators. The page is a single file again.
 
 **Context.** `/c4m-2` is a thin wrapper that mirrors the content of
 `/counselling-for-meditators` (both routes render the shared
@@ -308,6 +327,8 @@ campaign wraps.
 
 ## 11. Counselling page email-capture placement
 
+**RESOLVED - Option A, implemented.** The email capture now sits in its own section below the FAQ.
+
 **Context.** The "send me a plain-language overview" email-capture element currently sits
 inside the five-session offer block on `/counselling`, where it competes visually with the
 primary booking CTA. The audit recommends moving it to below the FAQ section, where it can
@@ -328,6 +349,8 @@ visible change to a primary conversion page.
 ---
 
 ## 12. Homepage "Environment and Awareness" section
+
+**RESOLVED - Option A, implemented.** The section is removed (preserved in git history).
 
 **Context.** The homepage contains a full-bleed photo-quote section titled "Environment and
 Awareness" (src/pages/index.astro, approximately lines 445-481) that discusses the nervous
@@ -352,6 +375,8 @@ workshops CTA leads nowhere useful if the calendar is empty.
 
 ## 13. Vercel trailing-slash enforcement
 
+**RESOLVED - implemented.** "trailingSlash": true is set in vercel.json (the deferral condition, the next edit of vercel.json, was met). Internal links still use non-slash hrefs and receive a cached 308; updating hrefs site-wide is optional future polish (noted in TODO).
+
 **Context.** Canonical URLs and hreflang tags now consistently use trailing slashes
 throughout the site, matching Astro's default sitemap output. However, both `/page/` and
 `/page` currently resolve to a 200 response on Vercel, meaning two URLs serve identical
@@ -373,6 +398,8 @@ reason to touch `vercel.json` for another purpose.
 ---
 
 ## 14. CTA label unification and meditators fit-call length
+
+**RESOLVED - A and A.** The meditators page keeps its "Book an Introductory Conversation" label and the 15-minute slot. No changes made.
 
 **Context.** Most pages now use "fit call" language for the free 15-minute introductory
 booking. The meditators page deliberately uses "Book an Introductory Conversation" to match
@@ -401,6 +428,8 @@ length, Michael should decide based on how these calls actually run in practice.
 ---
 
 ## 15. USD display policy
+
+**RESOLVED - Option A plus Michael's suggestion, implemented.** Static "approx. $45-50 USD" remains the fallback; marked elements now upgrade to a live single-figure estimate via src/scripts/usd-rate.ts.
 
 **Context.** Pricing in South African Rand is shown across the site with USD approximations
 for international visitors. The USD figure for R850 was previously inconsistent (some pages

@@ -16,7 +16,8 @@ The `src/content.config.ts` defines a content collection that is currently unuse
 example.md exists). Migrating the TypeScript arrays in `src/data/essays.ts` and
 `src/data/practice-guides.ts` into proper markdown files in `src/content/` would allow
 non-technical publishing via markdown, enable frontmatter-driven metadata, and simplify the
-dynamic route in `src/pages/wisdom/[id].astro`.
+dynamic route in `src/pages/wisdom/[id].astro`. When migrating, preserve the `notebook: true`
+flag so the From the Contemplative Notebooks section keeps working.
 _Rationale: removes the need to edit TypeScript to publish new essays or guides._
 _Files: `src/data/essays.ts`, `src/data/practice-guides.ts`, `src/content.config.ts`,
 `src/pages/wisdom/[id].astro`_
@@ -74,7 +75,7 @@ preference for cutting the vaguest.
 _Rationale: scarcity increases impact; the pattern is over-used._
 _Files: `src/pages/counselling.astro`, `src/pages/index.astro`, others_
 
-**B4. Complete a systematic contrast pass.**
+**B4. Complete a systematic contrast pass** (partially progressed in June 2026: hero chips, fit-call links, footnotes and pricing notes raised; full sweep still pending).
 The June 2026 pass fixed only the worst small-text offenders. A full audit is needed.
 Minimum targets: approximately 55% opacity body text on dark backgrounds; approximately 60%
 on light backgrounds. Search for `text-*\/[0-4]` Tailwind opacity classes on body-size text
@@ -96,17 +97,16 @@ _Rationale: the steps exist in prose across the page but are never laid out as a
 sequence; a visual ladder reduces decision friction._
 _Files: `src/pages/counselling.astro`_
 
-**C2. Move the email capture below the FAQ.**
+**C2. Move the email capture below the FAQ.** **Done (June 2026).**
 The "send me a plain-language overview" email-capture element currently competes with the
 primary booking CTA inside the five-session offer block. Moving it below the FAQ serves
 visitors who have read everything but are not yet ready to book.
-_Blocked on: decision 11 in `docs/DECISIONS.md`._
 _Files: `src/pages/counselling.astro`_
 
 **C3. Add a parent-testimonial slot to the adolescents page.**
 A placeholder section is ready to receive content. Add the testimonial once material exists
 (see decision 6 in `docs/DECISIONS.md`).
-_Blocked on: testimonial material from Michael._
+_Blocked on: testimonial material (decision 6 resolved as 'wait for material')._
 _Files: `src/pages/mentoring-for-adolescents.astro`_
 
 ---
@@ -187,6 +187,11 @@ images for `/counselling`, `/about`, `/practices`, and `/workshops`, which are t
 most likely to be shared directly.
 _Rationale: page-specific OG images improve social share appearance and click-through._
 _Files: `scripts/generate-og-images.mjs`, `src/layouts/BaseLayout.astro`_
+
+**F5. Update internal hrefs to trailing-slash form.**
+`vercel.json` now enforces trailing slashes with 308 redirects; internal links like
+`/counselling` still use the non-slash form and incur one cached redirect hop. A mechanical
+sweep of href attributes would remove it. Low priority.
 
 ---
 
