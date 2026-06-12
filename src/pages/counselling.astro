@@ -270,33 +270,6 @@ const faqJsonLd = {
           </a>
         </div>
 
-        <!-- Email capture - distinct secondary action -->
-        <div class="border-t border-header-foreground/8 pt-8">
-          <p class="text-header-foreground/60 text-sm font-body text-center mb-2">Not ready to enquire yet?</p>
-          <p class="text-header-foreground/50 text-xs font-body text-center leading-relaxed mb-5 max-w-sm mx-auto">
-            Leave your email and I'll send a short, plain-language overview of how the process works and what to expect from the initial consultation.
-          </p>
-          <div id="counselling-overview-container" class="max-w-xs mx-auto">
-            <form id="counselling-overview-form" class="flex gap-2">
-              <input type="hidden" name="_subject" value="Counselling overview request | Sangham" />
-              <input type="hidden" name="note" value="Requested the process overview from the counselling page" />
-              <input
-                type="email"
-                name="email"
-                required
-                placeholder="your@email.com"
-                class="flex-1 bg-cosmos border border-header-foreground/10 rounded-lg px-4 py-2.5 text-header-foreground/90 font-body text-sm placeholder:text-header-foreground/25 focus:outline-none focus:border-primary/40 transition-colors min-w-0"
-              />
-              <button
-                type="submit"
-                class="px-5 py-2.5 bg-void/60 border border-header-foreground/15 hover:border-primary/40 text-header-foreground/55 hover:text-header-foreground/90 transition-all duration-300 rounded-lg text-xs font-body whitespace-nowrap tracking-wide uppercase"
-              >
-                Send
-              </button>
-            </form>
-          </div>
-        </div>
-
       </div>
     </div>
   </section>
@@ -659,6 +632,35 @@ const faqJsonLd = {
         Frequently Asked Questions
       </h2>
       <FAQ items={faqItems} dark={true} />
+    </div>
+  </section>
+
+  <!-- PROCESS OVERVIEW BY EMAIL -->
+  <section class="bg-header border-t border-header-foreground/8">
+    <div class="container mx-auto px-6 py-14 md:py-16 max-w-md text-center">
+      <p class="text-header-foreground/60 text-sm font-body mb-2">Not ready to enquire yet?</p>
+      <p class="text-header-foreground/50 text-xs font-body leading-relaxed mb-5 max-w-sm mx-auto">
+        Leave your email and I'll send a short, plain-language overview of how the process works and what to expect from the initial consultation.
+      </p>
+      <div id="counselling-overview-container" class="max-w-xs mx-auto">
+        <form id="counselling-overview-form" class="flex gap-2">
+          <input type="hidden" name="_subject" value="Counselling overview request | Sangham" />
+          <input type="hidden" name="note" value="Requested the process overview from the counselling page" />
+          <input
+            type="email"
+            name="email"
+            required
+            placeholder="your@email.com"
+            class="flex-1 bg-cosmos border border-header-foreground/10 rounded-lg px-4 py-2.5 text-header-foreground/90 font-body text-sm placeholder:text-header-foreground/25 focus:outline-none focus:border-primary/40 transition-colors min-w-0"
+          />
+          <button
+            type="submit"
+            class="px-5 py-2.5 bg-void/60 border border-header-foreground/15 hover:border-primary/40 text-header-foreground/55 hover:text-header-foreground/90 transition-all duration-300 rounded-lg text-xs font-body whitespace-nowrap tracking-wide uppercase"
+          >
+            Send
+          </button>
+        </form>
+      </div>
     </div>
   </section>
 

@@ -117,6 +117,15 @@ const workshops = [
   <!-- OPENING -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <div class="border border-primary/20 rounded-lg px-5 py-4 bg-primary/4 mb-10">
+        <p class="text-sm text-foreground/75 font-body leading-relaxed">
+          No public workshops are currently scheduled. They are presently arranged on request, and you can
+          <a href="#stay-informed" class="text-primary/80 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/30">join the list</a>
+          to hear when the next one is announced.
+        </p>
+      </div>
+
       <div class="space-y-6 text-muted-foreground font-body leading-relaxed">
         <p class="text-lg text-foreground/90">
           While most of the work at Sangham unfolds through one-on-one process, there are times when a group setting can offer something that individual work cannot.
@@ -279,7 +288,7 @@ const workshops = [
   </section>
 
   <!-- STAY INFORMED & CLOSING -->
-  <section class="relative overflow-hidden">
+  <section id="stay-informed" class="relative overflow-hidden scroll-mt-[72px]">
     <Image
       src={loneTreeSunset}
       alt=""
