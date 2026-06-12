@@ -13,7 +13,17 @@
       "permanent": true
     },
     {
+      "source": "/counselling-for-adolescents-and-young-adults/",
+      "destination": "/mentoring-for-young-men/",
+      "permanent": true
+    },
+    {
       "source": "/c4m",
+      "destination": "/counselling-for-meditators/",
+      "permanent": true
+    },
+    {
+      "source": "/c4m/",
       "destination": "/counselling-for-meditators/",
       "permanent": true
     },
@@ -23,7 +33,17 @@
       "permanent": true
     },
     {
+      "source": "/c4m-2/",
+      "destination": "/counselling-for-meditators/",
+      "permanent": true
+    },
+    {
       "source": "/wisdom/crazy-times",
+      "destination": "/wisdom/",
+      "permanent": true
+    },
+    {
+      "source": "/wisdom/crazy-times/",
       "destination": "/wisdom/",
       "permanent": true
     }
