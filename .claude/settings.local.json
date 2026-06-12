@@ -19,7 +19,11 @@
       "Read(//c/Program Files/**)",
       "Read(//c/Users/mkapl/AppData/Local/Programs//**)",
       "Bash(cmd.exe /c \"where gh\")",
-      "Bash(git -C \"C:/Users/mkapl/Documents/GitHub/Sangham-New\" remote add origin https://github.com/sangham0/Sangham-New.git)"
+      "Bash(git -C \"C:/Users/mkapl/Documents/GitHub/Sangham-New\" remote add origin https://github.com/sangham0/Sangham-New.git)",
+      "mcp__Vercel__list_teams",
+      "mcp__Vercel__list_projects",
+      "mcp__Vercel__get_project",
+      "mcp__Vercel__web_fetch_vercel_url"
     ]
   }
 }
