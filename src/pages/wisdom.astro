@@ -29,7 +29,6 @@ const filters: { id: FilterId; label: string }[] = [
   { id: 'meditation',      label: 'Meditation' },
   { id: 'breathwork',      label: 'Breathwork & Nervous System' },
   { id: 'body',            label: 'Body & Movement' },
-  { id: 'relationship',    label: 'Relationship & Devotion' },
   { id: 'contemplative',   label: 'Contemplative Reflections' },
   { id: 'practice-guides', label: 'Practice Guides' },
 ];
@@ -50,12 +49,12 @@ const categoryMap: Record<string, FilterId[]> = {
   'kings-and-queens':              ['psychology', 'contemplative'],
   'authenticity-as-a-mask':        ['psychology', 'contemplative'],
   'the-art-of-becoming-invisible': ['start-here', 'psychology'],
+  // Contemplative notebooks (rendered in their own section, not the grid)
   'what-is-meditation':            ['meditation', 'contemplative'],
   'what-is-hatha-yoga':            ['body', 'contemplative'],
   'on-living':                     ['contemplative'],
   'how-we-love':                   ['relationship'],
   'on-human-relationships':        ['relationship', 'contemplative'],
-  'crazy-times':                   ['psychology', 'contemplative'],
   // Practice guides
   'how-to-sit':                          ['meditation', 'practice-guides'],
   'when-effort-drops':                   ['meditation', 'practice-guides'],
@@ -77,6 +76,7 @@ interface LibraryItem {
   dateLabel: string;
   paragraphs: string[];
   isGuide: boolean;
+  notebook: boolean;
   cats: FilterId[];
   readTime: number;
   displayCats: FilterId[];
@@ -93,6 +93,7 @@ const allItems: LibraryItem[] = [
       dateLabel: e.dateLabel,
       paragraphs: e.paragraphs,
       isGuide: false,
+      notebook: !!e.notebook,
       cats,
       readTime: getReadingTime(e.paragraphs),
       displayCats: cats.filter(c => c !== 'start-here' && c !== 'practice-guides') as FilterId[],
@@ -108,12 +109,18 @@ const allItems: LibraryItem[] = [
       dateLabel: g.dateLabel,
       paragraphs: g.paragraphs,
       isGuide: true,
+      notebook: false,
       cats,
       readTime: getReadingTime(g.paragraphs),
       displayCats: cats.filter(c => c !== 'start-here' && c !== 'practice-guides') as FilterId[],
     };
   }),
 ];
+
+// The contemplative notebooks are presented in their own framed section
+// below the main library rather than in the filterable grid.
+const libraryItems = allItems.filter(item => !item.notebook);
+const notebookItems = allItems.filter(item => item.notebook);
 
 // ─── Featured items ───────────────────────────────────────────────────────────
 const featuredIds = [
@@ -130,21 +137,21 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'CollectionPage',
-    name: 'Wisdom | Essays & Reflections',
-    description: 'Essays and reflections on meditation, breathwork, psychology, and inner work. Written by Michael Kaplan (Swami Ramarishi) of Sangham.',
+    name: 'Writing | Essays & Practice Guides',
+    description: 'Essays and practice guides on meditation, breathwork, psychology, and inner work. Written by Michael Kaplan (Swami Ramarishi) of Sangham.',
     publisher: { '@type': 'Organization', name: 'Sangham', url: 'https://www.sangham.org' },
   },
 ];
 ---
 
 <BaseLayout
-  title="Wisdom | Essays & Reflections"
-  description="Essays and reflections on meditation, breathwork, psychology, and inner work. Written by Michael Kaplan (Swami Ramarishi) of Sangham."
+  title="Writing | Essays & Practice Guides"
+  description="Essays and practice guides on meditation, breathwork, psychology, and inner work. Written by Michael Kaplan (Swami Ramarishi) of Sangham."
   jsonLd={jsonLd}
 >
 
   <PageHeader
-    title="Wisdom"
+    title="Writing"
     subtitle="Essays, reflections, and practice guides."
   />
 
@@ -230,7 +237,7 @@ const jsonLd = [
         id="library-grid"
         class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5"
       >
-        {allItems.map((item) => (
+        {libraryItems.map((item) => (
           <a
             href={`/wisdom/${item.id}`}
             data-categories={item.cats.join(' ')}
@@ -267,6 +274,42 @@ const jsonLd = [
       >
         No articles in this category yet.
       </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ FROM THE CONTEMPLATIVE NOTEBOOKS ════════════════════════════════════ -->
+  <section class="bg-background border-t border-border/30">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-5xl">
+
+      <div class="flex items-center gap-5 mb-6">
+        <span class="text-[11px] font-body tracking-widest uppercase text-muted-foreground/50 shrink-0">From the Contemplative Notebooks</span>
+        <div class="flex-1 border-t border-border/40"></div>
+      </div>
+
+      <p class="text-muted-foreground/80 font-body text-sm leading-relaxed max-w-2xl mb-10">
+        These pieces were written during years of traditional training and practice in India. They reflect the contemplative traditions in their own language, metaphysical claims, classical framing, and all. They sit alongside the counselling work without replacing or contradicting it; they are notes from a different mode of inquiry.
+      </p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {notebookItems.map((item) => (
+          <a
+            href={`/wisdom/${item.id}`}
+            class="group flex flex-col border border-border/40 rounded-lg bg-muted/20 hover:border-primary/25 hover:-translate-y-[2px] transition-all duration-200 ease-out p-5"
+          >
+            <h3 class="font-heading text-base text-foreground/80 group-hover:text-foreground mb-2 leading-snug transition-colors">
+              {item.title}
+            </h3>
+            <p class="text-muted-foreground/80 font-body text-xs leading-relaxed line-clamp-2 flex-1">
+              {item.excerpt}
+            </p>
+            <div class="flex items-center gap-2 mt-4 pt-3 border-t border-border/30">
+              <span class="font-body text-[11px] text-muted-foreground/60">{item.dateLabel}</span>
+              <span class="font-body text-[11px] text-muted-foreground/60 ml-auto">{item.readTime} min</span>
+            </div>
+          </a>
+        ))}
+      </div>
 
     </div>
   </section>

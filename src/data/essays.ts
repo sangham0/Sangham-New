@@ -20,6 +20,9 @@ export interface Essay {
   closingBridge?: ClosingBridge;
   category?: 'essay' | 'practice-guide';
   tags?: EssayTag[];
+  /** Earlier writings from traditional training years; shown in the
+   *  'From the Contemplative Notebooks' section with a framing note. */
+  notebook?: boolean;
 }
 
 export const essays: Essay[] = [
@@ -139,6 +142,7 @@ export const essays: Essay[] = [
   },
   {
     id: "what-is-meditation",
+    notebook: true,
     title: "What is Meditation?",
     excerpt:
       "Meditation is almost universally misunderstood. It is commonly spoken of as a practice, a discipline, or a technique. In truth, meditation is none of these things. It is a state of being.",
@@ -180,6 +184,7 @@ export const essays: Essay[] = [
   },
   {
     id: "what-is-hatha-yoga",
+    notebook: true,
     title: "What is Hatha Yoga?",
     excerpt:
       "Hatha yoga is widely misunderstood today, largely because its depth has been reduced to form without context. At its root, hatha yoga is not an exercise system. It is a precise spiritual science.",
@@ -221,6 +226,7 @@ export const essays: Essay[] = [
   },
   {
     id: "on-living",
+    notebook: true,
     title: "On Living",
     excerpt:
       "You do not need to know where you are, or even where you are going, if you remember who you are. Home reveals itself wherever separation dissolves.",
@@ -248,6 +254,7 @@ export const essays: Essay[] = [
   },
   {
     id: "how-we-love",
+    notebook: true,
     title: "How We Love",
     excerpt:
       "There are certain encounters in life that arrive without warning and leave you undone. I have come to see that human beings tend to relate to love and connection in three distinct ways.",
@@ -279,6 +286,7 @@ export const essays: Essay[] = [
   },
   {
     id: "on-human-relationships",
+    notebook: true,
     title: "On Human Relationships",
     excerpt:
       "Human relationships are rarely approached innocently. Most of us enter them with an invisible hand extended, hoping to receive something. There is another way to stand in relationship.",
@@ -304,32 +312,6 @@ export const essays: Essay[] = [
       "From the outside, this looks like madness. And in truth, it is. But it is a divine madness. A madness that no longer consults social approval. A madness that does not pause to explain itself to those who have not tasted it.",
       "Once you have jumped into the bottomless void and discovered that you are flying rather than falling, the voices of concern begin to fade. The warnings, the disbelief, the judgments of those still gripping the ledge far above lose their authority. Their fear no longer makes sense to you, not because you are superior, but because you are free.",
       "What remains is simple. A life given. A heart open. A devotion without object. And in that giving, something eternal reveals itself.",
-    ],
-  },
-  {
-    id: "crazy-times",
-    title: "Crazy Times",
-    excerpt:
-      "As certain dominant global powers enter a period of visible strain and transition, it is undeniably an unusual time to be alive. Moments like this are dangerous, but also fertile.",
-    datePublished: "2026-04-01",
-    dateLabel: "April 2026",
-    category: 'essay',
-    tags: ['psychology', 'contemplative'],
-    paragraphs: [
-      "As certain dominant global powers enter a period of visible strain and transition, it is undeniably an unusual time to be alive. Entire systems of belief that were taken for granted throughout the last century are beginning to unravel. Assumptions about progress, identity, power, and meaning are losing their authority, while new and often competing narratives struggle to take their place.",
-      "Moments like this are dangerous, but also fertile. When an old worldview dissolves, there is a temptation to swing wildly between extremes, grasping at whatever promises certainty or belonging. This is precisely the time to be discerning about what we allow to replace what is falling away.",
-      "For all its excesses, the global culture of the past century was not without its gifts. Alongside the plastic perfection and superficial mania, there were genuine contributions that deserve to be preserved. Rock and roll. The blues. A fierce insistence on individual expression. These were not trivial cultural artifacts. They carried something raw, rebellious, and human that should not be discarded simply because the larger structures that carried them are shifting.",
-      "Today, the primary battlefield is no longer physical territory, but consciousness itself. Social media and the digital sphere have become the dominant arenas through which values, identities, and desires are shaped. With artificial intelligence and emerging technologies opening entirely new dimensions of influence, the forces competing for attention and allegiance are no longer just ideological. They are psychological, emotional, and increasingly personal.",
-      "In such a moment, turning inward is not escapism. It is responsibility.",
-      "More than ever, it is necessary to become intimately aware of who you are beneath the layers of social conditioning you have inherited. Beneath political identities. Beneath cultural scripts. Beneath the personality that has been assembled through imitation and reaction. To see clearly, you must be ruthless. Not violent, but uncompromising.",
-      "See that your body is simply food matter you have gathered. Your mind is a collection of thoughts you have absorbed. Your energy is sunlight, recycled endlessly through form. None of this is truly you. It is borrowed. It is temporary. And yet it functions with astonishing intelligence.",
-      "The essential question is simple and devastating: who is the one who has gathered all this. That must be seen directly, not concluded intellectually. And when it is seen, everything changes.",
-      "Even if the world seems to be moving through upheaval, there is a tremendous beauty to be found. Even as your own body is consumed by the funeral pyre, and it will be, there is beauty. Not because destruction is romantic, but because life has always been whole, even in its endings.",
-      "When you see life as an inclusive phenomenon, without an outside, without an other, suffering loses its grip. Pain does not disappear. What falls away is the resistance. You recognize yourself as part of the totality, not as something standing apart from it. In that recognition, the immortality of spirit becomes self-evident.",
-      "This realization is not distant. It does not require heroic effort or spiritual theatrics. It is a hair's breadth away. Less than that. It is here, now.",
-      "If your desire to know is total, utterly single-pointed, it cannot miss you. Whatever you attend to with complete attentiveness becomes a mirror of your own being. This is not philosophy. It is mechanics.",
-      "Be total. Go all in. Not on a belief, not on an ideology, not on a savior, but on seeing what is actually here.",
-      "You cannot go wrong that way.",
     ],
   },
 ];
