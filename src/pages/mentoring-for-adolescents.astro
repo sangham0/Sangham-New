@@ -97,7 +97,7 @@ const aboutMichaelCards = [
     title: 'Who I am',
     paragraphs: [
       'My name is Michael Kaplan, and I have been working with teenagers and young men for more than twelve years. Much of that work has been under the guidance of my mentor, clinical and forensic psychologist Bernard Altman.',
-      'My journey began in 2012 through a Cape Town organisation called Boys to Men, where I first participated in mentorship and rites-of-passage work designed to support teenage boys through difficult periods of growth and transition.',
+      'My journey began in 2013 through a Cape Town organisation called Boys to Men, where I first participated in mentorship and rites-of-passage work designed to support teenage boys through difficult periods of growth and transition.',
       'Over time, I was gradually trained into leadership and facilitation roles myself, working with teenagers from a wide range of backgrounds, including both affluent communities and some of the most at-risk areas in Cape Town.',
       'Across all of these environments, I found that the deeper needs of teenage boys remain remarkably consistent. Young men need guidance without humiliation, challenge without rejection, and spaces where they can speak honestly without immediately being judged, corrected, or dismissed.',
     ],
@@ -237,10 +237,10 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Mentoring and Counselling for Young Men Aged 12 to 17',
+    name: 'Mentoring and Counselling for Teenagers Aged 12 to 17',
     url: canonicalURL,
     description:
-      'Parent-facing developmental mentorship and reflective counselling for young men aged roughly 12 to 17. ASCHP-registered wellness counselling. Online sessions worldwide.',
+      'Parent-facing developmental mentorship and reflective counselling for teenagers aged 12 to 17. ASCHP-registered wellness counselling. Online sessions worldwide.',
     serviceType: 'Wellness Counselling and Developmental Mentorship',
     provider: {
       '@type': 'Person',
@@ -267,7 +267,7 @@ const jsonLd = [
         alternateName: 'ASCHP',
       },
     },
-    audience: { '@type': 'Audience', audienceType: 'Parents and guardians of young men aged 12 to 17' },
+    audience: { '@type': 'Audience', audienceType: 'Parents and guardians of teenagers aged 12 to 17' },
     areaServed: [
       { '@type': 'Country', name: 'South Africa' },
       { '@type': 'Place', name: 'Worldwide' },
@@ -648,7 +648,7 @@ const jsonLd = [
 </style>
 
 <BaseLayout
-  title="Mentoring for Young Men Aged 12 to 17"
+  title="Mentoring for Teenagers (Ages 12 to 17)"
   description="Parent-facing developmental mentorship and reflective counselling for young men in the adolescent years. ASCHP-registered. Online worldwide."
   canonicalURL={canonicalURL}
   image="/images/og-mentoring-adolescents.jpg"
@@ -702,8 +702,8 @@ const jsonLd = [
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/40 hover:text-parchment/70 text-sm font-body transition-colors">
-              15-Minute Fit Call
+            <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors">
+              Free 15-Minute Fit Call
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -712,7 +712,7 @@ const jsonLd = [
 
           <div class="flex flex-wrap gap-x-5 gap-y-1.5">
             {['ASCHP Registered', 'Online sessions available', 'Based in South Africa', 'Ages 12 to 17'].map((t) => (
-              <p class="text-parchment/25 text-xs font-body">{t}</p>
+              <p class="text-parchment/50 text-xs font-body">{t}</p>
             ))}
           </div>
         </div>
@@ -1414,8 +1414,14 @@ const jsonLd = [
         <p>Meaningful developmental work requires consistency, trust, honesty, and time. This mentorship is approached as a committed relational process, not a once-off intervention.</p>
       </div>
 
-      <p class="font-heading text-xl md:text-2xl text-parchment/85 leading-snug max-w-xl border-t border-parchment/15 pt-8 mb-14">
+      <p class="font-heading text-xl md:text-2xl text-parchment/85 leading-snug max-w-xl border-t border-parchment/15 pt-8 mb-6">
         The aim is not short-term motivation. The aim is long-term developmental grounding.
+      </p>
+
+      <p class="font-body text-sm text-parchment/60 leading-relaxed max-w-xl mb-14">
+        Not yet sure whether to book the consultation? A
+        <a href="#fit-cal" class="text-primary/80 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/30">free 15-minute parent fit call</a>
+        is available before any paid step.
       </p>
 
       <!-- Commitment ladder - vertical progression -->
@@ -1503,6 +1509,12 @@ const jsonLd = [
         >
           Book a Parent Consultation
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors">
+          Free 15-minute fit call
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
