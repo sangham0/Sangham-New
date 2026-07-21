@@ -1,0 +1,35 @@
+---
+import { Image } from 'astro:assets';
+import michaelPortrait from '../assets/michael-portrait-new.jpg';
+
+interface Props {
+  includeSpiritualName?: boolean;
+}
+
+const { includeSpiritualName = true } = Astro.props;
+const authorName = includeSpiritualName
+  ? 'Michael Kaplan (Swami Ramarishi)'
+  : 'Michael Kaplan';
+---
+
+<div class="mt-14 border-t border-border/40 pt-8 flex items-start gap-4">
+  <Image
+    src={michaelPortrait}
+    alt={authorName}
+    width={56}
+    height={56}
+    widths={[56, 112]}
+    sizes="56px"
+    quality={82}
+    loading="lazy"
+    class="rounded-full object-cover w-14 h-14 shrink-0 border border-border/60"
+  />
+  <div>
+    <p class="font-body text-sm text-foreground/80">
+      Written by <a href="/about" class="text-primary/80 hover:text-primary transition-colors">{authorName}</a>
+    </p>
+    <p class="font-body text-xs text-muted-foreground/70 leading-relaxed mt-1">
+      BA Psychology &middot; ASCHP Registered Wellness Counsellor (Reg. 10559). Michael works with individuals online across South Africa and internationally.
+    </p>
+  </div>
+</div>

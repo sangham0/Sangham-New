@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import ArticleBadge from '../../components/ArticleBadge.astro';
+import ArticleAuthor from '../../components/ArticleAuthor.astro';
 
 export async function getStaticPaths() {
   // Drafts never build. The three art-directed essays are not in the
@@ -34,6 +35,14 @@ const relatedService = data.tags.includes('teenagers')
       ? { href: '/counselling-for-meditators', label: 'Counselling for meditators' }
       : { href: '/counselling', label: 'Online wellness counselling' };
 
+const isCounsellingQueryArticle =
+  data.tags.some((tag) => ['counselling', 'mentoring', 'online-counselling'].includes(tag)) ||
+  entry.id === 'wellness-counsellor-vs-psychologist-south-africa';
+
+const authorDisplayName = isCounsellingQueryArticle
+  ? 'Michael Kaplan'
+  : 'Michael Kaplan (Swami Ramarishi)';
+
 const jsonLd = [
   {
     '@context': 'https://schema.org',
@@ -60,8 +69,8 @@ const jsonLd = [
     },
     author: {
       '@type': 'Person',
-      name: 'Michael Kaplan',
-      alternateName: 'Swami Ramarishi',
+      name: authorDisplayName,
+      ...(!isCounsellingQueryArticle && { alternateName: 'Swami Ramarishi' }),
       url: 'https://www.sangham.org/about',
     },
     publisher: {
@@ -135,24 +144,7 @@ const jsonLd = [
       </div>
 
       <!-- AUTHOR -->
-      <div class="mt-14 border-t border-border/40 pt-8 flex items-start gap-4">
-        <img
-          src="/images/michael-kaplan.jpg"
-          alt="Michael Kaplan"
-          width="56"
-          height="56"
-          loading="lazy"
-          class="rounded-full object-cover w-14 h-14 shrink-0 border border-border/60"
-        />
-        <div>
-          <p class="font-body text-sm text-foreground/80">
-            Written by <a href="/about" class="text-primary/80 hover:text-primary transition-colors">Michael Kaplan (Swami Ramarishi)</a>
-          </p>
-          <p class="font-body text-xs text-muted-foreground/70 leading-relaxed mt-1">
-            BA Psychology &middot; ASCHP Registered Wellness Counsellor (Reg. 10559). Michael works with individuals online across South Africa and internationally.
-          </p>
-        </div>
-      </div>
+      <ArticleAuthor includeSpiritualName={!isCounsellingQueryArticle} />
 
       <!-- CTA -->
       <div class="mt-12 border border-border rounded-lg p-8 md:p-10 text-center bg-muted/30">
