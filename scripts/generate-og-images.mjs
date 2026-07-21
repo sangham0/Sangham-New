@@ -40,6 +40,14 @@ const scrim = Buffer.from(
 
 const targets = [
   {
+    out: 'og-counselling.jpg',
+    src: 'src/assets/rocky-coast-dawn.jpg',
+  },
+  {
+    out: 'og-counselling-for-meditators.jpg',
+    src: 'src/assets/moonlit-shore-meditation.jpg',
+  },
+  {
     out: 'og-mentoring-young-men.jpg',
     src: 'src/assets/documentary-mountain.jpg', // first photographic break on the page
   },

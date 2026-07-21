@@ -18,7 +18,7 @@ export default defineConfig({
       // (noindexed) from the sitemap.
       filter: (page) =>
         !page.includes('/404') &&
-        !page.includes('/thank-you-consultation'),
+        !page.includes('/thank-you-'),
       serialize(item) {
         const url = item.url;
         const updatedItem = { ...item, lastmod: LAST_SIGNIFICANT_UPDATE };

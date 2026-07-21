@@ -1,6 +1,8 @@
 {
   "trailingSlash": true,
   "redirects": [
+    { "source": "/thank-you-consultation", "destination": "/thank-you-enquiry/", "permanent": true },
+    { "source": "/thank-you-consultation/", "destination": "/thank-you-enquiry/", "permanent": true },
     { "source": "/writing", "destination": "/wisdom", "permanent": true },
     { "source": "/writing/", "destination": "/wisdom", "permanent": true },
     {

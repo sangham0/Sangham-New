@@ -1,0 +1,79 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Your fit call is booked"
+  description="Your free 15-minute Sangham fit call is booked."
+  noNav={true}
+  hideStickyBar={true}
+>
+  <meta name="robots" content="noindex, nofollow" slot="head" />
+
+  <section class="-mt-[72px] pt-[72px] min-h-screen bg-header text-header-foreground flex items-center">
+    <div class="container mx-auto px-6 py-20 max-w-xl text-center">
+      <div class="divider-gold w-16 mx-auto mb-10"></div>
+
+      <p class="font-body text-xs tracking-[0.22em] uppercase text-primary/70 mb-4">Booking confirmed</p>
+      <h1 class="font-heading text-3xl md:text-4xl text-parchment/90 leading-snug mb-6">
+        Your fit call is booked.
+      </h1>
+
+      <div class="space-y-5 font-body text-base text-parchment/60 leading-relaxed max-w-lg mx-auto">
+        <p>
+          You should receive a calendar confirmation shortly. If it does not arrive, please check your spam or junk folder.
+        </p>
+        <p>
+          This is a short 15-minute conversation to see whether the approach and timing feel right. It is not a counselling session, and there is no long intake form or preparation required.
+        </p>
+      </div>
+
+      <div class="divider-gold w-8 mx-auto my-10 opacity-30"></div>
+
+      <p class="font-body text-sm text-parchment/55 leading-relaxed mb-5">
+        Need to reschedule or having trouble with the booking?
+      </p>
+      <div class="flex flex-col sm:flex-row gap-3 justify-center">
+        <a
+          href="https://wa.me/27736738063"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground hover:bg-gold-light transition-colors rounded-lg text-sm font-body"
+          data-cta="whatsapp"
+          data-channel="whatsapp"
+          data-service="counselling"
+          data-placement="fit-call-confirmation"
+        >WhatsApp Michael</a>
+        <a
+          href="mailto:ramarishi@sangham.org"
+          class="inline-flex items-center justify-center px-6 py-3 border border-parchment/20 text-parchment/70 hover:border-primary/50 hover:text-primary transition-colors rounded-lg text-sm font-body"
+          data-cta="email"
+          data-channel="email"
+          data-service="counselling"
+          data-placement="fit-call-confirmation"
+        >Email Michael</a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { consumePendingConversion, pushDataLayer } from '../scripts/tracking';
+
+  const pending = consumePendingConversion('sangham_pending_fit_call');
+  const params = new URLSearchParams(window.location.search);
+  const storageFallback = params.get('booking_confirmed') === '1';
+
+  if (pending || storageFallback) {
+    if (storageFallback) history.replaceState({}, '', window.location.pathname);
+    const bookingStatus = String(pending?.booking_status || 'confirmed');
+    const status = bookingStatus.toUpperCase();
+    const isConfirmed = !status || status === 'ACCEPTED' || status === 'CONFIRMED';
+    pushDataLayer(isConfirmed ? 'fit_call_booked' : 'fit_call_booking_submitted', {
+      booking_status: bookingStatus,
+      cal_event_type_id: String(pending?.event_type_id || ''),
+      cal_event_slug: String(pending?.event_slug || 'fit'),
+      confirmation_method: pending ? 'session_marker' : 'url_fallback',
+    });
+  }
+</script>

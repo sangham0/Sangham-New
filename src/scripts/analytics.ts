@@ -1,216 +1,151 @@
 /**
- * Sangham: dataLayer event wiring for GTM
+ * Sangham dataLayer wiring for Google Tag Manager.
  *
- * This file pushes structured events to window.dataLayer.
- * GTM tags/triggers are configured separately in the GTM UI.
+ * Conversion elements use explicit data attributes in the rendered HTML.
+ * GTM tags, triggers, GA4 key events, and custom dimensions are configured
+ * separately in the Google interfaces.
  */
 
-declare global {
-  interface Window {
-    dataLayer: Record<string, unknown>[];
+import { getAttribution, markReferralLandingView, pushDataLayer } from './tracking';
+
+function populateAttributionFields(): void {
+  const attribution = getAttribution();
+  const values: Record<string, string> = {
+    attribution_utm_source: attribution.utm_source,
+    attribution_utm_medium: attribution.utm_medium,
+    attribution_utm_campaign: attribution.utm_campaign,
+    attribution_utm_content: attribution.utm_content,
+    attribution_ref: attribution.ref,
+    attribution_initial_landing_page: attribution.initial_landing_page,
+    attribution_initial_referrer: attribution.initial_referrer,
+  };
+
+  for (const [name, value] of Object.entries(values)) {
+    document.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`).forEach((input) => {
+      input.value = value;
+    });
   }
 }
 
-window.dataLayer = window.dataLayer || [];
-
-function push(event: string, extra: Record<string, unknown> = {}) {
-  window.dataLayer.push({
-    event,
-    page_path: window.location.pathname,
-    ...extra,
-  });
-}
-
-// ────────────────────────────────────────────────────────────
-// 5.2  CTA Click Events
-// ────────────────────────────────────────────────────────────
-
-function getPlacement(el: Element): string {
-  if (el.closest('nav, [class*="fixed"]')) return 'header';
-  if (el.closest('footer')) return 'footer';
-  if (el.closest('[class*="sticky"], [class*="Sticky"]')) return 'sticky';
-  if (el.closest('[id*="cal"], [class*="cal"]')) return 'cta_block';
+function getPlacement(element: HTMLElement): string {
+  if (element.dataset.placement) return element.dataset.placement;
+  if (element.closest('nav')) return 'navigation';
+  if (element.closest('footer')) return 'footer';
   return 'inline';
 }
 
-function getSection(el: Element): string {
-  const section = el.closest('section');
-  if (!section) return 'unknown';
-  const h = section.querySelector('h1, h2, h3');
-  return h?.textContent?.trim().substring(0, 50) ?? 'unknown';
+function getService(element: HTMLElement): string {
+  return element.dataset.service || 'general';
 }
 
-// Book-a-call buttons
-document.querySelectorAll('a[href*="#book-call"], a[href*="#fit-cal"], a[href*="#cal-fit"], a[href*="fit-call"], button[data-cta*="book"]').forEach(el => {
-  el.setAttribute('data-cta', el.getAttribute('data-cta') || 'book-call');
-  el.addEventListener('click', () => {
-    push('cta_book_call_click', {
-      button_text: el.textContent?.trim(),
-      section: getSection(el),
-      placement: getPlacement(el),
-    });
-  });
-});
+function getSection(element: HTMLElement): string {
+  if (element.dataset.section) return element.dataset.section;
+  const section = element.closest('section');
+  const heading = section?.querySelector('h1, h2, h3');
+  return heading?.textContent?.trim().slice(0, 80) || 'unknown';
+}
 
-// Parent consultation buttons
-document.querySelectorAll('a[href*="#parental-cal"], a[href*="parent-consultation"], button[data-cta*="parent"]').forEach(el => {
-  el.setAttribute('data-cta', el.getAttribute('data-cta') || 'parent-consultation');
-  el.addEventListener('click', () => {
-    push('cta_parent_consultation_click', {
-      button_text: el.textContent?.trim(),
-      section: getSection(el),
-      placement: getPlacement(el),
-    });
-  });
-});
+markReferralLandingView();
+populateAttributionFields();
 
-// WhatsApp clicks
-document.querySelectorAll('a[href*="wa.me"]').forEach(el => {
-  el.setAttribute('data-cta', el.getAttribute('data-cta') || 'whatsapp');
-  el.addEventListener('click', () => {
-    push('whatsapp_click', {
-      button_text: el.textContent?.trim() || 'WhatsApp',
-      section: getSection(el),
-      placement: getPlacement(el),
-    });
-  });
-});
+document.addEventListener('click', (event) => {
+  const target = event.target;
+  if (!(target instanceof Element)) return;
 
-// Email clicks
-document.querySelectorAll('a[href*="mailto:ramarishi@sangham.org"]').forEach(el => {
-  el.setAttribute('data-cta', el.getAttribute('data-cta') || 'email');
-  el.addEventListener('click', () => {
-    push('email_click', {
-      button_text: el.textContent?.trim(),
-      section: getSection(el),
-      placement: getPlacement(el),
-    });
-  });
-});
+  const attributedElement = target.closest<HTMLElement>('[data-cta], [data-channel]');
+  const contactLink = target.closest<HTMLAnchorElement>('a[href^="mailto:"], a[href*="wa.me/"]');
+  const element = attributedElement || contactLink;
+  if (!element) return;
 
-// FAQ accordion expand
-document.querySelectorAll('details, [data-accordion], button[aria-expanded]').forEach(el => {
-  const handler = () => {
-    const isOpening = el instanceof HTMLDetailsElement
-      ? el.open
-      : el.getAttribute('aria-expanded') === 'true';
-    if (isOpening) {
-      const questionEl = el.querySelector('summary, [data-accordion-title], h3, h4') || el;
-      push('faq_expand', {
-        button_text: questionEl.textContent?.trim().substring(0, 100),
-        section: getSection(el),
-        placement: 'inline',
-      });
-    }
+  const href = element instanceof HTMLAnchorElement ? element.href : '';
+  const channel = element.dataset.channel || (href.startsWith('mailto:') ? 'email' : href.includes('wa.me/') ? 'whatsapp' : '');
+
+  const common = {
+    cta_id: element.dataset.cta || '',
+    link_text: element.textContent?.trim().replace(/\s+/g, ' ').slice(0, 120) || '',
+    destination: href,
+    service: getService(element),
+    placement: getPlacement(element),
+    section: getSection(element),
   };
-  if (el instanceof HTMLDetailsElement) {
-    el.addEventListener('toggle', handler);
-  } else {
-    el.addEventListener('click', handler);
+
+  if (channel === 'whatsapp') {
+    pushDataLayer('whatsapp_click', common);
+  }
+
+  if (channel === 'email') {
+    pushDataLayer('email_click', common);
+  }
+
+  switch (element.dataset.cta) {
+    case 'book-fit-call':
+      pushDataLayer('fit_call_cta_click', common);
+      break;
+    case 'book-parent-consultation':
+      pushDataLayer('parent_consultation_cta_click', common);
+      break;
+    case 'written-enquiry':
+      pushDataLayer('written_enquiry_open', common);
+      break;
+    case 'home-service-router':
+      pushDataLayer('home_service_router_click', common);
+      break;
+    case 'article-service':
+      pushDataLayer('article_service_cta_click', common);
+      break;
+    case 'calendar-fallback':
+      pushDataLayer('calendar_fallback_click', common);
+      break;
+  }
+
+  if (element.dataset.articleService) {
+    pushDataLayer('article_service_cta_click', {
+      ...common,
+      service: element.dataset.articleService,
+    });
   }
 });
 
-// Secondary CTAs (About Michael, Read more, Full scope and ethics)
-document.querySelectorAll('a[data-cta="secondary"], a[href="/about"], a[href="/scope"]').forEach(el => {
-  const text = el.textContent?.trim().toLowerCase() ?? '';
-  if (text.includes('about michael') || text.includes('read more') || text.includes('scope') || text.includes('learn more')) {
-    el.setAttribute('data-cta', 'secondary');
-    el.addEventListener('click', () => {
-      push('secondary_cta_click', {
-        button_text: el.textContent?.trim(),
-        section: getSection(el),
-        placement: getPlacement(el),
-      });
-    });
-  }
-});
-
-// Contact form submit
-document.querySelectorAll('form[action*="formspree"]').forEach(form => {
-  form.addEventListener('submit', () => {
-    push('contact_form_submit', {
-      button_text: 'Submit',
-      section: getSection(form),
-      placement: 'inline',
+document.querySelectorAll<HTMLDetailsElement>('details').forEach((element) => {
+  element.addEventListener('toggle', () => {
+    if (!element.open) return;
+    const summary = element.querySelector('summary');
+    pushDataLayer('faq_expand', {
+      question: summary?.textContent?.trim().replace(/\s+/g, ' ').slice(0, 140) || '',
+      section: getSection(element),
     });
   });
 });
-
-// Newsletter subscribe
-document.querySelectorAll('form[data-newsletter], form[action*="newsletter"]').forEach(form => {
-  form.addEventListener('submit', () => {
-    push('newsletter_subscribe', {
-      button_text: 'Subscribe',
-      section: getSection(form),
-      placement: 'inline',
-    });
-  });
-});
-
-// ────────────────────────────────────────────────────────────
-// 5.3  Scroll Depth Tracking
-// ────────────────────────────────────────────────────────────
 
 const SCROLL_PAGES = ['/', '/counselling', '/mentoring-for-young-men', '/mentoring-for-adolescents'];
+const normalizedPath = window.location.pathname === '/'
+  ? '/'
+  : window.location.pathname.replace(/\/$/, '');
 
-if (SCROLL_PAGES.includes(window.location.pathname)) {
+if (SCROLL_PAGES.includes(normalizedPath)) {
   const thresholds = [25, 50, 75, 90];
   const fired = new Set<number>();
 
   function checkScroll() {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    if (docHeight <= 0) return;
-    const pct = Math.round((scrollTop / docHeight) * 100);
+    const documentHeight = document.documentElement.scrollHeight - window.innerHeight;
+    if (documentHeight <= 0) return;
+    const percent = Math.round((window.scrollY / documentHeight) * 100);
 
-    for (const t of thresholds) {
-      if (pct >= t && !fired.has(t)) {
-        fired.add(t);
-        push('scroll_depth', { depth_percent: t });
+    for (const threshold of thresholds) {
+      if (percent >= threshold && !fired.has(threshold)) {
+        fired.add(threshold);
+        pushDataLayer('scroll_depth', { depth_percent: threshold });
       }
     }
   }
 
   let ticking = false;
   window.addEventListener('scroll', () => {
-    if (!ticking) {
-      requestAnimationFrame(() => { checkScroll(); ticking = false; });
-      ticking = true;
-    }
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      checkScroll();
+      ticking = false;
+    });
   }, { passive: true });
 }
-
-// ────────────────────────────────────────────────────────────
-// 5.4  Cal.com Booking Conversion Tracking
-// ────────────────────────────────────────────────────────────
-
-window.addEventListener('message', (e) => {
-  // Cal.com sends postMessage events from its iframe
-  if (!e.data || typeof e.data !== 'object') return;
-
-  // Cal.com v2 embed events use { type: "CAL:..." } shape
-  const calType: string = e.data.type || '';
-
-  if (calType === 'CAL:bookingSuccessful' || calType === '__routeChanged') {
-    // Try to determine booking type from the current page or embed namespace
-    let bookingType = 'individual';
-    const path = window.location.pathname;
-    if (path.includes('adolescents')) {
-      bookingType = 'parent-consultation';
-    } else if (path.includes('young-men')) {
-      bookingType = 'fit-call';
-    }
-
-    // Also check for Cal namespace in the event data
-    const ns: string = e.data.namespace || e.data.data?.namespace || '';
-    if (ns.includes('parent') || ns.includes('parental')) {
-      bookingType = 'parent-consultation';
-    } else if (ns.includes('fit')) {
-      bookingType = 'fit-call';
-    }
-
-    if (calType === 'CAL:bookingSuccessful') {
-      push('cal_booking_confirmed', { booking_type: bookingType });
-    }
-  }
-});

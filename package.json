@@ -8,6 +8,7 @@
   "scripts": {
     "dev": "astro dev",
     "build": "astro build",
+    "test": "node scripts/qa-soft-launch.mjs",
     "preview": "astro preview",
     "astro": "astro"
   },

@@ -20,6 +20,10 @@ interface Props {
    * original single full-width bar is used at every width.
    */
   desktopFloating?: boolean;
+  /** Analytics service identifier for the prompt. */
+  service?: string;
+  /** Conversion identifier for the primary prompt. */
+  ctaId?: 'book-fit-call' | 'book-parent-consultation';
 }
 
 const {
@@ -29,6 +33,8 @@ const {
   variant = 'dark',
   whatsappHref = '',
   desktopFloating = false,
+  service = 'general',
+  ctaId = 'book-fit-call',
 } = Astro.props;
 
 const light = variant === 'light';
@@ -57,7 +63,9 @@ const light = variant === 'light';
               'text-sm font-body transition-colors',
               light ? 'text-foreground/80 hover:text-primary' : 'text-nav-foreground/70 hover:text-gold-light',
             ]}
-            data-cta="sticky-book"
+            data-cta={ctaId}
+            data-service={service}
+            data-placement="sticky-mobile"
           >
             {label}
           </a>
@@ -71,7 +79,10 @@ const light = variant === 'light';
                   'hidden sm:inline text-xs font-body transition-colors',
                   light ? 'text-muted-foreground hover:text-primary' : 'text-nav-foreground/45 hover:text-gold-light',
                 ]}
-                data-cta="sticky-whatsapp"
+                data-cta="whatsapp"
+                data-channel="whatsapp"
+                data-service={service}
+                data-placement="sticky-mobile"
               >
                 or WhatsApp
               </a>
@@ -107,7 +118,9 @@ const light = variant === 'light';
               'text-sm font-body transition-colors',
               light ? 'text-foreground/80 hover:text-primary' : 'text-nav-foreground/75 hover:text-gold-light',
             ]}
-            data-cta="sticky-book"
+            data-cta={ctaId}
+            data-service={service}
+            data-placement="sticky-desktop"
           >
             {label}
           </a>
@@ -140,7 +153,9 @@ const light = variant === 'light';
             'text-sm font-body transition-colors',
             light ? 'text-foreground/80 hover:text-primary' : 'text-nav-foreground/70 hover:text-gold-light',
           ]}
-          data-cta="sticky-book"
+          data-cta={ctaId}
+          data-service={service}
+          data-placement="sticky"
         >
           {label}
         </a>
@@ -154,7 +169,10 @@ const light = variant === 'light';
                 'hidden sm:inline text-xs font-body transition-colors',
                 light ? 'text-muted-foreground hover:text-primary' : 'text-nav-foreground/45 hover:text-gold-light',
               ]}
-              data-cta="sticky-whatsapp"
+              data-cta="whatsapp"
+              data-channel="whatsapp"
+              data-service={service}
+              data-placement="sticky"
             >
               or WhatsApp
             </a>

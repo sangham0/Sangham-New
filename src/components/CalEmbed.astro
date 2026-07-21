@@ -1,8 +1,9 @@
 ---
 interface Props {
   minHeight?: string;
+  service?: string;
 }
-const { minHeight = '600px' } = Astro.props;
+const { minHeight = '600px', service = 'adult-counselling' } = Astro.props;
 ---
 
 <div class="cal-embed-shell" style={`min-height: ${minHeight};`}>
@@ -15,7 +16,14 @@ const { minHeight = '600px' } = Astro.props;
   <div class="cal-embed-fallback" data-cal-fallback>
     <p>
       If the calendar does not load, you can
-      <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer">open the booking page directly</a>.
+      <a
+        href="https://cal.com/sangham/fit"
+        target="_blank"
+        rel="noopener noreferrer"
+        data-cta="calendar-fallback"
+        data-service={service}
+        data-placement="calendar-fallback"
+      >open the booking page directly</a>.
     </p>
   </div>
   <noscript>
@@ -64,21 +72,90 @@ const { minHeight = '600px' } = Astro.props;
   }
 </style>
 
-<script is:inline>
+<script is:inline define:vars={{ service }}>
 (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");
-Cal("init", "fit-call", { origin: "https://cal.com" });
-Cal.ns["fit-call"]("inline", { elementOrSelector: "#cal-inline-embed", calLink: "sangham/fit", layout: "month_view" });
-Cal.ns["fit-call"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
-Cal.ns["fit-call"]("on", {
-  action: "bookingSuccessful",
-  callback: function(e) {
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "fit_call_booked",
-      cal_event_slug: "fit",
-      cal_booking_uid: (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || ""
+
+var attribution = {};
+try {
+  attribution = JSON.parse(sessionStorage.getItem("sangham_attribution") || "{}");
+} catch (e) {}
+
+var calConfig = { layout: "month_view" };
+["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function(key) {
+  if (attribution[key]) calConfig[key] = attribution[key];
+});
+
+var fallback = document.querySelector("[data-cal-fallback] a");
+if (fallback) {
+  try {
+    var fallbackUrl = new URL(fallback.href);
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function(key) {
+      if (attribution[key]) fallbackUrl.searchParams.set(key, attribution[key]);
     });
-    window.location.href = "/thank-you-consultation";
+    fallback.href = fallbackUrl.toString();
+  } catch (e) {}
+}
+
+function calEventParameters() {
+  return {
+    page_path: window.location.pathname,
+    service: service,
+    placement: "cal-embed",
+    utm_source: attribution.utm_source || "",
+    utm_medium: attribution.utm_medium || "",
+    utm_campaign: attribution.utm_campaign || "",
+    utm_content: attribution.utm_content || "",
+    referral_code: attribution.ref || "",
+    initial_landing_page: attribution.initial_landing_page || window.location.pathname,
+    initial_referrer: attribution.initial_referrer || ""
+  };
+}
+
+Cal("init", "fit-call", { origin: "https://cal.com" });
+Cal.ns["fit-call"]("inline", {
+  elementOrSelector: "#cal-inline-embed",
+  calLink: "sangham/fit",
+  config: calConfig
+});
+Cal.ns["fit-call"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
+
+Cal.ns["fit-call"]("on", {
+  action: "bookerViewed",
+  callback: function(e) {
+    var viewedKey = "sangham_cal_booker_viewed:" + window.location.pathname;
+    try {
+      if (sessionStorage.getItem(viewedKey)) return;
+      sessionStorage.setItem(viewedKey, "1");
+    } catch (error) {}
+
+    window.dataLayer = window.dataLayer || [];
+    window.dataLayer.push(Object.assign({
+      event: "cal_booking_initiated",
+      cal_event_slug: "fit",
+      cal_event_type_id: (e && e.detail && e.detail.data && e.detail.data.eventId) || ""
+    }, calEventParameters()));
+  }
+});
+
+Cal.ns["fit-call"]("on", {
+  action: "bookingSuccessfulV2",
+  callback: function(e) {
+    var data = (e && e.detail && e.detail.data) || {};
+    var payload = {
+      booking_uid: data.uid || "",
+      booking_status: data.status || "",
+      event_type_id: data.eventTypeId || "",
+      event_slug: "fit"
+    };
+    var destination = "/thank-you-fit-call/";
+
+    try {
+      sessionStorage.setItem("sangham_pending_fit_call", JSON.stringify(payload));
+    } catch (error) {
+      destination += "?booking_confirmed=1";
+    }
+
+    window.location.assign(destination);
   }
 });
 </script>

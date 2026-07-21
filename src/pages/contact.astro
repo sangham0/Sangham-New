@@ -37,17 +37,38 @@ const jsonLd = [
   <section class="bg-background border-b border-border/30">
     <div class="container mx-auto px-6 py-12 max-w-4xl">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-        <a href="#cal-section" class="border border-primary/30 bg-primary/5 rounded-xl p-5 hover:border-primary/55 transition-colors">
+        <a
+          href="#cal-section"
+          class="border border-primary/30 bg-primary/5 rounded-xl p-5 hover:border-primary/55 transition-colors"
+          data-cta="book-fit-call"
+          data-service="counselling"
+          data-placement="contact-router"
+        >
           <p class="text-primary/60 text-xs tracking-widest uppercase font-body mb-2">Book</p>
           <h2 class="font-heading text-xl text-foreground mb-2">Free 15-minute fit call</h2>
           <p class="text-muted-foreground font-body text-sm leading-relaxed">Choose a time directly. No obligation to continue.</p>
         </a>
-        <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="border border-border/50 rounded-xl p-5 hover:border-primary/35 transition-colors">
+        <a
+          href="https://wa.me/27736738063"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="border border-border/50 rounded-xl p-5 hover:border-primary/35 transition-colors"
+          data-cta="whatsapp"
+          data-channel="whatsapp"
+          data-service="counselling"
+          data-placement="contact-router"
+        >
           <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-2">Message</p>
           <h2 class="font-heading text-xl text-foreground mb-2">WhatsApp</h2>
           <p class="text-muted-foreground font-body text-sm leading-relaxed">Send a brief message if a direct conversation is easier.</p>
         </a>
-        <a href="#written-enquiry" class="border border-border/50 rounded-xl p-5 hover:border-primary/35 transition-colors">
+        <a
+          href="#written-enquiry"
+          class="border border-border/50 rounded-xl p-5 hover:border-primary/35 transition-colors"
+          data-cta="written-enquiry"
+          data-service="counselling"
+          data-placement="contact-router"
+        >
           <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-2">Write</p>
           <h2 class="font-heading text-xl text-foreground mb-2">Written enquiry</h2>
           <p class="text-muted-foreground font-body text-sm leading-relaxed">Share what brings you here and receive a reply within 1 to 2 business days.</p>
@@ -72,7 +93,7 @@ const jsonLd = [
       </p>
 
       <div class="border border-border/40 rounded-xl overflow-hidden">
-        <CalEmbed minHeight="650px" />
+        <CalEmbed minHeight="650px" service="adult-counselling" />
       </div>
 
     </div>
@@ -111,6 +132,10 @@ const jsonLd = [
         <a
           href="mailto:ramarishi@sangham.org"
           class="flex items-center gap-4 p-5 border border-header-foreground/10 rounded-lg hover:border-primary/30 transition-all duration-300 group"
+          data-cta="email"
+          data-channel="email"
+          data-service="counselling"
+          data-placement="contact-details"
         >
           <svg class="w-5 h-5 text-primary/40 group-hover:text-primary/70 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
@@ -126,6 +151,10 @@ const jsonLd = [
           target="_blank"
           rel="noopener noreferrer"
           class="flex items-center gap-4 p-5 border border-header-foreground/10 rounded-lg hover:border-primary/30 transition-all duration-300 group"
+          data-cta="whatsapp"
+          data-channel="whatsapp"
+          data-service="counselling"
+          data-placement="contact-details"
         >
           <svg class="w-5 h-5 text-primary/40 group-hover:text-primary/70 transition-colors shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5">
             <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 0 1-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25Z" />
@@ -160,10 +189,18 @@ const jsonLd = [
 
       <!-- Contact Form -->
       <div id="contact-form-container">
-        <form id="contact-form" class="space-y-6">
+        <form id="contact-form" class="space-y-6" data-form="written-enquiry">
           <h3 class="font-heading text-xl text-header-foreground/85 text-center mb-2">
             Send an Enquiry
           </h3>
+
+          <input type="hidden" name="attribution_utm_source" value="" />
+          <input type="hidden" name="attribution_utm_medium" value="" />
+          <input type="hidden" name="attribution_utm_campaign" value="" />
+          <input type="hidden" name="attribution_utm_content" value="" />
+          <input type="hidden" name="attribution_ref" value="" />
+          <input type="hidden" name="attribution_initial_landing_page" value="" />
+          <input type="hidden" name="attribution_initial_referrer" value="" />
 
           <div>
             <label for="name" class="block text-sm font-body text-header-foreground/50 mb-2">
@@ -247,6 +284,8 @@ const jsonLd = [
             Send Enquiry
           </button>
 
+          <p id="form-error" class="hidden text-sm text-red-200/80 font-body text-center" role="alert" tabindex="-1"></p>
+
           <p class="text-xs text-header-foreground/35 font-body text-center">
             You'll receive a response within 1-2 business days. Your enquiry is treated in confidence and used only to respond to your message.
           </p>
@@ -264,6 +303,10 @@ const jsonLd = [
           rel="noopener noreferrer"
           class="inline-flex items-center justify-center gap-3 px-8 py-3 rounded-lg text-sm font-body font-medium text-white transition-all duration-300 hover:scale-105"
           style="background-color: #25D366;"
+          data-cta="whatsapp"
+          data-channel="whatsapp"
+          data-service="counselling"
+          data-placement="contact-form-alternative"
         >
           <svg class="w-5 h-5" viewBox="0 0 24 24" fill="currentColor">
             <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
@@ -278,6 +321,8 @@ const jsonLd = [
 </BaseLayout>
 
 <script>
+  import { appendAttribution, pushDataLayer, storePendingConversion } from '../scripts/tracking';
+
   // Pre-select enquiry type from query param
   const params = new URLSearchParams(window.location.search);
   if (params.get('enquiry') === 'workshop-group') {
@@ -288,19 +333,23 @@ const jsonLd = [
   const form = document.getElementById('contact-form') as HTMLFormElement;
   const container = document.getElementById('contact-form-container')!;
   const submitBtn = document.getElementById('submit-btn') as HTMLButtonElement;
+  const formError = document.getElementById('form-error') as HTMLParagraphElement;
 
   form.addEventListener('submit', async (e) => {
     e.preventDefault();
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
+    formError.classList.add('hidden');
 
-    const data = new FormData(form);
+    const enquiryType = (document.getElementById('enquiry_type') as HTMLSelectElement)?.value || 'unknown';
+    const data = appendAttribution(new FormData(form));
+    pushDataLayer('written_enquiry_submit', { enquiry_type: enquiryType });
 
     // Honeypot check: if filled, silently reject (bot submission)
     const honeypot = (document.getElementById('website_url') as HTMLInputElement)?.value;
     if (honeypot) {
       // Fake success to avoid revealing the trap
-      window.location.href = '/thank-you-consultation';
+      window.location.href = '/thank-you-enquiry/';
       return;
     }
 
@@ -324,21 +373,23 @@ const jsonLd = [
       });
 
       if (response.ok) {
-        window.location.href = '/thank-you-consultation';
+        let destination = '/thank-you-enquiry/';
+        const stored = storePendingConversion('sangham_pending_enquiry', { enquiry_type: enquiryType });
+        if (!stored) destination += '?enquiry_received=1';
+        window.location.assign(destination);
       } else {
-        throw new Error('Submission failed');
+        throw new Error(`formspree_${response.status}`);
       }
-    } catch {
-      container.innerHTML = `
-        <div class="text-center py-8">
-          <h3 class="font-heading text-xl text-header-foreground/85 mb-4">Something went wrong</h3>
-          <p class="text-header-foreground/60 font-body leading-relaxed">
-            Something went wrong. Please email
-            <a href="mailto:ramarishi@sangham.org" class="text-primary/70 hover:text-primary transition-colors">ramarishi@sangham.org</a>
-            directly.
-          </p>
-        </div>
-      `;
+    } catch (error) {
+      pushDataLayer('written_enquiry_failure', {
+        enquiry_type: enquiryType,
+        error_type: error instanceof Error ? error.message : 'unknown',
+      });
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Enquiry';
+      formError.textContent = 'Something went wrong. Please try again, or email ramarishi@sangham.org directly.';
+      formError.classList.remove('hidden');
+      formError.focus();
     }
   });
 </script>

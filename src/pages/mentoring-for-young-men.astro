@@ -175,7 +175,7 @@ const jsonLd = [
 
 <BaseLayout
   title="Mentoring for Young Men (Ages 18 to 25)"
-  description="A grounded space to meet yourself honestly. Reflective counselling and developmental mentorship for men aged 18 to 25. ASCHP registered. Online worldwide."
+  description="Reflective counselling and developmental mentorship for young men aged 18 to 25. A grounded place to work with direction, identity, and emotional steadiness."
   canonicalURL={canonicalURL}
   image="/images/og-mentoring-young-men.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
@@ -207,6 +207,9 @@ const jsonLd = [
 
           <a
             href="#book-call"
+            data-cta="book-fit-call"
+            data-service="young-men"
+            data-placement="hero"
             class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-6"
           >
             Book a free 15-minute fit call
@@ -482,6 +485,9 @@ const jsonLd = [
       <div>
         <a
           href="#book-call"
+          data-cta="book-fit-call"
+          data-service="young-men"
+          data-placement="mid-page"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
         >
           Book a free 15-minute fit call
@@ -820,6 +826,9 @@ const jsonLd = [
 
       <a
         href="#cal-fit-embed"
+        data-cta="book-fit-call"
+        data-service="young-men"
+        data-placement="booking-section"
         class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-6"
       >
         Book a free 15-minute fit call
@@ -832,7 +841,7 @@ const jsonLd = [
       <div id="cal-fit-embed" class="mb-14"></div>
 
       <p class="text-parchment/55 text-xs font-body mb-10">
-        If the calendar does not load, <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer" class="text-primary/75 hover:text-primary underline underline-offset-2 decoration-primary/30">open the booking page directly</a>.
+        If the calendar does not load, <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer" class="text-primary/75 hover:text-primary underline underline-offset-2 decoration-primary/30" data-cta="calendar-fallback" data-service="young-men" data-placement="calendar-fallback">open the booking page directly</a>.
       </p>
 
       <p class="font-body text-sm text-parchment/55 leading-relaxed max-w-2xl mb-10">
@@ -883,6 +892,9 @@ const jsonLd = [
       <div class="mt-14 text-center">
         <a
           href="#book-call"
+          data-cta="book-fit-call"
+          data-service="young-men"
+          data-placement="faq-close"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-4"
         >
           Book a free 15-minute fit call
@@ -928,15 +940,75 @@ const jsonLd = [
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
+    var attribution = {};
+    try { attribution = JSON.parse(sessionStorage.getItem("sangham_attribution") || "{}"); } catch (e) {}
+    var calConfig = { layout: "month_view" };
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+      if (attribution[key]) calConfig[key] = attribution[key];
+    });
+
+    var fallback = document.querySelector('a[data-cta="calendar-fallback"]');
+    if (fallback) {
+      try {
+        var fallbackUrl = new URL(fallback.href);
+        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+          if (attribution[key]) fallbackUrl.searchParams.set(key, attribution[key]);
+        });
+        fallback.href = fallbackUrl.toString();
+      } catch (e) {}
+    }
+
+    function calParameters() {
+      return {
+        page_path: window.location.pathname,
+        service: "young-men",
+        placement: "cal-embed",
+        utm_source: attribution.utm_source || "",
+        utm_medium: attribution.utm_medium || "",
+        utm_campaign: attribution.utm_campaign || "",
+        utm_content: attribution.utm_content || "",
+        referral_code: attribution.ref || "",
+        initial_landing_page: attribution.initial_landing_page || window.location.pathname,
+        initial_referrer: attribution.initial_referrer || ""
+      };
+    }
+
     Cal("init", "fit-call", { origin: "https://cal.com" });
-    Cal.ns["fit-call"]("inline", { elementOrSelector: "#cal-fit-embed", calLink: "sangham/fit", layout: "month_view" });
+    Cal.ns["fit-call"]("inline", { elementOrSelector: "#cal-fit-embed", calLink: "sangham/fit", config: calConfig });
     Cal.ns["fit-call"]("ui", { theme: "dark", hideEventTypeDetails: false, layout: "month_view" });
     Cal.ns["fit-call"]("on", {
-      action: "bookingSuccessful",
+      action: "bookerViewed",
       callback: function (e) {
+        var viewedKey = "sangham_cal_booker_viewed:young-men";
+        try {
+          if (sessionStorage.getItem(viewedKey)) return;
+          sessionStorage.setItem(viewedKey, "1");
+        } catch (error) {}
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "fit_call_booked", cal_event_slug: "fit", cal_booking_uid: (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "" });
-        window.location.href = "/thank-you-consultation";
+        window.dataLayer.push(Object.assign({
+          event: "cal_booking_initiated",
+          booking_type: "fit-call",
+          cal_event_slug: "fit",
+          cal_event_type_id: (e && e.detail && e.detail.data && e.detail.data.eventId) || ""
+        }, calParameters()));
+      },
+    });
+    Cal.ns["fit-call"]("on", {
+      action: "bookingSuccessfulV2",
+      callback: function (e) {
+        var data = (e && e.detail && e.detail.data) || {};
+        var destination = "/thank-you-fit-call/";
+        try {
+          sessionStorage.setItem("sangham_pending_fit_call", JSON.stringify({
+            booking_uid: data.uid || "",
+            booking_status: data.status || "",
+            event_type_id: data.eventTypeId || "",
+            event_slug: "fit"
+          }));
+        } catch (error) {
+          destination += "?booking_confirmed=1";
+        }
+        window.location.assign(destination);
       },
     });
   </script>
@@ -949,5 +1021,6 @@ const jsonLd = [
   variant="dark"
   whatsappHref="https://wa.me/27736738063"
   desktopFloating={true}
+  service="young-men"
 />
 </BaseLayout>

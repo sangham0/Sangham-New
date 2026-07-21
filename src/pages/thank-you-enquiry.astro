@@ -1,0 +1,63 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+---
+
+<BaseLayout
+  title="Your enquiry has been received"
+  description="Your written enquiry has been received by Sangham."
+  noNav={true}
+  hideStickyBar={true}
+>
+  <meta name="robots" content="noindex, nofollow" slot="head" />
+
+  <section class="-mt-[72px] pt-[72px] min-h-screen bg-header text-header-foreground flex items-center">
+    <div class="container mx-auto px-6 py-20 max-w-xl text-center">
+      <div class="divider-gold w-16 mx-auto mb-10"></div>
+
+      <p class="font-body text-xs tracking-[0.22em] uppercase text-primary/70 mb-4">Message received</p>
+      <h1 class="font-heading text-3xl md:text-4xl text-parchment/90 leading-snug mb-6">
+        Thank you. Your enquiry has been received.
+      </h1>
+
+      <div class="space-y-5 font-body text-base text-parchment/60 leading-relaxed max-w-lg mx-auto">
+        <p>
+          Michael normally replies within 1 to 2 business days. Please check your spam or junk folder if you have not seen a response by then.
+        </p>
+        <p>
+          If the matter is time-sensitive but not an emergency, you are welcome to send a brief WhatsApp message as well.
+        </p>
+      </div>
+
+      <a
+        href="https://wa.me/27736738063"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="inline-flex items-center justify-center mt-9 px-7 py-3 bg-primary text-primary-foreground hover:bg-gold-light transition-colors rounded-lg text-sm font-body"
+        data-cta="whatsapp"
+        data-channel="whatsapp"
+        data-service="counselling"
+        data-placement="enquiry-confirmation"
+      >WhatsApp Michael</a>
+
+      <p class="font-body text-xs text-parchment/35 leading-relaxed mt-9 max-w-md mx-auto">
+        Sangham is not an emergency service. If you are in immediate danger or acute crisis, contact local emergency or crisis services where you are.
+      </p>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  import { consumePendingConversion, pushDataLayer } from '../scripts/tracking';
+
+  const pending = consumePendingConversion('sangham_pending_enquiry');
+  const params = new URLSearchParams(window.location.search);
+  const storageFallback = params.get('enquiry_received') === '1';
+
+  if (pending || storageFallback) {
+    if (storageFallback) history.replaceState({}, '', window.location.pathname);
+    pushDataLayer('written_enquiry_success', {
+      enquiry_type: String(pending?.enquiry_type || 'unknown'),
+      confirmation_method: pending ? 'session_marker' : 'url_fallback',
+    });
+  }
+</script>

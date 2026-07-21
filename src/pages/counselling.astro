@@ -2,12 +2,15 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import FAQ from '../components/FAQ.astro';
+import AttributionFields from '../components/AttributionFields.astro';
 import { Image } from 'astro:assets';
 import mountainLake from '../assets/mountain-lake.jpg';
 import twilightCoast from '../assets/twilight-coast.jpg';
 import forestPond from '../assets/forest-pond.jpg';
 import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
 import bernardAltmanPortrait from '../assets/bernard-altman-portrait.jpg';
+
+const canonicalURL = 'https://www.sangham.org/counselling/';
 
 const jsonLd = [
   {
@@ -173,8 +176,10 @@ const faqJsonLd = {
 ---
 
 <BaseLayout
-  title="Online Counselling | The Five-Session Process"
-  description="A structured five-session wellness counselling process for people who understand their patterns but still feel caught in them. Online worldwide."
+  title="Online Counselling for Adults"
+  description="Grounded online counselling for adults who understand their patterns but still feel caught in them. Begin with a free 15-minute fit call."
+  canonicalURL={canonicalURL}
+  image="/images/og-counselling.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
 >
 
@@ -198,7 +203,7 @@ const faqJsonLd = {
         </p>
         <p class="text-sm text-muted-foreground/60">
           Not sure if this is right for you?
-          <a href="/contact#cal-section" class="text-primary/70 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">Book a free 15-minute fit call.</a>
+          <a href="/contact#cal-section" class="text-primary/70 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20" data-cta="book-fit-call" data-service="adult-counselling" data-placement="opening">Book a free 15-minute fit call.</a>
         </p>
       </div>
     </div>
@@ -229,7 +234,7 @@ const faqJsonLd = {
         </div>
       </div>
       <div class="text-center mt-9">
-        <a href="/contact#cal-section" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body">
+        <a href="/contact#cal-section" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body" data-cta="book-fit-call" data-service="adult-counselling" data-placement="starting-steps">
           Book a free 15-minute fit call
         </a>
       </div>
@@ -587,6 +592,9 @@ const faqJsonLd = {
       <div class="flex flex-col sm:flex-row gap-4 justify-center">
         <a
           href="/contact#cal-section"
+          data-cta="book-fit-call"
+          data-service="adult-counselling"
+          data-placement="closing"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
         >
           Book a free 15-minute fit call
@@ -600,7 +608,7 @@ const faqJsonLd = {
         </a>
       </div>
       <p class="text-parchment/55 text-sm font-body mt-6">
-        Or <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="text-parchment/60 hover:text-parchment/85 transition-colors underline underline-offset-2 decoration-parchment/20">message on WhatsApp</a>.
+        Or <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="text-parchment/60 hover:text-parchment/85 transition-colors underline underline-offset-2 decoration-parchment/20" data-cta="whatsapp" data-channel="whatsapp" data-service="adult-counselling" data-placement="closing">message on WhatsApp</a>.
       </p>
     </div>
   </section>
@@ -623,9 +631,10 @@ const faqJsonLd = {
         Leave your email and I'll send a short, plain-language overview of how the process works and what to expect from the initial consultation.
       </p>
       <div id="counselling-overview-container" class="max-w-xs mx-auto">
-        <form id="counselling-overview-form" class="flex gap-2">
+        <form id="counselling-overview-form" class="flex gap-2" data-form="resource-request">
           <input type="hidden" name="_subject" value="Counselling overview request | Sangham" />
           <input type="hidden" name="note" value="Requested the process overview from the counselling page" />
+          <AttributionFields />
           <input
             type="email"
             name="email"
@@ -647,12 +656,14 @@ const faqJsonLd = {
 </BaseLayout>
 
 <script>
+  import { appendAttribution, pushDataLayer } from '../scripts/tracking';
+
   const form = document.getElementById('counselling-overview-form') as HTMLFormElement | null;
   const container = document.getElementById('counselling-overview-container');
   if (form && container) {
     form.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const data = new FormData(form);
+      const data = appendAttribution(new FormData(form));
       try {
         const response = await fetch('https://formspree.io/f/mojpzywj', {
           method: 'POST',
@@ -660,11 +671,16 @@ const faqJsonLd = {
           headers: { Accept: 'application/json' },
         });
         if (response.ok) {
+          pushDataLayer('resource_request_success', { resource: 'counselling-overview' });
           container.innerHTML = `<p class="font-body text-sm text-header-foreground/50 text-center">Thank you. A brief overview will be sent to your inbox.</p>`;
         } else {
-          throw new Error('Submission failed');
+          throw new Error(`formspree_${response.status}`);
         }
-      } catch {
+      } catch (error) {
+        pushDataLayer('resource_request_failure', {
+          resource: 'counselling-overview',
+          error_type: error instanceof Error ? error.message : 'unknown',
+        });
         container.innerHTML = `<p class="font-body text-sm text-header-foreground/50 text-center">Something went wrong. Please email <a href="mailto:ramarishi@sangham.org" class="text-primary/70 hover:text-primary transition-colors">ramarishi@sangham.org</a>.</p>`;
       }
     });

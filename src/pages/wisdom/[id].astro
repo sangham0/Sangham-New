@@ -28,12 +28,12 @@ const isMeditationArticle =
   data.tags.includes('breathwork');
 
 const relatedService = data.tags.includes('teenagers')
-  ? { href: '/mentoring-for-adolescents', label: 'Mentoring for teenage boys' }
+  ? { href: '/mentoring-for-adolescents', label: 'Mentoring for teenage boys', id: 'teenage-boys' }
   : data.tags.includes('young-men')
-    ? { href: '/mentoring-for-young-men', label: 'Mentoring for young men' }
+    ? { href: '/mentoring-for-young-men', label: 'Mentoring for young men', id: 'young-men' }
     : isMeditationArticle
-      ? { href: '/counselling-for-meditators', label: 'Counselling for meditators' }
-      : { href: '/counselling', label: 'Online wellness counselling' };
+      ? { href: '/counselling-for-meditators', label: 'Counselling for meditators', id: 'meditators' }
+      : { href: '/counselling', label: 'Online wellness counselling', id: 'adult-counselling' };
 
 const isCounsellingQueryArticle =
   data.tags.some((tag) => ['counselling', 'mentoring', 'online-counselling'].includes(tag)) ||
@@ -156,6 +156,9 @@ const jsonLd = [
         </p>
         <a
           href="/contact"
+          data-cta="book-fit-call"
+          data-article-service={relatedService.id}
+          data-placement="article-closing"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
         >
           Book a free 15-minute fit call
@@ -163,7 +166,7 @@ const jsonLd = [
         </a>
         <p class="text-muted-foreground/70 font-body text-sm leading-relaxed max-w-lg mx-auto mt-6">
           The most relevant service for this topic is
-          <a href={relatedService.href} class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30 transition-colors">{relatedService.label}</a>.
+          <a href={relatedService.href} class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30 transition-colors" data-cta="article-service" data-service={relatedService.id} data-placement="article-related-service">{relatedService.label}</a>.
         </p>
       </div>
 

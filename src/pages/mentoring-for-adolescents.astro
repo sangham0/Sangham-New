@@ -650,7 +650,7 @@ const jsonLd = [
 
 <BaseLayout
   title="Mentoring for Teenagers (Ages 12 to 17)"
-  description="Developmental mentorship and reflective counselling for teenage boys aged 12 to 17, with a clear guide for parent involvement. Online worldwide."
+  description="Reflective counselling and developmental mentorship for teenage boys aged 12 to 17, with clear boundaries around parent involvement. Online worldwide."
   canonicalURL={canonicalURL}
   image="/images/og-mentoring-adolescents.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
@@ -696,6 +696,9 @@ const jsonLd = [
           <div class="flex flex-col sm:flex-row sm:items-center gap-5 mb-8">
             <a
               href="#parental-cal"
+              data-cta="book-parent-consultation"
+              data-service="teenage-boys"
+              data-placement="hero"
               class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
             >
               Book a Parent Consultation
@@ -703,7 +706,7 @@ const jsonLd = [
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors">
+            <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors" data-cta="book-fit-call" data-service="teenage-boys" data-placement="hero-secondary">
               Book a free 15-minute fit call
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -981,6 +984,9 @@ const jsonLd = [
       <div class="flex flex-col sm:flex-row sm:items-center gap-5">
         <a
           href="#parental-cal"
+          data-cta="book-parent-consultation"
+          data-service="teenage-boys"
+          data-placement="process"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
         >
           Book a Parent Consultation
@@ -988,7 +994,7 @@ const jsonLd = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors">
+        <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors" data-cta="book-fit-call" data-service="teenage-boys" data-placement="process-secondary">
           Or book a free 15-minute fit call
         </a>
       </div>
@@ -1408,7 +1414,7 @@ const jsonLd = [
 
       <p class="font-body text-sm text-parchment/60 leading-relaxed max-w-xl mb-14">
         Not yet sure whether to book the consultation? A
-        <a href="#fit-cal" class="text-primary/80 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/30">free 15-minute fit call</a>
+        <a href="#fit-cal" class="text-primary/80 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/30" data-cta="book-fit-call" data-service="teenage-boys" data-placement="commitment-introduction">free 15-minute fit call</a>
         is available before any paid step.
       </p>
 
@@ -1493,6 +1499,9 @@ const jsonLd = [
       <div class="flex flex-col sm:flex-row sm:items-center gap-5">
         <a
           href="#parental-cal"
+          data-cta="book-parent-consultation"
+          data-service="teenage-boys"
+          data-placement="mid-page"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
         >
           Book a Parent Consultation
@@ -1500,7 +1509,7 @@ const jsonLd = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors">
+        <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors" data-cta="book-fit-call" data-service="teenage-boys" data-placement="mid-page-secondary">
           Book a free 15-minute fit call
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
@@ -1548,14 +1557,14 @@ const jsonLd = [
       </div>
 
       <p class="text-[#1A1F2E]/55 text-sm font-body leading-relaxed mb-3">
-        If the calendar does not load, <a href="https://cal.com/sangham/parental-consultation" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/75 hover:text-[#1A1F2E] underline underline-offset-2 decoration-[#1A1F2E]/20">open the parent consultation booking page directly</a>.
+        If the calendar does not load, <a href="https://cal.com/sangham/parental-consultation" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/75 hover:text-[#1A1F2E] underline underline-offset-2 decoration-[#1A1F2E]/20" data-cta="calendar-fallback" data-service="teenage-boys" data-placement="parent-calendar-fallback">open the parent consultation booking page directly</a>.
       </p>
 
       <p class="text-[#1A1F2E]/55 text-sm font-body leading-relaxed">
         If a slot doesn't suit your timezone or schedule, reach out via
         <a href="/contact" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15">the contact form</a>
         or
-        <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15">WhatsApp</a>.
+        <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15" data-cta="whatsapp" data-channel="whatsapp" data-service="teenage-boys" data-placement="booking-alternative">WhatsApp</a>.
       </p>
 
     </div>
@@ -1578,7 +1587,7 @@ const jsonLd = [
         <div id="cal-fit-embed"></div>
       </div>
       <p class="text-[#1A1F2E]/55 text-sm font-body leading-relaxed mt-4">
-        If the calendar does not load, <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/75 hover:text-[#1A1F2E] underline underline-offset-2 decoration-[#1A1F2E]/20">open the fit call booking page directly</a>.
+        If the calendar does not load, <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/75 hover:text-[#1A1F2E] underline underline-offset-2 decoration-[#1A1F2E]/20" data-cta="calendar-fallback" data-service="teenage-boys" data-placement="fit-calendar-fallback">open the fit call booking page directly</a>.
       </p>
     </div>
   </section>
@@ -1648,6 +1657,9 @@ const jsonLd = [
       <div class="text-center space-y-5">
         <a
           href="#parental-cal"
+          data-cta="book-parent-consultation"
+          data-service="teenage-boys"
+          data-placement="parent-section"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
         >
           Book a Parent Consultation
@@ -1656,7 +1668,7 @@ const jsonLd = [
           </svg>
         </a>
         <div>
-          <a href="#fit-cal" class="inline-flex items-center justify-center gap-1.5 text-header-foreground/42 hover:text-header-foreground/72 text-sm font-body transition-colors">
+          <a href="#fit-cal" class="inline-flex items-center justify-center gap-1.5 text-header-foreground/42 hover:text-header-foreground/72 text-sm font-body transition-colors" data-cta="book-fit-call" data-service="teenage-boys" data-placement="parent-section-secondary">
             Or book a free 15-minute fit call
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </a>
@@ -1695,6 +1707,9 @@ const jsonLd = [
       <div class="flex flex-col sm:flex-row items-center justify-center gap-5">
         <a
           href="#parental-cal"
+          data-cta="book-parent-consultation"
+          data-service="teenage-boys"
+          data-placement="closing"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
         >
           Book a Parent Consultation
@@ -1702,7 +1717,7 @@ const jsonLd = [
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
         </a>
-        <a href="#fit-cal" class="text-primary/60 hover:text-primary text-sm font-body transition-colors">
+        <a href="#fit-cal" class="text-primary/60 hover:text-primary text-sm font-body transition-colors" data-cta="book-fit-call" data-service="teenage-boys" data-placement="closing-secondary">
           Book a free 15-minute fit call
         </a>
       </div>
@@ -1741,26 +1756,107 @@ const jsonLd = [
       };
     })(window, "https://app.cal.com/embed/embed.js", "init");
 
+    var attribution = {};
+    try { attribution = JSON.parse(sessionStorage.getItem("sangham_attribution") || "{}"); } catch (e) {}
+    var calConfig = { layout: "month_view" };
+    ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+      if (attribution[key]) calConfig[key] = attribution[key];
+    });
+
+    document.querySelectorAll('a[data-cta="calendar-fallback"]').forEach(function (fallback) {
+      try {
+        var fallbackUrl = new URL(fallback.href);
+        ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+          if (attribution[key]) fallbackUrl.searchParams.set(key, attribution[key]);
+        });
+        fallback.href = fallbackUrl.toString();
+      } catch (e) {}
+    });
+
+    function calParameters(bookingType) {
+      return {
+        page_path: window.location.pathname,
+        service: "teenage-boys",
+        placement: "cal-embed",
+        booking_type: bookingType,
+        utm_source: attribution.utm_source || "",
+        utm_medium: attribution.utm_medium || "",
+        utm_campaign: attribution.utm_campaign || "",
+        utm_content: attribution.utm_content || "",
+        referral_code: attribution.ref || "",
+        initial_landing_page: attribution.initial_landing_page || window.location.pathname,
+        initial_referrer: attribution.initial_referrer || ""
+      };
+    }
+
     Cal("init", "parental-consultation", { origin: "https://cal.com" });
-    Cal.ns["parental-consultation"]("inline", { elementOrSelector: "#cal-parental-embed", calLink: "sangham/parental-consultation", layout: "month_view" });
+    Cal.ns["parental-consultation"]("inline", { elementOrSelector: "#cal-parental-embed", calLink: "sangham/parental-consultation", config: calConfig });
     Cal.ns["parental-consultation"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
     Cal.ns["parental-consultation"]("on", {
-      action: "bookingSuccessful",
+      action: "bookerViewed",
       callback: function (e) {
+        var viewedKey = "sangham_cal_booker_viewed:parental-consultation";
+        try {
+          if (sessionStorage.getItem(viewedKey)) return;
+          sessionStorage.setItem(viewedKey, "1");
+        } catch (error) {}
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "parental_consultation_booked", cal_event_slug: "parental-consultation", cal_booking_uid: (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "" });
+        window.dataLayer.push(Object.assign({
+          event: "cal_booking_initiated",
+          cal_event_slug: "parental-consultation",
+          cal_event_type_id: (e && e.detail && e.detail.data && e.detail.data.eventId) || ""
+        }, calParameters("parental-consultation")));
+      },
+    });
+    Cal.ns["parental-consultation"]("on", {
+      action: "bookingSuccessfulV2",
+      callback: function (e) {
+        var data = (e && e.detail && e.detail.data) || {};
+        window.dataLayer = window.dataLayer || [];
+        window.dataLayer.push(Object.assign({
+          event: "parental_consultation_booked",
+          cal_event_slug: "parental-consultation",
+          booking_status: data.status || "",
+          cal_event_type_id: data.eventTypeId || ""
+        }, calParameters("parental-consultation")));
       },
     });
 
     Cal("init", "fit-call", { origin: "https://cal.com" });
-    Cal.ns["fit-call"]("inline", { elementOrSelector: "#cal-fit-embed", calLink: "sangham/fit", layout: "month_view" });
+    Cal.ns["fit-call"]("inline", { elementOrSelector: "#cal-fit-embed", calLink: "sangham/fit", config: calConfig });
     Cal.ns["fit-call"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
     Cal.ns["fit-call"]("on", {
-      action: "bookingSuccessful",
+      action: "bookerViewed",
       callback: function (e) {
+        var viewedKey = "sangham_cal_booker_viewed:teenage-fit-call";
+        try {
+          if (sessionStorage.getItem(viewedKey)) return;
+          sessionStorage.setItem(viewedKey, "1");
+        } catch (error) {}
         window.dataLayer = window.dataLayer || [];
-        window.dataLayer.push({ event: "fit_call_booked", cal_event_slug: "fit", cal_booking_uid: (e && e.detail && e.detail.data && e.detail.data.booking && e.detail.data.booking.uid) || "" });
-        window.location.href = "/thank-you-consultation";
+        window.dataLayer.push(Object.assign({
+          event: "cal_booking_initiated",
+          cal_event_slug: "fit",
+          cal_event_type_id: (e && e.detail && e.detail.data && e.detail.data.eventId) || ""
+        }, calParameters("fit-call")));
+      },
+    });
+    Cal.ns["fit-call"]("on", {
+      action: "bookingSuccessfulV2",
+      callback: function (e) {
+        var data = (e && e.detail && e.detail.data) || {};
+        var destination = "/thank-you-fit-call/";
+        try {
+          sessionStorage.setItem("sangham_pending_fit_call", JSON.stringify({
+            booking_uid: data.uid || "",
+            booking_status: data.status || "",
+            event_type_id: data.eventTypeId || "",
+            event_slug: "fit"
+          }));
+        } catch (error) {
+          destination += "?booking_confirmed=1";
+        }
+        window.location.assign(destination);
       },
     });
   </script>
@@ -1814,5 +1910,7 @@ const jsonLd = [
   variant="dark"
   whatsappHref="https://wa.me/27736738063"
   desktopFloating={true}
+  service="teenage-boys"
+  ctaId="book-parent-consultation"
 />
 </BaseLayout>
