@@ -3,7 +3,7 @@
 Sangham.org is the public platform of Michael Kaplan (Swami Ramarishi), an ASCHP-registered
 Wellness Counsellor (Reg. No. 10559, South Africa). The site presents four offers: online
 counselling for adults, counselling specifically for meditators and contemplative practitioners,
-mentorship for young men aged 18-25, and parent-facing mentorship for adolescent boys aged 12-17.
+mentorship for young men aged 18-25, and mentorship for teenage boys aged 12-17 with a parent-facing information and enrolment page.
 It is a static site with no server-side logic; all dynamic behaviour (booking, forms, analytics)
 is handled by third-party embeds.
 

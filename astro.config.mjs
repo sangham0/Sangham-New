@@ -4,6 +4,7 @@ import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
 
 const SITE = 'https://www.sangham.org';
+const LAST_SIGNIFICANT_UPDATE = '2026-07-21';
 
 // https://astro.build/config
 export default defineConfig({
@@ -20,18 +21,21 @@ export default defineConfig({
         !page.includes('/thank-you-consultation'),
       serialize(item) {
         const url = item.url;
+        const updatedItem = { ...item, lastmod: LAST_SIGNIFICANT_UPDATE };
 
-        // Homepage — highest priority, checked weekly
+        // Homepage: highest priority, checked weekly
         if (url === `${SITE}/`) {
-          return { ...item, changefreq: 'weekly', priority: 1.0 };
+          return { ...updatedItem, changefreq: 'weekly', priority: 1.0 };
         }
 
         // Primary commercial pages
         if (
           url.startsWith(`${SITE}/counselling`) ||
-          url.startsWith(`${SITE}/mentoring-for-young-men`)
+          url.startsWith(`${SITE}/mentoring-for-young-men`) ||
+          url.startsWith(`${SITE}/mentoring-for-adolescents`) ||
+          url.startsWith(`${SITE}/online-counselling-south-africa`)
         ) {
-          return { ...item, changefreq: 'monthly', priority: 0.9 };
+          return { ...updatedItem, changefreq: 'monthly', priority: 0.9 };
         }
 
         // High-value supporting pages
@@ -41,28 +45,28 @@ export default defineConfig({
           url.startsWith(`${SITE}/workshops`) ||
           url.startsWith(`${SITE}/practices`)
         ) {
-          return { ...item, changefreq: 'monthly', priority: 0.8 };
+          return { ...updatedItem, changefreq: 'monthly', priority: 0.8 };
         }
 
-        // Wisdom index — updated as new essays publish
+        // Wisdom index: updated as new essays publish
         if (url === `${SITE}/wisdom/`) {
-          return { ...item, changefreq: 'weekly', priority: 0.75 };
+          return { ...updatedItem, changefreq: 'weekly', priority: 0.75 };
         }
 
         // Individual essays and practice guides
         if (url.startsWith(`${SITE}/wisdom/`)) {
-          return { ...item, changefreq: 'monthly', priority: 0.65 };
+          return { ...updatedItem, changefreq: 'monthly', priority: 0.65 };
         }
 
-        // Scope and privacy — rarely change
+        // Scope and privacy: rarely change
         if (
           url.startsWith(`${SITE}/scope`) ||
           url.startsWith(`${SITE}/privacy`)
         ) {
-          return { ...item, changefreq: 'yearly', priority: 0.3 };
+          return { ...updatedItem, changefreq: 'yearly', priority: 0.3 };
         }
 
-        return item;
+        return updatedItem;
       },
     }),
   ],

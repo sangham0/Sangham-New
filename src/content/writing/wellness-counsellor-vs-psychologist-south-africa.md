@@ -1,18 +1,20 @@
 ---
 title: "Wellness Counsellor vs Psychologist in South Africa: What Is the Difference, and Which Do You Need?"
 excerpt: "A plain account of how psychologists, registered counsellors, psychiatrists, and wellness counsellors differ in South Africa, and which form of support is right for what."
-publishedDate: "2026-06-12"
-dateLabel: "June 2026"
+publishedDate: "2026-07-21"
+dateLabel: "July 2026"
 category: "essay"
 tags: ["psychology"]
 categories: ["psychology"]
 notebook: false
-draft: true
+draft: false
 ---
 
 If you are trying to decide between a psychologist and a wellness counsellor in South Africa, the most useful thing this page can do is give you a straight answer rather than a sales pitch for any particular option. The answer depends on what you are dealing with, and the categories involved are more distinct than they might initially appear.
 
 South Africa has a relatively well-defined regulatory landscape for mental health and counselling services, though it is not always easy to navigate from the outside. What follows is an attempt to lay it out clearly.
+
+For the practical details of this specific service, including current rand fees and online format, see [Online Wellness Counselling in South Africa](/wisdom/online-wellness-counselling-south-africa).
 
 ## The Statutory Framework: HPCSA Professions
 
@@ -72,9 +74,14 @@ More broadly, a trustworthy practitioner, whatever their registration, will tell
 
 Sangham is wellness counselling. I am registered with the ASCHP under registration number 10559. Sessions are online. The work integrates supportive counselling with breathwork and contemplative practice where this is appropriate, drawing on a background in both psychological support and long contemplative training.
 
-This is not psychology or psychiatry. I do not diagnose, assess, or treat psychiatric conditions. Where clinical care is the right answer, referral is part of the work, not an afterthought. If someone arrives at an introductory conversation and what they describe is clearly clinical in nature, I will say so, and I will say it plainly enough to be useful.
+This is not psychology or psychiatry. I do not diagnose, assess, or treat psychiatric conditions. Where clinical care is the right answer, referral is part of the work, not an afterthought. If someone arrives at a fit call and what they describe is clearly clinical in nature, I will say so, and I will say it plainly enough to be useful.
 
 The work fits best with the kind of difficulty described above: transitions, relational strain, patterns that are understood but hard to shift, the psychological dimension of practice, the texture of a life examined seriously.
+
+## Sources and Further Reading
+
+- The [HPCSA Professional Board for Psychology](https://www.hpcsa.co.za/board/psychology) explains the statutory psychology professions and publishes relevant professional guidance.
+- The ASCHP explains its [registration categories and requirements](https://www.aschp.net/registration.html) and answers common questions about [scope and professional recognition](https://www.aschp.net/faqs.html).
 
 ---
 

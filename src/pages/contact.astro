@@ -30,8 +30,32 @@ const jsonLd = [
 
   <PageHeader
     title="Get in Touch"
-    subtitle="Begin the conversation."
+    subtitle="Choose the simplest way to begin."
   />
+
+  <!-- CONTACT PATHS -->
+  <section class="bg-background border-b border-border/30">
+    <div class="container mx-auto px-6 py-12 max-w-4xl">
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <a href="#cal-section" class="border border-primary/30 bg-primary/5 rounded-xl p-5 hover:border-primary/55 transition-colors">
+          <p class="text-primary/60 text-xs tracking-widest uppercase font-body mb-2">Book</p>
+          <h2 class="font-heading text-xl text-foreground mb-2">Free 15-minute fit call</h2>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">Choose a time directly. No obligation to continue.</p>
+        </a>
+        <a href="https://wa.me/27736738063" target="_blank" rel="noopener noreferrer" class="border border-border/50 rounded-xl p-5 hover:border-primary/35 transition-colors">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-2">Message</p>
+          <h2 class="font-heading text-xl text-foreground mb-2">WhatsApp</h2>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">Send a brief message if a direct conversation is easier.</p>
+        </a>
+        <a href="#written-enquiry" class="border border-border/50 rounded-xl p-5 hover:border-primary/35 transition-colors">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-2">Write</p>
+          <h2 class="font-heading text-xl text-foreground mb-2">Written enquiry</h2>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">Share what brings you here and receive a reply within 1 to 2 business days.</p>
+        </a>
+      </div>
+      <p class="text-muted-foreground/60 font-body text-xs text-center mt-6">South African-registered &middot; Currently based in India &middot; Online worldwide</p>
+    </div>
+  </section>
 
   <!-- PATH 1: FIT CALL -->
   <section id="cal-section" class="bg-background">
@@ -41,7 +65,7 @@ const jsonLd = [
         Free &middot; 15 minutes &middot; No obligation
       </p>
       <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
-        Start with a fit call
+        Book a free 15-minute fit call
       </h2>
       <p class="text-muted-foreground/70 font-body text-sm text-center max-w-md mx-auto mb-10 leading-relaxed">
         A short conversation to see whether this is the right approach and the right moment. Not a session. No intake forms. Just a direct exchange to establish fit before committing to anything.
@@ -64,7 +88,7 @@ const jsonLd = [
   </div>
 
   <!-- PATH 2: WRITTEN ENQUIRY INTRO -->
-  <section class="bg-background">
+  <section id="written-enquiry" class="bg-background scroll-mt-[88px]">
     <div class="container mx-auto px-6 py-12 md:py-16 max-w-2xl text-center">
       <h2 class="font-heading text-2xl md:text-3xl text-foreground mb-6">
         Send a written enquiry
@@ -205,7 +229,7 @@ const jsonLd = [
             ></textarea>
           </div>
 
-          <!-- Honeypot field — hidden from humans, filled by bots -->
+          <!-- Honeypot field: hidden from humans, filled by bots -->
           <div class="absolute -left-[9999px]" aria-hidden="true">
             <label for="website_url">Website</label>
             <input type="text" id="website_url" name="website_url" tabindex="-1" autocomplete="off" />
@@ -272,7 +296,7 @@ const jsonLd = [
 
     const data = new FormData(form);
 
-    // Honeypot check — if filled, silently reject (bot submission)
+    // Honeypot check: if filled, silently reject (bot submission)
     const honeypot = (document.getElementById('website_url') as HTMLInputElement)?.value;
     if (honeypot) {
       // Fake success to avoid revealing the trap
@@ -281,7 +305,7 @@ const jsonLd = [
     }
 
     try {
-      // reCAPTCHA v3 — get token if available
+      // reCAPTCHA v3: get token if available
       // Site key must be set in RECAPTCHA_SITE_KEY; skip gracefully if not configured
       if (typeof (window as any).grecaptcha !== 'undefined') {
         try {

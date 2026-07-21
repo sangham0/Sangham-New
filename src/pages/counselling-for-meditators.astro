@@ -6,13 +6,13 @@ import CalEmbed from '../components/CalEmbed.astro';
 import { Image } from 'astro:assets';
 
 // ── Imagery (every slot a distinct image; warm-graded into one coherent set) ──
-import moonlitShore from '../assets/moonlit-shore-meditation.jpg'; // hero — dark anchor
-import forestPath from '../assets/mysterious-forest-path.JPG';   // break 01 — light
-import majesticHills from '../assets/majestic-landscape-hills-and-clouds.JPG'; // break 02 — light
-import mountainDusk from '../assets/mountain-dusk-vista.jpg';     // break 03 — dark anchor
-import mistyRidge from '../assets/misty-mountain-ridge.jpg';      // break 04 — light
-import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg'; // break 05 — light
-import ramaRooftop from '../assets/Rama-silhoute-in-yoga-hall.PNG'; // break 06 — light
+import moonlitShore from '../assets/moonlit-shore-meditation.jpg'; // hero: dark anchor
+import forestPath from '../assets/mysterious-forest-path.JPG';   // break 01: light
+import majesticHills from '../assets/majestic-landscape-hills-and-clouds.JPG'; // break 02: light
+import mountainDusk from '../assets/mountain-dusk-vista.jpg';     // break 03: dark anchor
+import mistyRidge from '../assets/misty-mountain-ridge.jpg';      // break 04: light
+import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg'; // break 05: light
+import ramaRooftop from '../assets/Rama-silhoute-in-yoga-hall.PNG'; // break 06: light
 import michaelPortrait from '../assets/michael-portrait-new.jpg'; // hero portrait
 import veraPortrait from '../assets/Vera-Pic.PNG';
 import ashrafPortrait from '../assets/Ashraf-pic.jpg';
@@ -22,7 +22,7 @@ const canonicalURL = 'https://www.sangham.org/counselling-for-meditators/';
 const WHATSAPP = 'https://wa.me/27736738063';
 const EMAIL = 'ramarishi@sangham.org';
 
-// ── "A different way of looking" — four lenses (tabbed) ──
+// ── "A different way of looking": four lenses (tabbed) ──
 const lenses = [
   {
     tab: 'The body',
@@ -46,12 +46,12 @@ const lenses = [
   },
 ];
 
-// ── About Michael — four panels (tabbed; all labels visible) ──
+// ── About Michael: four panels (tabbed; all labels visible) ──
 const michaelPanels = [
   {
     title: 'Facilitation and counselling',
     paras: [
-      'For more than twelve years I have worked in and around human development, transformation, and self-understanding: facilitating group processes, supporting people through periods of significant change, and working with questions of identity, meaning, purpose, and relationship.',
+      'For 10+ years I have worked in and around human development, transformation, and self-understanding: facilitating group processes, supporting people through periods of significant change, and working with questions of identity, meaning, purpose, and relationship.',
       'My background is in psychology and counselling. But the question that has always interested me most sits underneath both: how do we come to understand ourselves more honestly?',
     ],
   },
@@ -77,7 +77,7 @@ const michaelPanels = [
   },
 ];
 
-// ── "What this work often meets" — progressive-disclosure cards ──
+// ── "What this work often meets": progressive-disclosure cards ──
 const meetsCards = [
   { head: "Something happened in practice, and you don't know what to make of it.", body: 'An experience that felt important, beautiful, frightening, or all at once, and that you have had no way to place.' },
   { head: 'A retreat or a powerful insight has changed how you see your life.', body: 'Something opened, and now you are unsure what comes next, or how to live from it.' },
@@ -101,7 +101,7 @@ const faqItems = [
   { q: 'Is this therapy?', a: 'No. This is reflective counselling rather than psychotherapy or clinical treatment. Psychological insight and emotional exploration are often part of the conversation, but the primary focus is helping people understand and integrate experiences arising through spiritual practice and inner development.' },
   { q: 'Do I need to belong to a particular tradition?', a: 'No. People come from many different backgrounds and practices, including meditation, yoga, contemplative Christianity, Buddhism, non-dual traditions, devotional paths, and sometimes no formal tradition at all. What matters is not which path you are on, but whether you want to understand your experience more deeply.' },
   { q: 'Will you tell me what my experiences mean?', a: 'No. My role is not to provide definitive interpretations. The work involves exploring experiences together, questioning assumptions, considering different perspectives, and making space for your own understanding to emerge.' },
-  { q: "What if I'm not sure whether this is right for me?", a: 'That uncertainty is completely fine. The introductory conversation exists precisely so we can look at what is happening, whether this work is likely to help, and whether we feel like a good fit to work together. There is no obligation to continue.' },
+  { q: "What if I'm not sure whether this is right for me?", a: 'That uncertainty is completely fine. The free 15-minute fit call exists precisely so we can look at what is happening, whether this work is likely to help, and whether we feel like a good fit to work together. There is no obligation to continue.' },
   { q: 'How do sessions work?', a: 'Sessions take place online by video call. The work is conversational rather than curriculum-based. Some people come with a specific experience to explore; others arrive with broader questions about practice, direction, relationships, or meaning. The pace and focus follow what you are actually living through, not a predetermined programme.' },
 ];
 
@@ -138,7 +138,7 @@ const jsonLd = [
     areaServed: [{ '@type': 'Country', name: 'South Africa' }, { '@type': 'Place', name: 'Worldwide' }],
     availableChannel: { '@type': 'ServiceChannel', serviceType: 'Online via video call', availableLanguage: 'English' },
     offers: [
-      { '@type': 'Offer', name: 'Introductory Conversation', price: '0', priceCurrency: 'ZAR', availability: 'https://schema.org/InStock', description: 'An unhurried, free introductory conversation. No obligation to continue.' },
+      { '@type': 'Offer', name: 'Free 15-Minute Fit Call', price: '0', priceCurrency: 'ZAR', availability: 'https://schema.org/InStock', description: 'A free 15-minute call to understand what is happening and whether this work is a good fit. No obligation to continue.' },
       { '@type': 'Offer', name: 'Ongoing Session', price: '850', priceCurrency: 'ZAR', availability: 'https://schema.org/InStock', description: '60-minute reflective counselling session, online via video.' },
     ],
   },
@@ -149,9 +149,9 @@ const jsonLd = [
   .cfm {
     --cfm-cream: hsl(36 18% 88%);
     --cfm-warm: hsl(38 30% 84%);
-    --cfm-gold: hsl(41 48% 31%);        /* large headings & links on light — ~4.7:1 on cream */
-    --cfm-gold-deep: hsl(40 52% 26%);   /* small labels on light — ~5.3:1 on cream/warm */
-    --cfm-gold-light: hsl(42 54% 57%);  /* gold on deep navy — ~5.6:1, safe for small text */
+    --cfm-gold: hsl(41 48% 31%);        /* large headings & links on light: ~4.7:1 on cream */
+    --cfm-gold-deep: hsl(40 52% 26%);   /* small labels on light: ~5.3:1 on cream/warm */
+    --cfm-gold-light: hsl(42 54% 57%);  /* gold on deep navy: ~5.6:1, safe for small text */
     --cfm-ink: hsl(30 12% 20%);
     --cfm-navy: hsl(220 22% 12%);
     --cfm-navy-deep: hsl(220 26% 8%);
@@ -159,7 +159,7 @@ const jsonLd = [
   }
   .cfm-warm-bg { background-color: var(--cfm-warm); }
 
-  /* Deep anchor sections — light text on navy, used for the most charged moments */
+  /* Deep anchor sections: light text on navy, used for the most charged moments */
   .cfm-dark { background-color: var(--cfm-navy); color: var(--cfm-parch); }
   .cfm-dark-deep { background-color: var(--cfm-navy-deep); color: var(--cfm-parch); }
   .cfm-dark p, .cfm-dark li { color: hsl(36 20% 86% / 0.84); }
@@ -171,7 +171,7 @@ const jsonLd = [
   .cfm-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--cfm-gold), transparent); opacity: 0.5; }
   .cfm-rule-light { height: 1px; background: linear-gradient(90deg, transparent, var(--cfm-gold-light), transparent); opacity: 0.55; }
 
-  /* Pull-quote over a LIGHT break: ink serif on a strong cream scrim — bulletproof contrast */
+  /* Pull-quote over a LIGHT break: ink serif on a strong cream scrim: bulletproof contrast */
   .cfm-quote { color: hsl(30 14% 18%); text-shadow: 0 1px 16px hsl(36 30% 96% / 0.6); }
   /* Pull-quote over a DARK break: warm gold serif glowing on a navy scrim */
   .cfm-quote-dark { color: var(--cfm-gold-light); text-shadow: 0 2px 30px hsl(220 30% 4% / 0.6); }
@@ -225,7 +225,7 @@ const jsonLd = [
 >
 <div class="cfm bg-background text-foreground">
 
-  <!-- ═══ 01 · HERO — deep anchor (moonlit shore) ═══ -->
+  <!-- ═══ 01 · HERO: deep anchor (moonlit shore) ═══ -->
   <section class="relative overflow-hidden -mt-[72px] pt-[72px] cfm-dark-deep">
     <div class="absolute inset-0 cfm-graded-dark">
       <Image src={moonlitShore} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_38%] cfm-kb-img" widths={[768, 1280, 1600]} quality={72} sizes="100vw" loading="eager" fetchpriority="high" />
@@ -237,7 +237,7 @@ const jsonLd = [
       <div class="grid md:grid-cols-[1fr_auto] gap-12 lg:gap-16 items-center">
         <div>
           <p class="text-parchment/55 text-xs tracking-[0.2em] uppercase font-body mb-8">
-            Sangham &middot; Counselling for Meditators &amp; Contemplative Practitioners &middot; Online Worldwide
+            South African-registered &middot; Currently based in India &middot; Online worldwide
           </p>
           <h1 class="font-heading text-gold-gradient text-[34px] sm:text-5xl md:text-[54px] lg:text-[62px] leading-[1.1] mb-9">
             <span class="block mb-3">Meditation can open profound questions.</span>
@@ -248,7 +248,7 @@ const jsonLd = [
           </p>
           <div class="flex flex-col sm:flex-row gap-3 mb-3">
             <a href="#cal-inline-embed" data-cta="hero-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-black/25">
-              Book an Introductory Conversation
+              Book a free 15-minute fit call
             </a>
             <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="hero-whatsapp" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-parchment/30 text-parchment/85 hover:border-gold-light hover:text-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wide font-body">
               <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
@@ -278,12 +278,12 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 01b · EXPERIENTIAL CREDIBILITY — editorial pause between hero and reading ═══ -->
+  <!-- ═══ 01b · EXPERIENTIAL CREDIBILITY: editorial pause between hero and reading ═══ -->
   <section class="cfm-warm-bg border-b border-border/50">
     <div class="container mx-auto px-6 py-14 md:py-20 max-w-5xl cfm-reveal">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-border/70">
         <div class="sm:pr-10 lg:pr-14">
-          <p class="font-heading cfm-gold-text text-4xl md:text-5xl lg:text-[56px] leading-none mb-3">12+ Years</p>
+          <p class="font-heading cfm-gold-text text-4xl md:text-5xl lg:text-[56px] leading-none mb-3">10+ Years</p>
           <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[26ch] mx-auto sm:mx-0">facilitating transformative and contemplative work</p>
         </div>
         <div class="sm:px-10 lg:px-14">
@@ -320,13 +320,12 @@ const jsonLd = [
       <div class="cfm-rule w-16 my-10 md:my-12"></div>
 
       <div class="font-body text-lg text-foreground/75 leading-relaxed space-y-7 max-w-[65ch]">
-        <p>The experience itself is often not the hardest part. The hardest part is not knowing what to make of it.</p>
         <p class="text-foreground/90">Sometimes what is needed is not an answer, but a place where the question can be held properly.</p>
       </div>
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 01 — light ═══ -->
+  <!-- ═══ CONTENT BREAK 01: light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={forestPath} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
     <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.86), hsl(36 18% 90% / 0.74) 50%, hsl(36 18% 90% / 0.86));"></div>
@@ -338,7 +337,7 @@ const jsonLd = [
 
   <div id="after-recognition" aria-hidden="true"></div>
 
-  <!-- ═══ 04 · FOR MOST OF HISTORY — deep anchor ═══ -->
+  <!-- ═══ 04 · FOR MOST OF HISTORY: deep anchor ═══ -->
   <section class="cfm-dark relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
     <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
@@ -352,12 +351,12 @@ const jsonLd = [
         <p>That is the gap this work is intended to meet.</p>
       </div>
       <p class="mt-10">
-        <a href="#cal-inline-embed" data-cta="context-book" class="cfm-link cfm-gold-light-text font-body text-sm tracking-wide">Book an introductory conversation &rarr;</a>
+        <a href="#cal-inline-embed" data-cta="context-book" class="cfm-link cfm-gold-light-text font-body text-sm tracking-wide">Book a free 15-minute fit call &rarr;</a>
       </p>
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 02 — light ═══ -->
+  <!-- ═══ CONTENT BREAK 02: light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={majesticHills} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
     <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.86), hsl(36 18% 90% / 0.74) 50%, hsl(36 18% 90% / 0.86));"></div>
@@ -415,7 +414,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 03 — dark anchor ═══ -->
+  <!-- ═══ CONTENT BREAK 03: dark anchor ═══ -->
   <section class="relative overflow-hidden cfm-graded-dark bg-[hsl(220_26%_8%)]">
     <Image src={mountainDusk} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024, 1600]} quality={64} sizes="100vw" loading="lazy" />
     <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.74), hsl(220 26% 8% / 0.62) 50%, hsl(220 26% 8% / 0.82));"></div>
@@ -442,7 +441,7 @@ const jsonLd = [
         <p class="font-heading cfm-gold-text text-2xl md:text-3xl italic leading-relaxed">The most important questions are often not the ones that can be answered quickly.</p>
       </blockquote>
 
-      <!-- Lens explorer — tabbed -->
+      <!-- Lens explorer: tabbed -->
       <div class="rounded-2xl border border-border/60 bg-[--cfm-warm] p-6 md:p-9" data-tabs>
         <div role="tablist" aria-label="One experience, four lenses" class="flex flex-wrap gap-2 mb-7">
           {lenses.map((lens, i) => (
@@ -466,12 +465,12 @@ const jsonLd = [
       </div>
 
       <div class="mt-12 text-center">
-        <a href="#cal-inline-embed" data-cta="lens-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">Book an Introductory Conversation</a>
+        <a href="#cal-inline-embed" data-cta="lens-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">Book a free 15-minute fit call</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 04 — light ═══ -->
+  <!-- ═══ CONTENT BREAK 04: light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={mistyRidge} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_60%] cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
     <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.86), hsl(36 18% 90% / 0.74) 50%, hsl(36 18% 90% / 0.86));"></div>
@@ -501,16 +500,16 @@ const jsonLd = [
       </div>
 
       <p class="font-body text-lg text-foreground/75 leading-relaxed mb-4 max-w-[65ch]">None of these necessarily call for solutions. More often they call for understanding: room to think, feel, question, and find what is true for you, rather than what someone else says should be true.</p>
-      <p class="font-body text-base text-foreground/60 italic leading-relaxed mb-10 max-w-[65ch]">If several of these feel familiar, an introductory conversation may be a good place to begin.</p>
+      <p class="font-body text-base text-foreground/60 italic leading-relaxed mb-10 max-w-[65ch]">If several of these feel familiar, a free fit call may be a good place to begin.</p>
 
       <div class="flex flex-col sm:flex-row gap-3">
-        <a href="#cal-inline-embed" data-cta="meets-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">Book an Introductory Conversation</a>
+        <a href="#cal-inline-embed" data-cta="meets-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">Book a free 15-minute fit call</a>
         <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="meets-whatsapp" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-primary/40 text-foreground/80 hover:border-primary hover:bg-primary/10 hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wide font-body">Message on WhatsApp</a>
       </div>
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 05 — light ═══ -->
+  <!-- ═══ CONTENT BREAK 05: light ═══ -->
   <section class="relative overflow-hidden cfm-graded">
     <Image src={himalayaSnowPeak} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-center cfm-kb-img" widths={[640, 1024]} quality={58} sizes="100vw" loading="lazy" />
     <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.85), hsl(36 18% 90% / 0.73) 50%, hsl(36 18% 90% / 0.85));"></div>
@@ -520,7 +519,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 13 · AN IMPORTANT DISTINCTION — deep anchor ═══ -->
+  <!-- ═══ 13 · AN IMPORTANT DISTINCTION: deep anchor ═══ -->
   <section class="cfm-dark relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
     <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
@@ -535,6 +534,14 @@ const jsonLd = [
       <blockquote class="border-l-2 border-gold-light/50 pl-7">
         <p class="font-heading cfm-gold-light-text text-2xl md:text-3xl italic leading-relaxed">Understanding begins the moment we are willing to look more carefully than our first explanation allows.</p>
       </blockquote>
+      <div class="mt-10 pt-8 border-t border-parchment/15">
+        <p class="font-body text-sm uppercase tracking-[0.14em] cfm-gold-light-text mb-4">Related reading</p>
+        <div class="flex flex-col gap-3 font-body text-sm">
+          <a href="/wisdom/can-meditation-make-anxiety-or-dissociation-worse" class="cfm-link text-parchment/80 w-fit">Can meditation make anxiety or dissociation worse? &rarr;</a>
+          <a href="/wisdom/meditation-experiences-when-to-pause-and-seek-support" class="cfm-link text-parchment/80 w-fit">Meditation experiences: when to pause and seek support &rarr;</a>
+          <a href="/wisdom/spiritual-emergence-psychological-distress-or-both" class="cfm-link text-parchment/80 w-fit">Spiritual emergence, psychological distress, or both? &rarr;</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -550,7 +557,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 15 · ABOUT MICHAEL — tabbed ═══ -->
+  <!-- ═══ 15 · ABOUT MICHAEL: tabbed ═══ -->
   <section class="bg-background">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
       <h2 class="font-heading cfm-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-3">About Michael</h2>
@@ -582,7 +589,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ CONTENT BREAK 06 — portrait of the work ═══ -->
+  <!-- ═══ CONTENT BREAK 06: portrait of the work ═══ -->
   <!-- Portrait source: full seated figure on mobile (5:4 @ 70%); a cinematic upper-body
        crop gazing into the misty window on desktop (2:1 @ 64%), so the wide band never
        forces an awkward mid-torso slice. -->
@@ -618,7 +625,7 @@ const jsonLd = [
       </div>
 
       <p class="mt-12 text-center">
-        <a href="#cal-inline-embed" data-cta="reflections-book" class="cfm-link cfm-gold-text font-body text-sm tracking-wide">Book an introductory conversation &rarr;</a>
+        <a href="#cal-inline-embed" data-cta="reflections-book" class="cfm-link cfm-gold-text font-body text-sm tracking-wide">Book a free 15-minute fit call &rarr;</a>
       </p>
     </div>
   </section>
@@ -636,13 +643,13 @@ const jsonLd = [
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl cfm-reveal">
       <h2 class="font-heading cfm-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">How to begin</h2>
       <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch] mb-9">
-        <p>The first step is simply an introductory conversation. It is unhurried and free: a chance to look at what is happening, to sense whether this work fits your situation, and whether we are a good fit to work together. There is no obligation to continue.</p>
-        <p>Sessions take place online by video, usually around 60 minutes, at a rhythm that suits you. Ongoing sessions are R850 (<span data-usd-from-zar="850">approx. $45&ndash;50 USD</span>) each. Where that fee is a real obstacle, reduced rates are available in a limited number of cases, and this is something we can discuss in the introductory conversation.</p>
-        <p>You can book a free 15-minute conversation directly using the form below. If a form feels too impersonal, you are just as welcome to <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="cfm-link cfm-gold-text" data-cta="begin-whatsapp-inline">message me on WhatsApp</a>, or to write to <a href={`mailto:${EMAIL}`} class="cfm-link cfm-gold-text" data-cta="begin-email">{EMAIL}</a>.</p>
+        <p>The first step is a free 15-minute fit call: a chance to look at what is happening, to sense whether this work fits your situation, and whether we are a good fit to work together. There is no obligation to continue.</p>
+        <p>Sessions take place online by video, usually around 60 minutes, at a rhythm that suits you. Ongoing sessions are R850 (<span data-usd-from-zar="850">approx. $45&ndash;50 USD</span>) each. Where that fee is a real obstacle, reduced rates are available in a limited number of cases, and this is something we can discuss in the fit call.</p>
+        <p>You can book a free 15-minute fit call directly using the form below. If a form feels too impersonal, you are just as welcome to <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="cfm-link cfm-gold-text" data-cta="begin-whatsapp-inline">message me on WhatsApp</a>, or to write to <a href={`mailto:${EMAIL}`} class="cfm-link cfm-gold-text" data-cta="begin-email">{EMAIL}</a>.</p>
       </div>
 
       <div class="flex flex-col sm:flex-row gap-3 mb-4">
-        <a href="#cal-inline-embed" data-cta="begin-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">Book an Introductory Conversation</a>
+        <a href="#cal-inline-embed" data-cta="begin-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15">Book a free 15-minute fit call</a>
         <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="begin-whatsapp" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-primary/40 text-foreground/80 hover:border-primary hover:bg-primary/10 hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wide font-body">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
           Message on WhatsApp
@@ -654,7 +661,7 @@ const jsonLd = [
     </div>
   </section>
 
-  <!-- ═══ 20 · A CLOSING INVITATION — deep anchor ═══ -->
+  <!-- ═══ 20 · A CLOSING INVITATION: deep anchor ═══ -->
   <section class="cfm-dark-deep relative overflow-hidden">
     <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(110% 80% at 50% 100%, hsl(42 40% 32% / 0.12), transparent 60%);"></div>
     <div class="relative container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center cfm-reveal">
@@ -663,15 +670,15 @@ const jsonLd = [
         <p>Sometimes understanding arrives through practice itself. Sometimes it arrives through conversation: through being listened to carefully, through being asked a question that opens something, through finding that an experience which felt isolating becomes easier to carry once it is explored in the company of someone familiar with the ground.</p>
         <p>If you are moving through questions, uncertainty, or experiences that are hard to make sense of alone, you are welcome to reach out. The first step is simply a conversation: a chance to look at what is happening, to see whether this work feels right for your situation, and whether we are a good fit to work together. There is no obligation to continue.</p>
       </div>
-      <a href="#cal-inline-embed" data-cta="closing-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-black/30 mb-5">Book an Introductory Conversation</a>
+      <a href="#cal-inline-embed" data-cta="closing-book" class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light hover:-translate-y-0.5 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-black/30 mb-5">Book a free 15-minute fit call</a>
       <p class="mb-6">
         <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" data-cta="closing-whatsapp" class="cfm-link text-parchment/60 hover:text-gold-light font-body text-sm">Or message on WhatsApp</a>
       </p>
-      <p class="font-body text-sm text-parchment/45 tracking-wide">Online worldwide &nbsp;&middot;&nbsp; Sessions in English &nbsp;&middot;&nbsp; Initial conversation free and without obligation</p>
+      <p class="font-body text-sm text-parchment/45 tracking-wide">South African-registered &nbsp;&middot;&nbsp; Currently based in India &nbsp;&middot;&nbsp; Online worldwide</p>
     </div>
   </section>
 
-  <!-- ═══ 21 · FOOTER — SCOPE & ETHICS ═══ -->
+  <!-- ═══ 21 · FOOTER: SCOPE & ETHICS ═══ -->
   <section class="cfm-warm-bg border-t border-border/60">
     <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
       <details class="cfm-card group rounded-xl border border-border/60 bg-background/70">
@@ -694,7 +701,7 @@ const jsonLd = [
 </div>
 
 <StickyConsultationCTA
-  label="Book an Introductory Conversation →"
+  label="Book a free 15-minute fit call →"
   href="#cal-inline-embed"
   afterSelector="#after-recognition"
   variant="light"

@@ -1,13 +1,13 @@
 ---
-title: "When Meditation Makes Anxiety Worse"
-excerpt: "If sitting practice is increasing your anxiety rather than settling it, this is more common than the meditation world admits, and worth understanding before pushing through."
-publishedDate: "2026-06-12"
-dateLabel: "June 2026"
+title: "Can Meditation Make Anxiety or Dissociation Worse?"
+excerpt: "Meditation can help many people, but it can also intensify anxiety, unreality, or detachment. Here is how to recognise the difference and respond carefully."
+publishedDate: "2026-07-21"
+dateLabel: "July 2026"
 category: "essay"
 tags: ["meditation", "psychology"]
 categories: ["meditation", "psychology"]
 notebook: false
-draft: true
+draft: false
 ---
 
 There is a particular kind of confusion that arrives when you have been meditating sincerely for some time and notice that the practice seems to be making things worse. The anxiety that meditation was supposed to quiet is louder. Sits end in restlessness or dread rather than ease. Something that is widely described as medicine seems to be acting more like an irritant.
@@ -62,6 +62,14 @@ Ordinary breathing, without any modification, is almost always preferable to ext
 
 Some practitioners also find it useful to introduce a period of movement, walking, gentle stretching or physical work, before sitting. Movement discharges some of the excess activation that makes stillness difficult, and arriving at the sit from a more regulated state changes the quality of what follows.
 
+## Anxiety and Dissociation Are Not the Same Thing
+
+Anxiety tends to feel like too much activation. Dissociation often feels like too little contact: numbness, distance, unreality, or the sense that you are watching life from somewhere outside it. They can also appear together. A frightening sense of unreality can trigger panic, while prolonged anxiety can leave a person feeling detached and absent.
+
+This matters because some meditation instructions can be confused with dissociation. "Observe without identifying" can be a useful contemplative instruction, but if you already feel unreal, far away, or unable to inhabit your body, creating more distance may not be skilful. Equanimity has warmth, responsiveness, and contact. Dissociation more often has flatness, disconnection, or a loss of ordinary agency.
+
+You do not need to decide the correct label alone. The practical question is simpler: after practice, are you more able to participate in life, relate to people, and care for your body, or less able? A practice that repeatedly leaves you less present needs to be reconsidered, whatever language is used to explain it.
+
 ## When Adjustment Is Not Enough
 
 There are experiences that signal something more than a technique adjustment is needed.
@@ -82,4 +90,12 @@ Working with someone who has trained in both areas is not a luxury for a small n
 
 ---
 
-*If your practice has opened more than you can comfortably hold alone, this is exactly the territory [Counselling for Meditators](/counselling-for-meditators) exists for. A free introductory conversation is the first step, with no obligation to continue.*
+## Sources and Further Reading
+
+- The US National Center for Complementary and Integrative Health offers a balanced overview of [meditation's effectiveness and safety](https://www.nccih.nih.gov/health/meditation-and-mindfulness-effectiveness-and-safety).
+- A systematic review in *Acta Psychiatrica Scandinavica* examines [adverse events in meditation practices](https://pubmed.ncbi.nlm.nih.gov/32820538/).
+- The Varieties of Contemplative Experience study documents [challenging meditation-related experiences and the factors that shape them](https://pmc.ncbi.nlm.nih.gov/articles/PMC5443484/).
+
+---
+
+*If your practice has opened more than you can comfortably hold alone, this is exactly the territory [Counselling for Meditators](/counselling-for-meditators) exists for. A free 15-minute fit call is the first step, with no obligation to continue.*

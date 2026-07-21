@@ -1,5 +1,5 @@
 /**
- * Sangham — dataLayer event wiring for GTM
+ * Sangham: dataLayer event wiring for GTM
  *
  * This file pushes structured events to window.dataLayer.
  * GTM tags/triggers are configured separately in the GTM UI.

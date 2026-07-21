@@ -1,6 +1,8 @@
 {
   "trailingSlash": true,
   "redirects": [
+    { "source": "/writing", "destination": "/wisdom", "permanent": true },
+    { "source": "/writing/", "destination": "/wisdom", "permanent": true },
     {
       "source": "/:path*",
       "has": [{ "type": "host", "value": "sangham.org" }],

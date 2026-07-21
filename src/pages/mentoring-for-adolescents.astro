@@ -9,7 +9,6 @@ import bernardAltmanPortrait from '../assets/bernard-altman-portrait.jpg';
 import documentaryWaterfall from '../assets/documentary-waterfall.jpg';
 import caveMeditation from '../assets/cave-meditation.jpg';
 import documentaryMountain from '../assets/documentary-mountain.jpg';
-import mistyValley from '../assets/misty-valley.jpg';
 import himalayaForestSunset from '../assets/himalaya-forest-sunset.jpg';
 import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg';
 
@@ -96,7 +95,7 @@ const aboutMichaelCards = [
   {
     title: 'Who I am',
     paragraphs: [
-      'My name is Michael Kaplan, and I have been working with teenagers and young men for more than twelve years. Much of that work has been under the guidance of my mentor, clinical and forensic psychologist Bernard Altman.',
+      'My name is Michael Kaplan, and I have been working with teenagers and young men for 10+ years. Much of that work has been under the guidance of my mentor, clinical and forensic psychologist Bernard Altman.',
       'My journey began in 2013 through a Cape Town organisation called Boys to Men, where I first participated in mentorship and rites-of-passage work designed to support teenage boys through difficult periods of growth and transition.',
       'Over time, I was gradually trained into leadership and facilitation roles myself, working with teenagers from a wide range of backgrounds, including both affluent communities and some of the most at-risk areas in Cape Town.',
       'Across all of these environments, I found that the deeper needs of teenage boys remain remarkably consistent. Young men need guidance without humiliation, challenge without rejection, and spaces where they can speak honestly without immediately being judged, corrected, or dismissed.',
@@ -237,10 +236,10 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Mentoring and Counselling for Teenagers Aged 12 to 17',
+    name: 'Mentoring and Reflective Counselling for Teenage Boys Aged 12 to 17',
     url: canonicalURL,
     description:
-      'Parent-facing developmental mentorship and reflective counselling for teenagers aged 12 to 17. ASCHP-registered wellness counselling. Online sessions worldwide.',
+      'Developmental mentorship and reflective counselling for teenage boys aged 12 to 17, with a clear process for parent involvement. ASCHP-registered wellness counselling. Online worldwide.',
     serviceType: 'Wellness Counselling and Developmental Mentorship',
     provider: {
       '@type': 'Person',
@@ -267,7 +266,7 @@ const jsonLd = [
         alternateName: 'ASCHP',
       },
     },
-    audience: { '@type': 'Audience', audienceType: 'Parents and guardians of teenagers aged 12 to 17' },
+    audience: { '@type': 'Audience', audienceType: 'Teenage boys aged 12 to 17, with parents or guardians involved in enrolment' },
     areaServed: [
       { '@type': 'Country', name: 'South Africa' },
       { '@type': 'Place', name: 'Worldwide' },
@@ -408,6 +407,8 @@ const jsonLd = [
   #cal-fit-embed {
     width: 100%;
     min-height: 700px;
+    max-height: 900px;
+    overflow: auto;
   }
   @media (min-width: 768px) {
     #cal-parental-embed,
@@ -649,7 +650,7 @@ const jsonLd = [
 
 <BaseLayout
   title="Mentoring for Teenagers (Ages 12 to 17)"
-  description="Parent-facing developmental mentorship and reflective counselling for young men in the adolescent years. ASCHP-registered. Online worldwide."
+  description="Developmental mentorship and reflective counselling for teenage boys aged 12 to 17, with a clear guide for parent involvement. Online worldwide."
   canonicalURL={canonicalURL}
   image="/images/og-mentoring-adolescents.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
@@ -668,13 +669,13 @@ const jsonLd = [
 
         <div class="md:order-1">
           <p class="text-primary/40 text-xs tracking-widest uppercase font-body mb-8">
-            Sangham &middot; Online Sessions Worldwide
+            South African-registered &middot; Currently based in India &middot; Online worldwide
           </p>
           <h1 class="font-heading text-[40px] sm:text-5xl md:text-6xl lg:text-7xl text-parchment/95 leading-[1.05] mb-8">
             A Different Kind of Support{' '}<br class="hidden sm:block" /><span class="text-gold-gradient">for the Adolescent Years</span>
           </h1>
           <p class="font-body text-base md:text-lg text-parchment/60 leading-relaxed mb-10 max-w-lg">
-            Grounded mentorship and reflective counselling for young men aged 12 to 17. And for the parents trying to support them through it.
+            Grounded mentorship and reflective counselling for teenage boys aged 12 to 17. This page also explains how parents are involved.
           </p>
 
           <blockquote class="pl-6 border-l-2 border-primary/40 mb-10 pb-10 border-b border-b-parchment/10">
@@ -703,7 +704,7 @@ const jsonLd = [
               </svg>
             </a>
             <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors">
-              Free 15-Minute Fit Call
+              Book a free 15-minute fit call
               <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
               </svg>
@@ -711,7 +712,7 @@ const jsonLd = [
           </div>
 
           <div class="flex flex-wrap gap-x-5 gap-y-1.5">
-            {['ASCHP Registered', 'Online sessions available', 'Based in South Africa', 'Ages 12 to 17'].map((t) => (
+            {['ASCHP Registered', 'Online worldwide', 'Currently based in India', 'Ages 12 to 17'].map((t) => (
               <p class="text-parchment/50 text-xs font-body">{t}</p>
             ))}
           </div>
@@ -839,49 +840,6 @@ const jsonLd = [
         <p class="font-heading text-xl md:text-2xl text-parchment/75 leading-snug">This work exists to provide one of those spaces.</p>
       </div>
 
-    </div>
-  </section>
-
-  <section class="relative overflow-hidden bg-void">
-    <Image
-      src={mistyValley}
-      alt=""
-      aria-hidden="true"
-      class="absolute inset-0 w-full h-full object-cover object-center"
-      widths={[640, 1024, 1536]}
-      sizes="100vw"
-      loading="lazy"
-    />
-    <div class="absolute inset-0 sg-overlay-med"></div>
-    <div class="absolute inset-0 bg-gradient-to-b from-[#070B14]/20 via-transparent to-[#070B14]/40"></div>
-    <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-5xl">
-      <p class="text-primary/55 text-xs tracking-widest uppercase font-body mb-5">The World Has Changed</p>
-      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight max-w-2xl">
-        Why Adolescence Feels Different Now
-      </h2>
-      <span class="h2-accent"></span>
-
-      <div class="max-w-3xl mx-auto space-y-5 font-body text-base text-parchment/62 leading-relaxed">
-        <p>Adolescence has always involved uncertainty, mood, and pressure. Those parts are not new.</p>
-        <p>What is new is the environment teenagers are growing up inside.</p>
-        <p>A generation ago, a young person formed an identity slowly. Family, school, a small group of friends, and the part of town he lived in. That was most of the input.</p>
-        <blockquote class="py-12 md:py-16 text-center">
-          <span class="block w-14 h-px bg-primary/45 mx-auto mb-7"></span>
-          <p class="font-heading text-[1.7rem] md:text-[2.15rem] lg:text-[2.35rem] text-primary/90 italic leading-snug max-w-2xl mx-auto">For most of human history, growing up has happened in small, knowable worlds.</p>
-        </blockquote>
-        <p>Today, much of that same identity work happens through a phone. Hours of comparison with peers he may never meet. Feeds shaping what feels normal and what does not. Conflicting messages about what it means to be a man arriving from every direction at once.</p>
-        <blockquote class="py-12 md:py-16 text-center">
-          <span class="block w-14 h-px bg-primary/45 mx-auto mb-7"></span>
-          <p class="font-heading text-[1.7rem] md:text-[2.15rem] lg:text-[2.35rem] text-primary/90 italic leading-snug max-w-2xl mx-auto">That is no longer the world he is growing up in.</p>
-        </blockquote>
-        <p>Most parents can see this happening. Few feel fully equipped to talk about it. The territory simply did not exist when they were the same age.</p>
-        <p>This often creates a quiet distance between parents and teenagers that no one intended. Parents worry, set limits, ask questions. Teenagers feel watched, misunderstood, or behind on something they cannot quite name.</p>
-        <blockquote class="py-12 md:py-16 text-center">
-          <span class="block w-14 h-px bg-primary/45 mx-auto mb-7"></span>
-          <p class="font-heading text-[1.7rem] md:text-[2.15rem] lg:text-[2.35rem] text-primary/90 italic leading-snug max-w-2xl mx-auto">Few parents alive today have lived through what their sons are now growing up inside.</p>
-        </blockquote>
-        <p>A second trusted relationship outside the family can sometimes ease that distance. Not by taking sides, but by giving a young person space to think out loud with someone who understands the world he is actually growing up in.</p>
-      </div>
     </div>
   </section>
 
@@ -1031,7 +989,7 @@ const jsonLd = [
           </svg>
         </a>
         <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors">
-          Or begin with a free 15-minute fit call
+          Or book a free 15-minute fit call
         </a>
       </div>
     </div>
@@ -1330,6 +1288,36 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- CONFIDENTIALITY, SAFEGUARDING, AND PARENT INVOLVEMENT -->
+  <section class="bg-header text-header-foreground border-t border-parchment/10">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <p class="text-primary/55 text-xs tracking-widest uppercase font-body mb-5">Clear boundaries from the beginning</p>
+      <h2 class="font-heading text-3xl md:text-4xl lg:text-5xl text-gold-gradient leading-tight max-w-2xl">
+        Confidentiality, Safeguarding, and Parent Involvement
+      </h2>
+      <span class="h2-accent"></span>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10">
+        <div class="border border-parchment/12 rounded-xl p-6 bg-void/25">
+          <h3 class="font-heading text-xl text-parchment/88 mb-3">What stays private</h3>
+          <p class="font-body text-sm text-parchment/62 leading-relaxed">The detail of ordinary sessions is not reported back to parents. A teenage boy needs enough privacy to speak honestly and build a real working relationship.</p>
+        </div>
+        <div class="border border-parchment/12 rounded-xl p-6 bg-void/25">
+          <h3 class="font-heading text-xl text-parchment/88 mb-3">When parents are involved</h3>
+          <p class="font-body text-sm text-parchment/62 leading-relaxed">Parents are included around goals, practical arrangements, and broad progress where useful. Wherever possible, this is discussed with the young person rather than done around him.</p>
+        </div>
+        <div class="border border-primary/25 rounded-xl p-6 bg-primary/5">
+          <h3 class="font-heading text-xl text-parchment/88 mb-3">Limits to confidentiality</h3>
+          <p class="font-body text-sm text-parchment/62 leading-relaxed">Privacy has limits where there is serious risk of harm, suspected abuse or neglect, or another legal duty to disclose. Safety comes first, and only necessary information is shared.</p>
+        </div>
+      </div>
+
+      <div class="mt-9 max-w-2xl font-body text-sm text-parchment/58 leading-relaxed">
+        <p>These boundaries are explained before the work begins so that both the young person and his parents know what to expect. Read the fuller guide to <a href="/wisdom/confidentiality-in-mentoring-for-teenage-boys" class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30 transition-colors">confidentiality in mentoring for teenage boys</a>.</p>
+      </div>
+    </div>
+  </section>
+
   <!-- ══════════════════════════════════════════════════════════════════════
        11. WHAT PARENTS CAN REALISTICALLY EXPECT - Light
   ══════════════════════════════════════════════════════════════════════════ -->
@@ -1420,7 +1408,7 @@ const jsonLd = [
 
       <p class="font-body text-sm text-parchment/60 leading-relaxed max-w-xl mb-14">
         Not yet sure whether to book the consultation? A
-        <a href="#fit-cal" class="text-primary/80 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/30">free 15-minute parent fit call</a>
+        <a href="#fit-cal" class="text-primary/80 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/30">free 15-minute fit call</a>
         is available before any paid step.
       </p>
 
@@ -1513,7 +1501,7 @@ const jsonLd = [
           </svg>
         </a>
         <a href="#fit-cal" class="inline-flex items-center gap-1.5 text-parchment/60 hover:text-parchment/85 text-sm font-body transition-colors">
-          Free 15-minute fit call
+          Book a free 15-minute fit call
           <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -1559,6 +1547,10 @@ const jsonLd = [
         <div id="cal-parental-embed"></div>
       </div>
 
+      <p class="text-[#1A1F2E]/55 text-sm font-body leading-relaxed mb-3">
+        If the calendar does not load, <a href="https://cal.com/sangham/parental-consultation" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/75 hover:text-[#1A1F2E] underline underline-offset-2 decoration-[#1A1F2E]/20">open the parent consultation booking page directly</a>.
+      </p>
+
       <p class="text-[#1A1F2E]/55 text-sm font-body leading-relaxed">
         If a slot doesn't suit your timezone or schedule, reach out via
         <a href="/contact" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15">the contact form</a>
@@ -1576,7 +1568,7 @@ const jsonLd = [
           Free &middot; 15 minutes &middot; For parents
         </p>
         <h3 class="font-heading text-xl md:text-2xl text-[#0F1422]/78 mb-2">
-          Start with a free 15-minute fit call
+          Book a free 15-minute fit call
         </h3>
         <p class="text-[#1A1F2E]/55 font-body text-sm leading-relaxed">
           A short conversation for parents who are not yet sure whether the parent consultation is the right next step, or who want to ask a few questions before booking a paid session. No commitment beyond the call.
@@ -1585,6 +1577,9 @@ const jsonLd = [
       <div class="border border-[#1A1F2E]/10 rounded-xl overflow-hidden">
         <div id="cal-fit-embed"></div>
       </div>
+      <p class="text-[#1A1F2E]/55 text-sm font-body leading-relaxed mt-4">
+        If the calendar does not load, <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/75 hover:text-[#1A1F2E] underline underline-offset-2 decoration-[#1A1F2E]/20">open the fit call booking page directly</a>.
+      </p>
     </div>
   </section>
 
@@ -1662,7 +1657,7 @@ const jsonLd = [
         </a>
         <div>
           <a href="#fit-cal" class="inline-flex items-center justify-center gap-1.5 text-header-foreground/42 hover:text-header-foreground/72 text-sm font-body transition-colors">
-            Or start with a free 15-minute fit call
+            Or book a free 15-minute fit call
             <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
           </a>
         </div>
@@ -1708,7 +1703,7 @@ const jsonLd = [
           </svg>
         </a>
         <a href="#fit-cal" class="text-primary/60 hover:text-primary text-sm font-body transition-colors">
-          Start with a free 15-minute fit call
+          Book a free 15-minute fit call
         </a>
       </div>
 

@@ -5,7 +5,64 @@ interface Props {
 const { minHeight = '600px' } = Astro.props;
 ---
 
-<div id="cal-inline-embed" style={`min-height: ${minHeight}; width: 100%; scroll-margin-top: 88px;`}></div>
+<div class="cal-embed-shell" style={`min-height: ${minHeight};`}>
+  <div
+    id="cal-inline-embed"
+    class="cal-embed-frame"
+    style={`min-height: ${minHeight};`}
+    aria-label="Fit call booking calendar"
+  ></div>
+  <div class="cal-embed-fallback" data-cal-fallback>
+    <p>
+      If the calendar does not load, you can
+      <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer">open the booking page directly</a>.
+    </p>
+  </div>
+  <noscript>
+    <p class="cal-embed-noscript">
+      JavaScript is required for the embedded calendar. You can
+      <a href="https://cal.com/sangham/fit">book the free 15-minute fit call on Cal.com</a>.
+    </p>
+  </noscript>
+</div>
+
+<style>
+  .cal-embed-shell {
+    width: 100%;
+    max-height: 900px;
+    overflow: auto;
+    scroll-margin-top: 88px;
+    background: var(--color-background);
+  }
+
+  .cal-embed-frame {
+    width: 100%;
+  }
+
+  .cal-embed-fallback,
+  .cal-embed-noscript {
+    border-top: 1px solid var(--color-border);
+    padding: 0.9rem 1.25rem;
+    text-align: center;
+    color: var(--color-muted-foreground);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .cal-embed-fallback a,
+  .cal-embed-noscript a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .cal-embed-shell {
+      max-height: 760px;
+    }
+  }
+</style>
 
 <script is:inline>
 (function (C, A, L) { let p = function (a, ar) { a.q.push(ar); }; let d = C.document; C.Cal = C.Cal || function () { let cal = C.Cal; let ar = arguments; if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; } if (ar[0] === L) { const api = function () { p(api, arguments); }; const namespace = ar[1]; api.q = api.q || []; if(typeof namespace === "string"){cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]);} else p(cal, ar); return; } p(cal, ar); }; })(window, "https://app.cal.com/embed/embed.js", "init");

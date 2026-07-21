@@ -137,6 +137,8 @@ const jsonLd = [
   #cal-fit-embed {
     width: 100%;
     min-height: 700px;
+    max-height: 900px;
+    overflow: auto;
   }
   @media (min-width: 768px) {
     #cal-fit-embed {
@@ -183,7 +185,7 @@ const jsonLd = [
 <div class="ym-page">
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       01 · HERO — Type A: Deep navy
+       01 · HERO: Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-void -mt-[72px] pt-[72px]">
     <div class="container mx-auto px-6 py-20 md:py-28 lg:py-36 max-w-5xl">
@@ -191,7 +193,7 @@ const jsonLd = [
 
         <div class="md:order-1">
           <p class="text-parchment/40 text-xs tracking-[0.2em] uppercase font-body mb-8">
-            Sangham &middot; Mentoring for Young Men &middot; Online Worldwide
+            South African-registered &middot; Currently based in India &middot; Online worldwide
           </p>
 
           <h1 class="font-heading text-[38px] sm:text-5xl md:text-6xl lg:text-[72px] text-gold-gradient leading-[1.08] mb-10">
@@ -207,11 +209,11 @@ const jsonLd = [
             href="#book-call"
             class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-6"
           >
-            Book a Free 15-Minute Call
+            Book a free 15-minute fit call
           </a>
 
           <div class="flex flex-wrap gap-x-5 gap-y-1.5">
-            {['ASCHP Registered', 'Online sessions available', 'Based in South Africa', 'Ages 18 to 25'].map((t) => (
+            {['ASCHP Registered', 'Online worldwide', 'Currently based in India', 'Ages 18 to 25'].map((t) => (
               <p class="text-parchment/50 text-xs font-body">{t}</p>
             ))}
           </div>
@@ -250,13 +252,13 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       CREDIBILITY STRIP — Light break between hero and content
+       CREDIBILITY STRIP: Light break between hero and content
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-[#D8DDE8]">
     <div class="container mx-auto px-6 py-16 md:py-20 max-w-5xl">
       <div class="grid grid-cols-1 sm:grid-cols-3 gap-12 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-[#1A1F2E]/10">
         <div class="sm:pr-10 xl:pr-16">
-          <p class="font-heading text-4xl md:text-5xl lg:text-6xl text-[#A87C35] mb-3 leading-none">12+</p>
+          <p class="font-heading text-4xl md:text-5xl lg:text-6xl text-[#A87C35] mb-3 leading-none">10+</p>
           <p class="font-body text-[15px] md:text-[16px] text-[#1A1F2E]/70 leading-relaxed">years working directly with adolescent and young adult men</p>
         </div>
         <div class="sm:px-10 xl:px-16">
@@ -272,7 +274,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       02 · THE SHAPE OF IT — Type A: Deep navy
+       02 · THE SHAPE OF IT: Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-void">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
@@ -282,11 +284,7 @@ const jsonLd = [
       </h2>
 
       <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-8">
-        <p>You can be surrounded by people and feel completely unreachable.</p>
-
-        <p>You can be doing well on paper while slowly losing contact with yourself underneath it.</p>
-
-        <p>You can scroll for an hour looking for something you could not explain even if someone asked directly.</p>
+        <p>You can be surrounded by people and feel unreachable. You can be doing well on paper while slowly losing contact with yourself underneath it.</p>
 
         <p>You can know exactly what needs to be done and still feel unable to move. Not out of laziness, but because some deeper part of you has gone quiet while the rest keeps running on fumes.</p>
 
@@ -294,11 +292,7 @@ const jsonLd = [
 
         <p>It is what often happens when a person tries to build a life inside a culture of constant stimulation, fractured ideas about masculinity, endless comparison, and very few spaces where honesty is actually possible.</p>
 
-        <p>Most of the men I work with did not arrive because of a dramatic crisis.</p>
-
-        <p>Something less obvious had been happening for a long time.</p>
-
-        <p>A growing sense of being slightly out of step with their own life. Performing a version of themselves they no longer fully believed in. Carrying questions they had nowhere to bring.</p>
+        <p>Most of the men I work with did not arrive because of a dramatic crisis. Something less obvious had been happening for a long time: a growing sense of being out of step with their own life, performing a version of themselves they no longer fully believed in, and carrying questions they had nowhere to bring.</p>
 
         <p class="text-parchment/80 pt-4">The work begins by taking that seriously.</p>
       </div>
@@ -307,7 +301,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       TRANSITION 1 — Type C: Full-bleed photographic break
+       TRANSITION 1: Type C: Full-bleed photographic break
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="relative overflow-hidden">
     <Image
@@ -328,7 +322,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       03 · WHAT THIS WORK IS — Type B: Slightly lighter navy
+       03 · WHAT THIS WORK IS: Type B: Slightly lighter navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-header">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
@@ -363,7 +357,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       04 · WHAT WE WORK WITH — Type A: Deep navy
+       04 · WHAT WE WORK WITH: Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-void">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
@@ -490,7 +484,7 @@ const jsonLd = [
           href="#book-call"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15"
         >
-          Book a Free 15-Minute Call
+          Book a free 15-minute fit call
         </a>
       </div>
 
@@ -498,7 +492,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       TRANSITION 2 — Type C: Full-bleed photographic break
+       TRANSITION 2: Type C: Full-bleed photographic break
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="relative overflow-hidden">
     <Image
@@ -519,7 +513,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       05 · ABOUT MICHAEL — Editorial carousel · Type A: Deep navy
+       05 · ABOUT MICHAEL: Editorial carousel · Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-void" id="about-michael">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
@@ -714,7 +708,7 @@ const jsonLd = [
   </script>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       06 · TESTIMONIALS — Type B: Slightly lighter navy
+       06 · TESTIMONIALS: Type B: Slightly lighter navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-header">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
@@ -788,7 +782,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       TRANSITION 3 — Type C: Full-bleed photographic break (optional)
+       TRANSITION 3: Type C: Full-bleed photographic break (optional)
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="relative overflow-hidden">
     <Image
@@ -809,13 +803,13 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       07 · PRACTICAL CLOSE — Type A: Deep navy
+       07 · PRACTICAL CLOSE: Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section id="book-call" class="bg-void">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
 
       <h2 class="font-heading text-3xl md:text-4xl lg:text-[42px] text-gold-gradient leading-tight mb-10">
-        Start with a free 15-minute call
+        Book a free 15-minute fit call
       </h2>
 
       <div class="font-body text-lg md:text-xl text-parchment/68 leading-relaxed space-y-6 mb-10">
@@ -828,14 +822,22 @@ const jsonLd = [
         href="#cal-fit-embed"
         class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-6"
       >
-        Book Your Free Call
+        Book a free 15-minute fit call
       </a>
 
       <p class="text-parchment/55 text-xs font-body tracking-wide mb-14">
-        Online worldwide &nbsp;&middot;&nbsp; Sessions in English &nbsp;&middot;&nbsp; Based in South Africa
+        South African-registered &nbsp;&middot;&nbsp; Currently based in India &nbsp;&middot;&nbsp; Online worldwide
       </p>
 
       <div id="cal-fit-embed" class="mb-14"></div>
+
+      <p class="text-parchment/55 text-xs font-body mb-10">
+        If the calendar does not load, <a href="https://cal.com/sangham/fit" target="_blank" rel="noopener noreferrer" class="text-primary/75 hover:text-primary underline underline-offset-2 decoration-primary/30">open the booking page directly</a>.
+      </p>
+
+      <p class="font-body text-sm text-parchment/55 leading-relaxed max-w-2xl mb-10">
+        Still deciding what kind of support fits? Read <a href="/wisdom/how-to-find-a-mentor-for-a-young-man-in-south-africa" class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30">how to find a mentor for a young man in South Africa</a>.
+      </p>
 
       <div class="border-t border-parchment/10 pt-10">
         <p class="font-body text-sm text-parchment/45 leading-relaxed max-w-2xl">
@@ -850,7 +852,7 @@ const jsonLd = [
   </section>
 
   <!-- ═══════════════════════════════════════════════════════════════════
-       08 · FAQ — Type A: Deep navy
+       08 · FAQ: Type A: Deep navy
   ═══════════════════════════════════════════════════════════════════ -->
   <section class="bg-void">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
@@ -883,7 +885,7 @@ const jsonLd = [
           href="#book-call"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/15 mb-4"
         >
-          Book a Free 15-Minute Call
+          Book a free 15-minute fit call
         </a>
         <p>
           <a href="/contact" class="font-body text-sm text-parchment/45 hover:text-parchment/70 transition-colors">
@@ -942,7 +944,7 @@ const jsonLd = [
 </div>
 
 <StickyConsultationCTA
-  label="Book a free 15-minute call →"
+  label="Book a free 15-minute fit call →"
   href="#book-call"
   variant="dark"
   whatsappHref="https://wa.me/27736738063"

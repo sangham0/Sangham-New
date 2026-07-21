@@ -12,7 +12,7 @@ const jsonLd = [
   {
     '@context': 'https://schema.org',
     '@type': 'Service',
-    name: 'Online Wellness Counselling',
+    name: 'Online Wellness Counselling in South Africa',
     url: canonicalURL,
     description:
       'Online wellness counselling addressing the gap between understanding patterns and actually changing them. Five-session integrative process. Available across South Africa and worldwide.',
@@ -168,32 +168,26 @@ const faqJsonLd = {
 ---
 
 <BaseLayout
-  title="Online Counselling & Integration"
-  description="Online wellness counselling for people who understand their patterns but still find themselves caught in them. Five-session process available. ASCHP-registered. Sessions worldwide."
+  title="Online Wellness Counselling in South Africa"
+  description="South African-registered online wellness counselling with fees in rand, available across South Africa and worldwide. A structured five-session process."
   canonicalURL={canonicalURL}
   image="/images/og-default.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
   minimalNav={true}
 >
 
-  <Fragment slot="head">
-    <link rel="alternate" hreflang="en" href="https://www.sangham.org/counselling/" />
-    <link rel="alternate" hreflang="en-ZA" href="https://www.sangham.org/online-counselling-south-africa/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.sangham.org/counselling/" />
-  </Fragment>
-
   <!-- ═══ 1. HERO ═══════════════════════════════════════════════════════ -->
-  <!-- Pure CSS background — no image, fast LCP (H1 text is the LCP element) -->
+  <!-- Pure CSS background: no image, fast LCP (H1 text is the LCP element) -->
   <section class="-mt-[72px] pt-[72px] bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
 
       <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-8">
-        Sangham &middot; Online Sessions Worldwide
+        South African-registered &middot; Currently based in India &middot; Online worldwide
       </p>
 
       <h1 class="font-heading text-4xl md:text-5xl lg:text-6xl text-parchment/95 leading-tight mb-6">
-        Online Counselling<br class="hidden sm:block" />
-        <span class="text-gold-gradient">&amp; Integration</span>
+        Online Wellness Counselling<br class="hidden sm:block" />
+        <span class="text-gold-gradient">in South Africa</span>
       </h1>
 
       <p class="font-body text-xl md:text-2xl text-parchment/65 leading-relaxed mb-4 max-w-2xl">
@@ -201,17 +195,17 @@ const faqJsonLd = {
       </p>
 
       <p class="font-body text-sm text-parchment/40 leading-relaxed mb-10 max-w-lg">
-        Online sessions worldwide. Run by Michael Kaplan (Swami Ramarishi),
-        ASCHP-registered Wellness Counsellor (Reg.&nbsp;10559).
+        Run by Michael Kaplan (Swami Ramarishi), ASCHP-registered Wellness Counsellor
+        (Reg.&nbsp;10559). Fees are shown in South African rand.
       </p>
 
-      <!-- CTAs — stacked on mobile, side-by-side on sm+ -->
+      <!-- CTAs: stacked on mobile, side-by-side on sm+ -->
       <div class="flex flex-col sm:flex-row gap-4">
         <a
           href="#cal-section"
           class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
         >
-          Book a Free 15-Minute Fit Call
+          Book a free 15-minute fit call
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -249,6 +243,33 @@ const faqJsonLd = {
         </a>
       </p>
 
+    </div>
+  </section>
+
+  <!-- SOUTH AFRICAN CONTEXT -->
+  <section class="bg-background border-t border-border/30">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-[1.2fr_1fr] gap-10 md:gap-14 items-start">
+        <div>
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-4">South African context</p>
+          <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-6">A local professional frame, delivered online</h2>
+          <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
+            <p>Michael's professional registration is held in South Africa through the ASCHP. The work stays within supportive wellness counselling and does not present itself as psychology, psychotherapy, psychiatry, or clinical treatment.</p>
+            <p>Sessions are priced in rand and South African clients can pay by EFT. The online format also makes the same process available to South Africans living abroad and to clients elsewhere, with scheduling agreed around the relevant timezone.</p>
+          </div>
+        </div>
+        <div class="border border-border/50 rounded-xl p-7 bg-muted/20">
+          <h3 class="font-heading text-xl text-foreground mb-5">Useful before you choose</h3>
+          <ul class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed list-disc list-outside ml-5 marker:text-primary/40">
+            <li>ASCHP registration number 10559</li>
+            <li>Sessions held online in English</li>
+            <li>Single session: R850</li>
+            <li>Five-session process: R3,400</li>
+            <li>Supportive counselling, not clinical care</li>
+          </ul>
+          <a href="/wisdom/online-wellness-counselling-south-africa" class="inline-flex mt-6 text-primary/70 hover:text-primary text-sm font-body transition-colors">Read about scope, cost, and what to expect &rarr;</a>
+        </div>
+      </div>
     </div>
   </section>
 
@@ -351,7 +372,7 @@ const faqJsonLd = {
         What this costs
       </h2>
 
-      <!-- Pricing card — max-width prevents horizontal scroll on narrow screens -->
+      <!-- Pricing card: max-width prevents horizontal scroll on narrow screens -->
       <div class="border border-primary/20 rounded-2xl p-8 md:p-10 bg-void/30 max-w-sm mx-auto w-full">
 
         <!-- Single session -->
@@ -393,7 +414,7 @@ const faqJsonLd = {
           href="#cal-section"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
         >
-          Book a Free Fit Call First
+          Book a free 15-minute fit call
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>
@@ -422,7 +443,7 @@ const faqJsonLd = {
 
       <div class="flex flex-col md:flex-row gap-10 items-start">
 
-        <!-- Portrait — lazy loaded, below fold -->
+        <!-- Portrait: lazy loaded, below fold -->
         <div class="shrink-0 mx-auto md:mx-0">
           <div class="w-40 h-40 rounded-full overflow-hidden border-2 border-primary/20">
             <Image
@@ -448,7 +469,7 @@ const faqJsonLd = {
               Hatha and Ashtanga, Triguna Yoga, Rishikesh.
             </p>
             <p>
-              South African by origin, currently based in India. Background includes intensive training
+              South African-registered and currently based in India. Background includes intensive training
               in pranayama, hatha yoga, and meditation within established traditions, extended periods
               of practice in the Himalayas, and sustained one-on-one and group work with people across
               South Africa, India, and Europe.
@@ -543,7 +564,7 @@ const faqJsonLd = {
           href="#cal-section"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
         >
-          Book a Fit Call
+          Book a free 15-minute fit call
           <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
             <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
           </svg>

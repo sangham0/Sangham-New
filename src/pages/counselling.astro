@@ -78,6 +78,24 @@ const workWithItems = [
   'A sense that despite everything tried, something fundamental remains unresolved',
 ];
 
+const supportPaths = [
+  {
+    title: 'Mentoring for teenage boys',
+    text: 'Developmental mentorship and reflective counselling for boys aged 12 to 17. The service is for the young person, with a clear process for parent involvement.',
+    href: '/mentoring-for-adolescents',
+  },
+  {
+    title: 'Mentoring for young men',
+    text: 'A grounded space for men aged 18 to 25 who are working with direction, identity, responsibility, or emotional shutdown.',
+    href: '/mentoring-for-young-men',
+  },
+  {
+    title: 'Counselling for meditators',
+    text: 'Support for practice-related questions, difficult experiences, and the work of integrating contemplative insight into ordinary life.',
+    href: '/counselling-for-meditators',
+  },
+];
+
 const fiveSessionSteps = [
   { num: '01', title: 'Mapping', text: 'Understanding current patterns, dynamics, and the specific areas where there is a sense of being stuck or challenged.' },
   { num: '02', title: 'Identifying', text: 'Seeing what is actually maintaining these patterns. Not the story told about them, but the mechanisms underneath.' },
@@ -156,15 +174,9 @@ const faqJsonLd = {
 
 <BaseLayout
   title="Online Counselling | The Five-Session Process"
-  description="A structured five-session counselling process addressing the gap between understanding and real change. Online via video call. Enquire today."
+  description="A structured five-session wellness counselling process for people who understand their patterns but still feel caught in them. Online worldwide."
   jsonLd={[...jsonLd, faqJsonLd]}
 >
-
-  <Fragment slot="head">
-    <link rel="alternate" hreflang="en" href="https://www.sangham.org/counselling/" />
-    <link rel="alternate" hreflang="en-ZA" href="https://www.sangham.org/online-counselling-south-africa/" />
-    <link rel="alternate" hreflang="x-default" href="https://www.sangham.org/counselling/" />
-  </Fragment>
 
   <PageHeader
     title="Counselling & Integration"
@@ -185,9 +197,41 @@ const faqJsonLd = {
           The approach draws on counselling, contemplative practice, and body-based awareness, working with thought, emotion, physiology, and behaviour as one integrated process, anchored in real life.
         </p>
         <p class="text-sm text-muted-foreground/60">
-          Not sure if this is right for you? A free 15-minute fit call is available before any commitment.
-          <a href="/contact#cal-section" class="text-primary/70 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">Book one here.</a>
+          Not sure if this is right for you?
+          <a href="/contact#cal-section" class="text-primary/70 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">Book a free 15-minute fit call.</a>
         </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOW STARTING WORKS -->
+  <section class="bg-background border-t border-border/25">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">How Starting Works</h2>
+      <p class="text-muted-foreground font-body text-sm text-center leading-relaxed mb-12 max-w-xl mx-auto">
+        You do not need to commit to a longer process before you have spoken with Michael and understood the fit.
+      </p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div class="border border-border/50 rounded-lg p-7 bg-card">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">Step 1</p>
+          <h3 class="font-heading text-xl text-foreground mb-3">Free fit call</h3>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">A 15-minute conversation. No forms, no counselling session, and no obligation to continue.</p>
+        </div>
+        <div class="border border-border/50 rounded-lg p-7 bg-card">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">Step 2</p>
+          <h3 class="font-heading text-xl text-foreground mb-3">Initial consultation</h3>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">A full 60-minute session at R850 to understand what is happening and experience the work directly.</p>
+        </div>
+        <div class="border border-primary/25 rounded-lg p-7 bg-primary/5">
+          <p class="text-primary/60 text-xs tracking-widest uppercase font-body mb-3">Step 3</p>
+          <h3 class="font-heading text-xl text-foreground mb-3">Five-session process</h3>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">A contained process at R3,400, with a defined beginning, middle, and review point.</p>
+        </div>
+      </div>
+      <div class="text-center mt-9">
+        <a href="/contact#cal-section" class="inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body">
+          Book a free 15-minute fit call
+        </a>
       </div>
     </div>
   </section>
@@ -237,6 +281,11 @@ const faqJsonLd = {
             </div>
           ))}
         </div>
+
+        <p class="text-header-foreground/50 text-sm font-body text-center mb-10">
+          Want the fuller picture first? Read
+          <a href="/wisdom/what-happens-in-a-five-session-counselling-process" class="text-primary/70 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/25">what happens across the five sessions</a>.
+        </p>
 
         <!-- Pricing -->
         <div class="border border-header-foreground/10 rounded-xl p-6 bg-void/30 mb-10 max-w-md mx-auto">
@@ -297,7 +346,7 @@ const faqJsonLd = {
   </section>
 
   <!-- HOW THE WORK IS APPROACHED -->
-  <section class="relative overflow-hidden">
+  <section id="integration" class="relative overflow-hidden scroll-mt-[72px]">
     <Image
       src={forestPond}
       alt=""
@@ -335,90 +384,21 @@ const faqJsonLd = {
     </div>
   </section>
 
-  <!-- WHO THIS WORK CAN SUPPORT -->
+  <!-- RELATED SUPPORT PATHS -->
   <section class="bg-background">
-    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
-        Who This Work Can Support
-      </h2>
-
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">Related Support Paths</h2>
       <p class="text-muted-foreground font-body text-sm leading-relaxed text-center mb-14 max-w-xl mx-auto">
-        This work is not one-size-fits-all. It tends to be most relevant in certain contexts.
+        Some people need a page that speaks more directly to their age, practice background, or developmental stage.
       </p>
-
-      <!-- Adolescents and Young Adults — Two-card split -->
-      <div class="mb-14 border-b border-border/30 pb-14">
-        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-8">
-          Adolescents and Young Adults
-        </h3>
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- Card 1: Adolescents -->
-          <div class="border border-border/20 rounded-xl p-7 md:p-8 bg-background/50 flex flex-col">
-            <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-4">Ages 12–17</p>
-            <h4 class="font-heading text-lg md:text-xl text-foreground mb-4">Mentoring for Teenagers</h4>
-            <p class="text-muted-foreground font-body leading-relaxed mb-4 flex-1">
-              A grounded space for teenage boys navigating identity, emotional difficulty, and the pressures of growing up. The work combines reflective counselling with developmental mentorship, helping young men build self-awareness and internal steadiness during a critical period of formation.
-            </p>
-            <p class="text-muted-foreground/60 font-body text-sm leading-relaxed mb-6">
-              Designed primarily for parents seeking structured support for their son.
-            </p>
-            <a href="/mentoring-for-adolescents" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm font-body tracking-wide self-start">
-              Learn more about mentoring for teenagers
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-            </a>
-          </div>
-          <!-- Card 2: Young Men -->
-          <div class="border border-border/20 rounded-xl p-7 md:p-8 bg-background/50 flex flex-col">
-            <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-4">Ages 18–25</p>
-            <h4 class="font-heading text-lg md:text-xl text-foreground mb-4">Mentoring for Young Men</h4>
-            <p class="text-muted-foreground font-body leading-relaxed mb-4 flex-1">
-              Reflective counselling and developmental mentorship for young men navigating direction, identity, emotional shutdown, and the often-unspoken difficulty of becoming an adult man consciously rather than accidentally.
-            </p>
-            <p class="text-muted-foreground/60 font-body text-sm leading-relaxed mb-6">
-              Designed for young men themselves, or for families seeking support on their behalf.
-            </p>
-            <a href="/mentoring-for-young-men" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm font-body tracking-wide self-start">
-              Learn more about mentoring for young men
-              <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Those on a Meditative or Inner Path -->
-      <div class="mb-14 border-b border-border/30 pb-14">
-        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-5">
-          Those on a Meditative or Inner Path
-        </h3>
-        <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
-          <p>
-            Many people practise meditation, yoga, or other forms of inner work for years without ongoing guidance. Over time, this can lead to stagnation, subtle imbalance, or growing uncertainty about how to proceed. There may be a sense that practice is no longer working the way it used to, or that something has shifted and the old approach no longer fits.
-          </p>
-          <p>
-            This work offers a space for honest reflection and precise adjustment. Not to replace an existing path, but to support it with clarity, grounded feedback, and a practitioner who understands the terrain from direct experience.
-          </p>
-        </div>
-        <div class="mt-6">
-          <a href="/counselling-for-meditators" class="inline-flex items-center gap-2 px-5 py-2.5 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm font-body tracking-wide">
-            Learn more about counselling for meditators
-            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5l7 7-7 7" /></svg>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {supportPaths.map((path) => (
+          <a href={path.href} class="group flex flex-col border border-border/40 rounded-xl p-7 bg-card hover:border-primary/35 hover:-translate-y-[2px] transition-all duration-200">
+            <h3 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors mb-3">{path.title}</h3>
+            <p class="text-muted-foreground font-body text-sm leading-relaxed flex-1">{path.text}</p>
+            <span class="text-primary/70 group-hover:text-primary text-sm font-body mt-5">Read more &rarr;</span>
           </a>
-        </div>
-      </div>
-
-      <!-- Life Transitions, Loss, and Reorientation -->
-      <div>
-        <h3 class="font-heading text-xl md:text-2xl text-foreground mb-5">
-          Life Transitions, Loss, and Reorientation
-        </h3>
-        <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
-          <p>
-            Certain periods of life cannot be approached as problems to be solved. Loss, endings, major changes, and significant inner shifts can alter how a person sees themselves, their relationships, and the sense of what matters. These tend to require a different kind of support than most approaches offer.
-          </p>
-          <p>
-            This work provides space to move through these periods with attention, honesty, and care. The focus is on understanding the process and staying grounded within it, rather than rushing toward resolution.
-          </p>
-        </div>
+        ))}
       </div>
     </div>
   </section>
@@ -477,7 +457,7 @@ const faqJsonLd = {
 
       <div class="space-y-10 md:space-y-14">
 
-        <!-- Bernard Altman — Professional Reflection -->
+        <!-- Bernard Altman: Professional Reflection -->
         <figure class="border border-border/20 bg-header/5 rounded-xl overflow-hidden">
           <div class="flex flex-col md:flex-row-reverse">
             <div class="md:w-[34%] shrink-0 bg-[#1a2a1a]">
@@ -505,7 +485,7 @@ const faqJsonLd = {
           </div>
         </figure>
 
-        <!-- Jacob S. — Personal Reflection -->
+        <!-- Jacob S.: Personal Reflection -->
         <figure class="border border-border/20 bg-header/5 rounded-xl overflow-hidden">
           <div class="flex flex-col md:flex-row">
             <div class="md:w-[34%] shrink-0">
@@ -609,7 +589,7 @@ const faqJsonLd = {
           href="/contact#cal-section"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
         >
-          Book a Free Fit Call
+          Book a free 15-minute fit call
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </a>
         <a

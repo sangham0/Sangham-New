@@ -8,7 +8,7 @@ as a historical record.
 
 ## 1. Homepage hero positioning
 
-**RESOLVED - Option A, implemented.** The hero now reads "Counselling for people who understand their patterns, and are still caught in them." with the structured-process sub-line; primary CTA "Book a Free Fit Call", secondary "Explore the Approach".
+**RESOLVED - Option A, implemented.** The hero now reads "Counselling for people who understand their patterns, and are still caught in them." with the structured-process sub-line; primary CTA "Book a free 15-minute fit call", secondary "Explore the Approach".
 
 **Context.** The current H1 reads "A place for careful, grounded inner work." with the
 sub-line "If you understand what tends to go wrong but still find yourself caught in it, this
@@ -26,7 +26,7 @@ direction.
   H1: "Counselling for people who understand their patterns, and are still caught in them."
   Sub-line: "A structured process combining counselling, breathwork, and contemplative
   practice, conducted online."
-  CTAs: "Book a Free Fit Call" / "Explore the Approach"
+  CTAs: "Book a free 15-minute fit call" / "Explore the Approach"
   (The H1 is adapted from copy that already exists on the ads landing page, so it is
   voice-consistent and already live in a different context.)
 
@@ -254,21 +254,18 @@ adapt a second version for the adolescents/parent audience.
 
 ## 8. Canonical fact sheet - experience claims
 
-**RESOLVED - canonical facts confirmed and implemented.** Training under Bernard Altman: 2013-2023 (10 years). Facilitating groups and rites-of-passage work: since 2013, ongoing (12+ years). Formal meditative practice training: since 2018, ongoing (8+ years). Implemented: credibility strips updated from "10+" to "12+", "more than a decade" became "more than twelve years", and a Boys to Men start-year reference was corrected from 2012 to 2013.
+**RESOLVED - canonical facts confirmed and implemented.** Training under Bernard Altman: 2013-2023 (10 years). Facilitating groups and rites-of-passage work: since 2013, ongoing. For clear site-wide communication, the public experience claim is standardised as "10+ years". Formal meditative practice training: since 2018, ongoing (8+ years). The Boys to Men start-year reference remains 2013.
 
 **Context.** The site states Michael's experience differently in different places:
-"more than twelve years" appears on the About page and the adolescents page; "10+ years"
-appears on credibility strips on the meditators and young-men pages; "more than a decade"
-and "more than eight years of contemplative practice" appear on the meditators page.
-These variations are not necessarily errors, but they create an inconsistent impression.
-They have deliberately NOT been harmonised autonomously because biography claims are
-founder-owned.
+The counselling, mentoring, About, and meditator pages now use "10+ years" consistently.
+The distinct claim of 8+ years of dedicated contemplative practice remains on the meditators
+page because it describes a different form of experience.
 
 **Template for Michael to fill in:**
 
 | Claim | Canonical value | Pages where it currently appears |
 | --- | --- | --- |
-| Years in practice (counselling/wellness work) | 12+ years (since 2013, ongoing) | About, adolescents page, young-men page, meditators page |
+| Years in practice (counselling/wellness work) | 10+ years | About, adolescents page, young-men page, meditators page |
 | Years of contemplative practice | 8+ years (since 2018, ongoing) | Meditators page |
 | Training under Bernard Altman | 10 years (2013-2023) | About, meditators page |
 
@@ -399,13 +396,10 @@ reason to touch `vercel.json` for another purpose.
 
 ## 14. CTA label unification and meditators fit-call length
 
-**RESOLVED - A and A.** The meditators page keeps its "Book an Introductory Conversation" label and the 15-minute slot. No changes made.
+**RESOLVED - site-wide standardisation implemented.** The meditators page now uses "Book a free 15-minute fit call", matching the rest of the service pages. The slot remains 15 minutes.
 
-**Context.** Most pages now use "fit call" language for the free 15-minute introductory
-booking. The meditators page deliberately uses "Book an Introductory Conversation" to match
-that audience's register, and was left untouched in the June 2026 pass. The meditators page
-also describes the introductory conversation as "unhurried", which may set an expectation
-that 15 minutes does not fully meet.
+**Context.** All pages now use direct fit-call language for the free 15-minute booking. Longer
+exploratory work begins in a paid full consultation rather than being implied by the short call.
 
 **Options for the label:**
 

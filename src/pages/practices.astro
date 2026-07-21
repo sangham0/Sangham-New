@@ -49,6 +49,31 @@ const jsonLd = [
     </div>
   </section>
 
+  <!-- QUICK CHOOSER -->
+  <section class="bg-background border-t border-border/30">
+    <div class="container mx-auto px-6 py-14 md:py-16 max-w-4xl">
+      <h2 class="font-heading text-2xl md:text-3xl text-foreground text-center mb-3">Choose by What You Need</h2>
+      <p class="text-muted-foreground font-body text-sm text-center mb-9">Begin with the gentlest relevant practice. More intensity is not automatically more useful.</p>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        <a href="#stillness" class="group border border-border/50 rounded-xl p-6 bg-card hover:border-primary/35 transition-colors">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">I need to settle</p>
+          <h3 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors mb-2">Stillness and sitting</h3>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">A short observation practice with contact, sound, and ordinary breathing as anchors.</p>
+        </a>
+        <a href="#breath" class="group border border-border/50 rounded-xl p-6 bg-card hover:border-primary/35 transition-colors">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">I need to focus</p>
+          <h3 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors mb-2">Breath and regulation</h3>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">Simple breath awareness and gentle pacing, without force or aggressive techniques.</p>
+        </a>
+        <a href="#movement" class="group border border-border/50 rounded-xl p-6 bg-card hover:border-primary/35 transition-colors">
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">I need to reconnect with my body</p>
+          <h3 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors mb-2">Movement and embodiment</h3>
+          <p class="text-muted-foreground font-body text-sm leading-relaxed">A grounded way to shift attention from constant thought into direct physical experience.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
   <!-- HOW TO USE THIS PAGE -->
   <section class="bg-header text-header-foreground">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
@@ -93,11 +118,15 @@ const jsonLd = [
           This is not a reason to avoid practice. It is a reason to approach it with intelligence and, where possible, with guidance. The practices on this page have been selected for their relative safety and accessibility. But deeper work is always best supported within a structured process, where practices can be introduced, monitored, and adjusted in context.
         </p>
       </div>
+      <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="/wisdom/meditation-experiences-when-to-pause-and-seek-support" class="inline-flex items-center justify-center px-6 py-3 border border-parchment/20 text-parchment/70 hover:border-primary/50 hover:text-primary transition-colors rounded-lg text-sm font-body">When to pause a practice</a>
+        <a href="/counselling-for-meditators" class="inline-flex items-center justify-center px-6 py-3 bg-primary text-primary-foreground hover:bg-gold-light transition-colors rounded-lg text-sm font-body">Counselling for meditators</a>
+      </div>
     </div>
   </section>
 
   <!-- STILLNESS AND SITTING -->
-  <section class="relative overflow-hidden border-t border-white/8">
+  <section id="stillness" class="relative overflow-hidden border-t border-white/8 scroll-mt-[88px]">
     <Image
       src={mountainSunrise}
       alt=""
@@ -155,7 +184,7 @@ const jsonLd = [
   </section>
 
   <!-- BREATH AND REGULATION -->
-  <section class="bg-background">
+  <section id="breath" class="bg-background scroll-mt-[88px]">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
       <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
         Breath and Regulation
@@ -194,8 +223,8 @@ const jsonLd = [
             <h4 class="font-heading text-sm text-foreground/80 mb-3">Try: Extended Exhale (3 minutes)</h4>
             <div class="space-y-3 text-muted-foreground/60 font-body text-xs leading-relaxed">
               <p>Sit or lie down comfortably. Breathe in naturally through the nose for a count of 4. Breathe out slowly through the nose or slightly parted lips for a count of 6 or 8, longer than the inhale.</p>
-              <p>Keep the breath smooth and unforced. If the extended exhale creates tension, shorten it. The principle is simple: a longer exhale activates the parasympathetic nervous system and gradually reduces physiological arousal.</p>
-              <p>Practise for 3 minutes. Notice what shifts.</p>
+              <p>Keep the breath smooth and unforced. If the extended exhale creates tension, shorten it. For many people, a slightly longer exhale feels settling. It should never be forced.</p>
+              <p>Practise for 3 minutes. Notice what shifts. Stop if you feel lightheaded, strained, or more agitated.</p>
             </div>
           </div>
         </div>
@@ -223,7 +252,7 @@ const jsonLd = [
   </section>
 
   <!-- MOVEMENT AND EMBODIMENT -->
-  <section class="bg-header text-header-foreground">
+  <section id="movement" class="bg-header text-header-foreground scroll-mt-[88px]">
     <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
       <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
         Movement and Embodiment

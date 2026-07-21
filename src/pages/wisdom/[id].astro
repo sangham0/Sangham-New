@@ -21,12 +21,18 @@ const publishedDate = data.publishedDate.toISOString().slice(0, 10);
 const wordCount = (entry.body ?? '').split(/\s+/).length;
 const readingTime = Math.max(1, Math.round(wordCount / 200));
 
-// Practice guides and meditation/breathwork pieces bridge to the dedicated
-// meditators page rather than only the generic counselling CTA.
-const showMeditatorBridge =
+const isMeditationArticle =
   data.category === 'practice-guide' ||
   data.tags.includes('meditation') ||
   data.tags.includes('breathwork');
+
+const relatedService = data.tags.includes('teenagers')
+  ? { href: '/mentoring-for-adolescents', label: 'Mentoring for teenage boys' }
+  : data.tags.includes('young-men')
+    ? { href: '/mentoring-for-young-men', label: 'Mentoring for young men' }
+    : isMeditationArticle
+      ? { href: '/counselling-for-meditators', label: 'Counselling for meditators' }
+      : { href: '/counselling', label: 'Online wellness counselling' };
 
 const jsonLd = [
   {
@@ -154,21 +160,19 @@ const jsonLd = [
           Explore This Work Directly
         </h3>
         <p class="text-muted-foreground font-body text-sm leading-relaxed max-w-lg mx-auto mb-8">
-          If something in this essay resonates, the next step is a conversation. One-on-one counselling, breathwork, and meditation, integrated into a single, grounded process.
+          If something in this essay resonates, a free 15-minute call is a simple way to establish whether this work fits what you need.
         </p>
         <a
           href="/contact"
           class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
         >
-          Enquire About Working Together
+          Book a free 15-minute fit call
           <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" /></svg>
         </a>
-        {showMeditatorBridge && (
-          <p class="text-muted-foreground/70 font-body text-sm leading-relaxed max-w-lg mx-auto mt-6">
-            Working with questions arising from meditation or practice itself? See
-            <a href="/counselling-for-meditators" class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30 transition-colors">Counselling for Meditators</a>.
-          </p>
-        )}
+        <p class="text-muted-foreground/70 font-body text-sm leading-relaxed max-w-lg mx-auto mt-6">
+          The most relevant service for this topic is
+          <a href={relatedService.href} class="text-primary/80 hover:text-primary underline underline-offset-2 decoration-primary/30 transition-colors">{relatedService.label}</a>.
+        </p>
       </div>
 
       <div class="divider-gold w-24 mx-auto mt-16"></div>
@@ -187,7 +191,7 @@ const jsonLd = [
 </BaseLayout>
 
 <style>
-  /* Markdown body styling — mirrors the previous space-y-6 paragraph render. */
+  /* Markdown body styling: mirrors the previous space-y-6 paragraph render. */
   .essay-content :global(p) {
     margin-bottom: 1.5rem;
   }

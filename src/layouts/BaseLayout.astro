@@ -43,6 +43,7 @@ const fullTitle =
 const siteJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'Organization',
+  '@id': 'https://www.sangham.org/#organization',
   name: 'Sangham',
   url: 'https://www.sangham.org',
   logo: {
@@ -57,7 +58,7 @@ const siteJsonLd = {
     name: 'Michael Kaplan',
     alternateName: 'Swami Ramarishi',
     jobTitle: 'Wellness Counsellor',
-    url: 'https://www.sangham.org/about',
+    url: 'https://www.sangham.org/about/',
   },
   contactPoint: {
     '@type': 'ContactPoint',
@@ -68,6 +69,54 @@ const siteJsonLd = {
   },
   sameAs: ['https://instagram.com/sangham.space'],
 };
+
+const personJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  '@id': 'https://www.sangham.org/about/#michael-kaplan',
+  name: 'Michael Kaplan',
+  alternateName: 'Swami Ramarishi',
+  url: 'https://www.sangham.org/about/',
+  image: 'https://www.sangham.org/images/michael-kaplan.jpg',
+  jobTitle: 'Wellness Counsellor',
+  worksFor: { '@id': 'https://www.sangham.org/#organization' },
+  hasCredential: {
+    '@type': 'EducationalOccupationalCredential',
+    credentialCategory: 'Professional Registration',
+    name: 'ASCHP Registered Wellness Counsellor',
+    identifier: 'Reg. No. 10559',
+    recognizedBy: {
+      '@type': 'Organization',
+      name: 'Association for Supportive Counsellors and Holistic Practitioners',
+      alternateName: 'ASCHP',
+    },
+  },
+  sameAs: ['https://instagram.com/sangham.space'],
+};
+
+const canonicalPath = new URL(canonicalURL, Astro.site).pathname;
+const hasBreadcrumb = jsonLd?.some((item) => item['@type'] === 'BreadcrumbList');
+const pageLabel = title.split('|')[0].trim();
+const breadcrumbJsonLd = canonicalPath === '/' || hasBreadcrumb
+  ? null
+  : {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      itemListElement: [
+        {
+          '@type': 'ListItem',
+          position: 1,
+          name: 'Home',
+          item: 'https://www.sangham.org/',
+        },
+        {
+          '@type': 'ListItem',
+          position: 2,
+          name: pageLabel,
+          item: new URL(canonicalPath, Astro.site).href,
+        },
+      ],
+    };
 ---
 
 <!doctype html>
@@ -104,6 +153,10 @@ const siteJsonLd = {
 
     <!-- Structured Data -->
     <script type="application/ld+json" set:html={JSON.stringify(siteJsonLd)} />
+    <script type="application/ld+json" set:html={JSON.stringify(personJsonLd)} />
+    {breadcrumbJsonLd && (
+      <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJsonLd)} />
+    )}
     {jsonLd?.map((data) => (
       <script type="application/ld+json" set:html={JSON.stringify(data)} />
     ))}
@@ -116,7 +169,7 @@ const siteJsonLd = {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
 
-    <!-- Google Consent Mode v2 — MUST load before GTM (production only) -->
+    <!-- Google Consent Mode v2: MUST load before GTM (production only) -->
     {import.meta.env.PROD && (
       <script is:inline>
         window.dataLayer = window.dataLayer || [];
@@ -228,7 +281,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
 
     {!hideStickyBar && <StickyConsultationCTA />}
 
-    <!-- WhatsApp floating button — mobile only. Hidden while the consent
+    <!-- WhatsApp floating button: mobile only. Hidden while the consent
          banner or a sticky CTA bar occupies the bottom edge, to avoid
          stacking three fixed elements on small screens. -->
     <a
@@ -249,7 +302,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
     <!-- Cookie Consent Banner -->
     <div
       id="consent-banner"
-      class="fixed bottom-4 left-4 right-4 md:left-auto md:right-6 md:max-w-sm z-[60] bg-nav border border-nav-foreground/10 rounded-xl shadow-xl shadow-black/20 p-5 hidden"
+      class="fixed bottom-3 left-3 right-3 md:left-auto md:right-4 md:max-w-xs z-[60] bg-nav border border-nav-foreground/10 rounded-xl shadow-xl shadow-black/20 p-4 max-h-[85vh] overflow-y-auto hidden"
       role="dialog"
       aria-label="Cookie consent"
     >

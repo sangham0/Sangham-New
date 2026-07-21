@@ -101,9 +101,9 @@ const notebookItems = allItems.filter(item => item.notebook);
 
 // ─── Featured items ───────────────────────────────────────────────────────────
 const featuredIds = [
-  'the-art-of-becoming-invisible',
-  'using-breath-to-stabilise-attention',
-  'body-keeps-the-score',
+  'can-meditation-make-anxiety-or-dissociation-worse',
+  'what-happens-in-a-five-session-counselling-process',
+  'confidentiality-in-mentoring-for-teenage-boys',
 ];
 const featuredItems: LibraryItem[] = featuredIds
   .map(id => allItems.find(a => a.id === id))
@@ -138,6 +138,20 @@ const jsonLd = [
       <p class="text-muted-foreground font-body leading-relaxed text-center">
         The writing here explores the territory this work moves through: attention, the body, breath, relationship, and the mechanics of genuine change. Essays take a broader, reflective angle on psychology and contemplation. Practice guides offer focused instruction in specific skills. Use the filters below to find what is most relevant to where you are.
       </p>
+      <div class="grid sm:grid-cols-3 gap-3 mt-10">
+        <a href="/wisdom/can-meditation-make-anxiety-or-dissociation-worse" class="rounded-lg border border-border/50 bg-card p-4 hover:border-primary/35 transition-colors">
+          <span class="block text-[11px] uppercase tracking-wider text-primary/60 font-body mb-2">Meditation feels destabilising</span>
+          <span class="font-heading text-base text-foreground/85">Start with practice safety</span>
+        </a>
+        <a href="/wisdom/what-happens-in-a-five-session-counselling-process" class="rounded-lg border border-border/50 bg-card p-4 hover:border-primary/35 transition-colors">
+          <span class="block text-[11px] uppercase tracking-wider text-primary/60 font-body mb-2">Considering counselling</span>
+          <span class="font-heading text-base text-foreground/85">See how the process works</span>
+        </a>
+        <a href="/wisdom/how-to-find-a-mentor-for-a-young-man-in-south-africa" class="rounded-lg border border-border/50 bg-card p-4 hover:border-primary/35 transition-colors">
+          <span class="block text-[11px] uppercase tracking-wider text-primary/60 font-body mb-2">Looking for mentoring</span>
+          <span class="font-heading text-base text-foreground/85">Choose the right relationship</span>
+        </a>
+      </div>
     </div>
   </section>
 
@@ -322,13 +336,13 @@ const jsonLd = [
   <section class="bg-background border-t border-border/25">
     <div class="container mx-auto px-6 py-12 md:py-16 max-w-2xl text-center">
       <p class="text-muted-foreground font-body leading-relaxed mb-8">
-        If you want to explore this work more directly, you can enquire about working together.
+        If you want to explore this work more directly, begin with a free 15-minute fit call.
       </p>
       <a
         href="/contact"
         class="inline-block px-8 py-3 border border-primary/30 text-primary/70 hover:border-primary/60 hover:text-primary transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
       >
-        Get in Touch
+        Book a free 15-minute fit call
       </a>
     </div>
   </section>
