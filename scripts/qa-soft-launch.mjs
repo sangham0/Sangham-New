@@ -115,6 +115,7 @@ assert(source.includes("gtag('consent', 'update'"), 'Consent preferences do not 
 assert(!source.includes("dataLayer.push('consent', 'update'"), 'Consent update still pushes command arguments separately');
 
 const layoutSource = readFileSync(path.join(root, 'src/layouts/BaseLayout.astro'), 'utf8');
+assert(/<main\s+id="main-content"\s+tabindex="-1"/.test(layoutSource), 'Skip-link target is not programmatically focusable');
 const consentBootstrap = layoutSource.match(/<script is:inline>\s*(window\.dataLayer = window\.dataLayer \|\| \[\];[\s\S]*?)<\/script>/)?.[1] || '';
 assert(Boolean(consentBootstrap), 'Consent bootstrap script could not be extracted for scenario tests');
 
