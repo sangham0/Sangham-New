@@ -1,5 +1,5 @@
 ---
-title: "The Body Keeps the Score (Without Saying It)"
+title: "The Body Is Already Speaking"
 excerpt: "If you watch the body closely enough, you begin to notice that very little of what it does is random."
 publishedDate: "2026-04-15"
 dateLabel: "April 2026"
