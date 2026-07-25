@@ -10,7 +10,7 @@
  *   "product": { "slug": "...", "type": "guide", "title": "...", "subtitle": "...",
  *                "description": "...", "price_cents": 34900, "currency": "ZAR",
  *                "price_usd_cents": 1900, "status": "unpublished",
- *                "version_label": "v2-founder-voice", "content_sha256": "..." },
+ *                "version_label": "v1.0", "content_sha256": "..." },
  *   "course_title": "...",
  *   "modules": [
  *     { "title": "Part One", "lessons": [
