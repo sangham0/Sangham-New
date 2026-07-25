@@ -1,0 +1,264 @@
+---
+/**
+ * Minimal secure admin console (role-gated server-side).
+ * Find a customer; inspect orders, payment events, entitlements; grant,
+ * suspend, revoke, restore (reason required); resend claim email; see
+ * fulfilment failures and recent access denials. Deliberately not a CMS.
+ */
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSession, isAdmin } from '../../lib/access';
+import { createAdminClient } from '../../lib/supabase';
+
+const session = await getSession(Astro);
+if (!session.user) return Astro.redirect('/auth/login/?next=/admin/', 302);
+if (!(await isAdmin(session.user.id))) return new Response('Not found', { status: 404 });
+
+const admin = createAdminClient();
+const url = new URL(Astro.request.url);
+const q = (url.searchParams.get('q') ?? '').trim().toLowerCase().slice(0, 254);
+
+// Customer search by email.
+let customer: {
+  email: string;
+  profile: { id: string; created_at: string } | null;
+  orders: Array<Record<string, unknown>>;
+  entitlements: Array<Record<string, unknown>>;
+  events: Array<Record<string, unknown>>;
+} | null = null;
+
+if (q) {
+  const { data: profile } = await admin
+    .from('profiles').select('id, email, created_at').ilike('email', q).maybeSingle();
+  const { data: orders } = await admin
+    .from('orders')
+    .select('id, order_ref, status, amount_cents, currency, provider, provider_order_ref, test_mode, created_at, products (slug, title)')
+    .ilike('email', q).order('created_at', { ascending: false }).limit(20);
+  const { data: entitlements } = await admin
+    .from('entitlements')
+    .select('id, status, source, granted_at, claimed_at, expires_at, order_id, products (slug, title)')
+    .ilike('email', q).order('granted_at', { ascending: false }).limit(20);
+  const orderIds = (orders ?? []).map((o) => o.id);
+  const { data: events } = orderIds.length
+    ? await admin
+        .from('payment_events')
+        .select('provider, provider_event_id, event_type, amount_cents, currency, signature_valid, processed_at, created_at, order_id')
+        .in('order_id', orderIds).order('created_at', { ascending: false }).limit(30)
+    : { data: [] };
+  customer = {
+    email: q,
+    profile: profile ?? null,
+    orders: orders ?? [],
+    entitlements: entitlements ?? [],
+    events: events ?? [],
+  };
+}
+
+// Fulfilment failures: paid orders with no entitlement.
+const { data: paidOrders } = await admin
+  .from('orders').select('id, order_ref, email, created_at, products (title)')
+  .eq('status', 'paid').order('created_at', { ascending: false }).limit(50);
+const { data: orderEnts } = await admin
+  .from('entitlements').select('order_id').not('order_id', 'is', null);
+const entitledOrderIds = new Set((orderEnts ?? []).map((e) => e.order_id));
+const fulfilmentFailures = (paidOrders ?? []).filter((o) => !entitledOrderIds.has(o.id));
+
+// Recent denials.
+const { data: denials } = await admin
+  .from('access_logs').select('user_id, product_id, action, created_at')
+  .eq('action', 'denied').order('created_at', { ascending: false }).limit(10);
+
+// Products for the grant form.
+const { data: products } = await admin
+  .from('products').select('slug, title, is_public_access').eq('is_public_access', false).order('title');
+
+function money(cents: unknown, currency: unknown): string {
+  if (typeof cents !== 'number') return '';
+  return `${currency === 'ZAR' ? 'R' : `${currency} `}${(cents / 100).toFixed(2)}`;
+}
+---
+
+<BaseLayout title="Admin" description="Sangham admin" minimalNav hideStickyBar noNav>
+  <main class="mx-auto max-w-4xl px-6 py-10 text-sm">
+    <h1 class="mb-6 text-2xl font-semibold">Library admin</h1>
+
+    <form method="get" action="/admin/" class="mb-8 flex gap-2">
+      <input type="email" name="q" value={q} placeholder="customer@email.com"
+        class="w-full max-w-sm rounded-md border border-neutral-300 px-3 py-2" />
+      <button class="rounded-md bg-primary px-4 py-2 text-white">Find customer</button>
+    </form>
+
+    {customer && (
+      <section class="mb-10 space-y-6">
+        <h2 class="text-lg font-medium">{customer.email}</h2>
+        <p class="opacity-70">
+          {customer.profile
+            ? `Account exists (since ${String(customer.profile.created_at).slice(0, 10)}).`
+            : 'No account yet (entitlements will attach at first sign-in).'}
+        </p>
+
+        <div>
+          <h3 class="mb-2 font-medium">Orders</h3>
+          {customer.orders.length === 0 ? <p class="opacity-60">None.</p> : (
+            <table class="w-full border-collapse text-left">
+              <thead><tr class="border-b border-neutral-200 opacity-60">
+                <th class="py-1 pr-3">Ref</th><th class="py-1 pr-3">Product</th><th class="py-1 pr-3">Amount</th>
+                <th class="py-1 pr-3">Provider</th><th class="py-1 pr-3">Status</th><th class="py-1">Date</th>
+              </tr></thead>
+              <tbody>
+                {customer.orders.map((o) => (
+                  <tr class="border-b border-neutral-100">
+                    <td class="py-1 pr-3">{String(o.order_ref)}{o.test_mode ? ' (test)' : ''}</td>
+                    <td class="py-1 pr-3">{(o.products as { title?: string } | null)?.title}</td>
+                    <td class="py-1 pr-3">{money(o.amount_cents, o.currency)}</td>
+                    <td class="py-1 pr-3">{String(o.provider)}</td>
+                    <td class="py-1 pr-3">{String(o.status)}</td>
+                    <td class="py-1">{String(o.created_at).slice(0, 16).replace('T', ' ')}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
+        </div>
+
+        <div>
+          <h3 class="mb-2 font-medium">Payment events</h3>
+          {customer.events.length === 0 ? <p class="opacity-60">None.</p> : (
+            <ul class="space-y-1">
+              {customer.events.map((e) => (
+                <li class="opacity-80">
+                  {String(e.created_at).slice(0, 16).replace('T', ' ')} · {String(e.provider)} · {String(e.event_type)}
+                  · {money(e.amount_cents, e.currency)} · sig {e.signature_valid ? 'valid' : 'INVALID'} · {String(e.provider_event_id)}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+
+        <div>
+          <h3 class="mb-2 font-medium">Entitlements</h3>
+          {customer.entitlements.length === 0 ? <p class="opacity-60">None.</p> : (
+            <ul class="space-y-2">
+              {customer.entitlements.map((ent) => (
+                <li class="rounded-md border border-neutral-200 p-3">
+                  <div class="flex flex-wrap items-center justify-between gap-2">
+                    <span>
+                      <strong>{(ent.products as { title?: string } | null)?.title}</strong>
+                      · {String(ent.status)} · {String(ent.source)}
+                      {ent.claimed_at ? ' · claimed' : ' · unclaimed'}
+                    </span>
+                    <span class="flex gap-2">
+                      {String(ent.status) === 'active'
+                        ? <>
+                            <button class="ent-action rounded border px-2 py-1" data-action="suspend" data-id={String(ent.id)}>Suspend</button>
+                            <button class="ent-action rounded border px-2 py-1" data-action="revoke" data-id={String(ent.id)}>Revoke</button>
+                          </>
+                        : <button class="ent-action rounded border px-2 py-1" data-action="restore" data-id={String(ent.id)}>Restore</button>}
+                    </span>
+                  </div>
+                </li>
+              ))}
+            </ul>
+          )}
+          <button id="resend-claim" data-email={customer.email} class="mt-3 rounded border px-3 py-1.5">
+            Resend claim/access email
+          </button>
+        </div>
+      </section>
+    )}
+
+    <section class="mb-10 rounded-lg border border-neutral-200 p-4">
+      <h2 class="mb-3 font-medium">Grant access (manual / sponsored)</h2>
+      <form id="grant-form" class="flex flex-wrap items-end gap-3">
+        <label class="block">
+          <span class="mb-1 block text-xs opacity-60">Email</span>
+          <input type="email" name="email" required value={q} class="rounded-md border border-neutral-300 px-3 py-2" />
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-xs opacity-60">Product</span>
+          <select name="productSlug" class="rounded-md border border-neutral-300 px-3 py-2">
+            {(products ?? []).map((p) => <option value={p.slug}>{p.title}</option>)}
+          </select>
+        </label>
+        <label class="block">
+          <span class="mb-1 block text-xs opacity-60">Type</span>
+          <select name="source" class="rounded-md border border-neutral-300 px-3 py-2">
+            <option value="manual_grant">Manual grant</option>
+            <option value="sponsored">Sponsored place</option>
+            <option value="goodwill">Goodwill / replacement</option>
+          </select>
+        </label>
+        <label class="flex items-center gap-2 pb-2 text-xs"><input type="checkbox" name="notify" checked /> Send access email</label>
+        <button class="rounded-md bg-primary px-4 py-2 text-white">Grant</button>
+      </form>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="mb-2 font-medium">Fulfilment failures <span class="opacity-60">(paid orders without an entitlement)</span></h2>
+      {fulfilmentFailures.length === 0 ? <p class="opacity-60">None. All paid orders have entitlements.</p> : (
+        <ul class="space-y-1">
+          {fulfilmentFailures.map((o) => (
+            <li class="text-red-700">
+              {String(o.order_ref)} · {o.email} · {(o.products as { title?: string } | null)?.title} · {String(o.created_at).slice(0, 16)}
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <section class="mb-10">
+      <h2 class="mb-2 font-medium">Recent access denials</h2>
+      {(denials ?? []).length === 0 ? <p class="opacity-60">None recorded.</p> : (
+        <ul class="space-y-1 opacity-80">
+          {(denials ?? []).map((d) => (
+            <li>{String(d.created_at).slice(0, 16).replace('T', ' ')} · user {d.user_id ? String(d.user_id).slice(0, 8) : 'anonymous'} · product {d.product_id ? String(d.product_id).slice(0, 8) : '?'}</li>
+          ))}
+        </ul>
+      )}
+    </section>
+  </main>
+
+  <script>
+    const post = async (path: string, body: Record<string, unknown>) => {
+      const response = await fetch(path, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(body),
+      });
+      const json = await response.json().catch(() => ({}));
+      if (!response.ok) alert(`Failed: ${json.error ?? response.status}`);
+      else location.reload();
+    };
+
+    document.querySelectorAll<HTMLButtonElement>('.ent-action').forEach((button) => {
+      button.addEventListener('click', () => {
+        const reason = prompt(`Reason for ${button.dataset.action} (recorded in the audit log):`);
+        if (!reason) return;
+        post('/api/admin/entitlement', { action: button.dataset.action, entitlementId: button.dataset.id, reason });
+      });
+    });
+
+    document.getElementById('resend-claim')?.addEventListener('click', (event) => {
+      const email = (event.target as HTMLElement).dataset.email;
+      const reason = prompt('Reason for resending (audit log):');
+      if (!reason) return;
+      post('/api/admin/resend-claim', { email, reason });
+    });
+
+    document.getElementById('grant-form')?.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const data = new FormData(event.target as HTMLFormElement);
+      const reason = prompt('Reason for this grant (audit log):');
+      if (!reason) return;
+      post('/api/admin/entitlement', {
+        action: 'grant',
+        email: data.get('email'),
+        productSlug: data.get('productSlug'),
+        source: data.get('source'),
+        notify: data.get('notify') === 'on',
+        reason,
+      });
+    });
+  </script>
+</BaseLayout>
