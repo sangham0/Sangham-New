@@ -11,6 +11,11 @@ const LAST_SIGNIFICANT_UPDATE = '2026-07-21';
 export default defineConfig({
   site: SITE,
   adapter: vercel(),
+  // Astro's global origin check would 403 provider webhooks (PayFast ITN is
+  // form-encoded). Same-origin enforcement is done explicitly per route in
+  // src/lib/access.ts (sameOriginOk) for every state-changing endpoint;
+  // webhook endpoints are signature-verified instead.
+  security: { checkOrigin: false },
   vite: {
     plugins: [tailwindcss()],
   },

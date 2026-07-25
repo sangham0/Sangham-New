@@ -274,9 +274,12 @@ create trigger entitlements_updated_at
   for each row execute function public.set_updated_at();
 
 -- One entitlement per order+product: webhook replay cannot double-grant.
+-- Full (non-partial) unique index: NULL order_ids are distinct, so manual
+-- and sponsored grants (order_id null) are unrestricted, while PostgREST
+-- upserts can target the constraint (partial indexes cannot be targeted
+-- by on_conflict through the API).
 create unique index entitlements_order_product_uniq
-  on public.entitlements (order_id, product_id)
-  where order_id is not null;
+  on public.entitlements (order_id, product_id);
 
 create index entitlements_user_idx on public.entitlements (user_id);
 create index entitlements_unclaimed_email_idx
