@@ -2,6 +2,7 @@
 import { defineConfig } from 'astro/config';
 import tailwindcss from '@tailwindcss/vite';
 import sitemap from '@astrojs/sitemap';
+import vercel from '@astrojs/vercel';
 
 const SITE = 'https://www.sangham.org';
 const LAST_SIGNIFICANT_UPDATE = '2026-07-21';
@@ -9,6 +10,7 @@ const LAST_SIGNIFICANT_UPDATE = '2026-07-21';
 // https://astro.build/config
 export default defineConfig({
   site: SITE,
+  adapter: vercel(),
   vite: {
     plugins: [tailwindcss()],
   },
