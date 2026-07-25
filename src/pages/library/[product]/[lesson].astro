@@ -1,0 +1,219 @@
+---
+/**
+ * Lesson page: protected reader (text), entitlement-checked audio player,
+ * video placeholder (provider activation is a founder decision). Content is
+ * server-rendered only after the RLS-scoped query returns it — a user
+ * without access never receives the body.
+ */
+export const prerender = false;
+
+import { marked } from 'marked';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getSession, logAccess } from '../../../lib/access';
+
+const { product: productSlug, lesson: lessonSlug } = Astro.params;
+const session = await getSession(Astro);
+
+const { data: product } = await session.supabase
+  .from('products')
+  .select('id, slug, title, product_type, is_public_access')
+  .eq('slug', productSlug ?? '')
+  .single();
+if (!product) return Astro.redirect('/library/', 302);
+
+// RLS is the authority: if this query returns the lesson (including body),
+// the caller is allowed to see it. If not, deny.
+const { data: lesson } = await session.supabase
+  .from('lessons')
+  .select('id, slug, title, lesson_type, body_markdown, duration_seconds, sort_order, module_id, is_free_preview')
+  .eq('product_id', product.id)
+  .eq('slug', lessonSlug ?? '')
+  .single();
+
+if (!lesson) {
+  if (!session.user && !product.is_public_access) {
+    return Astro.redirect(`/auth/login/?next=/library/${product.slug}/${lessonSlug}/`, 302);
+  }
+  await logAccess({
+    userId: session.user?.id ?? null,
+    productId: product.id,
+    action: 'denied',
+    ip: Astro.request.headers.get('x-real-ip'),
+    userAgent: Astro.request.headers.get('user-agent'),
+  });
+  return Astro.redirect(session.user ? '/library/?denied=1' : `/auth/login/?next=/library/${product.slug}/`, 302);
+}
+
+// Neighbours for prev/next.
+const { data: siblings } = await session.supabase
+  .from('lessons')
+  .select('slug, title, sort_order, module_id')
+  .eq('product_id', product.id)
+  .order('sort_order');
+const ordered = (siblings ?? []).sort((a, b) =>
+  a.module_id === b.module_id ? a.sort_order - b.sort_order : a.module_id < b.module_id ? -1 : 1,
+);
+const index = ordered.findIndex((l) => l.slug === lesson.slug);
+const previous = index > 0 ? ordered[index - 1] : null;
+const nextLesson = index >= 0 && index < ordered.length - 1 ? ordered[index + 1] : null;
+
+// Saved position for audio resume.
+let savedPosition = 0;
+if (session.user && lesson.lesson_type === 'audio') {
+  const { data: progressRow } = await session.supabase
+    .from('course_progress')
+    .select('position_seconds')
+    .eq('lesson_id', lesson.id)
+    .maybeSingle();
+  savedPosition = progressRow?.position_seconds ?? 0;
+}
+
+const bodyHtml =
+  lesson.lesson_type === 'text' && lesson.body_markdown
+    ? await marked.parse(lesson.body_markdown)
+    : null;
+
+await logAccess({
+  userId: session.user?.id ?? null,
+  productId: product.id,
+  lessonId: lesson.id,
+  action: 'view',
+  ip: Astro.request.headers.get('x-real-ip'),
+  userAgent: Astro.request.headers.get('user-agent'),
+});
+---
+
+<BaseLayout title={`${lesson.title} · ${product.title}`} description={product.title} minimalNav hideStickyBar>
+  <main class="mx-auto max-w-2xl px-6 py-12">
+    <nav class="mb-8 text-sm opacity-70">
+      <a href="/library/" class="underline">Library</a> ·
+      <a href={`/library/${product.slug}/`} class="underline">{product.title}</a>
+    </nav>
+
+    <article>
+      <h1 class="mb-8 text-3xl font-semibold leading-tight">{lesson.title}</h1>
+
+      {bodyHtml && (
+        <div class="reader prose prose-neutral max-w-none text-[1.075rem] leading-relaxed" set:html={bodyHtml} />
+      )}
+
+      {lesson.lesson_type === 'audio' && (
+        <div class="rounded-lg border border-neutral-200 p-6">
+          <audio id="lesson-audio" controls preload="none" controlslist="nodownload" class="w-full">
+            Your browser does not support audio playback.
+          </audio>
+          <p id="audio-status" class="mt-3 text-sm opacity-70">Press play to begin. The stream is prepared securely when you start.</p>
+        </div>
+      )}
+
+      {lesson.lesson_type === 'video' && (
+        <div class="rounded-lg border border-neutral-200 p-8 text-center opacity-75">
+          <p>Video lessons are coming to the library soon. This session will appear here when it is released.</p>
+        </div>
+      )}
+    </article>
+
+    <div class="mt-12 flex items-center justify-between gap-4 border-t border-neutral-100 pt-6">
+      {previous ? (
+        <a href={`/library/${product.slug}/${previous.slug}/`} class="text-sm underline opacity-80">Previous</a>
+      ) : <span />}
+      <button id="mark-complete" class="rounded-md border border-neutral-300 px-4 py-2 text-sm" data-cta="lesson-complete">
+        Mark as finished
+      </button>
+      {nextLesson ? (
+        <a href={`/library/${product.slug}/${nextLesson.slug}/`} class="text-sm underline opacity-80">Next</a>
+      ) : <span />}
+    </div>
+
+    <p class="mt-10 text-xs opacity-60">
+      For your personal use. This {lesson.lesson_type === 'audio' ? 'recording' : 'material'} is educational and does not replace medical or psychological care.
+    </p>
+  </main>
+
+  <script define:vars={{ lessonId: lesson.id, savedPosition, lessonType: lesson.lesson_type, productSlug: product.slug }}>
+    const saveProgress = (status, positionSeconds) =>
+      fetch('/api/progress', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ lessonId, status, positionSeconds }),
+      }).catch(() => {});
+
+    if (lessonType === 'text') saveProgress('started');
+
+    document.getElementById('mark-complete')?.addEventListener('click', async (event) => {
+      await saveProgress('completed');
+      window.dataLayer?.push({ event: 'lesson_complete', service: productSlug });
+      event.target.textContent = 'Finished';
+      event.target.disabled = true;
+    });
+
+    const audio = document.getElementById('lesson-audio');
+    if (audio) {
+      const status = document.getElementById('audio-status');
+      let armed = false;
+      let lastSave = 0;
+
+      audio.addEventListener('play', async () => {
+        if (armed) return;
+        audio.pause();
+        status.textContent = 'Preparing your stream…';
+        try {
+          const response = await fetch('/api/assets/sign', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ lessonId }),
+          });
+          const json = await response.json();
+          if (!response.ok || !json.url) {
+            window.dataLayer?.push({ event: 'content_access_denied', service: productSlug, error_type: json.error || String(response.status) });
+            status.textContent = json.error === 'sign_in_required'
+              ? 'Please sign in to listen.'
+              : 'We could not prepare the stream. Refresh the page or contact us if it keeps happening.';
+            return;
+          }
+          armed = true;
+          audio.src = json.url;
+          if (savedPosition > 10) audio.currentTime = savedPosition;
+          await audio.play();
+          status.textContent = '';
+          saveProgress('started', Math.floor(audio.currentTime));
+        } catch {
+          status.textContent = 'Connection problem. Please try again.';
+        }
+      });
+
+      audio.addEventListener('timeupdate', () => {
+        const now = Date.now();
+        if (armed && now - lastSave > 15000) {
+          lastSave = now;
+          saveProgress('started', Math.floor(audio.currentTime));
+        }
+      });
+      audio.addEventListener('pause', () => {
+        if (armed) saveProgress('started', Math.floor(audio.currentTime));
+      });
+      audio.addEventListener('ended', () => {
+        saveProgress('completed', 0);
+        window.dataLayer?.push({ event: 'lesson_complete', service: productSlug });
+      });
+      // Signed URLs expire (~15 min); recover seamlessly on error mid-listen.
+      audio.addEventListener('error', () => {
+        if (armed) {
+          armed = false;
+          const at = Math.floor(audio.currentTime);
+          savedPosition = at > 10 ? at : 0;
+          status.textContent = 'Stream refreshing… press play to continue.';
+        }
+      });
+    }
+  </script>
+
+  <style>
+    .reader :global(h2) { font-size: 1.5rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+    .reader :global(h3) { font-size: 1.2rem; font-weight: 600; margin: 1.5rem 0 0.5rem; }
+    .reader :global(p) { margin: 0 0 1rem; }
+    .reader :global(ul), .reader :global(ol) { margin: 0 0 1rem 1.25rem; list-style: disc; }
+    .reader :global(ol) { list-style: decimal; }
+    .reader :global(blockquote) { border-left: 3px solid #d4d4d4; padding-left: 1rem; opacity: 0.85; margin: 0 0 1rem; }
+  </style>
+</BaseLayout>
