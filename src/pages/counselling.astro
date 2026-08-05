@@ -9,12 +9,14 @@ import twilightCoast from '../assets/twilight-coast.jpg';
 import forestPond from '../assets/forest-pond.jpg';
 import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
 import bernardAltmanPortrait from '../assets/bernard-altman-portrait.jpg';
+import nikhitaPortrait from '../assets/nikhita-leela-portrait.jpg';
 import { getPublishedTestimonial } from '../data/testimonials';
 
 const canonicalURL = 'https://www.sangham.org/counselling/';
 
 // Testimonial wording comes from src/content/testimonials/, so this page and
 // /testimonials can never drift apart.
+const nikhita = await getPublishedTestimonial('nikhita-leela');
 const bernard = await getPublishedTestimonial('bernard-altman');
 const jacob = await getPublishedTestimonial('jacob-s');
 
@@ -467,6 +469,37 @@ const faqJsonLd = {
       <p class="font-body text-sm text-muted-foreground/60 italic text-center mb-14">Shared with permission.</p>
 
       <div class="space-y-10 md:space-y-14">
+
+        <!-- Nikhita Leela: Counselling Reflection. Leads the section: she is the
+             one voice here speaking about adult counselling, which is this page's
+             subject. -->
+        <figure class="border border-border/20 bg-header/5 rounded-xl overflow-hidden">
+          <div class="flex flex-col md:flex-row">
+            <div class="md:w-[34%] shrink-0">
+              <div class="h-[280px] md:h-full overflow-hidden">
+                <Image
+                  src={nikhitaPortrait}
+                  alt={nikhita.data.portraitAlt}
+                  class="w-full h-full object-cover"
+                  style={`object-position: ${nikhita.data.portraitPosition};`}
+                  widths={[320, 500, 640]}
+                  sizes="(min-width: 768px) 34vw, 100vw"
+                  loading="lazy"
+                />
+              </div>
+            </div>
+            <div class="p-7 md:p-10 flex flex-col flex-1">
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">{nikhita.data.label}</p>
+              <blockquote class="flex-1 mb-6 space-y-4">
+                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">{nikhita.data.excerpt[0]}</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">{nikhita.data.excerpt[1]}</p>
+              </blockquote>
+              <figcaption>
+                <p class="font-body text-sm text-muted-foreground/60">{nikhita.data.name} &middot; {nikhita.data.attribution}</p>
+              </figcaption>
+            </div>
+          </div>
+        </figure>
 
         <!-- Bernard Altman: Professional Reflection -->
         <figure class="border border-border/20 bg-header/5 rounded-xl overflow-hidden">

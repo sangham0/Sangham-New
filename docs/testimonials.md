@@ -48,26 +48,14 @@ That is all. `/testimonials` picks the person up automatically.
 
 ---
 
-## The two testimonials that are expected but not yet supplied
+## Testimonials that are expected but not yet supplied
 
-Two people may send material. **Neither exists in the repository, and neither should be
-invented, drafted, or approximated in the meantime.** No placeholder card, no "coming
-soon" line, no representative quote.
+**Nothing here exists in the repository, and nothing here should be invented, drafted, or
+approximated in the meantime.** No placeholder card, no "coming soon" line, no
+representative quote.
 
-### Adult counselling client
-
-A woman in India who has worked with Michael through counselling. When her approved
-wording and her decision about naming arrive:
-
-- Create `src/content/testimonials/<id>.md`.
-- Set `category: individual-work`. She will appear alongside Jacob and the anonymous
-  parent, under the heading "Individual work and mentorship".
-- If she prefers not to be named, set `anonymous: true`, omit `portrait`, and keep `name`
-  and `attribution` at a level that cannot identify her. She then renders in the centred,
-  portrait-free layout the anonymous parent uses, and is excluded from the page's
-  schema.org markup automatically.
-- Do not publish her age, her city, or the fact that she lives in India unless that
-  appears in the attribution she herself approved.
+The adult counselling client anticipated in this section arrived in August 2026 as
+`nikhita-leela.md`, published under her own name. One reflection is still outstanding.
 
 ### Francis
 
@@ -116,6 +104,7 @@ carries no `reviewRating` and no `aggregateRating`, and it should stay that way.
 
 | Id | Source of the canonical wording |
 | --- | --- |
+| `nikhita-leela` | Written testimonial supplied August 2026, with three light corrections noted in the file's `sourceNote`. |
 | `saffron` | Written testimonial supplied August 2026. Verbatim. |
 | `bernard-altman` | Full reference letter supplied August 2026. Verbatim. Earlier on-site versions were excerpts of it. |
 | `antony-s` | Recovered from git history. Live from commit `57300ba` until `1b29f6e` replaced the slot. |
@@ -131,7 +120,7 @@ carries no `reviewRating` and no `aggregateRating`, and it should stay that way.
 | Page | Reads |
 | --- | --- |
 | `/testimonials` | All of them. Adding a file changes this page with no code edit. |
-| `/counselling` | `bernard-altman`, `jacob-s` |
+| `/counselling` | `nikhita-leela`, `bernard-altman`, `jacob-s` |
 | `/counselling-for-meditators` | `vera`, `ashraf-vahed`, `bernard-altman` |
 | `/mentoring-for-young-men` | `jacob-s`, `bernard-altman` |
 | `/mentoring-for-adolescents` | `jacob-s`, `parent-mentoring`, `bernard-altman` |
