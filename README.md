@@ -52,6 +52,7 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
 ├── docs/
 │   ├── DECISIONS.md           # Open founder decisions (not implemented)
 │   ├── TODO.md                # Implementation backlog
+│   ├── testimonials.md        # How to add a testimonial; content rules
 │   └── counselling-for-meditators-copy.md  # Canonical copy doc for that page
 └── src/
     ├── assets/                # Images processed via astro:assets (import + <Image />)
@@ -63,9 +64,12 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── StickyConsultationCTA.astro
     │   ├── PageHeader.astro
     │   └── ArticleBadge.astro
+    ├── content/
+    │   ├── writing/           # Essays and practice guides, one markdown file each
+    │   └── testimonials/      # Canonical testimonial source, one file per person
     ├── data/
-    │   ├── essays.ts          # Essay metadata + body as TypeScript arrays
-    │   └── practice-guides.ts # Practice guide metadata + body as TypeScript arrays
+    │   ├── static-essays.ts   # Metadata for the three hand-built essay pages
+    │   └── testimonials.ts    # Read helpers + schema.org markup for testimonials
     ├── layouts/
     │   └── BaseLayout.astro   # Meta tags, OG, JSON-LD, GTM snippet, consent layer
     ├── pages/
@@ -78,6 +82,7 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── mentoring-for-young-men.astro
     │   ├── practices.astro
     │   ├── workshops.astro
+    │   ├── testimonials.astro                  # Canonical reflections page
     │   ├── wisdom.astro                        # Wisdom/essay index
     │   ├── wisdom/
     │   │   ├── [id].astro                      # Dynamic route for essays + practice guides
@@ -88,7 +93,7 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
     │   ├── scope.astro
     │   ├── privacy.astro
     │   └── thank-you-consultation.astro        # Post-form confirmation (excluded from sitemap)
-    ├── content.config.ts      # Astro content collection definition (currently unused; only example.md)
+    ├── content.config.ts      # Astro content collections: `writing` and `testimonials`
     ├── scripts/
     │   ├── analytics.ts       # dataLayer event helpers; `data-cta` attribute tracking; `fit_call_booked` event
     │   └── usd-rate.ts        # Live USD estimates for fixed ZAR prices (progressive enhancement)
@@ -100,6 +105,21 @@ node scripts/generate-og-images.mjs  # regenerate social preview images (1200x63
 
 Pass page titles **without** the `| Sangham` suffix. The layout appends it automatically.
 For example: `title="Online Counselling"` renders as `Online Counselling | Sangham`.
+
+---
+
+## Testimonials
+
+All testimonial copy lives in `src/content/testimonials/`, one markdown file per person,
+and is the single source for every page that quotes someone. `/testimonials` renders all of
+them; service pages pull the same wording by id through
+`getPublishedTestimonial()` in `src/data/testimonials.ts`, which throws at build time if an
+id is unknown or the person has not granted permission.
+
+Nothing publishes without `permission: granted`. Read `docs/testimonials.md` before adding,
+editing, or excerpting anyone. It covers the consent rules, the anonymity rules, the
+medical-framing rules, and how to add the two testimonials that are expected but have not
+yet been supplied.
 
 ---
 
@@ -165,6 +185,8 @@ before writing anything new.
 
 ## Further reading
 
+- `docs/testimonials.md` - how to add a testimonial, and the content rules that govern
+  them; read before touching any quoted material.
 - `docs/DECISIONS.md` - founder decisions resolved in June 2026; read before touching
   homepage hero, nav labels, pricing ladders, or testimonials.
 - `docs/TODO.md` - implementation backlog for the next engineering passes.

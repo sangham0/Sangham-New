@@ -4,6 +4,7 @@ import StickyConsultationCTA from '../components/StickyConsultationCTA.astro';
 import FAQ from '../components/FAQ.astro';
 import CalEmbed from '../components/CalEmbed.astro';
 import { Image } from 'astro:assets';
+import { getPublishedTestimonial } from '../data/testimonials';
 
 // ── Imagery (every slot a distinct image; warm-graded into one coherent set) ──
 import moonlitShore from '../assets/moonlit-shore-meditation.jpg'; // hero: dark anchor
@@ -90,11 +91,27 @@ const meetsCards = [
 ];
 
 // ── Reflections ──
-const reflections = [
-  { img: veraPortrait, pos: 'object-[center_30%]', label: 'Personal Reflection', name: 'Vera', role: 'Workshop participant', quote: 'Michael is a truly special person. Beyond the depth of wisdom and knowledge he shares, there is something deeply healing about his presence. During the workshop, I found myself softening, opening, and gently meeting parts of myself I had long found difficult to face. He holds space with a rare combination of patience, authenticity, and humility, making it easy to feel safe and fully present with oneself. I left feeling more connected to myself, and deeply grateful for the experience.' },
-  { img: ashrafPortrait, pos: 'object-[40%_center]', label: 'Personal Reflection', name: 'Ashraf Vahed', role: 'Has known Michael through community work', quote: 'It is a rare thing to encounter so much wisdom in one person. In my time with Michael, I have experienced a peace that only comes with deep trust: of being held without judgement, in a field of infinite compassion. I have felt my best parts come forward, and a relatability to all sides of humanity, expressed with love and equanimity. It is rare for me to give so easily to the guidance of a man, and rare to find one with such a capacity to guide.' },
-  { img: bernardPortrait, pos: 'object-[center_25%]', label: 'Professional Reflection', name: 'Bernard Altman', role: 'Clinical Psychologist', quote: 'He brings presence, emotional intelligence, and a strong capacity to engage honestly with difficult human experiences. I would recommend him with confidence.' },
+// Text and attribution come from src/content/testimonials/. Only the crop and
+// the local portrait import stay here, since this grid needs its own framing.
+const reflectionSources = [
+  { id: 'vera', img: veraPortrait, pos: 'object-[center_30%]' },
+  { id: 'ashraf-vahed', img: ashrafPortrait, pos: 'object-[40%_center]' },
+  { id: 'bernard-altman', img: bernardPortrait, pos: 'object-[center_25%]' },
 ];
+
+const reflections = await Promise.all(
+  reflectionSources.map(async (source) => {
+    const { data } = await getPublishedTestimonial(source.id);
+    return {
+      img: source.img,
+      pos: source.pos,
+      label: data.label,
+      name: data.name,
+      role: data.attribution,
+      quote: data.cardQuote ?? data.excerpt.join(' '),
+    };
+  }),
+);
 
 // ── FAQ ──
 const faqItems = [
@@ -625,6 +642,9 @@ const jsonLd = [
       </div>
 
       <p class="mt-12 text-center">
+        <a href="/testimonials" class="cfm-link cfm-gold-text font-body text-sm tracking-wide">Read more reflections &rarr;</a>
+      </p>
+      <p class="mt-4 text-center">
         <a href="#cal-inline-embed" data-cta="book-fit-call" data-service="meditators" data-placement="reflections" class="cfm-link cfm-gold-text font-body text-sm tracking-wide">Book a free 15-minute fit call &rarr;</a>
       </p>
     </div>

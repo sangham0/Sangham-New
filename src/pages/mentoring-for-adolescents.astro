@@ -14,6 +14,14 @@ import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg';
 
 const canonicalURL = 'https://www.sangham.org/mentoring-for-adolescents/';
 
+import { getPublishedTestimonial } from '../data/testimonials';
+
+// Testimonial wording comes from src/content/testimonials/, so this page and
+// /testimonials can never drift apart.
+const bernard = await getPublishedTestimonial('bernard-altman');
+const jacob = await getPublishedTestimonial('jacob-s');
+const parent = await getPublishedTestimonial('parent-mentoring');
+
 // Per-testimonial photo crop. The photo container uses `object-fit: cover`,
 // which defaults to `center center` and clips edges when the container
 // aspect ratio differs from the source (most acutely on mobile, where the
@@ -1051,8 +1059,8 @@ const jsonLd = [
       </blockquote>
 
       <blockquote class="border-l-2 border-[#A87C35]/30 pl-6 py-2 mb-12 max-w-2xl">
-        <p class="font-heading text-xl md:text-[22px] text-[#0F1422]/70 italic leading-relaxed mb-3">Michael is well suited to counselling and mentorship work, particularly with young men navigating identity, direction, emotional difficulty, and the transition into adulthood. I would recommend him with confidence.</p>
-        <footer class="font-body text-sm text-[#1A1F2E]/45">Bernard Altman, Clinical Psychologist, Founder of Boys to Men</footer>
+        <p class="font-heading text-xl md:text-[22px] text-[#0F1422]/70 italic leading-relaxed mb-3">{bernard.data.pullQuote}</p>
+        <footer class="font-body text-sm text-[#1A1F2E]/45">{bernard.data.name}, {bernard.data.attribution}</footer>
       </blockquote>
 
       <!-- About Michael carousel (Swiper) -->
@@ -1160,17 +1168,16 @@ const jsonLd = [
                     </div>
                   </div>
                   <div class="p-8 md:p-10 lg:p-12 flex flex-col flex-1">
-                    <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">Young Man Reflection</p>
+                    <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">{jacob.data.label}</p>
                     <blockquote class="flex-1 mb-7 space-y-4">
-                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
-                        &ldquo;Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we&rsquo;ve worked through has left me feeling clearer and more at peace.&rdquo;
-                      </p>
-                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/75 leading-relaxed italic">
-                        &ldquo;What strikes me most about him is his integrity. Whether one-on-one or in a group, his care is genuine. I&rsquo;m grateful for his availability and his dedication to helping me improve my life.&rdquo;
-                      </p>
+                      {jacob.data.excerpt.map((paragraph, i) => (
+                        <p class:list={['font-heading text-lg md:text-[1.2rem] leading-relaxed italic', i === 0 ? 'text-parchment/85' : 'text-parchment/75']}>
+                          &ldquo;{paragraph}&rdquo;
+                        </p>
+                      ))}
                     </blockquote>
                     <figcaption>
-                      <p class="font-body text-sm text-parchment/45">Jacob S. &middot; has worked with Michael across adolescence and into adulthood</p>
+                      <p class="font-body text-sm text-parchment/45">{jacob.data.name} &middot; {jacob.data.attribution}</p>
                     </figcaption>
                   </div>
                 </div>
@@ -1181,21 +1188,17 @@ const jsonLd = [
             <div class="swiper-slide">
               <figure class="sg-slide border border-parchment/15 bg-[#070B14]/62 rounded-xl overflow-hidden">
                 <div class="px-8 py-10 md:px-16 md:py-14 lg:px-24 lg:py-16 md:max-w-[80%] mx-auto flex flex-col">
-                  <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-5 text-center">Parent Reflection</p>
+                  <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-5 text-center">{parent.data.label}</p>
                   <p class="font-heading text-[5.5rem] md:text-[7rem] text-primary/22 leading-none text-center select-none mb-2" aria-hidden="true">&ldquo;</p>
                   <blockquote class="flex-1 mb-8 space-y-4 text-center">
-                    <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
-                      The continued mentorship and guidance Michael has provided for my son has helped us all enormously, and it&rsquo;s amazing to see how much more joyful and energised he feels after his sessions.
-                    </p>
-                    <p class="font-heading text-lg md:text-[1.2rem] text-parchment/80 leading-relaxed italic">
-                      When we started with Michael we were in a difficult place, and the changes didn&rsquo;t come all at once. But in retrospect, I can see how the process with Michael helped guide my son into becoming the well-rounded, driven, and kind-hearted young man he has grown into being.
-                    </p>
-                    <p class="font-heading text-lg md:text-[1.2rem] text-parchment/75 leading-relaxed italic">
-                      I remain grateful to Michael for what he has done, not just for my son, but for our whole family.
-                    </p>
+                    {parent.data.excerpt.map((paragraph, i) => (
+                      <p class:list={['font-heading text-lg md:text-[1.2rem] leading-relaxed italic', ['text-parchment/85', 'text-parchment/80', 'text-parchment/75'][Math.min(i, 2)]]}>
+                        {paragraph}
+                      </p>
+                    ))}
                   </blockquote>
                   <figcaption class="text-center">
-                    <p class="font-body text-sm text-parchment/45">Parent of a teenage son, 3 years of work together</p>
+                    <p class="font-body text-sm text-parchment/45">{parent.data.name} &middot; {parent.data.attribution}</p>
                   </figcaption>
                 </div>
               </figure>
@@ -1209,7 +1212,7 @@ const jsonLd = [
                     <div class="flex items-center justify-center md:h-full p-4 md:p-0 shadow-lg shadow-black/40">
                       <Image
                         src={bernardAltmanPortrait}
-                        alt="Bernard Altman, Clinical Psychologist, Founder of Boys to Men"
+                        alt={bernard.data.portraitAlt}
                         class="w-full h-auto object-contain rounded-lg md:rounded-none"
                         widths={[316, 500]}
                         sizes="(min-width: 768px) 36vw, 100vw"
@@ -1220,17 +1223,16 @@ const jsonLd = [
                     </div>
                   </div>
                   <div class="p-8 md:p-10 lg:p-12 flex flex-col flex-1">
-                    <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">Professional Reflection</p>
+                    <p class="text-[10px] font-body tracking-[0.14em] uppercase text-parchment/40 mb-7">{bernard.data.label}</p>
                     <blockquote class="flex-1 mb-7 space-y-4">
-                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/85 leading-relaxed italic">
-                        &ldquo;I have known Michael for many years through his involvement with Boys to Men, first as a participant in the work and later in leadership and facilitation roles. Over time, I have watched him develop into a capable, thoughtful, and committed facilitator with a genuine ability to work with people in a grounded and sincere way.&rdquo;
-                      </p>
-                      <p class="font-heading text-lg md:text-[1.2rem] text-parchment/80 leading-relaxed italic">
-                        &ldquo;He brings presence, emotional intelligence, maturity, and a strong capacity to engage honestly with difficult human experiences. I have consistently found him to approach this work with integrity, responsibility, and real care for the people he works with.&rdquo;
-                      </p>
+                      {bernard.data.excerpt.map((paragraph, i) => (
+                        <p class:list={['font-heading text-lg md:text-[1.2rem] leading-relaxed italic', i === 0 ? 'text-parchment/85' : 'text-parchment/80']}>
+                          &ldquo;{paragraph}&rdquo;
+                        </p>
+                      ))}
                     </blockquote>
                     <figcaption>
-                      <p class="font-body text-sm text-parchment/45">Bernard Altman &middot; Clinical Psychologist &middot; Founder of Boys to Men</p>
+                      <p class="font-body text-sm text-parchment/45">{bernard.data.name} &middot; {bernard.data.attribution}</p>
                     </figcaption>
                   </div>
                 </div>
@@ -1250,6 +1252,10 @@ const jsonLd = [
         </div>
       </div>
 
+
+      <p class="mb-12">
+        <a href="/testimonials" class="font-body text-sm tracking-wide text-gold-light/80 hover:text-gold-light transition-colors underline underline-offset-4 decoration-gold-light/30">Read more reflections &rarr;</a>
+      </p>
 
       <p class="font-heading text-xl md:text-2xl text-parchment/62 leading-snug max-w-xl border-t border-parchment/10 pt-10">
         Some changes only become visible over time.

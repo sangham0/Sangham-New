@@ -48,6 +48,12 @@ export default defineConfig({
           return { ...updatedItem, changefreq: 'monthly', priority: 0.8 };
         }
 
+        // Testimonials: social proof supporting every offer, updated as
+        // new reflections are approved.
+        if (url.startsWith(`${SITE}/testimonials`)) {
+          return { ...updatedItem, changefreq: 'monthly', priority: 0.7 };
+        }
+
         // Wisdom index: updated as new essays publish
         if (url === `${SITE}/wisdom/`) {
           return { ...updatedItem, changefreq: 'weekly', priority: 0.75 };

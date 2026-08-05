@@ -10,6 +10,13 @@ import workshopMeditation from '../assets/workshop-india-meditation.jpg';
 import workshopYoga from '../assets/workshop-india-yoga.jpg';
 import workshopCircle from '../assets/workshop-capetown-circle.png';
 import workshopCeremony from '../assets/workshop-capetown-ceremony.png';
+import { getPublishedTestimonial } from '../data/testimonials';
+
+// Reflections come from src/content/testimonials/. Only the workshop-facing
+// excerpts are used here; the full accounts live on /testimonials, which carries
+// the framing each of them needs.
+const saffron = await getPublishedTestimonial('saffron');
+const vera = await getPublishedTestimonial('vera');
 
 const jsonLd = [
   {
@@ -191,6 +198,60 @@ const workshops = [
           </div>
         ))}
       </div>
+    </div>
+  </section>
+
+  <!-- FROM PARTICIPANTS -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        From Participants
+      </h2>
+      <p class="font-body text-sm text-muted-foreground/60 italic text-center mb-14">Shared with permission.</p>
+
+      <figure class="grid md:grid-cols-[minmax(0,0.55fr)_minmax(0,1fr)] gap-8 md:gap-12 items-center mb-14 md:mb-20">
+        {saffron.data.portrait && (
+          <div class="aspect-[4/5] sm:aspect-[3/2] md:aspect-[4/5] overflow-hidden rounded-xl">
+            <Image
+              src={saffron.data.portrait}
+              alt={saffron.data.portraitAlt ?? saffron.data.name}
+              class="w-full h-full object-cover"
+              style={`object-position: ${saffron.data.portraitPosition};`}
+              widths={[320, 500, 640]}
+              sizes="(min-width: 768px) 32vw, 100vw"
+              loading="lazy"
+            />
+          </div>
+        )}
+        <div>
+          <p class="text-[10px] font-body tracking-[0.14em] uppercase text-primary/50 mb-5">{saffron.data.label}</p>
+          <blockquote class="space-y-4 mb-6">
+            {saffron.data.excerpt.map((paragraph) => (
+              <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">{paragraph}</p>
+            ))}
+          </blockquote>
+          <figcaption class="border-t border-border/60 pt-5">
+            <p class="font-body text-sm text-foreground/85">{saffron.data.name}</p>
+            <p class="font-body text-xs text-muted-foreground/70 mt-1">{saffron.data.attribution}</p>
+          </figcaption>
+        </div>
+      </figure>
+
+      <figure class="max-w-2xl mx-auto border-l-2 border-primary/35 pl-6 md:pl-8">
+        <blockquote class="space-y-4 mb-5">
+          {vera.data.excerpt.map((paragraph) => (
+            <p class="font-heading text-lg text-foreground/78 italic leading-relaxed">{paragraph}</p>
+          ))}
+        </blockquote>
+        <figcaption>
+          <p class="font-body text-sm text-foreground/85">{vera.data.name}</p>
+          <p class="font-body text-xs text-muted-foreground/70 mt-1">{vera.data.attribution}</p>
+        </figcaption>
+      </figure>
+
+      <p class="mt-14 text-center">
+        <a href="/testimonials" class="font-body text-sm tracking-wide text-primary/80 hover:text-primary transition-colors underline underline-offset-4 decoration-primary/30">Read {saffron.data.name}&rsquo;s full reflection and more &rarr;</a>
+      </p>
     </div>
   </section>
 
