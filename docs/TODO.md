@@ -103,11 +103,14 @@ primary booking CTA inside the five-session offer block. Moving it below the FAQ
 visitors who have read everything but are not yet ready to book.
 _Files: `src/pages/counselling.astro`_
 
-**C3. Add a parent-testimonial slot to the adolescents page.**
-A placeholder section is ready to receive content. Add the testimonial once material exists
-(see decision 6 in `docs/DECISIONS.md`).
-_Blocked on: testimonial material (decision 6 resolved as 'wait for material')._
-_Files: `src/pages/mentoring-for-adolescents.astro`_
+**C3. Add the outstanding testimonials once their approved wording arrives.**
+The parent testimonial is live, and testimonial copy is now centralised in
+`src/content/testimonials/` with a dedicated `/testimonials` page. Two reflections are
+expected but not yet supplied: an adult counselling client, and Francis for the workshop
+section. Adding each is one markdown file; follow `docs/testimonials.md`. Do not draft,
+approximate, or placeholder-publish either of them.
+_Blocked on: the people's own approved wording and permission._
+_Files: `src/content/testimonials/`_
 
 ---
 

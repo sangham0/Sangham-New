@@ -55,6 +55,10 @@ const targets = [
     out: 'og-mentoring-adolescents.jpg',
     src: 'src/assets/misty-valley.jpg', // matches the page's atmospheric register
   },
+  {
+    out: 'og-testimonials.jpg',
+    src: 'src/assets/ancient-tree.jpg', // the page hero
+  },
 ];
 
 async function generate({ out, src }) {

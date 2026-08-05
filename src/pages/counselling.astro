@@ -9,8 +9,14 @@ import twilightCoast from '../assets/twilight-coast.jpg';
 import forestPond from '../assets/forest-pond.jpg';
 import jacobSPortrait from '../assets/jacob-s-portrait.jpg';
 import bernardAltmanPortrait from '../assets/bernard-altman-portrait.jpg';
+import { getPublishedTestimonial } from '../data/testimonials';
 
 const canonicalURL = 'https://www.sangham.org/counselling/';
+
+// Testimonial wording comes from src/content/testimonials/, so this page and
+// /testimonials can never drift apart.
+const bernard = await getPublishedTestimonial('bernard-altman');
+const jacob = await getPublishedTestimonial('jacob-s');
 
 const jsonLd = [
   {
@@ -478,13 +484,13 @@ const faqJsonLd = {
               </div>
             </div>
             <div class="p-7 md:p-10 flex flex-col flex-1">
-              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">Professional Reflection</p>
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">{bernard.data.label}</p>
               <blockquote class="flex-1 mb-6 space-y-4">
-                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">I have known Michael for many years through his involvement with Boys to Men, first as a participant in the work and later in leadership and facilitation roles. Over time, I have watched him develop into a capable, thoughtful, and committed facilitator with a genuine ability to work with people in a grounded and sincere way.</p>
-                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">He brings presence, emotional intelligence, maturity, and a strong capacity to engage honestly with difficult human experiences. I have consistently found him to approach this work with integrity, responsibility, and real care for the people he works with.</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">{bernard.data.excerpt[0]}</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">{bernard.data.excerpt[1]}</p>
               </blockquote>
               <figcaption>
-                <p class="font-body text-sm text-muted-foreground/60">Bernard Altman &middot; Clinical Psychologist &middot; Founder of Boys to Men</p>
+                <p class="font-body text-sm text-muted-foreground/60">{bernard.data.name} &middot; {bernard.data.attribution}</p>
               </figcaption>
             </div>
           </div>
@@ -506,19 +512,23 @@ const faqJsonLd = {
               </div>
             </div>
             <div class="p-7 md:p-10 flex flex-col flex-1">
-              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">Personal Reflection</p>
+              <p class="text-[10px] font-body tracking-[0.14em] uppercase text-muted-foreground/50 mb-6">{jacob.data.label}</p>
               <blockquote class="flex-1 mb-6 space-y-4">
-                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">Michael has a remarkable gift for holding space. He has guided me through some of my toughest moments, helping me find my voice and feel comfortable in situations I once found overwhelming. Every process we've worked through has left me feeling clearer and more at peace.</p>
-                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">What strikes me most about him is his integrity. Whether one-on-one or in a group, his care is genuine and never for his own benefit. He is a pure soul who truly wants to see people thrive. I'm so grateful for his availability and his dedication to helping me improve my life.</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/80 italic leading-relaxed">{jacob.data.excerpt[0]}</p>
+                <p class="font-heading text-lg md:text-xl text-foreground/70 italic leading-relaxed">{jacob.data.excerpt[1]}</p>
               </blockquote>
               <figcaption>
-                <p class="font-body text-sm text-muted-foreground/60">Jacob S. &middot; Has worked with Michael across adolescence and into adulthood</p>
+                <p class="font-body text-sm text-muted-foreground/60">{jacob.data.name} &middot; {jacob.data.attribution}</p>
               </figcaption>
             </div>
           </div>
         </figure>
 
       </div>
+
+      <p class="mt-12 text-center">
+        <a href="/testimonials" class="font-body text-sm tracking-wide text-primary/80 hover:text-primary transition-colors underline underline-offset-4 decoration-primary/30">Read more reflections &rarr;</a>
+      </p>
 
     </div>
   </section>

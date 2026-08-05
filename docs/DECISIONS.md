@@ -177,15 +177,30 @@ avoid further drift.
 
 ## 6. Testimonials and proof
 
-**RESOLVED - Option B (wait).** Additional testimonials are not presently available; no outreach for now. The consent template below is retained for when material exists.
+**RESOLVED - Option B (wait).** The consent template below is retained for when further
+material arrives.
 
-**Context.** The site already carries strong testimonials (Bernard Altman's professional
-reference, Jacob S., Vera, Ashraf), but they are character references rather than outcome
-stories, and key voices are missing. This is the single highest-impact trust gap identified
-in the audit. Three specific additions are needed: one parent testimonial for the adolescents
-page, one adult counselling outcome testimonial for `/counselling`, and ideally one
-practice-difficulty story for `/counselling-for-meditators`. The testimonial sections already
-exist, so each new quote slots into a designed layout.
+**Superseded in part, August 2026.** Material has since arrived and the trust gap has
+narrowed. All testimonial copy now lives in `src/content/testimonials/` and renders on a
+dedicated `/testimonials` page. Read `docs/testimonials.md` before adding anyone; it is the
+operational guide this decision anticipated.
+
+- Saffron's workshop reflection was supplied, covering a participant, family, and
+  accessibility perspective. It publishes with a medical-framing note.
+- Bernard Altman's full reference letter was supplied and is now canonical; the shorter
+  versions across the service pages were excerpts of it.
+- Antony S.'s reflection was recovered from git history and republished.
+- The parent testimonial for the adolescents page is live.
+
+**Still outstanding.** One adult counselling outcome testimonial for `/counselling`
+(expected, not yet supplied), and ideally one practice-difficulty story for
+`/counselling-for-meditators`. A workshop reflection from Francis is also expected. None of
+these may be drafted, approximated, or placeholder-published before the person's own
+approved wording arrives.
+
+**Context.** The testimonials the site carries are character references more than outcome
+stories. The sections and the content model already exist, so each new reflection slots into
+a designed layout by adding one markdown file.
 
 **Options.**
 
