@@ -103,13 +103,13 @@ primary booking CTA inside the five-session offer block. Moving it below the FAQ
 visitors who have read everything but are not yet ready to book.
 _Files: `src/pages/counselling.astro`_
 
-**C3. Add the outstanding testimonials once their approved wording arrives.**
-The parent testimonial is live, and testimonial copy is now centralised in
-`src/content/testimonials/` with a dedicated `/testimonials` page. Two reflections are
-expected but not yet supplied: an adult counselling client, and Francis for the workshop
-section. Adding each is one markdown file; follow `docs/testimonials.md`. Do not draft,
-approximate, or placeholder-publish either of them.
-_Blocked on: the people's own approved wording and permission._
+**C3. Add the outstanding testimonial once her approved wording arrives.**
+Testimonial copy is centralised in `src/content/testimonials/` with a dedicated
+`/testimonials` page. The parent and the adult counselling client (Nikhita Leela) are both
+live. One reflection is still expected: Francis, for the workshop section. Adding her is one
+markdown file; follow `docs/testimonials.md`. Do not draft, approximate, or
+placeholder-publish it.
+_Blocked on: her own approved wording and permission._
 _Files: `src/content/testimonials/`_
 
 ---

@@ -191,12 +191,13 @@ operational guide this decision anticipated.
   versions across the service pages were excerpts of it.
 - Antony S.'s reflection was recovered from git history and republished.
 - The parent testimonial for the adolescents page is live.
+- Nikhita Leela's counselling reflection was supplied and now leads the testimonial
+  section on `/counselling`, closing the adult counselling gap identified below.
 
-**Still outstanding.** One adult counselling outcome testimonial for `/counselling`
-(expected, not yet supplied), and ideally one practice-difficulty story for
-`/counselling-for-meditators`. A workshop reflection from Francis is also expected. None of
-these may be drafted, approximated, or placeholder-published before the person's own
-approved wording arrives.
+**Still outstanding.** A workshop reflection from Francis (expected, not yet supplied), and
+ideally one practice-difficulty story for `/counselling-for-meditators`. Neither may be
+drafted, approximated, or placeholder-published before the person's own approved wording
+arrives.
 
 **Context.** The testimonials the site carries are character references more than outcome
 stories. The sections and the content model already exist, so each new reflection slots into
