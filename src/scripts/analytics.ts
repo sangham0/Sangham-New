@@ -6,7 +6,7 @@
  * separately in the Google interfaces.
  */
 
-import { getAttribution, markReferralLandingView, pushDataLayer } from './tracking';
+import { clickIds, getAttribution, markReferralLandingView, pushDataLayer } from './tracking';
 
 function populateAttributionFields(): void {
   const attribution = getAttribution();
@@ -19,6 +19,10 @@ function populateAttributionFields(): void {
     attribution_initial_landing_page: attribution.initial_landing_page,
     attribution_initial_referrer: attribution.initial_referrer,
   };
+
+  for (const [field, value] of Object.entries(clickIds())) {
+    values[`attribution_${field}`] = value;
+  }
 
   for (const [name, value] of Object.entries(values)) {
     document.querySelectorAll<HTMLInputElement>(`input[name="${name}"]`).forEach((input) => {

@@ -1,0 +1,475 @@
+---
+// Paid-search landing page for the young-men campaign. A short, direct
+// counterpart to /mentoring-for-young-men/, built for someone arriving from an
+// ad: service named in the first line, price and fit call visible immediately,
+// and one CTA path throughout.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import CalEmbed from '../components/CalEmbed.astro';
+import { Image } from 'astro:assets';
+import { getPublishedTestimonial } from '../data/testimonials';
+
+import loneTreeSunset from '../assets/lone-tree-sunset.jpg';
+import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
+import jacobPortrait from '../assets/jacob-s-portrait.jpg';
+import antonyPortrait from '../assets/antony-s-portrait.jpg';
+import bernardPortrait from '../assets/bernard-altman-portrait.jpg';
+
+const canonicalURL = 'https://www.sangham.org/online-counselling-young-men-south-africa/';
+const SERVICE = 'young-men';
+
+const recognitions = [
+  {
+    title: 'You know what you should be doing',
+    text: 'The plan is not the problem. The distance between deciding something at 11pm and doing it at 9am is. Work here stays close to that gap rather than adding another plan on top of it.',
+  },
+  {
+    title: 'Everything is technically fine',
+    text: 'Studying, working, getting through the week, and still with the sense of being a passenger in it. Not a crisis, and not nothing either.',
+  },
+  {
+    title: 'Direction is missing, not effort',
+    text: 'Plenty of capacity, no clear sense of what it is for. Advice from everyone, and no way to tell which of it is actually yours.',
+  },
+  {
+    title: 'There is nowhere to say it straight',
+    text: 'Friends deflect, family worries, the internet performs. Somewhere to think out loud with an adult who is neither impressed nor alarmed by any of it.',
+  },
+];
+
+const howItWorks = [
+  {
+    num: '01',
+    title: 'Say it plainly',
+    text: 'Where things actually are, without the version you give other people.',
+  },
+  {
+    num: '02',
+    title: 'Find the mechanism',
+    text: 'Not the story about why it is like this. What is actually keeping it in place, week to week.',
+  },
+  {
+    num: '03',
+    title: 'Change something small',
+    text: 'Something specific enough to test before the next session, and honest enough to be worth testing.',
+  },
+  {
+    num: '04',
+    title: 'Keep what holds',
+    text: 'Review what moved and what did not. Insight that never reaches behaviour has not landed yet.',
+  },
+];
+
+const faqItems = [
+  {
+    q: 'Is this therapy?',
+    a: 'No. This is supportive wellness counselling and mentoring, registered in South Africa with the ASCHP. It is not psychology, psychiatry, psychotherapy, or clinical mental health care. Some people work here alongside clinical support; some come having never needed it.',
+  },
+  {
+    q: 'What actually happens in a session?',
+    a: 'A conversation, around 60 minutes, online by video. Not a worksheet, not a lecture, and not a set curriculum. Some sessions are mostly reflective. Others end with one specific thing to try before the next one.',
+  },
+  {
+    q: 'How many sessions does this take?',
+    a: 'There is no fixed number. Many people start with a five-session process because it has a beginning and an end and produces something concrete. Some continue after that. Some find five was the right amount.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'R850 for a single 60-minute online session, or R3,400 for a five-session process paid in advance. The 15-minute fit call is free. If cost is a genuine barrier, say so when you get in touch.',
+  },
+  {
+    q: 'I am not sure I need this. Should I still book a call?',
+    a: 'That is exactly what the fit call is for. Fifteen minutes, free, no intake forms, and no obligation. If this is not the right thing, you will be told so rather than sold to.',
+  },
+  {
+    q: 'Do I have to be in South Africa?',
+    a: 'No. Sessions are online by video and fees are set in South African rand, so the work suits South Africans wherever they are, and clients elsewhere who are comfortable with that. Scheduling is arranged around your timezone.',
+  },
+];
+
+const testimonialSources = [
+  { id: 'jacob-s', img: jacobPortrait, pos: 'object-[center_top]' },
+  { id: 'antony-s', img: antonyPortrait, pos: 'object-[center_top]' },
+  { id: 'bernard-altman', img: bernardPortrait, pos: 'object-[center_25%]' },
+];
+
+const reflections = await Promise.all(
+  testimonialSources.map(async (source) => {
+    const { data } = await getPublishedTestimonial(source.id);
+    return {
+      img: source.img,
+      pos: source.pos,
+      name: data.name,
+      role: data.attribution,
+      quote: data.cardQuote ?? data.excerpt.join(' '),
+    };
+  }),
+);
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Online Counselling and Mentoring for Young Men Aged 18-25',
+    url: canonicalURL,
+    description:
+      'Grounded, reflective online counselling and mentoring for young men aged 18 to 25 in South Africa. Direction, agency and practical follow-through. Non-clinical, ASCHP registered.',
+    serviceType: 'Wellness Counselling',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'ASCHP Registered Specialist Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional Registration',
+        name: 'Specialist Wellness Counsellor',
+        identifier: 'Reg. No. 10559',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Association for Supportive Counsellors and Holistic Practitioners',
+          alternateName: 'ASCHP',
+        },
+      },
+    },
+    areaServed: [{ '@type': 'Country', name: 'South Africa' }, { '@type': 'Place', name: 'Worldwide' }],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free 15-Minute Fit Call',
+        price: '0',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A free 15-minute call to see whether this approach fits. No obligation.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Single Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'One 60-minute online session via video call.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Five-Session Process',
+        price: '3400',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A structured five-session process, paid in advance.',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Online Counselling & Mentoring for Young Men Aged 18-25"
+  description="Grounded, reflective online counselling and mentoring for young men aged 18-25 in South Africa. R850 per session. Free 15-minute fit call. ASCHP registered, non-clinical."
+  canonicalURL={canonicalURL}
+  image="/images/og-default.jpg"
+  jsonLd={[...jsonLd, faqJsonLd]}
+  minimalNav={true}
+>
+  <!--
+    Paid-search destination only. It deliberately overlaps the longer evergreen
+    page it links to, so it is kept out of the index to avoid competing with that
+    page for the same queries. Ads serve noindexed pages normally.
+  -->
+  <meta name="robots" content="noindex, follow" slot="head" />
+
+  <!-- ═══ 1. HERO ══════════════════════════════════════════════════════ -->
+  <section class="-mt-[72px] pt-[72px] bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <p class="text-primary/55 text-xs tracking-widest uppercase font-body mb-8">
+        Ages 18&ndash;25 &middot; Online across South Africa &middot; ASCHP Reg. 10559
+      </p>
+
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-[54px] text-parchment/95 leading-[1.12] mb-6">
+        Online Counselling &amp; Mentoring for<br class="hidden sm:block" />
+        <span class="text-gold-gradient">Young Men Aged 18&ndash;25</span>
+      </h1>
+
+      <p class="font-body text-lg md:text-xl text-parchment/70 leading-relaxed mb-8 max-w-2xl">
+        Grounded, reflective support for direction, agency, and actually following through
+        on what you decide. Not advice, and not a programme. A serious conversation, held
+        properly, with someone whose job is to help you think.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mb-4">
+        <a
+          href="#cal-section"
+          data-cta="book-fit-call"
+          data-service={SERVICE}
+          data-placement="hero"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
+        >
+          Book a Free 15-Minute Fit Call
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="/contact"
+          data-cta="written-enquiry"
+          data-service={SERVICE}
+          data-placement="hero"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Send a Written Enquiry
+        </a>
+      </div>
+
+      <p class="font-body text-sm text-parchment/50 mb-8">
+        <span class="text-parchment/80">R850 per online session</span> &middot; five sessions R3,400 &middot; the fit call is free
+      </p>
+
+      <p class="font-body text-xs text-parchment/35 leading-relaxed max-w-xl">
+        With Michael Kaplan (Swami Ramarishi), ASCHP-registered Specialist Wellness
+        Counsellor (Reg.&nbsp;10559). Supportive wellness counselling and mentoring. Not
+        psychology, psychotherapy, clinical care, or crisis support.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 2. RECOGNITION ═══════════════════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-10 leading-snug">
+        Most people arrive with a version of one of these
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {recognitions.map((item) => (
+          <div class="border border-border/50 rounded-lg p-6 bg-muted/15">
+            <h3 class="font-heading text-lg text-foreground/85 mb-2">{item.title}</h3>
+            <p class="text-muted-foreground font-body text-sm leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. HOW IT WORKS ══════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-5">
+        How the work moves
+      </h2>
+      <p class="text-header-foreground/50 font-body leading-relaxed text-center max-w-2xl mx-auto mb-12">
+        Conversational rather than curriculum-based, but not shapeless. Sessions tend to
+        cycle through the same four movements.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-px rounded-xl overflow-hidden bg-header-foreground/8">
+        {howItWorks.map((step) => (
+          <div class="bg-void/50 p-6">
+            <p class="text-primary/30 font-heading text-2xl leading-none mb-3">{step.num}</p>
+            <h3 class="font-heading text-sm text-header-foreground/85 mb-2">{step.title}</h3>
+            <p class="text-header-foreground/45 text-xs font-body leading-relaxed">{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. FIT CALL ══════════════════════════════════════════════════ -->
+  <section id="cal-section" class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
+        Free &middot; 15 minutes &middot; No obligation
+      </p>
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Start with a fit call
+      </h2>
+      <p class="text-muted-foreground/70 font-body text-sm text-center max-w-md mx-auto mb-10 leading-relaxed">
+        A short, direct conversation to see whether this is the right approach and the
+        right moment. Not a session. No intake forms. Nothing to prepare.
+      </p>
+
+      <div class="border border-border/40 rounded-xl overflow-hidden">
+        <CalEmbed minHeight="650px" service={SERVICE} />
+      </div>
+
+      <p class="text-muted-foreground/40 text-xs font-body text-center mt-6 leading-relaxed">
+        Prefer to write first?
+        <a
+          href="/contact"
+          data-cta="written-enquiry"
+          data-service={SERVICE}
+          data-placement="cal-section"
+          class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20"
+        >Send a written enquiry instead.</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 5. ABOUT + PROOF ═════════════════════════════════════════════ -->
+  <section class="bg-background border-t border-border/30">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
+      <div class="flex flex-col md:flex-row gap-10 items-start mb-14">
+        <div class="shrink-0 mx-auto md:mx-0">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-primary/20">
+            <Image
+              src={swamiPortrait}
+              alt="Michael Kaplan (Swami Ramarishi), ASCHP-registered Specialist Wellness Counsellor"
+              class="w-full h-full object-cover"
+              width={128}
+              height={128}
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="space-y-3">
+          <p class="font-heading text-lg text-foreground/85">
+            Michael Kaplan <span class="text-foreground/45 font-body text-sm">(Swami Ramarishi)</span>
+          </p>
+          <div class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed">
+            <p>
+              ASCHP-registered Specialist Wellness Counsellor (Reg.&nbsp;10559), BA Psychology,
+              Yoga Alliance RYS&nbsp;300. Over ten years of facilitation and one-to-one work
+              with people through periods of real change, and a long thread of that spent
+              specifically with young men.
+            </p>
+            <p>
+              South African-registered, currently based in India, working online. Sessions
+              are priced in rand and South African clients can pay by EFT.
+            </p>
+          </div>
+          <a
+            href="/about"
+            class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors"
+          >
+            Read more on the About page
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {reflections.map((r) => (
+          <figure class="border border-border/50 rounded-xl p-6 bg-muted/15 flex flex-col">
+            <blockquote class="text-muted-foreground font-body text-sm leading-relaxed grow">
+              {r.quote}
+            </blockquote>
+            <figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-border/40">
+              <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-primary/20">
+                <Image src={r.img} alt={`${r.name}, ${r.role}`} class={`w-full h-full object-cover ${r.pos}`} width={44} height={44} loading="lazy" />
+              </div>
+              <div>
+                <p class="font-heading text-sm text-foreground/85">{r.name}</p>
+                <p class="font-body text-xs text-muted-foreground/60">{r.role}</p>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+
+      <p class="text-muted-foreground/50 font-body text-xs text-center mt-8">
+        Shared with permission. More on the
+        <a href="/testimonials" class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20">testimonials page</a>.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 6. SCOPE ═════════════════════════════════════════════════════ -->
+  <section class="bg-background border-t border-border/25">
+    <div class="container mx-auto px-6 py-10 md:py-12 max-w-3xl">
+      <div class="bg-muted/25 border border-border/40 rounded-lg p-6 md:p-8">
+        <p class="text-xs text-muted-foreground/45 tracking-widest uppercase font-body mb-3">Scope and ethics</p>
+        <p class="font-body text-sm text-muted-foreground/70 leading-relaxed">
+          Sangham is supportive wellness counselling under South African ASCHP registration.
+          It is not psychology, psychiatry, psychotherapy, medical care, diagnosis,
+          medication guidance, crisis support, or emergency mental health care. If you need
+          urgent help, please contact your nearest emergency service or a South African
+          crisis line. Where clinical support is appropriate, a referral to a registered
+          professional is recommended.
+        </p>
+        <a
+          href="/scope"
+          class="inline-flex items-center gap-1 text-primary/45 hover:text-primary/80 text-xs font-body mt-4 transition-colors"
+        >
+          Full scope and ethics
+          <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. FAQ ═══════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Common questions
+      </h2>
+      <FAQ items={faqItems} dark={true} />
+    </div>
+  </section>
+
+  <!-- ═══ 8. FINAL CTA ═════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={loneTreeSunset}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/85"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-4">
+        Fifteen minutes to find out if this is worth your time.
+      </h2>
+      <p class="text-parchment/55 font-body leading-relaxed mb-10 max-w-md mx-auto">
+        Free, direct, and no obligation. If it is not the right fit, you will hear that
+        rather than a pitch.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="#cal-section"
+          data-cta="book-fit-call"
+          data-service={SERVICE}
+          data-placement="closing"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+        >
+          Book a Free 15-Minute Fit Call
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="/mentoring-for-young-men"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Read the Full Page
+        </a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>

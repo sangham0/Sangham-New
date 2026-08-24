@@ -14,11 +14,14 @@ export default defineConfig({
   },
   integrations: [
     sitemap({
-      // Exclude error pages and the post-conversion thank-you page
-      // (noindexed) from the sitemap.
+      // Exclude error pages, the post-conversion thank-you pages, and the
+      // noindexed paid-search landing variations, which deliberately overlap
+      // the evergreen pages they link to.
       filter: (page) =>
         !page.includes('/404') &&
-        !page.includes('/thank-you-'),
+        !page.includes('/thank-you-') &&
+        !page.includes('/online-support-teenage-boys-south-africa') &&
+        !page.includes('/online-counselling-young-men-south-africa'),
       serialize(item) {
         const url = item.url;
         const updatedItem = { ...item, lastmod: LAST_SIGNIFICANT_UPDATE };

@@ -1,0 +1,643 @@
+---
+// Paid-search landing page for the international meditation-integration
+// campaign (UK, Australia, Canada). It is a focused, ad-facing counterpart to
+// the longer /counselling-for-meditators/ essay page: the same service and the
+// same scope, written for someone arriving from a "spiritual emergence" or
+// "meditation integration" search rather than from reading.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import CalEmbed from '../components/CalEmbed.astro';
+import { Image } from 'astro:assets';
+import { getPublishedTestimonial } from '../data/testimonials';
+
+import mistyRidge from '../assets/misty-mountain-ridge.jpg';
+import mountainDusk from '../assets/mountain-dusk-vista.jpg';
+import michaelPortrait from '../assets/michael-portrait-new.jpg';
+import veraPortrait from '../assets/Vera-Pic.PNG';
+import ashrafPortrait from '../assets/Ashraf-pic.jpg';
+import bernardPortrait from '../assets/bernard-altman-portrait.jpg';
+
+const canonicalURL = 'https://www.sangham.org/meditation-integration-support/';
+const SERVICE = 'meditation-integration';
+
+// What people actually arrive with. Written as recognition, not diagnosis.
+const experiences = [
+  {
+    title: 'The ground moved and did not come back',
+    body: 'A retreat, a practice period, or a single sitting shifted something in how you experience yourself, and ordinary life has not resettled around it.',
+  },
+  {
+    title: 'Energetic or bodily changes you cannot account for',
+    body: 'Shifts in sleep, appetite, temperature, sensation, or energy that no one around you seems able to place, and that you would rather understand than dramatise or dismiss.',
+  },
+  {
+    title: 'Fear that something has gone wrong',
+    body: 'Or the opposite fear: that something genuinely important is happening and you might lose contact with it before you understand it.',
+  },
+  {
+    title: 'Meaning has reorganised itself',
+    body: 'Work, relationships, or plans that made sense before no longer hold in the same way, and you are unsure what to do with that in practical terms.',
+  },
+  {
+    title: 'You are caught between explanations',
+    body: 'One teacher says one thing, a clinician says another, the internet says something louder, and your own experience seems to say something else again.',
+  },
+  {
+    title: 'There is no one to speak to honestly',
+    body: 'Not for lack of people, but because describing it accurately tends to worry them, impress them, or invite advice that misses the point.',
+  },
+];
+
+// How the work proceeds. Deliberately unglamorous.
+const howItWorks = [
+  {
+    num: '01',
+    title: 'Describe it accurately',
+    text: 'Before anything is interpreted, the experience gets described carefully: what happened, when, in what practice context, and what has changed since. Precision is most of the work.',
+  },
+  {
+    num: '02',
+    title: 'Steady the ground',
+    text: 'Sleep, food, pacing, practice intensity, contact with other people. Where a state is destabilising, these are usually where stability returns from first.',
+  },
+  {
+    num: '03',
+    title: 'Hold the frames loosely',
+    text: 'Contemplative maps, psychological language, and cultural context each explain part of it. We look through several rather than committing to one too early.',
+  },
+  {
+    num: '04',
+    title: 'Return it to your life',
+    text: 'Relationships, work, practice, and decisions. Integration is not a feeling about an experience; it is the way an experience eventually sits inside an ordinary week.',
+  },
+];
+
+const fitsYes = [
+  'You are an adult who can engage with reflective conversation',
+  'The experience is connected to meditation, contemplative practice, or a significant shift in meaning',
+  'You want to understand what happened rather than be told what it means',
+  'You are able to work online by video and to pay a fee in South African rand',
+  'You have local medical or psychological support in place if you need it',
+];
+
+const fitsNo = [
+  'You are in crisis, or you need urgent or emergency care',
+  'You are looking for diagnosis, medication guidance, or clinical treatment',
+  'You want someone to confirm a particular spiritual interpretation',
+  'You are seeking psychedelic, plant-medicine, or drug-related guidance',
+  'You need a practitioner licensed in your own country for clinical work',
+];
+
+const faqItems = [
+  {
+    q: 'Is this therapy or clinical treatment?',
+    a: 'No. This is supportive wellness counselling, registered in South Africa with the ASCHP. It is not psychology, psychotherapy, psychiatry, diagnosis, medication management, or clinical mental health treatment, and it is not a substitute for care from a professional licensed in your own country. Many people use it alongside clinical support rather than instead of it.',
+  },
+  {
+    q: 'Can I work with you from the UK, Australia, or Canada?',
+    a: 'Yes. All sessions are online by video call, and clients currently work from South Africa, the United Kingdom, Europe, India, and elsewhere. Scheduling is arranged around your timezone. What is offered is non-clinical wellness counselling under South African registration, not licensed clinical practice in your country.',
+  },
+  {
+    q: 'Do I need to belong to a particular tradition?',
+    a: 'No. People arrive from meditation, yoga, Buddhist and non-dual practice, contemplative Christianity, devotional paths, and sometimes no formal tradition at all. What matters is not which path you are on, but whether you want to understand your experience more honestly.',
+  },
+  {
+    q: 'Will you tell me what my experience means?',
+    a: 'No. The role is not to hand over an interpretation for you to adopt. The work involves describing the experience carefully, questioning the conclusions that have already formed around it, considering several frames, and making room for your own understanding to settle.',
+  },
+  {
+    q: 'What if I am not sure this is right for me?',
+    a: 'That is what the free 15-minute fit call is for. It is a short, direct conversation about what is happening and whether this work is likely to help. It is not a session, there are no intake forms, and there is no obligation to continue.',
+  },
+  {
+    q: 'How do sessions work in practice?',
+    a: 'Sessions are around 60 minutes, online by video, at a rhythm that suits you. The work is conversational rather than curriculum-based. Some people come with one specific experience to make sense of; others arrive with broader questions about practice, direction, or meaning.',
+  },
+  {
+    q: 'Is this crisis support?',
+    a: 'No. If you are in crisis, at risk, or need urgent help, please contact your local emergency services or a crisis line in your country. This work is for reflection and integration over time, not for acute or emergency situations.',
+  },
+];
+
+const reflectionSources = [
+  { id: 'vera', img: veraPortrait, pos: 'object-[center_30%]' },
+  { id: 'ashraf-vahed', img: ashrafPortrait, pos: 'object-[40%_center]' },
+  { id: 'bernard-altman', img: bernardPortrait, pos: 'object-[center_25%]' },
+];
+
+const reflections = await Promise.all(
+  reflectionSources.map(async (source) => {
+    const { data } = await getPublishedTestimonial(source.id);
+    return {
+      img: source.img,
+      pos: source.pos,
+      label: data.label,
+      name: data.name,
+      role: data.attribution,
+      quote: data.cardQuote ?? data.excerpt.join(' '),
+    };
+  }),
+);
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Spiritual Emergence and Meditation Integration Support',
+    url: canonicalURL,
+    description:
+      'Grounded online counselling for adults navigating difficult or destabilising experiences connected with meditation, awakening, or major shifts in meaning. Non-clinical, ASCHP registered, online worldwide.',
+    serviceType: 'Wellness Counselling',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'ASCHP Registered Specialist Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional Registration',
+        name: 'Specialist Wellness Counsellor',
+        identifier: 'Reg. No. 10559',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Association for Supportive Counsellors and Holistic Practitioners',
+          alternateName: 'ASCHP',
+        },
+      },
+    },
+    areaServed: [
+      { '@type': 'Country', name: 'United Kingdom' },
+      { '@type': 'Country', name: 'Australia' },
+      { '@type': 'Country', name: 'Canada' },
+      { '@type': 'Country', name: 'South Africa' },
+      { '@type': 'Place', name: 'Worldwide' },
+    ],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Free 15-Minute Fit Call',
+        price: '0',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A free 15-minute call to look at what is happening and whether this work fits. No obligation.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Single Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'One 60-minute reflective counselling session, online via video call.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Five-Session Process',
+        price: '3400',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A five-session integrative process, paid in advance.',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Spiritual Emergence & Meditation Integration Support"
+  description="Grounded online counselling for adults navigating difficult or destabilising experiences connected with meditation, awakening, or major shifts in meaning. Non-clinical. Online in the UK, Australia and Canada."
+  canonicalURL={canonicalURL}
+  image="/images/og-counselling-for-meditators.jpg"
+  jsonLd={[...jsonLd, faqJsonLd]}
+  minimalNav={true}
+>
+
+  <!-- ═══ 1. HERO ══════════════════════════════════════════════════════ -->
+  <section class="-mt-[72px] pt-[72px] bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl">
+      <div class="grid md:grid-cols-[1fr_auto] gap-12 items-center">
+        <div>
+          <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-8">
+            Online worldwide &middot; UK, Australia &amp; Canada &middot; South African registered
+          </p>
+
+          <h1 class="font-heading text-4xl md:text-5xl lg:text-[56px] text-parchment/95 leading-[1.12] mb-6">
+            Spiritual Emergence &amp;<br class="hidden sm:block" />
+            <span class="text-gold-gradient">Meditation Integration Support</span>
+          </h1>
+
+          <p class="font-body text-lg md:text-xl text-parchment/70 leading-relaxed mb-6 max-w-2xl">
+            Grounded online counselling for adults navigating difficult or destabilising
+            experiences connected with meditation, awakening, or major shifts in meaning.
+          </p>
+
+          <p class="font-body text-sm text-parchment/40 leading-relaxed mb-9 max-w-xl">
+            With Michael Kaplan (Swami Ramarishi), ASCHP-registered Specialist Wellness
+            Counsellor (Reg.&nbsp;10559). Non-clinical scope. Not crisis care, and not a
+            substitute for locally licensed medical or psychological treatment.
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mb-4">
+            <a
+              href="#cal-section"
+              data-cta="book-fit-call"
+              data-service={SERVICE}
+              data-placement="hero"
+              class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
+            >
+              Book a Free 15-Minute Fit Call
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+            <a
+              href="/contact"
+              data-cta="written-enquiry"
+              data-service={SERVICE}
+              data-placement="hero"
+              class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+            >
+              Send a Written Enquiry
+            </a>
+          </div>
+
+          <p class="font-body text-sm italic text-parchment/45 mb-8">
+            Free, unhurried, and without obligation to continue.
+          </p>
+
+          <div class="flex flex-wrap gap-x-3 gap-y-2">
+            {['ASCHP Reg. 10559', 'BA Psychology', 'Yoga Alliance RYS 300', '10+ years facilitating', '8+ years personal practice'].map((t) => (
+              <span class="px-3 py-1 rounded-full border border-gold-light/25 text-parchment/70 text-[11px] font-body bg-white/[0.04]">{t}</span>
+            ))}
+          </div>
+        </div>
+
+        <div class="flex justify-center md:justify-end">
+          <div class="w-full max-w-[210px]">
+            <div class="rounded-xl overflow-hidden border border-parchment/15 shadow-xl shadow-black/30">
+              <div class="aspect-[4/5] overflow-hidden">
+                <Image
+                  src={michaelPortrait}
+                  alt="Michael Kaplan (Swami Ramarishi), ASCHP Registered Specialist Wellness Counsellor"
+                  class="w-full h-full object-cover object-center"
+                  widths={[320, 420]}
+                  sizes="210px"
+                  width={1254}
+                  height={1254}
+                  loading="eager"
+                />
+              </div>
+            </div>
+            <p class="font-heading text-base text-parchment/85 mt-3 text-center md:text-left">Michael Kaplan</p>
+            <p class="font-body text-xs text-parchment/40 text-center md:text-left">Swami Ramarishi</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 2. WHAT IT CAN FEEL LIKE ═════════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
+      <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">What spiritual emergence can feel like</p>
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-4 leading-snug">
+        The experience is often clear. Where it leaves you is not.
+      </h2>
+      <p class="text-muted-foreground/75 font-body leading-relaxed max-w-2xl mb-12">
+        People arrive here with very different experiences and a similar difficulty:
+        no steady place to think about it. Some of these may be familiar.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {experiences.map((item) => (
+          <div class="border border-border/50 rounded-lg p-6 bg-muted/15">
+            <h3 class="font-heading text-lg text-foreground/85 mb-2">{item.title}</h3>
+            <p class="text-muted-foreground font-body text-sm leading-relaxed">{item.body}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-muted-foreground/60 font-body text-sm leading-relaxed mt-10 max-w-2xl">
+        There does not need to be a dramatic experience for this work to be useful. Sometimes
+        it is only a sense that practice has brought you somewhere the old answers no longer
+        reach, and that you would rather not work it out alone.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 3. HOW THE WORK PROCEEDS ═════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">How grounded integration work proceeds</p>
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-5">
+        Slower and more ordinary than it sounds
+      </h2>
+      <p class="text-header-foreground/50 font-body leading-relaxed text-center max-w-2xl mx-auto mb-12">
+        There is no protocol and no curriculum. In practice the work tends to move through
+        four movements, often circling back through them more than once.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-px rounded-xl overflow-hidden bg-header-foreground/8">
+        {howItWorks.map((step) => (
+          <div class="bg-void/50 p-6">
+            <p class="text-primary/30 font-heading text-2xl leading-none mb-3">{step.num}</p>
+            <h3 class="font-heading text-sm text-header-foreground/85 mb-2">{step.title}</h3>
+            <p class="text-header-foreground/45 text-xs font-body leading-relaxed">{step.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 4. FIT / NOT FIT ═════════════════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-3">
+        Who this fits, and who it does not
+      </h2>
+      <p class="text-muted-foreground/60 font-body text-sm text-center mb-12 max-w-xl mx-auto">
+        Being clear about this early saves everyone time, including you.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border border-border/50 rounded-xl p-7 bg-muted/20">
+          <h3 class="font-heading text-xl text-foreground mb-5">This is likely a fit if</h3>
+          <ul class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed list-disc list-outside ml-5 marker:text-primary/40">
+            {fitsYes.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="border border-border/50 rounded-xl p-7">
+          <h3 class="font-heading text-xl text-foreground mb-5">This is not the right place if</h3>
+          <ul class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed list-disc list-outside ml-5 marker:text-muted-foreground/30">
+            {fitsNo.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="text-muted-foreground/55 font-body text-xs leading-relaxed mt-5">
+            If you are in crisis or at risk, please contact your local emergency services or a
+            crisis line in your country rather than booking a call here.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 5. FIT CALL ══════════════════════════════════════════════════ -->
+  <section id="cal-section" class="bg-background border-t border-border/30">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
+        Free &middot; 15 minutes &middot; No obligation
+      </p>
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Start with a fit call
+      </h2>
+      <p class="text-muted-foreground/70 font-body text-sm text-center max-w-md mx-auto mb-10 leading-relaxed">
+        A short conversation to look at what is happening and whether this is the right
+        approach and the right moment. Not a session. No intake forms.
+      </p>
+
+      <div class="border border-border/40 rounded-xl overflow-hidden">
+        <CalEmbed minHeight="650px" service={SERVICE} />
+      </div>
+
+      <p class="text-muted-foreground/40 text-xs font-body text-center mt-6 leading-relaxed">
+        Prefer to write first?
+        <a
+          href="/contact"
+          data-cta="written-enquiry"
+          data-service={SERVICE}
+          data-placement="cal-section"
+          class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20"
+        >Send a written enquiry instead.</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 6. ONLINE LOGISTICS ACROSS TIME ZONES ════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mistyRidge}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/88"></div>
+    <div class="relative z-10 container mx-auto px-6 py-20 md:py-24 max-w-4xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3">Working together across time zones</p>
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-8">
+        Practical details before you book
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="border border-parchment/12 rounded-xl p-6 bg-white/[0.03]">
+          <h3 class="font-heading text-lg text-parchment/85 mb-3">Scheduling</h3>
+          <p class="text-parchment/55 font-body text-sm leading-relaxed">
+            Michael is currently based in India (IST). In practice that suits UK, Irish and
+            European mornings and afternoons, Australian and New Zealand afternoons and
+            evenings, and Canadian and US early mornings. Times are agreed individually,
+            and the booking calendar shows slots converted to your own timezone.
+          </p>
+        </div>
+        <div class="border border-parchment/12 rounded-xl p-6 bg-white/[0.03]">
+          <h3 class="font-heading text-lg text-parchment/85 mb-3">Fees</h3>
+          <p class="text-parchment/55 font-body text-sm leading-relaxed">
+            Fees are set in South African rand. A single 60-minute session is R850
+            (<span data-usd-from-zar="850">approx. $45&ndash;50 USD</span>), and a
+            five-session process is R3,400. International clients usually pay by PayPal at
+            the prevailing exchange rate. The fit call is free.
+          </p>
+        </div>
+        <div class="border border-parchment/12 rounded-xl p-6 bg-white/[0.03]">
+          <h3 class="font-heading text-lg text-parchment/85 mb-3">Format</h3>
+          <p class="text-parchment/55 font-body text-sm leading-relaxed">
+            Sessions are held online by video call, in English, usually around 60 minutes,
+            at a rhythm that suits you. There is no minimum commitment beyond the session
+            you have booked, and no obligation to continue after the fit call.
+          </p>
+        </div>
+      </div>
+
+      <p class="text-parchment/35 font-body text-xs leading-relaxed mt-8 max-w-2xl">
+        If the fee is a genuine obstacle, say so when you get in touch. A small number of
+        reduced-rate places are available.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 7. CREDENTIALS AND ETHICAL SCOPE ═════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
+      <div class="grid grid-cols-1 md:grid-cols-[1.15fr_1fr] gap-10 md:gap-14 items-start">
+        <div>
+          <p class="text-primary/50 text-xs tracking-widest uppercase font-body mb-3">Credentials and ethical scope</p>
+          <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-6">
+            Someone who has spent years in this terrain
+          </h2>
+          <div class="space-y-4 text-muted-foreground font-body leading-relaxed">
+            <p>
+              Michael Kaplan (Swami Ramarishi) is a Specialist Wellness Counsellor registered
+              in South Africa with the Association for Supportive Counsellors and Holistic
+              Practitioners (ASCHP, Reg.&nbsp;10559), with a BA in Psychology and Yoga
+              Alliance RYS&nbsp;300 certification.
+            </p>
+            <p>
+              He has spent more than ten years facilitating group process and one-to-one work
+              through periods of significant change, and more than eight years in personal
+              contemplative practice: extended silent retreats, long periods of solitude, and
+              traditional training in India.
+            </p>
+            <p>
+              That background matters here for one reason only. Much of what people bring to
+              these conversations is not abstract to him, which makes it easier to describe
+              an experience plainly without either inflating it or explaining it away.
+            </p>
+          </div>
+          <a
+            href="/about"
+            class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors mt-6"
+          >
+            Read more on the About page
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+
+        <div class="bg-muted/25 border border-border/40 rounded-xl p-6 md:p-8">
+          <p class="text-xs text-muted-foreground/45 tracking-widest uppercase font-body mb-3">Scope and ethics</p>
+          <p class="font-body text-sm text-muted-foreground/70 leading-relaxed mb-4">
+            Sangham is supportive wellness counselling under South African ASCHP registration.
+            It is not psychology, psychiatry, psychotherapy, medical treatment, diagnosis,
+            medication management, crisis support, or emergency mental health care.
+          </p>
+          <p class="font-body text-sm text-muted-foreground/70 leading-relaxed mb-4">
+            No claim is made to licensure in the United Kingdom, Australia, Canada, the
+            United States, or anywhere else. This work does not replace care from a
+            professional licensed where you live, and where clinical or acute support is
+            needed, referral to a local professional will be recommended.
+          </p>
+          <a
+            href="/scope"
+            class="inline-flex items-center gap-1 text-primary/50 hover:text-primary/80 text-xs font-body transition-colors"
+          >
+            Full scope and ethics
+            <svg class="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8. REFLECTIONS ═══════════════════════════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-5xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-3">
+        In their own words
+      </h2>
+      <p class="text-header-foreground/45 font-body text-sm text-center mb-12 max-w-lg mx-auto">
+        Shared with permission. More reflections are collected on the
+        <a href="/testimonials" class="text-primary/70 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/25">testimonials page</a>.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {reflections.map((r) => (
+          <figure class="border border-header-foreground/10 rounded-xl p-6 bg-void/40 flex flex-col">
+            <blockquote class="text-header-foreground/60 font-body text-sm leading-relaxed grow">
+              {r.quote}
+            </blockquote>
+            <figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-header-foreground/8">
+              <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-primary/20">
+                <Image src={r.img} alt={`${r.name}, ${r.role}`} class={`w-full h-full object-cover ${r.pos}`} width={44} height={44} loading="lazy" />
+              </div>
+              <div>
+                <p class="font-heading text-sm text-header-foreground/85">{r.name}</p>
+                <p class="font-body text-xs text-header-foreground/40">{r.role}</p>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 9. FAQ ═══════════════════════════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
+        Common questions
+      </h2>
+      <FAQ items={faqItems} />
+    </div>
+  </section>
+
+  <!-- ═══ 10. FINAL CTA ════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mountainDusk}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/85"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-4">
+        You do not have to make sense of it alone.
+      </h2>
+      <p class="text-parchment/55 font-body leading-relaxed mb-10 max-w-md mx-auto">
+        Fifteen minutes, free, and no obligation. Just a direct conversation about what has
+        been happening and whether this is the right kind of help.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a
+          href="#cal-section"
+          data-cta="book-fit-call"
+          data-service={SERVICE}
+          data-placement="closing"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+        >
+          Book a Free 15-Minute Fit Call
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="/contact"
+          data-cta="written-enquiry"
+          data-service={SERVICE}
+          data-placement="closing"
+          class="inline-flex items-center justify-center gap-2 px-10 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Send a Written Enquiry
+        </a>
+      </div>
+
+      <p class="text-parchment/30 text-xs font-body mt-8 max-w-lg mx-auto leading-relaxed">
+        Prefer to read at length first? The longer essay on this work lives at
+        <a href="/counselling-for-meditators" class="text-primary/50 hover:text-primary/80 transition-colors underline underline-offset-2 decoration-primary/20">Counselling for Meditators</a>.
+      </p>
+    </div>
+  </section>
+
+</BaseLayout>
