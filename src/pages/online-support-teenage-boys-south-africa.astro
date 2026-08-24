@@ -1,0 +1,677 @@
+---
+// Paid-search landing page for the parent-facing teenage-boys campaign.
+// A short, single-path variation of /mentoring-for-adolescents/: same service,
+// same scope, same parent-consultation booking flow, written for a parent who
+// arrived from an ad rather than from the site.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import FAQ from '../components/FAQ.astro';
+import { Image } from 'astro:assets';
+import { getPublishedTestimonial } from '../data/testimonials';
+
+import mountainSunrise from '../assets/mountain-sunrise.jpg';
+import swamiPortrait from '../assets/swami-ramarishi-portrait.jpg';
+import jacobPortrait from '../assets/jacob-s-portrait.jpg';
+import bernardPortrait from '../assets/bernard-altman-portrait.jpg';
+
+const canonicalURL = 'https://www.sangham.org/online-support-teenage-boys-south-africa/';
+const SERVICE = 'teenage-boys';
+
+// The four areas the work actually moves through, kept deliberately short.
+const workAreas = [
+  {
+    title: 'Regulation and agency',
+    text: 'Learning to notice what is happening in the body before it becomes an outburst, a shutdown, or an hour lost to a screen, and building the sense that a response is something he chooses rather than something that happens to him.',
+  },
+  {
+    title: 'Identity and relationships',
+    text: 'Friendships, status, girls, family, and the quiet question underneath all of it: who he is turning out to be, and whether that is acceptable. Space to think about it honestly with an adult who is not grading him.',
+  },
+  {
+    title: 'Practical follow-through',
+    text: 'Insight that never reaches behaviour has not landed. Work here stays close to the ordinary week: school, sleep, commitments, and the gap between what he intends and what he does.',
+  },
+  {
+    title: 'Thoughtful parent involvement',
+    text: 'You are kept oriented without the sessions being reported back to you. Direction, themes, and what would help at home are shared. The detail of what he says stays with him.',
+  },
+];
+
+const consultationSteps = [
+  'A 45-minute video call with you, without your son present.',
+  'What has been happening, what you have already tried, and what you are hoping for.',
+  'An honest read on whether this work is likely to help him, and whether something else would serve him better.',
+  'If it fits, how the first sessions would be set up and what involvement you can expect.',
+];
+
+const fitsYes = [
+  'Boys aged 12 to 17, anywhere in South Africa, working online by video',
+  'A parent who wants support for their son rather than counselling for themselves',
+  'Difficulty with motivation, direction, regulation, confidence, or follow-through',
+  'A boy who is reluctant but not actively refusing to speak to anyone',
+  'Families who want a clear scope and honest limits rather than a promise',
+];
+
+const fitsNo = [
+  'Crisis, risk of harm, or any situation needing urgent care',
+  'A request for diagnosis, assessment, medication guidance, or clinical treatment',
+  'Court-mandated, custody-related, or forensic assessment work',
+  'A boy who has been given no say at all in whether he attends',
+  'Support that must be claimed from a medical aid as clinical treatment',
+];
+
+const faqItems = [
+  {
+    q: 'Is this therapy or clinical treatment?',
+    a: 'No. This is supportive wellness counselling and mentoring, registered in South Africa with the ASCHP. It is not psychology, psychiatry, psychotherapy, assessment, diagnosis, medication guidance, or clinical mental health treatment. Where clinical support is needed, a referral to an appropriate registered professional is recommended.',
+  },
+  {
+    q: 'Why does it start with a parent consultation rather than a session with my son?',
+    a: 'Because the most useful first hour is usually an honest conversation with you. It gives a full picture of what has been happening, avoids putting your son through an assessment-style first meeting, and makes it possible to say clearly whether this work is likely to help before anyone commits to it.',
+  },
+  {
+    q: 'What will you tell me about what my son says?',
+    a: 'You will be kept oriented: the direction of the work, the themes that are live, and what would be useful at home. The specific content of what he says stays confidential, because that confidence is what makes the work possible. The exception is safety: if there is a serious risk of harm, that is discussed with you.',
+  },
+  {
+    q: 'My son does not want to talk to anyone. Is this worth trying?',
+    a: 'Often, yes. Reluctance is normal and is not the same as refusal. The work does not require enthusiasm at the start, and it is not conducted as an interrogation. What it does require is that he has some say in it, rather than being sent.',
+  },
+  {
+    q: 'Does online work for teenagers?',
+    a: 'For this kind of work it holds well. Many boys find a video call from their own room less exposing than sitting in an unfamiliar consulting room, and it makes the work available wherever in South Africa you are. What matters most is the quality of attention on both sides.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'The first parent consultation is R600 for 45 minutes. Sessions with your son after that are R850 each, or R3,400 for a five-session process paid in advance. There is no obligation to continue after the consultation, and if cost is a genuine barrier it is worth saying so.',
+  },
+];
+
+const testimonialSources = [
+  { id: 'parent-mentoring', img: null, pos: '' },
+  { id: 'jacob-s', img: jacobPortrait, pos: 'object-[center_top]' },
+  { id: 'bernard-altman', img: bernardPortrait, pos: 'object-[center_25%]' },
+];
+
+const reflections = await Promise.all(
+  testimonialSources.map(async (source) => {
+    const { data } = await getPublishedTestimonial(source.id);
+    return {
+      img: source.img,
+      pos: source.pos,
+      name: data.name,
+      role: data.attribution,
+      quote: data.cardQuote ?? data.excerpt.join(' '),
+    };
+  }),
+);
+
+const faqJsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqItems.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    name: 'Online Counselling and Mentoring for Teenage Boys in South Africa',
+    url: canonicalURL,
+    description:
+      'Online wellness counselling and mentoring for boys aged 12 to 17 across South Africa, beginning with a 45-minute parent consultation. Non-clinical, ASCHP registered.',
+    serviceType: 'Wellness Counselling',
+    provider: {
+      '@type': 'Person',
+      name: 'Michael Kaplan',
+      alternateName: 'Swami Ramarishi',
+      jobTitle: 'ASCHP Registered Specialist Wellness Counsellor',
+      url: 'https://www.sangham.org/about',
+      hasCredential: {
+        '@type': 'EducationalOccupationalCredential',
+        credentialCategory: 'Professional Registration',
+        name: 'Specialist Wellness Counsellor',
+        identifier: 'Reg. No. 10559',
+        recognizedBy: {
+          '@type': 'Organization',
+          name: 'Association for Supportive Counsellors and Holistic Practitioners',
+          alternateName: 'ASCHP',
+        },
+      },
+    },
+    areaServed: [{ '@type': 'Country', name: 'South Africa' }],
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceType: 'Online via video call',
+      availableLanguage: 'English',
+    },
+    offers: [
+      {
+        '@type': 'Offer',
+        name: 'Parent Consultation',
+        price: '600',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A 45-minute online consultation with the parent, before any work with the teenager begins.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Single Session',
+        price: '850',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'One 60-minute online session with the teenager.',
+      },
+      {
+        '@type': 'Offer',
+        name: 'Five-Session Process',
+        price: '3400',
+        priceCurrency: 'ZAR',
+        availability: 'https://schema.org/InStock',
+        description: 'A five-session process with the teenager, paid in advance.',
+      },
+    ],
+  },
+];
+---
+
+<BaseLayout
+  title="Online Counselling & Mentoring for Teenage Boys | South Africa"
+  description="Online counselling and mentoring for boys aged 12-17 across South Africa. For parents: start with a 45-minute parent consultation, R600. Non-clinical, ASCHP registered."
+  canonicalURL={canonicalURL}
+  image="/images/og-default.jpg"
+  jsonLd={[...jsonLd, faqJsonLd]}
+  minimalNav={true}
+>
+  <!--
+    Paid-search destination only. It deliberately overlaps the longer evergreen
+    page it links to, so it is kept out of the index to avoid competing with that
+    page for the same queries. Ads serve noindexed pages normally.
+  -->
+  <meta name="robots" content="noindex, follow" slot="head" />
+
+  <!-- ═══ 1. HERO ══════════════════════════════════════════════════════ -->
+  <section class="-mt-[72px] pt-[72px] bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
+
+      <p class="text-primary/55 text-xs tracking-widest uppercase font-body mb-8">
+        For parents of boys aged 12&ndash;17 &middot; Online across South Africa
+      </p>
+
+      <h1 class="font-heading text-4xl md:text-5xl lg:text-[54px] text-parchment/95 leading-[1.12] mb-6">
+        Online Counselling &amp; Mentoring for<br class="hidden sm:block" />
+        <span class="text-gold-gradient">Teenage Boys in South Africa</span>
+      </h1>
+
+      <p class="font-body text-lg md:text-xl text-parchment/70 leading-relaxed mb-6 max-w-2xl">
+        Steady, practical work with a boy who has lost momentum, withdrawn, or is pushing
+        against everything at once. The work is for him. It begins with a conversation
+        with you.
+      </p>
+
+      <p class="font-body text-sm text-parchment/40 leading-relaxed mb-10 max-w-xl">
+        With Michael Kaplan (Swami Ramarishi), ASCHP-registered Specialist Wellness
+        Counsellor (Reg.&nbsp;10559). Supportive counselling and mentoring, not clinical
+        treatment, assessment, or crisis care.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-4 mb-4">
+        <a
+          href="#parent-consultation"
+          data-cta="book-parent-consultation"
+          data-service={SERVICE}
+          data-placement="hero"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body font-medium shadow-lg shadow-primary/20"
+        >
+          Book a Parent Consultation &mdash; R600 / 45 min
+          <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="#scope"
+          class="inline-flex items-center justify-center gap-2 px-8 py-4 border border-parchment/20 text-parchment/55 hover:border-parchment/40 hover:text-parchment/80 transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body"
+        >
+          Read Scope &amp; Confidentiality
+        </a>
+      </div>
+
+      <p class="font-body text-sm italic text-parchment/45">
+        Sessions with your son afterwards are R850 each, or R3,400 for five.
+      </p>
+
+    </div>
+  </section>
+
+  <!-- ═══ 2. WHAT THE WORK ADDRESSES ═══════════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-20 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground mb-4 leading-snug">
+        What the work actually addresses
+      </h2>
+      <p class="text-muted-foreground/75 font-body leading-relaxed max-w-2xl mb-10">
+        This is counselling that behaves a little like mentoring: reflective where that
+        helps, direct and practical where that helps more. It is not a programme, and it is
+        not school.
+      </p>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {workAreas.map((item) => (
+          <div class="border border-border/50 rounded-lg p-6 bg-muted/15">
+            <h3 class="font-heading text-lg text-foreground/85 mb-2">{item.title}</h3>
+            <p class="text-muted-foreground font-body text-sm leading-relaxed">{item.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 3. HOW THE FIRST CONSULTATION WORKS ══════════════════════════ -->
+  <section class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3">Where everyone starts</p>
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-6">
+        The first parent consultation
+      </h2>
+      <p class="text-header-foreground/55 font-body leading-relaxed mb-8 max-w-2xl">
+        Forty-five minutes, R600, online by video, before any work with your son begins.
+        Some parents book it and decide this is not the right route. That is a good outcome
+        for an honest hour.
+      </p>
+
+      <ol class="space-y-4">
+        {consultationSteps.map((step, index) => (
+          <li class="flex gap-4 items-start">
+            <span class="font-heading text-primary/45 text-xl leading-none shrink-0 w-7 pt-0.5">{String(index + 1).padStart(2, '0')}</span>
+            <span class="text-header-foreground/60 font-body text-sm leading-relaxed">{step}</span>
+          </li>
+        ))}
+      </ol>
+
+      <p class="text-header-foreground/40 font-body text-sm leading-relaxed mt-8 italic">
+        The consultation is for the parent. It is not counselling for you, and it is not a
+        session with your son.
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 4. BOOKING ═══════════════════════════════════════════════════ -->
+  <section id="parent-consultation" class="bg-background">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3 text-center">
+        R600 &middot; 45 minutes &middot; Online by video
+      </p>
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-4">
+        Book a parent consultation
+      </h2>
+      <p class="text-muted-foreground/70 font-body text-sm text-center max-w-md mx-auto mb-10 leading-relaxed">
+        Choose a time that works for you. Your son does not need to be present, and nothing
+        is committed to beyond this call.
+      </p>
+
+      <div class="border border-border/40 rounded-xl overflow-hidden">
+        <div class="cal-shell">
+          <div id="cal-parental-embed" class="cal-frame" aria-label="Parent consultation booking calendar"></div>
+          <div class="cal-fallback">
+            <p>
+              If the calendar does not load, you can
+              <a
+                href="https://cal.com/sangham/parental-consultation"
+                target="_blank"
+                rel="noopener noreferrer"
+                data-cta="calendar-fallback"
+                data-service={SERVICE}
+                data-placement="parent-calendar-fallback"
+              >open the parent consultation booking page directly</a>.
+            </p>
+          </div>
+          <noscript>
+            <p class="cal-fallback">
+              JavaScript is required for the embedded calendar. You can
+              <a href="https://cal.com/sangham/parental-consultation">book the parent consultation on Cal.com</a>.
+            </p>
+          </noscript>
+        </div>
+      </div>
+
+      <p class="text-muted-foreground/40 text-xs font-body text-center mt-6 leading-relaxed">
+        Would rather write first?
+        <a
+          href="/contact"
+          data-cta="written-enquiry"
+          data-service={SERVICE}
+          data-placement="parent-consultation"
+          class="text-primary/60 hover:text-primary transition-colors underline underline-offset-2 decoration-primary/20"
+        >Send a written enquiry instead.</a>
+      </p>
+    </div>
+  </section>
+
+  <!-- ═══ 5. FIT / NOT FIT ═════════════════════════════════════════════ -->
+  <section class="bg-background border-t border-border/30">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-foreground text-center mb-12">
+        Who this is for, and who it is not for
+      </h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div class="border border-border/50 rounded-xl p-7 bg-muted/20">
+          <h3 class="font-heading text-xl text-foreground mb-5">This is likely a fit if</h3>
+          <ul class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed list-disc list-outside ml-5 marker:text-primary/40">
+            {fitsYes.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div class="border border-border/50 rounded-xl p-7">
+          <h3 class="font-heading text-xl text-foreground mb-5">This is not the right place for</h3>
+          <ul class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed list-disc list-outside ml-5 marker:text-muted-foreground/30">
+            {fitsNo.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="text-muted-foreground/55 font-body text-xs leading-relaxed mt-5">
+            If your son is at risk right now, please contact your nearest emergency service
+            or a South African crisis line rather than booking a consultation here.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 6. SCOPE AND CONFIDENTIALITY ═════════════════════════════════ -->
+  <section id="scope" class="bg-header text-header-foreground">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <p class="text-primary/45 text-xs tracking-widest uppercase font-body mb-3">Scope and confidentiality</p>
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-8">
+        What is promised, and what is not
+      </h2>
+
+      <div class="space-y-5 text-header-foreground/60 font-body leading-relaxed">
+        <p>
+          Sangham is supportive wellness counselling and mentoring under South African ASCHP
+          registration (Reg.&nbsp;10559). It is not psychology, psychiatry, psychotherapy,
+          assessment, diagnosis, medication guidance, clinical treatment, or crisis care.
+          No outcome is guaranteed, and nothing here is presented as a cure.
+        </p>
+        <p>
+          What your son says in session stays with him. You are kept oriented to the
+          direction of the work, the themes that are live, and what would help at home,
+          without the sessions being reported back to you line by line. That boundary is
+          not a technicality: it is the reason a teenager speaks honestly at all.
+        </p>
+        <p>
+          The exception is safety. If there is a serious risk of harm to him or to someone
+          else, that is discussed with you, and where appropriate a referral is made to an
+          appropriately registered professional.
+        </p>
+      </div>
+
+      <div class="flex flex-wrap gap-4 mt-8">
+        <a
+          href="/scope"
+          class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors"
+        >
+          Full scope and ethics
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+        <a
+          href="/mentoring-for-adolescents"
+          class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors"
+        >
+          The full adolescent page, in detail
+          <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 7. ABOUT MICHAEL + REFLECTIONS ═══════════════════════════════ -->
+  <section class="bg-background">
+    <div class="container mx-auto px-6 py-16 md:py-24 max-w-4xl">
+      <div class="flex flex-col md:flex-row gap-10 items-start mb-14">
+        <div class="shrink-0 mx-auto md:mx-0">
+          <div class="w-32 h-32 rounded-full overflow-hidden border-2 border-primary/20">
+            <Image
+              src={swamiPortrait}
+              alt="Michael Kaplan (Swami Ramarishi), ASCHP-registered Specialist Wellness Counsellor"
+              class="w-full h-full object-cover"
+              width={128}
+              height={128}
+              loading="lazy"
+            />
+          </div>
+        </div>
+        <div class="space-y-3">
+          <p class="font-heading text-lg text-foreground/85">
+            Michael Kaplan <span class="text-foreground/45 font-body text-sm">(Swami Ramarishi)</span>
+          </p>
+          <div class="space-y-3 text-muted-foreground font-body text-sm leading-relaxed">
+            <p>
+              ASCHP-registered Specialist Wellness Counsellor (Reg.&nbsp;10559), BA Psychology,
+              Yoga Alliance RYS&nbsp;300. Over ten years of facilitation and one-to-one work,
+              including sustained mentoring work with adolescent boys and young men.
+            </p>
+            <p>
+              A large part of that has been through Boys to Men, first as a participant and
+              later in facilitation and leadership. Working with boys through this stage is
+              not a sideline of the practice; it is one of its longest threads.
+            </p>
+          </div>
+          <a
+            href="/about"
+            class="inline-flex items-center gap-1.5 text-primary/60 hover:text-primary text-sm font-body transition-colors"
+          >
+            Read more on the About page
+            <svg class="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        {reflections.map((r) => (
+          <figure class="border border-border/50 rounded-xl p-6 bg-muted/15 flex flex-col">
+            <blockquote class="text-muted-foreground font-body text-sm leading-relaxed grow">
+              {r.quote}
+            </blockquote>
+            <figcaption class="flex items-center gap-3 mt-6 pt-5 border-t border-border/40">
+              {r.img ? (
+                <div class="w-11 h-11 rounded-full overflow-hidden shrink-0 border border-primary/20">
+                  <Image src={r.img} alt={`${r.name}, ${r.role}`} class={`w-full h-full object-cover ${r.pos}`} width={44} height={44} loading="lazy" />
+                </div>
+              ) : (
+                <div class="w-11 h-11 rounded-full shrink-0 border border-primary/20 bg-muted/50" aria-hidden="true"></div>
+              )}
+              <div>
+                <p class="font-heading text-sm text-foreground/85">{r.name}</p>
+                <p class="font-body text-xs text-muted-foreground/60">{r.role}</p>
+              </div>
+            </figcaption>
+          </figure>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ 8. FAQ ═══════════════════════════════════════════════════════ -->
+  <section class="bg-header">
+    <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient text-center mb-12">
+        Questions parents ask
+      </h2>
+      <FAQ items={faqItems} dark={true} />
+    </div>
+  </section>
+
+  <!-- ═══ 9. FINAL CTA ═════════════════════════════════════════════════ -->
+  <section class="relative overflow-hidden">
+    <Image
+      src={mountainSunrise}
+      alt=""
+      aria-hidden="true"
+      class="absolute inset-0 w-full h-full object-cover"
+      widths={[640, 1024, 1536]}
+      sizes="100vw"
+      loading="lazy"
+    />
+    <div class="absolute inset-0 bg-void/85"></div>
+    <div class="relative z-10 container mx-auto px-6 py-24 md:py-32 max-w-2xl text-center">
+      <h2 class="font-heading text-3xl md:text-4xl text-gold-gradient mb-4">
+        Start with one honest conversation.
+      </h2>
+      <p class="text-parchment/55 font-body leading-relaxed mb-10 max-w-md mx-auto">
+        Forty-five minutes with you, R600, before anything is decided. If this is not the
+        right route for your son, you will be told so.
+      </p>
+
+      <a
+        href="#parent-consultation"
+        data-cta="book-parent-consultation"
+        data-service={SERVICE}
+        data-placement="closing"
+        class="inline-flex items-center justify-center gap-2 px-10 py-4 bg-primary text-primary-foreground hover:bg-gold-light transition-all duration-300 rounded-lg text-sm tracking-wider uppercase font-body shadow-lg shadow-primary/20"
+      >
+        Book a Parent Consultation
+        <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+  .cal-shell {
+    width: 100%;
+    max-height: 900px;
+    overflow: auto;
+    scroll-margin-top: 88px;
+    background: var(--color-background);
+    min-height: 640px;
+  }
+
+  .cal-frame {
+    width: 100%;
+    min-height: 640px;
+  }
+
+  .cal-fallback {
+    border-top: 1px solid var(--color-border);
+    padding: 0.9rem 1.25rem;
+    text-align: center;
+    color: var(--color-muted-foreground);
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    line-height: 1.5;
+  }
+
+  .cal-fallback a {
+    color: var(--color-primary);
+    text-decoration: underline;
+    text-underline-offset: 2px;
+  }
+
+  @media (max-width: 640px) {
+    .cal-shell {
+      max-height: 760px;
+    }
+  }
+</style>
+
+<script is:inline>
+  // Parent-consultation Cal embed. Mirrors the flow already used on
+  // /mentoring-for-adolescents/ so the same dataLayer events are emitted:
+  // cal_booking_initiated (diagnostic) and parental_consultation_booked (lead).
+  (function (C, A, L) {
+    let p = function (a, ar) { a.q.push(ar); };
+    let d = C.document;
+    C.Cal = C.Cal || function () {
+      let cal = C.Cal; let ar = arguments;
+      if (!cal.loaded) { cal.ns = {}; cal.q = cal.q || []; d.head.appendChild(d.createElement("script")).src = A; cal.loaded = true; }
+      if (ar[0] === L) {
+        const api = function () { p(api, arguments); };
+        const namespace = ar[1];
+        api.q = api.q || [];
+        if (typeof namespace === "string") { cal.ns[namespace] = cal.ns[namespace] || api; p(cal.ns[namespace], ar); p(cal, ["initNamespace", namespace]); }
+        else p(cal, ar);
+        return;
+      }
+      p(cal, ar);
+    };
+  })(window, "https://app.cal.com/embed/embed.js", "init");
+
+  var attribution = {};
+  try { attribution = JSON.parse(sessionStorage.getItem("sangham_attribution") || "{}"); } catch (e) {}
+
+  var calConfig = { layout: "month_view" };
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+    if (attribution[key]) calConfig[key] = attribution[key];
+  });
+
+  document.querySelectorAll('a[data-cta="calendar-fallback"]').forEach(function (fallback) {
+    try {
+      var fallbackUrl = new URL(fallback.href);
+      ["utm_source", "utm_medium", "utm_campaign", "utm_content"].forEach(function (key) {
+        if (attribution[key]) fallbackUrl.searchParams.set(key, attribution[key]);
+      });
+      fallback.href = fallbackUrl.toString();
+    } catch (e) {}
+  });
+
+  function calParameters() {
+    return {
+      page_path: window.location.pathname,
+      service: "teenage-boys",
+      placement: "cal-embed",
+      booking_type: "parental-consultation",
+      utm_source: attribution.utm_source || "",
+      utm_medium: attribution.utm_medium || "",
+      utm_campaign: attribution.utm_campaign || "",
+      utm_content: attribution.utm_content || "",
+      referral_code: attribution.ref || "",
+      initial_landing_page: attribution.initial_landing_page || window.location.pathname,
+      initial_referrer: attribution.initial_referrer || ""
+    };
+  }
+
+  Cal("init", "parental-consultation", { origin: "https://cal.com" });
+  Cal.ns["parental-consultation"]("inline", { elementOrSelector: "#cal-parental-embed", calLink: "sangham/parental-consultation", config: calConfig });
+  Cal.ns["parental-consultation"]("ui", { theme: "auto", hideEventTypeDetails: false, layout: "month_view" });
+
+  Cal.ns["parental-consultation"]("on", {
+    action: "bookerViewed",
+    callback: function (e) {
+      var viewedKey = "sangham_cal_booker_viewed:parental-consultation";
+      try {
+        if (sessionStorage.getItem(viewedKey)) return;
+        sessionStorage.setItem(viewedKey, "1");
+      } catch (error) {}
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({
+        event: "cal_booking_initiated",
+        cal_event_slug: "parental-consultation",
+        cal_event_type_id: (e && e.detail && e.detail.data && e.detail.data.eventId) || ""
+      }, calParameters()));
+    },
+  });
+
+  Cal.ns["parental-consultation"]("on", {
+    action: "bookingSuccessfulV2",
+    callback: function (e) {
+      var data = (e && e.detail && e.detail.data) || {};
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(Object.assign({
+        event: "parental_consultation_booked",
+        cal_event_slug: "parental-consultation",
+        booking_status: data.status || "",
+        cal_event_type_id: data.eventTypeId || ""
+      }, calParameters()));
+    },
+  });
+</script>
