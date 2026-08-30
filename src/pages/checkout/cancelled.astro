@@ -1,0 +1,24 @@
+---
+/** Cancelled/incomplete payment return page. Nothing was charged or granted. */
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+
+const url = new URL(Astro.request.url);
+const orderRef = (url.searchParams.get('ref') ?? '').slice(0, 40);
+---
+
+<BaseLayout title="Checkout cancelled" description="Checkout cancelled" minimalNav hideStickyBar>
+  <main class="mx-auto max-w-md px-6 py-16 text-center">
+    <h1 class="text-2xl font-semibold">Checkout cancelled</h1>
+    <p class="mt-3 opacity-80">No payment was completed and nothing has been charged.</p>
+    <p class="mt-2 opacity-70 text-sm">
+      If you cancelled by accident you can simply start again. If something went wrong during payment,
+      <a href="/contact/" class="underline"> contact us</a>{orderRef ? ` and mention reference ${orderRef}` : ''}.
+    </p>
+    <a href="javascript:history.back()" class="mt-6 inline-block rounded-md border border-neutral-300 px-5 py-2.5">Go back</a>
+  </main>
+  <script define:vars={{ orderRef }}>
+    window.dataLayer?.push({ event: 'payment_failure', error_type: 'cancelled', cta_id: orderRef });
+  </script>
+</BaseLayout>

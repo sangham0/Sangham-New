@@ -34,8 +34,36 @@ npm install                        # install dependencies
 npm run dev                        # local dev server at localhost:4321
 npm run build                      # production build to ./dist/
 npm run preview                    # preview the build locally
+npm run test:security              # library security checks (secrets, leakage, env hygiene)
 node scripts/generate-og-images.mjs  # regenerate social preview images (1200x630 JPEGs -> public/images/)
 ```
+
+---
+
+## Sangham Library (member area)
+
+The site carries an authenticated member library alongside the static pages.
+All existing public pages remain prerendered static; member and commerce
+routes (`/library`, `/account`, `/auth`, `/checkout`, `/admin`, `/api/*`)
+are server-rendered on Vercel via `@astrojs/vercel` and opt out of
+prerendering individually.
+
+| Piece | Where |
+| --- | --- |
+| Backend | Supabase (Postgres + Auth + private Storage); schema, RLS and rollback notes in `supabase/` |
+| Access rule | active provider-independent entitlement (or explicit free public access); enforced by RLS **and** server guards; fails closed |
+| Payments | PayFast (ZAR, ITN with full validation) and PayPal (USD, server-side Orders v2 capture + verified webhooks) as adapters over one order/entitlement core (`src/lib/payments/`) |
+| Auth | email magic links / OTP (`@supabase/ssr` cookie sessions); no passwords, no pre-purchase registration; purchases attach to the email and are claimed at first sign-in |
+| Email | provider-agnostic transactional adapter (`src/lib/email.ts`); `EMAIL_PROVIDER=log` sends nothing (default) |
+| Env contract | `.env.example` (server secrets never carry the `PUBLIC_` prefix; never commit `.env`) |
+| Content | paid content is **never** committed here — it is ingested into the database by `scripts/ingest-content.mjs` from a private local source; the repo carries only `test_`-prefixed placeholders (`supabase/seed.sql`) |
+| Local tests | `supabase/tests/run_local_tests.sh` — applies migrations to a scratch PostgreSQL and runs the full RLS assertion suite |
+
+Until the Supabase environment variables are configured, every member route
+fails closed (redirect home / 503) and the static site is unaffected.
+
+The free Stillness & Meditation practices stay public: free content is
+served without any account, payment or email gate, as a matter of policy.
 
 ---
 

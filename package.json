@@ -10,13 +10,18 @@
     "build": "astro build",
     "test": "node scripts/qa-soft-launch.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:security": "node scripts/qa-library-security.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.7.2",
     "@tailwindcss/vite": "^4.2.2",
     "astro": "^6.1.5",
     "swiper": "^12.1.4",
-    "tailwindcss": "^4.2.2"
+    "tailwindcss": "^4.2.2",
+    "@astrojs/vercel": "^10.0.8",
+    "@supabase/ssr": "^0.7.0",
+    "@supabase/supabase-js": "^2.53.0",
+    "marked": "^15.0.0"
   }
 }

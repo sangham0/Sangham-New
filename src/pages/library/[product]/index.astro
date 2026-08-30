@@ -1,0 +1,130 @@
+---
+/**
+ * Product home inside the library: course/guide table of contents with
+ * progress and resume. Server-side entitlement check; fails closed.
+ */
+export const prerender = false;
+
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import { getSession, logAccess, userOwnsProduct } from '../../../lib/access';
+
+const { product: productSlug } = Astro.params;
+const session = await getSession(Astro);
+
+const { data: product } = await session.supabase
+  .from('products')
+  .select('id, slug, title, subtitle, description, product_type, is_public_access')
+  .eq('slug', productSlug ?? '')
+  .single();
+
+if (!product) return Astro.redirect('/library/', 302);
+
+const isPublic = product.is_public_access;
+let owns = false;
+if (!isPublic) {
+  if (!session.user) {
+    return Astro.redirect(`/auth/login/?next=/library/${product.slug}/`, 302);
+  }
+  owns = await userOwnsProduct(session.supabase, product.id);
+  if (!owns) {
+    await logAccess({
+      userId: session.user.id,
+      productId: product.id,
+      action: 'denied',
+      ip: Astro.request.headers.get('x-real-ip'),
+      userAgent: Astro.request.headers.get('user-agent'),
+    });
+    return Astro.redirect('/library/?denied=1', 302);
+  }
+}
+
+// TOC: modules + lessons (RLS already scopes lesson visibility).
+const { data: course } = await session.supabase
+  .from('courses')
+  .select('id, title, summary, modules (id, sort_order, title, lessons:lessons (id, slug, title, lesson_type, sort_order, duration_seconds, is_free_preview))')
+  .eq('product_id', product.id)
+  .single();
+
+const modules = ((course?.modules ?? []) as Array<{
+  id: string; sort_order: number; title: string;
+  lessons: Array<{ id: string; slug: string; title: string; lesson_type: string; sort_order: number; duration_seconds: number | null; is_free_preview: boolean }>;
+}>).sort((a, b) => a.sort_order - b.sort_order);
+
+// Progress for resume.
+const lessonIds = modules.flatMap((m) => m.lessons.map((l) => l.id));
+const progressMap = new Map<string, { status: string }>();
+let resumeSlug: string | null = null;
+if (session.user && lessonIds.length) {
+  const { data: progress } = await session.supabase
+    .from('course_progress')
+    .select('lesson_id, status, updated_at')
+    .in('lesson_id', lessonIds)
+    .order('updated_at', { ascending: false });
+  for (const row of progress ?? []) progressMap.set(row.lesson_id, { status: row.status });
+  const latest = (progress ?? [])[0];
+  if (latest) {
+    const all = modules.flatMap((m) => m.lessons.sort((a, b) => a.sort_order - b.sort_order));
+    const idx = all.findIndex((l) => l.id === latest.lesson_id);
+    const target = latest.status === 'completed' && idx >= 0 && idx < all.length - 1 ? all[idx + 1] : all[idx];
+    resumeSlug = target?.slug ?? null;
+  }
+}
+
+const kindIcon: Record<string, string> = { text: 'Read', audio: 'Listen', video: 'Watch' };
+const analyticsEvent = product.product_type === 'guide' ? 'guide_open' : 'course_open';
+---
+
+<BaseLayout title={product.title} description={product.subtitle ?? product.title} minimalNav hideStickyBar>
+  <main class="mx-auto max-w-3xl px-6 py-12">
+    <nav class="mb-6 text-sm opacity-70"><a href="/library/" class="underline">Library</a> · {product.title}</nav>
+    <h1 class="text-3xl font-semibold">{product.title}</h1>
+    {product.subtitle && <p class="mt-2 text-lg opacity-75">{product.subtitle}</p>}
+
+    {resumeSlug && (
+      <a
+        href={`/library/${product.slug}/${resumeSlug}/`}
+        class="mt-6 inline-block rounded-md bg-primary px-4 py-2 font-medium text-white"
+      >
+        Continue where you left off
+      </a>
+    )}
+
+    <div class="mt-10 space-y-8">
+      {modules.map((module) => (
+        <section>
+          {modules.length > 1 && <h2 class="mb-3 text-lg font-medium">{module.title}</h2>}
+          <ol class="divide-y divide-neutral-100 rounded-lg border border-neutral-200">
+            {module.lessons
+              .sort((a, b) => a.sort_order - b.sort_order)
+              .map((lesson) => {
+                const state = progressMap.get(lesson.id)?.status;
+                return (
+                  <li>
+                    <a href={`/library/${product.slug}/${lesson.slug}/`} class="flex items-center justify-between px-4 py-3 hover:bg-neutral-50">
+                      <span>
+                        <span class="mr-2 text-xs uppercase tracking-wide opacity-50">{kindIcon[lesson.lesson_type] ?? ''}</span>
+                        {lesson.title}
+                      </span>
+                      <span class="text-xs opacity-60">
+                        {state === 'completed' ? 'Done' : state === 'started' ? 'In progress' : ''}
+                        {lesson.duration_seconds ? ` · ${Math.round(lesson.duration_seconds / 60)} min` : ''}
+                      </span>
+                    </a>
+                  </li>
+                );
+              })}
+          </ol>
+        </section>
+      ))}
+    </div>
+
+    <p class="mt-12 text-xs opacity-60">
+      Your access is personal and non-transferable. If something does not work,
+      <a href="/contact/" class="underline"> contact us</a> and we will put it right.
+    </p>
+  </main>
+
+  <script define:vars={{ analyticsEvent, service: product.slug }}>
+    window.dataLayer?.push({ event: analyticsEvent, service });
+  </script>
+</BaseLayout>
