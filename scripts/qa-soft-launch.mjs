@@ -56,10 +56,16 @@ for (const { filename, html } of allHtml) {
 
 const previews = [
   {
+    route: '/counselling/cape-town',
+    canonical: 'https://www.sangham.org/counselling/cape-town/',
+    image: 'https://www.sangham.org/images/og-counselling.jpg',
+    title: 'In-Person Counselling in Cape Town | Michael Kaplan | Sangham',
+  },
+  {
     route: '/counselling',
     canonical: 'https://www.sangham.org/counselling/',
     image: 'https://www.sangham.org/images/og-counselling.jpg',
-    title: 'Online Counselling for Adults | Sangham',
+    title: 'Counselling for Adults in Cape Town and Online | Sangham',
   },
   {
     route: '/counselling-for-meditators',

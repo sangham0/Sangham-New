@@ -21,6 +21,7 @@ const counsellingSubItems = [
 const currentPath = Astro.url.pathname;
 const isCounsellingActive =
   currentPath === '/counselling' ||
+  currentPath.startsWith('/counselling/') ||
   currentPath === '/counselling-for-meditators' ||
   currentPath.startsWith('/mentoring-');
 ---

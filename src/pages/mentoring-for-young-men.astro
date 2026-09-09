@@ -49,7 +49,7 @@ const faqItems = [
   },
   {
     q: 'How do sessions actually happen?',
-    a: 'Sessions are usually held online via video. Approximately 60 minutes per session. Frequency is typically weekly or fortnightly depending on what is useful. The work is conversational and relational, not lecture-based or curriculum-based.',
+    a: 'Sessions are held online via video or in person in Newlands, Cape Town, by arrangement. Approximately 60 minutes per session. Frequency is typically weekly or fortnightly depending on what is useful. The work is conversational and relational, not lecture-based or curriculum-based.',
   },
 ];
 
@@ -70,7 +70,7 @@ const jsonLd = [
     name: 'Mentoring and Counselling for Young Men',
     url: canonicalURL,
     description:
-      'Developmental mentorship and reflective counselling for young men aged 18-25. ASCHP-registered wellness counselling. Online sessions worldwide.',
+      'Developmental mentorship and reflective counselling for young men aged 18-25. ASCHP-registered wellness counselling. In Cape Town and online worldwide.',
     serviceType: 'Wellness Counselling and Developmental Mentorship',
     provider: {
       '@type': 'Person',
@@ -104,11 +104,10 @@ const jsonLd = [
       { '@type': 'Country', name: 'South Africa' },
       { '@type': 'Place', name: 'Worldwide' },
     ],
-    availableChannel: {
-      '@type': 'ServiceChannel',
-      serviceType: 'Online via video call',
-      availableLanguage: 'English',
-    },
+    availableChannel: [
+      { '@type': 'ServiceChannel', serviceType: 'Online via video call', availableLanguage: 'English' },
+      { '@type': 'ServiceChannel', serviceUrl: 'https://www.sangham.org/counselling/cape-town/', serviceLocation: { '@type': 'Place', name: 'Newlands, Southern Suburbs, Cape Town' }, availableLanguage: 'English' },
+    ],
     offers: [
       {
         '@type': 'Offer',
@@ -199,7 +198,7 @@ const jsonLd = [
 
         <div class="md:order-1">
           <p class="text-parchment/40 text-xs tracking-[0.2em] uppercase font-body mb-8">
-            South African-registered &middot; Currently based in India &middot; Online worldwide
+            South African-registered &middot; Based in Cape Town &middot; Online worldwide
           </p>
 
           <h1 class="font-heading text-[38px] sm:text-5xl md:text-6xl lg:text-[72px] text-gold-gradient leading-[1.08] mb-10">
@@ -222,7 +221,7 @@ const jsonLd = [
           </a>
 
           <div class="flex flex-wrap gap-x-5 gap-y-1.5">
-            {['ASCHP Registered', 'Online worldwide', 'Currently based in India', 'Ages 18 to 25'].map((t) => (
+            {['ASCHP Registered', 'In person & online', 'Based in Cape Town', 'Ages 18 to 25'].map((t) => (
               <p class="text-parchment/50 text-xs font-body">{t}</p>
             ))}
           </div>
@@ -845,8 +844,10 @@ const jsonLd = [
       </a>
 
       <p class="text-parchment/55 text-xs font-body tracking-wide mb-14">
-        South African-registered &nbsp;&middot;&nbsp; Currently based in India &nbsp;&middot;&nbsp; Online worldwide
+        South African-registered &nbsp;&middot;&nbsp; Based in Cape Town &nbsp;&middot;&nbsp; Online worldwide
       </p>
+
+      <p class="font-body text-base text-parchment/80 leading-relaxed mb-8">Prefer to meet in person? <a href="/counselling/cape-town/" class="underline underline-offset-4 hover:text-parchment">See the Newlands counselling room and appointment details.</a></p>
 
       <div id="cal-fit-embed" class="mb-14"></div>
 

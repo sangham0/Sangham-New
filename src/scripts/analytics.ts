@@ -121,7 +121,7 @@ document.querySelectorAll<HTMLDetailsElement>('details').forEach((element) => {
   });
 });
 
-const SCROLL_PAGES = ['/', '/counselling', '/mentoring-for-young-men', '/mentoring-for-adolescents'];
+const SCROLL_PAGES = ['/', '/counselling', '/counselling/cape-town', '/mentoring-for-young-men', '/mentoring-for-adolescents'];
 const normalizedPath = window.location.pathname === '/'
   ? '/'
   : window.location.pathname.replace(/\/$/, '');
