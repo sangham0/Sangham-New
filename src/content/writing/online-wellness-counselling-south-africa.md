@@ -12,7 +12,7 @@ draft: false
 
 Online counselling has become ordinary enough that the practical question is no longer whether a meaningful conversation can happen by video. The useful questions are what kind of counselling is being offered, who it is for, what it costs, and what happens when the situation requires a different level of care.
 
-Sangham offers online wellness counselling to people across South Africa and internationally. I am South African-registered, currently based in India, and work online in English.
+Sangham offers online wellness counselling to people across South Africa and internationally. I am South African-registered, based in Cape Town, and work online in English. [In-person counselling in Newlands](/counselling/cape-town/) is also available by arrangement.
 
 This page explains the service plainly.
 
@@ -72,7 +72,7 @@ Online work also has a practical limit in emergencies. I do not provide a crisis
 
 ## South African Registration, International Delivery
 
-Professional registration and physical location are different questions. My ASCHP registration is South African. I am currently based in India and provide the service online to adults in South Africa and elsewhere.
+Professional registration and physical location are different questions. My ASCHP registration is South African. I am based in Cape Town and provide the service online to adults in South Africa and elsewhere.
 
 International clients should understand that professional designations, legal frameworks, and emergency systems vary by country. The fit call is the place to clarify whether remote supportive counselling is appropriate in your circumstances.
 

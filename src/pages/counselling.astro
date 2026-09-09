@@ -45,11 +45,10 @@ const jsonLd = [
       { '@type': 'Country', name: 'South Africa' },
       { '@type': 'Place', name: 'Worldwide' },
     ],
-    availableChannel: {
-      '@type': 'ServiceChannel',
-      serviceType: 'Online via video call',
-      availableLanguage: 'English',
-    },
+    availableChannel: [
+      { '@type': 'ServiceChannel', serviceType: 'Online via video call', availableLanguage: 'English' },
+      { '@type': 'ServiceChannel', serviceUrl: 'https://www.sangham.org/counselling/cape-town/', serviceLocation: { '@type': 'Place', name: 'Newlands, Southern Suburbs, Cape Town' }, availableLanguage: 'English' },
+    ],
     offers: {
       '@type': 'Offer',
       name: 'Five-Session Process',
@@ -118,7 +117,7 @@ const fiveSessionSteps = [
 const structureDetails = [
   '5 sessions',
   '60 minutes each',
-  'Online via video call',
+  'In Cape Town or online',
   'Weekly or bi-weekly',
   'Contained, not open-ended',
 ];
@@ -151,8 +150,8 @@ const faqItems = [
     a: "No. Some people come with years of practice behind them. Others arrive having never sat in meditation. What matters is a genuine willingness to engage, not a particular background or vocabulary."
   },
   {
-    q: "Can I work with you if I'm not in South Africa or India?",
-    a: "Yes. All sessions are conducted online via video call and are available to anyone, anywhere in the world. Clients currently work with Sangham from South Africa, India, the United Kingdom, Europe, and beyond. Scheduling is arranged to suit your timezone."
+    q: "Can I work with you if I'm outside South Africa?",
+    a: "Yes. Online sessions are available via video call to clients outside South Africa. In-person appointments are also available in Newlands, Cape Town. Clients currently work with Sangham from South Africa, India, the United Kingdom, Europe, and beyond. Scheduling is arranged to suit your timezone."
   },
   {
     q: "What happens in the initial consultation?",
@@ -164,7 +163,7 @@ const faqItems = [
   },
   {
     q: "Is online counselling as effective as in-person?",
-    a: "For this kind of work, online format holds up well. The quality of attention that matters most is not diminished by the absence of a shared physical space. In practice, many people find they arrive more settled when working from their own environment. Where in-person work is genuinely needed, such as certain intensive or group settings, it is arranged separately."
+    a: "For this kind of work, online format holds up well. The quality of attention that matters most is not diminished by the absence of a shared physical space. In practice, many people find they arrive more settled when working from their own environment. In-person counselling appointments are also available at selected times in Newlands, Cape Town."
   },
   {
     q: "Can this work support young people or teenagers?",
@@ -184,8 +183,8 @@ const faqJsonLd = {
 ---
 
 <BaseLayout
-  title="Online Counselling for Adults"
-  description="Grounded online counselling for adults who understand their patterns but still feel caught in them. Begin with a free 15-minute fit call."
+  title="Counselling for Adults in Cape Town and Online"
+  description="Grounded counselling for adults in Cape Town and online. For patterns that persist despite understanding. Begin with a free 15-minute fit call."
   canonicalURL={canonicalURL}
   image="/images/og-counselling.jpg"
   jsonLd={[...jsonLd, faqJsonLd]}
@@ -195,6 +194,12 @@ const faqJsonLd = {
     title="Counselling & Integration"
     subtitle="A structured, grounded approach to inner work that addresses the gap between understanding and real change."
   />
+
+  <div class="bg-background border-b border-border/40">
+    <p class="container mx-auto px-6 py-7 max-w-3xl font-body text-base text-foreground/80 leading-relaxed">
+      Now available <a href="/counselling/cape-town/" class="underline underline-offset-4 hover:text-foreground">in person in Newlands, Cape Town</a>, alongside online sessions worldwide. See the room, fees, and appointment arrangements.
+    </p>
+  </div>
 
   <!-- OPENING -->
   <section class="bg-background">
