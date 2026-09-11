@@ -4,32 +4,100 @@ import FAQ from '../../components/FAQ.astro';
 import CalEmbed from '../../components/CalEmbed.astro';
 import StickyConsultationCTA from '../../components/StickyConsultationCTA.astro';
 import { Image } from 'astro:assets';
+import { getPublishedTestimonial } from '../../data/testimonials';
+
+// ── Michael, and the Newlands consulting room ──
+import michaelPortrait from '../../assets/michael-portrait-new.jpg';
 import roomChairs from '../../assets/counselling-cape-town-chairs.webp';
 import roomInterior from '../../assets/counselling-cape-town-interior.webp';
 import roomGarden from '../../assets/counselling-cape-town-garden.webp';
-import michaelPortrait from '../../assets/michael-portrait-new.jpg';
+
+// ── Cape landscape dividers ────────────────────────────────────────────────
+// TEMPORARY placeholders. Michael intends to replace these with his own Cape
+// Town photography; each divider reads its image from exactly one import
+// below, so swapping one is a single-line change (drop the new file into
+// src/assets and repoint the import). Every divider uses object-cover plus an
+// object-position, so a replacement at any aspect ratio will still frame well.
+//
+// All three are Pexels-licensed (free for commercial use, no attribution
+// required). Provenance is recorded here and in docs/cape-town-imagery.md.
+//
+// Table Mountain wrapped in cloud at first light. Ryan Lansdown.
+//   https://www.pexels.com/photo/majestic-table-mountain-shrouded-in-mist-33283776/
+import capeTableMountain from '../../assets/cape-town-table-mountain-cloud.jpg';
+// Mist moving across a fynbos slope on Table Mountain. Ryan Lansdown.
+//   https://www.pexels.com/photo/moody-foggy-landscape-at-table-mountain-32721030/
+import capeMountainMist from '../../assets/cape-town-mountain-mist.jpg';
+// The Twelve Apostles and the Atlantic seaboard at dusk. Mimi.
+//   https://www.pexels.com/photo/dramatic-coastal-view-of-cape-town-at-sunset-35924017/
+import capeAtlanticDusk from '../../assets/cape-town-atlantic-dusk.jpg';
 
 const canonicalURL = 'https://www.sangham.org/counselling/cape-town/';
 const WHATSAPP = 'https://wa.me/27736738063';
 // Retain the existing service identifier; page_path distinguishes this location.
 const SERVICE = 'adult-counselling';
-const primaryButton = 'ct-button inline-flex items-center justify-center px-8 py-4 rounded-lg text-sm tracking-wider uppercase font-body font-medium transition-colors duration-200';
 
-// Adapted from /counselling and its existing specialist-path descriptions.
-const workWith = [
-  { title: 'Patterns that keep returning', text: 'Recurring emotional or behavioural patterns that persist despite genuine efforts to change them. Understanding what happens, yet finding yourself in the same place again.' },
-  { title: 'Anxiety and overthinking', text: 'A relentless internal pressure that makes it difficult to settle, be present, or trust a decision once you have made it.' },
-  { title: 'Relationships', text: 'Dynamics that keep repeating in partnerships, family, friendship, or at work. Looking at your part in them and what might become possible with a different response.' },
-  { title: 'Direction and follow-through', text: 'Difficulty making decisions or maintaining consistency in areas that matter. A gap between what you value and how you find yourself living.' },
-  { title: 'Transition and loss', text: 'Periods of uncertainty, change, or loss where the old frameworks no longer apply, and it is not yet clear what comes next.' },
-  { title: 'Identity and belonging', text: 'Questions about who you are becoming, what matters to you, and how to relate more honestly to the people and circumstances around you.' },
+// The major meta-analytic synthesis of the alliance literature. Linked once,
+// quietly, rather than carried as citation apparatus on the page.
+const ALLIANCE_META_ANALYSIS = 'https://pubmed.ncbi.nlm.nih.gov/29792475/';
+
+const primaryButton =
+  'ctc-button inline-flex items-center justify-center px-8 py-4 rounded-lg text-sm tracking-wider uppercase font-body font-medium transition-colors duration-200';
+const ghostButtonDark =
+  'inline-flex items-center justify-center gap-2 px-7 py-4 border border-parchment/30 text-parchment/85 hover:border-gold-light hover:text-gold-light transition-colors duration-300 rounded-lg text-sm tracking-wide font-body';
+
+// Reflections come from src/content/testimonials/, so this page can never drift
+// from /testimonials. All three list /counselling among their services.
+const reflectionSources = [
+  { id: 'nikhita-leela', pos: 'object-[center_20%]' },
+  { id: 'jacob-s', pos: 'object-[center_top]' },
+  { id: 'bernard-altman', pos: 'object-[center_25%]' },
 ];
 
-const supportPaths = [
-  { title: 'Counselling for adults', text: 'A structured, grounded approach to the gap between understanding and real change. For adults looking at recurring patterns, relationships, or a difficult stretch of life.', href: '/counselling/' },
-  { title: 'Mentoring for young men', text: 'Reflective counselling and developmental mentorship for men aged 18 to 25, working with direction, identity, responsibility, or emotional shutdown.', href: '/mentoring-for-young-men/' },
-  { title: 'Mentoring for teenage boys', text: 'Developmental mentorship and reflective counselling for boys aged 12 to 17. The service is for the young person, with a clear process for parent involvement.', href: '/mentoring-for-adolescents/' },
-  { title: 'Counselling for meditators', text: 'Support for practice-related questions, difficult experiences, and the work of integrating contemplative insight into ordinary life.', href: '/counselling-for-meditators/' },
+const reflections = await Promise.all(
+  reflectionSources.map(async (source) => {
+    const { data } = await getPublishedTestimonial(source.id);
+    return {
+      pos: source.pos,
+      portrait: data.portrait,
+      portraitAlt: data.portraitAlt ?? data.name,
+      label: data.label,
+      name: data.name,
+      role: data.attribution,
+      quote: data.cardQuote ?? data.excerpt.join(' '),
+    };
+  })
+);
+
+const bernard = await getPublishedTestimonial('bernard-altman');
+
+// Lived starting points, written as people actually describe them rather than
+// as diagnostic categories. Replaces the earlier generic problem grid.
+const startingPoints = [
+  {
+    head: 'You understand the pattern perfectly well, and it still happens.',
+    body: 'A particular kind of relationship keeps bringing out a version of you that you do not like, or you make decisions you can explain clearly afterwards and still cannot seem to live differently.',
+  },
+  {
+    head: 'From the outside, things look fine.',
+    body: 'You are functioning well enough by most measures while privately feeling anxious, disconnected, restless, or unsure what all the effort is actually for.',
+  },
+  {
+    head: 'Something that ended is still shaping the present.',
+    body: 'The situation is over in practical terms, but it continues to set how much you trust, what you expect of other people, how quickly you become defensive, and how safe it feels to depend on anyone.',
+  },
+  {
+    head: 'The ground has shifted and the old frameworks no longer convince you.',
+    body: 'Work, adulthood, a relationship, identity or family life is changing, and the things that used to give direction have quietly stopped doing so.',
+  },
+  {
+    head: 'The thinking will not settle.',
+    body: 'A persistent internal pressure that makes it difficult to be present, to rest, or to trust a decision once you have made it.',
+  },
+  {
+    head: 'Nothing is wrong, exactly.',
+    body: 'There is no crisis. There is a wish to understand yourself more deeply, be less governed by patterns you did not consciously choose, and live with more clarity and intention.',
+  },
 ];
 
 const fiveSteps = [
@@ -40,8 +108,16 @@ const fiveSteps = [
   { num: '05', title: 'Consolidating', text: 'Reviewing what has shifted, clarifying next steps, and establishing a sustainable foundation for continued development.' },
 ];
 
+const supportPaths = [
+  { title: 'Counselling for adults', text: 'The main counselling offer, for adults looking at recurring patterns, relationships, or a difficult stretch of life.', href: '/counselling/' },
+  { title: 'Mentoring for young men', text: 'Reflective counselling and developmental mentorship for men aged 18 to 25, working with direction, identity, responsibility, or emotional shutdown.', href: '/mentoring-for-young-men/' },
+  { title: 'Mentoring for teenage boys', text: 'Developmental mentorship and reflective counselling for boys aged 12 to 17. The service is for the young person, with a clear process for parent involvement.', href: '/mentoring-for-adolescents/' },
+  { title: 'Counselling for meditators', text: 'Support for practice-related questions, difficult experiences, and the work of integrating contemplative insight into ordinary life.', href: '/counselling-for-meditators/' },
+];
+
 const faqItems = [
   { q: 'Where are in-person sessions held?', a: 'In Newlands, in the Southern Suburbs of Cape Town, in the private consulting room shown on this page. Appointments are arranged in advance. The exact address and arrival details are shared privately when your appointment is confirmed.' },
+  { q: 'Do you work in one particular therapeutic approach?', a: 'No. The work is integrative and responsive rather than built on a single method. What is useful varies between people, and often between different stages of the same person’s life. Some of the work is practical and focused on behaviour and decisions; some of it is slower, and concerned with history, emotion, or patterns that have been carried a long time. The approach is chosen in relation to the person rather than applied in advance.' },
   { q: 'Do you also offer online counselling?', a: 'Yes. Online sessions remain available by video call, including for people outside Cape Town. We can discuss which format makes practical sense for you. There is no requirement to work in person.' },
   { q: 'What does a session cost?', a: 'An individual session is R850 for 60 minutes. The structured five-session process is R3,400. The first 15-minute fit call is free. If cost is a genuine barrier, mention it when reaching out; reduced-rate availability can be discussed.' },
   { q: 'Do I need experience with meditation?', a: 'No. The work is grounded, practical, and psychologically informed. Where contemplative practices are introduced, they are used as optional tools for attention and self-observation, not as spiritual beliefs. Many sessions involve none of this directly.' },
@@ -60,7 +136,7 @@ const jsonLd = [
     '@id': `${canonicalURL}#service`,
     name: 'In-Person Wellness Counselling in Cape Town',
     url: canonicalURL,
-    description: 'Reflective Wellness Counselling with Michael Kaplan in Newlands, Southern Suburbs, Cape Town. Private appointments by arrangement; online sessions also available.',
+    description: 'Reflective Wellness Counselling with Michael Kaplan in Newlands, Southern Suburbs, Cape Town. Relationship-led and integrative rather than built on a single method. Private appointments by arrangement; online sessions also available.',
     serviceType: 'Wellness Counselling',
     provider: { '@id': 'https://www.sangham.org/about/#michael-kaplan' },
     areaServed: { '@type': 'City', name: 'Cape Town' },
@@ -91,263 +167,575 @@ const jsonLd = [
 ];
 ---
 
+<style is:global>
+  /* Colour, typography and motion borrowed from /counselling-for-meditators/
+     and /mentoring-for-young-men/ so this page reads as part of the same set. */
+  .ctc {
+    --ctc-warm: hsl(38 30% 84%);
+    --ctc-gold: hsl(41 48% 31%);        /* headings and links on light */
+    --ctc-gold-deep: hsl(40 52% 26%);   /* small labels on light */
+    --ctc-gold-light: hsl(42 54% 57%);  /* gold on deep navy */
+    --ctc-navy: hsl(220 22% 12%);
+    --ctc-navy-deep: hsl(220 26% 8%);
+    --ctc-parch: hsl(36 22% 86%);
+  }
+  .ctc-warm-bg { background-color: var(--ctc-warm); }
+
+  .ctc-dark { background-color: var(--ctc-navy); color: var(--ctc-parch); }
+  .ctc-dark-deep { background-color: var(--ctc-navy-deep); color: var(--ctc-parch); }
+  .ctc-dark p, .ctc-dark li, .ctc-dark-deep p { color: hsl(36 20% 86% / 0.84); }
+  .ctc-dark .ctc-emph, .ctc-dark-deep .ctc-emph { color: hsl(36 24% 92%); }
+
+  .ctc-gold-text { color: var(--ctc-gold); }
+  .ctc-gold-deep-text { color: var(--ctc-gold-deep); }
+  .ctc-gold-light-text { color: var(--ctc-gold-light); }
+  .ctc-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--ctc-gold), transparent); opacity: 0.5; }
+  .ctc-rule-light { height: 1px; background: linear-gradient(90deg, transparent, var(--ctc-gold-light), transparent); opacity: 0.55; }
+
+  /* Pull-quote over a light break: ink serif on a cream scrim */
+  .ctc-quote { color: hsl(30 14% 18%); text-shadow: 0 1px 16px hsl(36 30% 96% / 0.6); }
+  /* Pull-quote over a dark break: warm gold serif on a navy scrim */
+  .ctc-quote-dark { color: var(--ctc-gold-light); text-shadow: 0 2px 30px hsl(220 30% 4% / 0.6); }
+
+  /* One warm grade so the Cape landscapes, the portrait and the room photographs
+     read as a single set rather than three different cameras. */
+  .ctc-graded img { filter: saturate(0.95) brightness(1.02) contrast(0.99) sepia(0.07); }
+  .ctc-graded-dark img { filter: saturate(0.9) brightness(0.92) contrast(1.04) sepia(0.06); }
+
+  .ctc-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%;
+    transition: background-size 0.3s ease; padding-bottom: 1px;
+  }
+  .ctc-link:hover, .ctc-link:focus-visible { background-size: 100% 1px; }
+
+  /* Inline links inside reading columns keep a visible underline. */
+  .ctc-inline-link { color: var(--ctc-gold); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: hsl(41 48% 31% / .4); }
+  .ctc-inline-link:hover { text-decoration-color: currentColor; }
+  .ctc-dark .ctc-inline-link, .ctc-dark-deep .ctc-inline-link { color: var(--ctc-gold-light); text-decoration-color: hsl(42 54% 57% / .45); }
+
+  .ctc-button { background: #D4A95C; color: #0F1422; text-align: center; }
+  .ctc-button:hover { background: #E6BE76; }
+
+  .ctc-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .ctc-reveal.ctc-in { opacity: 1; transform: none; }
+
+  .ctc-kb-img { animation: ctcKb 26s ease-in-out infinite alternate; transform-origin: center; will-change: transform; }
+  @keyframes ctcKb { from { transform: scale(1.03); } to { transform: scale(1.11); } }
+
+  /* Progressive-disclosure card body */
+  .ctc-card > .ctc-card-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+  .ctc-card[open] > .ctc-card-body { grid-template-rows: 1fr; }
+  .ctc-card > .ctc-card-body > div { overflow: hidden; }
+
+  .ctc-faq :global(summary) { font-size: 1.0625rem; }
+  .ctc-faq :global(details p) { font-size: 1rem; color: hsl(30 12% 25%); }
+
+  .ctc a:focus-visible, .ctc summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+  .ctc :global(#cal-inline-embed) { scroll-margin-top: 88px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .ctc-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .ctc-kb-img { animation: none !important; }
+    .ctc-card > .ctc-card-body { transition: none !important; }
+    .ctc :global(*) { scroll-behavior: auto; }
+  }
+</style>
+
 <BaseLayout
   title="In-Person Counselling in Cape Town | Michael Kaplan"
-  description="In-person counselling with Michael Kaplan in Newlands, Southern Suburbs, Cape Town. ASCHP Wellness Counsellor. R850 per session. Free 15-minute fit call."
+  description="Counselling built around the person rather than a fixed method. Michael Kaplan, ASCHP-registered Wellness Counsellor, in person in Newlands, Cape Town, and online. Free 15-minute fit call."
   canonicalURL={canonicalURL}
   image="/images/og-counselling.jpg"
   jsonLd={jsonLd}
   hideStickyBar={true}
 >
-  <div class="cape-town-page bg-background text-foreground">
-    <!-- Existing counselling-page rhythm: dark opening, cream reading sections. -->
-    <section class="ct-dark bg-void">
-      <div class="container mx-auto px-6 py-16 md:py-24 lg:py-28 max-w-5xl">
-        <p class="font-body text-sm tracking-[0.14em] uppercase text-parchment/75 mb-8">Newlands &middot; Southern Suburbs<span class="block sm:inline"><span class="hidden sm:inline"> &middot; </span>Cape Town</span></p>
-        <div class="grid md:grid-cols-2 gap-10 lg:gap-14 items-center">
+  <div class="ctc bg-background text-foreground">
+
+    <!-- ═══ 01 · HERO: Michael as the human centre of the offer ═══ -->
+    <section class="ctc-dark-deep">
+      <div class="container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
+        <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 lg:gap-16 items-center">
+
           <div>
-            <h1 class="font-heading text-gold-gradient text-[40px] sm:text-5xl lg:text-[62px] leading-[1.1] mb-7">In-person counselling<br />in Cape Town</h1>
-            <p class="font-body text-lg md:text-xl text-parchment/85 leading-relaxed mb-6">For people who understand their patterns but still find themselves caught in them.</p>
-            <p class="font-body text-base text-parchment/80 leading-relaxed mb-8">Counselling with Michael Kaplan, in a quiet private room in Newlands. A place for focused one-to-one conversation, with attention to how things actually unfold in your life. Online sessions are also available.</p>
-            <a href="#book-call" class={primaryButton} data-cta="book-fit-call" data-service={SERVICE} data-placement="hero">Book a free 15-minute fit call</a>
-            <p class="font-body text-sm text-parchment/75 mt-4">No obligation to continue. <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="ct-link" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="hero">Or message on WhatsApp.</a></p>
-          </div>
-          <figure>
-            <div class="rounded-xl overflow-hidden border border-parchment/15 shadow-xl shadow-black/20">
-              <Image src={roomChairs} alt="Two red wicker chairs, bookshelves and a striped rug in the Newlands counselling room" class="w-full h-auto" widths={[480, 720, 960, 1448]} sizes="(min-width: 1024px) 460px, (min-width: 768px) 46vw, calc(100vw - 48px)" quality={85} loading="eager" fetchpriority="high" />
+            <p class="font-body text-xs sm:text-sm tracking-[0.18em] uppercase text-parchment/60 mb-7">
+              Counselling in Cape Town and online
+            </p>
+
+            <h1 class="font-heading text-gold-gradient text-[34px] sm:text-5xl md:text-[52px] lg:text-[60px] leading-[1.08] mb-7 md:mb-8">
+              Counselling built around the person, not the method.
+            </h1>
+
+            <p class="font-body text-lg md:text-xl text-parchment/82 leading-relaxed mb-6 max-w-xl">
+              Meaningful counselling begins in a relationship. The work develops around your history, your temperament, what you are facing now, and what you want your life to become, rather than asking you to fit an approach decided in advance.
+            </p>
+
+            <div class="flex flex-col sm:flex-row gap-3 mb-4">
+              <a href="#book-call" class={primaryButton} data-cta="book-fit-call" data-service={SERVICE} data-placement="hero">Book a free 15-minute fit call</a>
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class={ghostButtonDark} data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="hero">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+                Message on WhatsApp
+              </a>
             </div>
-            <figcaption class="font-body text-sm text-parchment/70 mt-4">The consulting room in Newlands, Cape Town.</figcaption>
-          </figure>
+            <p class="font-body text-sm italic text-parchment/60">Free, unhurried, and no obligation to continue.</p>
+          </div>
+
+          <div class="flex justify-center md:justify-end">
+            <div class="w-full max-w-[240px] sm:max-w-[250px] lg:max-w-[260px]">
+              <div class="rounded-xl overflow-hidden border border-parchment/15 shadow-xl shadow-black/30 ctc-graded">
+                <div class="aspect-[4/5] overflow-hidden">
+                  <Image
+                    src={michaelPortrait}
+                    alt="Michael Kaplan, ASCHP-registered Wellness Counsellor, who sees clients in Newlands, Cape Town and online"
+                    class="w-full h-full object-cover object-center"
+                    widths={[400, 520, 640]}
+                    sizes="(min-width: 1024px) 260px, (min-width: 640px) 250px, 240px"
+                    width={1254}
+                    height={1254}
+                    loading="eager"
+                    fetchpriority="high"
+                  />
+                </div>
+              </div>
+              <p class="font-heading text-base text-parchment/90 mt-4">Michael Kaplan</p>
+              <p class="ctc-gold-light-text text-[11px] font-body tracking-wide mt-1 leading-snug">BA Psychology &middot; ASCHP-registered Wellness Counsellor (Reg. 10559)</p>
+              <p class="font-body text-[11px] text-parchment/60 tracking-wide mt-2 leading-snug">In person in Newlands, Cape Town<br />Online worldwide</p>
+            </div>
+          </div>
+
         </div>
-        <p class="font-body text-sm text-parchment/75 leading-relaxed mt-10 pt-7 border-t border-parchment/15">Michael Kaplan &middot; BA Psychology &middot; ASCHP-registered Wellness Counsellor &middot; Reg. 10559</p>
       </div>
     </section>
 
-    <section class="border-b border-border/50">
-      <div class="container mx-auto px-6 py-16 md:py-20 max-w-3xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-8">A room for the conversation</h2>
-        <div class="font-body text-lg text-foreground/80 leading-relaxed space-y-6">
-          <p>In-person appointments take place in a private consulting space in Newlands, in Cape Town’s Southern Suburbs. The room is quiet and comfortable, with natural light and a garden outlook.</p>
-          <p>It offers a defined place to step away from home or work and give the conversation your attention. There is time to speak, to pause, and to look at something without having to move straight on to the next demand.</p>
-          <p class="text-base">Appointments are available at selected times, by arrangement. The exact address and arrival details are shared privately once your appointment is confirmed.</p>
+    <!-- ═══ 01b · CREDIBILITY STRIP ═══ -->
+    <section class="ctc-warm-bg border-b border-border/50">
+      <div class="container mx-auto px-6 py-14 md:py-20 max-w-5xl ctc-reveal">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-border/70">
+          <div class="sm:pr-10 lg:pr-14">
+            <p class="font-heading ctc-gold-text text-4xl md:text-5xl lg:text-[52px] leading-none mb-3">10+ Years</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[28ch] mx-auto sm:mx-0">of developmental, relational and group work</p>
+          </div>
+          <div class="sm:px-10 lg:px-14">
+            <p class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[42px] leading-tight mb-3">BA Psychology</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[28ch] mx-auto sm:mx-0">and registration as a Wellness Counsellor with the ASCHP (Reg. 10559)</p>
+          </div>
+          <div class="sm:pl-10 lg:pl-14">
+            <p class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[42px] leading-tight mb-3">Newlands &amp; Online</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[28ch] mx-auto sm:mx-0">in person in Cape Town's Southern Suburbs, or by video call from anywhere</p>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Core explanation adapted closely from /counselling and /counselling-for-meditators. -->
-    <section id="the-work">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-10">Understanding is a starting point</h2>
-        <div class="font-body text-lg text-foreground/80 leading-relaxed space-y-7">
-          <p>Most people who come to this work already understand their patterns. They know what they struggle with. They have thought about it, spoken about it, tried to change. Yet when it matters most, the same responses return.</p>
-          <p>This work focuses on that gap: between understanding and the ability to act on it.</p>
-          <p>The foundation is dialogue. Together we look carefully at your experience: what is happening, how you are relating to it, and the assumptions quietly shaping your response. The conversation stays close to the particulars of your life.</p>
-          <p>From there, practical ways of working with what is found are introduced. That might mean noticing what happens just before a familiar reaction, trying a different response in a relationship, or making a concrete adjustment between sessions and looking honestly at how it went.</p>
-          <p>The approach is integrative. Meditation, breathwork, attention exercises, or body-based awareness may be useful in some situations. They are optional and chosen in relation to the person. Many sessions involve none of this directly, and no interest in spirituality is required.</p>
-          <p>The aim is not to analyse endlessly. It is to see clearly what is happening and begin shifting it in real time, so that changes are not just theoretical but lived.</p>
+    <!-- ═══ 02 · A RELATIONSHIP IN WHICH CHANGE CAN HAPPEN ═══ -->
+    <section id="the-work" class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">A relationship in which change can happen</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+          <p>There are many schools of counselling and psychotherapy, each with its own theories, techniques and ways of understanding people. Those differences matter. But underneath them sits something more fundamental: the relationship between the person seeking help and the person sitting across from them. Across decades of psychotherapy research, the quality of that therapeutic alliance has <a href={ALLIANCE_META_ANALYSIS} target="_blank" rel="noopener noreferrer" class="ctc-inline-link">repeatedly been associated with better outcomes</a> across very different forms of treatment.</p>
+
+          <p>That makes intuitive sense. It is difficult to explore the parts of ourselves we usually keep hidden in a relationship where we do not feel safe. It is difficult to be challenged by someone we do not trust. And it is difficult for another person to understand what might genuinely help us if they have not first taken the time to understand who we are.</p>
+
+          <p>So I do not treat the relationship as the setting in which counselling techniques are delivered. It is part of the work itself. A good counselling relationship gives you somewhere to slow things down, notice what keeps happening, say something you have never quite managed to put into words, and test assumptions you have carried for years. It is where you might discover that you have been avoiding yourself in one particular place, or that what you actually need is more patience rather than another strategy. Over time it can become a relationship in which it is possible to be known more honestly.</p>
         </div>
-        <blockquote class="border-l-2 border-primary/50 pl-7 mt-12">
-          <p class="ct-heading font-heading text-2xl md:text-3xl italic leading-relaxed">The measure of this work is not how someone feels during a session, but how they function in the days and weeks that follow.</p>
+
+        <blockquote class="mt-12 md:mt-14 border-l-2 border-primary/50 pl-7 md:pl-8">
+          <p class="font-heading ctc-gold-text text-[26px] md:text-[32px] italic leading-snug max-w-[32ch]">The relationship is not only the container the work happens in. A good deal of the time, it is the work.</p>
         </blockquote>
       </div>
     </section>
 
-    <figure class="container mx-auto px-6 max-w-5xl pb-16 md:pb-24">
-      <div class="rounded-xl overflow-hidden border border-border/50">
-        <Image src={roomInterior} alt="A wider view of the counselling room, with red chairs, a sofa and wooden bookshelves" class="w-full h-auto" widths={[480, 768, 1024, 1448]} sizes="(min-width: 1024px) 976px, calc(100vw - 48px)" quality={85} loading="lazy" />
-      </div>
-    </figure>
-
-    <section class="ct-warm border-y border-border/40">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-5">What people bring</h2>
-        <p class="font-body text-lg text-foreground/80 leading-relaxed max-w-2xl mb-10">The process is responsive to what is actually happening and adjusts as circumstances change. These are some common starting points.</p>
-        <div class="grid md:grid-cols-2 gap-5">
-          {workWith.map((item) => (
-            <div class="rounded-xl border border-border/60 bg-background/70 p-7">
-              <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">{item.title}</h3>
-              <p class="font-body text-base text-foreground/80 leading-relaxed">{item.text}</p>
-            </div>
-          ))}
-        </div>
-        <p class="font-body text-lg text-foreground/80 leading-relaxed mt-10 max-w-2xl">You do not need to arrive with a precise explanation. Part of the first conversation is finding out what needs attention.</p>
+    <!-- ═══ BREAK 01 · Table Mountain in cloud ═══ -->
+    <section class="relative overflow-hidden ctc-graded">
+      <Image src={capeTableMountain} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%] ctc-kb-img" widths={[640, 1024, 1600]} quality={60} sizes="100vw" loading="lazy" />
+      <!-- Lighter scrim than the meditators page uses: these Cape photographs are
+           pale to begin with, so the cream veil there would erase them entirely.
+           The quote keeps its contrast from the band behind the text. -->
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.7), hsl(36 18% 90% / 0.5) 50%, hsl(36 18% 90% / 0.7));"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(70% 52% at 50% 50%, hsl(36 20% 92% / 0.72), transparent 72%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center ctc-reveal">
+        <div class="ctc-rule w-16 mx-auto mb-8"></div>
+        <p class="font-heading ctc-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Change begins differently when you no longer have to work everything out alone.</p>
       </div>
     </section>
 
-    <section>
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-5">Who I work with</h2>
-        <p class="font-body text-lg text-foreground/80 leading-relaxed max-w-2xl mb-10">I work with adults, with particular experience supporting boys and young men, and people involved in contemplative practice. These pages describe the existing pathways in more depth.</p>
-        <div class="grid md:grid-cols-2 gap-5">
-          {supportPaths.map((path) => (
-            <a href={path.href} class="group flex flex-col border border-border/60 rounded-xl p-7 bg-card/30 hover:border-primary/60 transition-colors duration-200">
-              <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">{path.title}</h3>
-              <p class="font-body text-base text-foreground/80 leading-relaxed flex-1">{path.text}</p>
-              <span class="ct-heading font-body text-sm mt-5 underline underline-offset-4 decoration-primary/40">Read more &rarr;</span>
-            </a>
-          ))}
+    <!-- ═══ 03 · PEOPLE ARE NOT PROBLEMS TO WHICH METHODS ARE APPLIED ═══ -->
+    <section class="ctc-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">People are not problems to which methods are applied</h2>
+
+        <div class="font-body text-lg leading-relaxed space-y-7 max-w-[65ch]">
+          <p>The same approach will not serve every person, and even for the same person, what is useful at one stage of life may be quite wrong at another.</p>
+
+          <p>Sometimes the work needs to be practical. There is a decision to make, a behaviour that needs to change, a boundary that needs to be set, or a pattern that needs to be interrupted before it runs its usual course. Sometimes it is slower than that. Something painful from the past continues to shape relationships, self-worth, or the way you respond to the world, even when you understand intellectually where it came from. Sometimes what is needed is greater awareness of emotion or of the body, or learning to stay with discomfort rather than escaping it immediately. Sometimes it is grief, or identity, or the difficult question of what kind of life you actually want to build.</p>
+
+          <p class="ctc-emph">The interventions used in counselling should serve the person, rather than requiring the person to fit the intervention.</p>
+
+          <p>My approach is therefore integrative and responsive. Psychological reflection, behavioural experiments, mindfulness, attention training, body awareness, journalling, breath practices or structured exercises may each be genuinely useful in the right circumstances. They are tools rather than doctrines, and no interest in contemplative practice is required for any of them. The question is always the same: what would actually be useful here, for this person, at this point in their life?</p>
+        </div>
+
+        <p class="mt-10">
+          <a href="#book-call" data-cta="book-fit-call" data-service={SERVICE} data-placement="approach" class="ctc-link ctc-gold-light-text font-body text-sm tracking-wide">Book a free 15-minute fit call &rarr;</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 04 · MORE THAN A PLACE TO TALK ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">More than a place to talk</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+          <p>Counselling is sometimes imagined as little more than having someone listen while you speak. Listening is certainly part of it, but a working counselling relationship becomes something more substantial: a place where another person comes to know you well enough to recognise recurring patterns, remember what mattered months ago, notice when an old difficulty is appearing in a new form, and help you look at what is happening without rushing to explain it away.</p>
+
+          <p>That relationship should be supportive, though support does not mean agreement. At times it means helping you make sense of something painful or confusing. At other times it means asking a question you would rather avoid, pointing out a contradiction, or helping you stay with something long enough to understand it properly. Much of the value lies in having a relationship warm enough to feel safe and boundaried enough to allow honesty.</p>
+
+          <p>Some of the patterns people struggle with elsewhere in their lives also begin to appear, often quietly, inside counselling itself. A tendency to please, to withdraw, to avoid disagreement, to hide uncertainty, to distrust care, to over-explain, or to struggle to ask directly for what is needed may all become visible between counsellor and client. Because that relationship has clearer boundaries and fewer of the usual social stakes, it can be a relatively safe place to notice such patterns and experiment with something different. In that sense counselling is not only somewhere to talk about relationships. It is a relationship in which new ways of relating can be practised.</p>
+
+          <p>None of this means that one person holds the answers and the other gradually learns to accept them. The work is better understood as an alliance: two people paying careful attention to one life, from different positions. My responsibility is to listen closely, remember what matters, notice patterns and contradictions, ask questions that open things up rather than close them down, and challenge you where challenge is more useful than reassurance. The direction of the work stays yours. I cannot decide what a meaningful life should look like for you, and I would not want to.</p>
         </div>
       </div>
     </section>
 
-    <section class="ct-dark bg-header">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
-        <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
-          <div>
-            <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl leading-tight mb-8">Why work in person?</h2>
-            <div class="font-body text-lg text-parchment/85 leading-relaxed space-y-6">
-              <p>Some people simply prefer sharing a physical room. It can be easier to set aside a particular time and place for this work, especially if privacy at home is limited or the day is already spent on a screen.</p>
-              <p>For some younger clients, meeting in person may feel more natural than another video call. Physical presence can also give us more to notice in the conversation: a pause, a change in posture, or what happens when something difficult is said.</p>
-              <p>Online counselling remains a valid option. What matters most is the quality of attention from both sides, and a format you can use consistently. We can discuss what suits your circumstances.</p>
+    <!-- ═══ 05 · WHAT MIGHT BRING YOU HERE ═══ -->
+    <section class="ctc-warm-bg">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-8">What might bring you here</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch] mb-4">
+          <p>People do not always arrive in counselling with a diagnosis or a neatly defined problem. Often the starting point is simply a growing sense that something is not working as well as it could, and a suspicion that it will not resolve on its own.</p>
+        </div>
+        <p class="font-body text-sm text-foreground/60 italic mb-10">Select any that feels familiar to read more.</p>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-12">
+          {startingPoints.map((item) => (
+            <details class="ctc-card group rounded-xl border border-border/60 bg-background/70 hover:border-primary/40 hover:shadow-md hover:shadow-black/5 transition-all duration-300">
+              <summary class="flex items-start justify-between gap-4 px-6 py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="font-heading text-lg text-foreground/90 leading-snug">{item.head}</span>
+                <svg class="w-4 h-4 shrink-0 mt-1.5 ctc-gold-text transition-transform duration-200 group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+              </summary>
+              <div class="ctc-card-body"><div class="px-6 pb-5"><p class="font-body text-base text-foreground/72 leading-relaxed">{item.body}</p></div></div>
+            </details>
+          ))}
+        </div>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+          <p>Counselling does not have to begin with something being badly wrong. It can just as well begin with the recognition that life could be more honest, more connected and more your own than it currently feels. You do not need to arrive with a precise explanation either. Part of the first conversation is working out what actually needs attention.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 02 · mist on the mountain ═══ -->
+    <section class="relative overflow-hidden ctc-graded">
+      <Image src={capeMountainMist} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_60%] ctc-kb-img" widths={[640, 1024, 1600]} quality={60} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.72), hsl(36 18% 90% / 0.52) 50%, hsl(36 18% 90% / 0.72));"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(70% 52% at 50% 50%, hsl(36 20% 92% / 0.7), transparent 72%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center ctc-reveal">
+        <div class="ctc-rule w-16 mx-auto mb-8"></div>
+        <p class="font-heading ctc-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">The aim is not simply to feel better in the room. It is to build a life outside it that you are increasingly glad to wake up to.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 06 · FROM INSIGHT TO LIVED CHANGE ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">From insight to lived change</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+          <p>Understanding ourselves matters, but insight on its own often has surprisingly little power in the moments where it would count most. Someone may know perfectly well that they avoid conflict, choose emotionally unavailable partners, become defensive when they feel exposed, procrastinate when something matters, or lose themselves in other people's needs. The difficulty is rarely recognising the pattern. It is finding what allows a different response while the old one is already unfolding.</p>
+
+          <p>Much of the work therefore stays close to lived experience. We look at what tends to happen just before a familiar reaction, what you feel in the body, which assumptions arrive almost automatically, what the response protects you from, and what it costs you afterwards. The purpose is not to reduce everything to a theory, but to understand a pattern precisely enough that there is somewhere practical to intervene.</p>
+
+          <p>That intervention is often very small: having one conversation differently, noticing the point at which anxiety turns into avoidance, setting a boundary before resentment builds, staying with an emotion rather than escaping into distraction, or testing a belief that has quietly governed your behaviour for years. What happens outside the room then becomes part of the next conversation, including what worked, what did not, what surprised you, and where the real difficulty turned out to be. Over time the process becomes less about collecting insights and more about turning understanding into freedom of action.</p>
+        </div>
+
+        <blockquote class="mt-12 md:mt-14 border-l-2 border-primary/50 pl-7 md:pl-8">
+          <p class="font-heading ctc-gold-text text-[26px] md:text-[32px] italic leading-snug max-w-[34ch]">The measure of this work is not how someone feels during a session, but how they function in the days and weeks that follow.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ═══ 07 · ABOUT MICHAEL ═══ -->
+    <section class="ctc-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl ctc-reveal">
+
+        <div class="grid md:grid-cols-[260px_1fr] gap-10 lg:gap-14 items-start mb-12">
+          <div class="max-w-[240px] md:max-w-none mx-auto md:mx-0">
+            <div class="rounded-xl overflow-hidden border border-parchment/12 shadow-xl shadow-black/25 ctc-graded">
+              <div class="aspect-[4/5] overflow-hidden">
+                <Image src={michaelPortrait} alt="Michael Kaplan" class="w-full h-full object-cover object-center" widths={[400, 520, 640]} sizes="(min-width: 768px) 260px, 240px" loading="lazy" />
+              </div>
             </div>
-            <p class="mt-7"><a href="/online-counselling-south-africa/" class="ct-link font-body text-base">Read about working online &rarr;</a></p>
           </div>
-          <figure>
-            <div class="rounded-xl overflow-hidden border border-parchment/15">
-              <Image src={roomGarden} alt="Natural light and a garden outlook through the consulting room’s glass doors" class="w-full h-auto" widths={[480, 720, 960, 1448]} sizes="(min-width: 1024px) 460px, calc(100vw - 48px)" quality={85} loading="lazy" />
+          <div>
+            <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-4">About Michael</h2>
+            <p class="font-heading text-xl text-parchment/90 mb-1">Michael Kaplan</p>
+            <p class="font-body text-sm ctc-gold-light-text tracking-wide leading-relaxed mb-7">BA Psychology &middot; ASCHP-registered Wellness Counsellor (Reg. 10559)</p>
+            <div class="font-body text-lg leading-relaxed space-y-6 max-w-[62ch]">
+              <p>I am an ASCHP-registered Wellness Counsellor with an academic background in psychology and more than a decade of experience in developmental, relational and group work.</p>
+              <p>Much of my earlier work was with boys and young men through Boys to Men in Cape Town, where I spent years facilitating group processes around identity, relationships, responsibility, emotional development and the transition into adulthood. During that period I worked under the guidance of clinical psychologist Bernard Altman, whose influence shaped a great deal of how I now think about relationship, honesty and developmental context in work with people.</p>
             </div>
-          </figure>
+          </div>
+        </div>
+
+        <blockquote class="border-l-2 border-gold-light/40 pl-7 md:pl-8 mb-12 max-w-[62ch] md:ml-[300px] lg:ml-[314px]">
+          <p class="font-heading text-xl md:text-[23px] text-parchment/85 italic leading-relaxed mb-3">{bernard.data.pullQuote}</p>
+          <p class="font-body text-sm text-parchment/60">{bernard.data.name}, {bernard.data.attribution}</p>
+        </blockquote>
+
+        <div class="font-body text-lg leading-relaxed space-y-6 max-w-[65ch]">
+          <p>My own interests have also taken me some way into contemplative practice. Meditation, retreat and periods of traditional study in India have been a significant part of my life for a number of years. I do not assume that counselling should be spiritual, and many of the people I work with have no particular interest in contemplative practice at all. What the background has given me is another set of lenses for understanding attention, suffering, identity, habit, and the ways people relate to their own experience.</p>
+
+          <p>I am wary of reducing a person to a single framework. Psychology illuminates some things very well. Relationships, family history, behaviour, culture, the body, values and meaning may illuminate others. Good counselling often means moving between those perspectives without forcing the person into any one of them.</p>
+
+          <p class="ctc-emph">What matters to me is that the work stays grounded in the actual life of the person in front of me.</p>
+        </div>
+
+        <div class="flex flex-col items-start gap-3 mt-10 pt-8 border-t border-parchment/15 font-body text-sm">
+          <a href="/about/" class="ctc-link text-parchment/80">More about Michael and Sangham &rarr;</a>
+          <a href="https://www.psychologytoday.com/profile/1837187" target="_blank" rel="noopener noreferrer" class="ctc-link text-parchment/80">View verified Psychology Today profile &rarr;</a>
+          <a href="/testimonials/" class="ctc-link text-parchment/80">Read reflections shared with permission &rarr;</a>
         </div>
       </div>
     </section>
 
-    <section id="process">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-5">How starting works</h2>
-        <p class="font-body text-lg text-foreground/80 leading-relaxed max-w-2xl mb-10">You do not need to commit to a longer process before you have spoken with Michael and understood the fit.</p>
+    <!-- ═══ 08 · REFLECTIONS ═══ -->
+    <section class="ctc-warm-bg">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-3 text-center">Reflections from people who have worked with Michael</h2>
+        <p class="font-body text-sm text-foreground/60 italic mb-14 text-center">Shared with permission.</p>
+
+        <div class="grid md:grid-cols-3 gap-6 lg:gap-8">
+          {reflections.map((r) => (
+            <figure class="flex flex-col rounded-2xl border border-border/60 bg-background/70 overflow-hidden hover:border-primary/40 hover:shadow-lg hover:shadow-black/5 transition-all duration-300">
+              {r.portrait && (
+                <div class="aspect-[4/5] overflow-hidden ctc-graded">
+                  <Image src={r.portrait} alt={r.portraitAlt} class={`w-full h-full object-cover ${r.pos}`} widths={[320, 500, 640]} sizes="(min-width: 768px) 33vw, 100vw" loading="lazy" />
+                </div>
+              )}
+              <div class="flex flex-col flex-1 p-7">
+                <p class="text-[10px] font-body tracking-[0.14em] uppercase ctc-gold-deep-text mb-5">{r.label}</p>
+                <blockquote class="flex-1 mb-6">
+                  <p class="font-heading text-lg text-foreground/82 italic leading-relaxed">{r.quote}</p>
+                </blockquote>
+                <figcaption>
+                  <p class="font-body text-sm text-foreground/85">{r.name}</p>
+                  <p class="font-body text-xs text-foreground/60 mt-0.5">{r.role}</p>
+                </figcaption>
+              </div>
+            </figure>
+          ))}
+        </div>
+
+        <p class="mt-12 text-center">
+          <a href="/testimonials/" class="ctc-link ctc-gold-text font-body text-sm tracking-wide">Read more reflections &rarr;</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 09 · IN CAPE TOWN OR ONLINE ═══ -->
+    <section id="in-cape-town" class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">In Cape Town or online</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+          <p>For people based in Cape Town, I see clients in person at a private consulting room in Newlands, in the Southern Suburbs. The room is quiet and comfortable, with natural light and a garden outlook, and it sits apart from the demands of home and work. Some people find that a defined place, at a defined time, makes it easier to give the conversation their full attention. Appointments are arranged in advance, and the address and arrival details are shared privately once an appointment is confirmed.</p>
+
+          <p>Sessions are also available online by video call, for people elsewhere in South Africa and further afield, and for anyone who simply finds remote work more practical. Online counselling can be easier to sustain around work, travel, family life or distance, and some people settle into the conversation more quickly when they are speaking from their own environment.</p>
+
+          <p>The substance of the work does not change with the format. What matters is whether the relationship is useful, and whether the process is moving you towards what you came for.</p>
+        </div>
+
+        <p class="font-heading ctc-gold-text text-2xl md:text-[28px] italic leading-snug mt-12 mb-14">The work is the same. The room changes.</p>
+
+        <!-- Room gallery: grounded evidence of the setting, deliberately modest
+             in scale so it supports the page rather than anchoring it. -->
+        <figure>
+          <!-- Two up on phones rather than three stacked full-bleed frames, so the
+               room stays supporting evidence and never outweighs the portrait. -->
+          <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 sm:gap-4">
+            <div class="rounded-xl overflow-hidden border border-border/60 ctc-graded">
+              <div class="aspect-[4/3] overflow-hidden">
+                <Image src={roomChairs} alt="Two red wicker chairs, bookshelves and a striped rug in the Newlands counselling room" class="w-full h-full object-cover object-center" widths={[360, 560, 760]} sizes="(min-width: 640px) 30vw, calc(50vw - 30px)" quality={82} loading="lazy" />
+              </div>
+            </div>
+            <div class="rounded-xl overflow-hidden border border-border/60 ctc-graded">
+              <div class="aspect-[4/3] overflow-hidden">
+                <Image src={roomInterior} alt="A wider view of the Cape Town counselling room, with red chairs, a sofa and wooden bookshelves" class="w-full h-full object-cover object-center" widths={[360, 560, 760]} sizes="(min-width: 640px) 30vw, calc(50vw - 30px)" quality={82} loading="lazy" />
+              </div>
+            </div>
+            <div class="rounded-xl overflow-hidden border border-border/60 ctc-graded">
+              <div class="aspect-[4/3] overflow-hidden">
+                <Image src={roomGarden} alt="Natural light and a garden outlook through the Newlands consulting room's glass doors" class="w-full h-full object-cover object-center" widths={[360, 560, 760]} sizes="(min-width: 640px) 30vw, calc(50vw - 30px)" quality={82} loading="lazy" />
+              </div>
+            </div>
+          </div>
+          <figcaption class="font-body text-sm text-foreground/65 mt-4">The consulting room in Newlands, Cape Town. In-person appointments are held here by arrangement.</figcaption>
+        </figure>
+
+        <p class="font-body text-base mt-8">
+          <a href="/online-counselling-south-africa/" class="ctc-inline-link">Read about working online &rarr;</a>
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 03 · Atlantic seaboard at dusk ═══ -->
+    <section class="relative overflow-hidden ctc-graded-dark bg-[hsl(220_26%_8%)]">
+      <Image src={capeAtlanticDusk} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_50%] ctc-kb-img" widths={[640, 1024, 1600]} quality={62} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.76), hsl(220 26% 8% / 0.64) 50%, hsl(220 26% 8% / 0.84));"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center ctc-reveal">
+        <div class="ctc-rule-light w-16 mx-auto mb-8"></div>
+        <p class="font-heading ctc-quote-dark text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">You do not need to know exactly what needs to change before beginning.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 10 · BEGINNING THE PROCESS ═══ -->
+    <section id="process" class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">Beginning the process</h2>
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-6 max-w-[65ch] mb-12">
+          <p>The first step is a free 15-minute fit call. It is not a counselling session, but a short conversation about what is bringing you here, what you are looking for, and whether my way of working seems appropriate for what you need. If I think the issue falls outside my scope, or that another kind of professional support would serve you better, I will say so directly.</p>
+        </div>
+
         <div class="grid md:grid-cols-3 gap-5">
           <div class="border border-border/60 rounded-xl p-7 bg-card/30">
-            <p class="ct-heading font-body text-sm tracking-widest uppercase mb-3">Step 1</p>
+            <p class="ctc-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Step 1</p>
             <h3 class="font-heading text-2xl mb-3">Free fit call</h3>
-            <p class="font-body text-base text-foreground/80 leading-relaxed">A 15-minute conversation to discuss whether this approach fits and when an in-person appointment might be possible. There is no obligation to continue.</p>
+            <p class="font-body text-base text-foreground/75 leading-relaxed">A 15-minute conversation to discuss whether this approach fits and when an in-person appointment might be possible. There is no obligation to continue.</p>
           </div>
           <div class="border border-border/60 rounded-xl p-7 bg-card/30">
-            <p class="ct-heading font-body text-sm tracking-widest uppercase mb-3">Step 2</p>
+            <p class="ctc-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Step 2</p>
             <h3 class="font-heading text-2xl mb-3">Initial consultation</h3>
-            <p class="font-body text-base text-foreground/80 leading-relaxed">A full 60-minute session at R850, with space to explore what is present, ask questions, and experience the work directly. There is no obligation to continue beyond this.</p>
+            <p class="font-body text-base text-foreground/75 leading-relaxed">A full 60-minute session at R850, with space to explore what is present, ask questions, and experience the work directly. There is no obligation to continue beyond this.</p>
           </div>
           <div class="border border-primary/30 rounded-xl p-7 bg-primary/5">
-            <p class="ct-heading font-body text-sm tracking-widest uppercase mb-3">Step 3</p>
+            <p class="ctc-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Step 3</p>
             <h3 class="font-heading text-2xl mb-3">Agree the next step</h3>
-            <p class="font-body text-base text-foreground/80 leading-relaxed">The five-session process offers a contained starting point at R3,400. Ongoing counselling is also available where useful. The focus and rhythm are agreed together.</p>
+            <p class="font-body text-base text-foreground/75 leading-relaxed">The five-session process offers a contained starting point at R3,400. Ongoing counselling is also available where useful. The focus and rhythm are agreed together.</p>
           </div>
         </div>
-        <div class="max-w-3xl mx-auto mt-14 pt-12 border-t border-border/60">
+
+        <div class="max-w-3xl mt-14 pt-12 border-t border-border/60">
           <h3 class="font-heading text-2xl md:text-3xl text-foreground mb-6">A contained first piece of work</h3>
-          <p class="font-body text-lg text-foreground/80 leading-relaxed mb-9">Over five sessions, the work moves from clarifying what is actually happening, to identifying what maintains it, to introducing adjustments and testing how they hold. Each session builds on the last. The process ends with a review of what has shifted and what, if anything, would be useful to continue.</p>
+          <p class="font-body text-lg text-foreground/78 leading-relaxed mb-9 max-w-[65ch]">Over five sessions, the work moves from clarifying what is actually happening, to identifying what maintains it, to introducing adjustments and testing how they hold. Each session builds on the last. The process ends with a review of what has shifted and what, if anything, would be useful to continue.</p>
           <div class="space-y-6">
             {fiveSteps.map((step) => (
               <div class="flex gap-5 items-start border-l-2 border-primary/30 pl-5">
-                <span class="ct-heading font-heading text-2xl shrink-0 w-8">{step.num}</span>
-                <div><h4 class="font-heading text-xl mb-2">{step.title}</h4><p class="font-body text-base text-foreground/80 leading-relaxed">{step.text}</p></div>
+                <span class="ctc-gold-text font-heading text-2xl shrink-0 w-8">{step.num}</span>
+                <div><h4 class="font-heading text-xl mb-2">{step.title}</h4><p class="font-body text-base text-foreground/75 leading-relaxed">{step.text}</p></div>
               </div>
             ))}
           </div>
-          <p class="font-body text-base text-foreground/80 leading-relaxed mt-8">This is a structure for the work, not a promise of resolution in five sessions. <a href="/wisdom/what-happens-in-a-five-session-counselling-process/" class="ct-link">Read the fuller process overview.</a></p>
-          <p class="font-body text-base text-foreground/80 leading-relaxed mt-6">For teenage boys, the starting process includes a parent consultation before work with the young person begins. The <a href="/mentoring-for-adolescents/" class="ct-link">teenage mentoring page</a> explains that pathway and the boundaries around parent involvement.</p>
+          <p class="font-body text-base text-foreground/78 leading-relaxed mt-8 max-w-[65ch]">This is a structure for the work, not a promise of resolution in five sessions. Some people come for a focused period around a particular difficulty or transition; others find that a longer relationship becomes useful as different parts of their life begin to connect. There is no predetermined duration. <a href="/wisdom/what-happens-in-a-five-session-counselling-process/" class="ctc-inline-link">Read the fuller process overview.</a></p>
+          <p class="font-body text-base text-foreground/78 leading-relaxed mt-6 max-w-[65ch]">For teenage boys, the starting process includes a parent consultation before work with the young person begins. The <a href="/mentoring-for-adolescents/" class="ctc-inline-link">teenage mentoring page</a> explains that pathway and the boundaries around parent involvement.</p>
         </div>
       </div>
     </section>
 
-    <section class="ct-warm border-y border-border/40">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl">
-        <div class="grid md:grid-cols-[220px_1fr] gap-10 lg:gap-16 items-start">
-          <div class="max-w-[220px]">
-            <div class="rounded-xl overflow-hidden border border-border/60 aspect-[4/5]">
-              <Image src={michaelPortrait} alt="Michael Kaplan, ASCHP-registered Wellness Counsellor" class="w-full h-full object-cover" widths={[320, 440]} sizes="220px" loading="lazy" />
-            </div>
-          </div>
-          <div>
-            <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-3">About Michael</h2>
-            <p class="font-heading text-2xl mb-2">Michael Kaplan</p>
-            <p class="font-body text-sm text-foreground/80 leading-relaxed mb-8">BA Psychology &middot; ASCHP-registered Wellness Counsellor<br />Registration No. 10559</p>
-            <div class="font-body text-lg text-foreground/80 leading-relaxed space-y-6">
-              <p>I have been working with teenagers and young men for more than a decade. My background includes individual counselling, sustained mentorship relationships, and group facilitation, with roots in Cape Town’s Boys to Men organisation.</p>
-              <p>Much of my early work happened under the guidance of clinical psychologist Bernard Altman. Over time, I moved from participating in the work into leadership and facilitation roles, working with young people from a wide range of backgrounds.</p>
-              <p>My approach is grounded in careful listening, honest reflection, and attention to the broader circumstances shaping a person’s life. I do not see my role as handing over answers or interpretations for you to adopt. More often it means listening closely, reflecting back what I hear, and asking the questions that have not yet been asked.</p>
-              <p>Alongside this is a long-standing contemplative background, including extended retreat and traditional training in India. It informs how I work without requiring you to share a practice or a belief. The focus stays on what is useful for the person in front of me.</p>
-            </div>
-            <div class="flex flex-col items-start gap-4 mt-8 font-body text-base">
-              <a href="/about/" class="ct-link">More about Michael and Sangham &rarr;</a>
-              <a href="https://www.psychologytoday.com/profile/1837187" target="_blank" rel="noopener noreferrer" class="ct-link text-sm">View verified Psychology Today profile</a>
-              <a href="/testimonials/" class="ct-link text-sm">Read reflections shared with permission</a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section id="fees">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-10">Fees and practical arrangements</h2>
-        <div class="border border-border/60 rounded-xl p-6 md:p-8 bg-card/30 mb-8">
+    <!-- ═══ 11 · FEES ═══ -->
+    <section id="fees" class="ctc-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl leading-tight mb-10">Fees and practical arrangements</h2>
+        <div class="border border-border/60 rounded-xl p-6 md:p-8 bg-background/70 mb-8">
           <dl class="font-body space-y-5">
             <div class="flex justify-between gap-4 items-baseline"><dt>15-minute fit call</dt><dd class="font-heading text-2xl">Free</dd></div>
             <div class="flex justify-between gap-4 items-baseline border-t border-border/60 pt-5"><dt>Individual session<span class="block text-sm text-foreground/75 mt-1">60 minutes &middot; in person or online</span></dt><dd class="font-heading text-2xl whitespace-nowrap">R850</dd></div>
             <div class="flex justify-between gap-4 items-baseline border-t border-border/60 pt-5"><dt>Five-session process<span class="block text-sm text-foreground/75 mt-1">Five 60-minute sessions</span></dt><dd class="font-heading text-2xl whitespace-nowrap">R3,400</dd></div>
           </dl>
         </div>
-        <div class="font-body text-lg text-foreground/80 leading-relaxed space-y-6">
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-6 max-w-[65ch]">
           <p>Sessions are usually weekly or fortnightly, depending on what is useful and practical. In-person appointments are available at selected times in Newlands; online sessions remain available by video call.</p>
-          <p>The five-session rate supports continuity and commitment to the process. If cost is a genuine barrier, mention it when reaching out. Reduced-rate availability can be discussed directly.</p>
-          <p class="text-base">Sessions are self-funded. For parents of teenage boys, the separate parent consultation is R600 for 45 minutes.</p>
+          <p>The five-session rate supports continuity and commitment to the process. A limited number of reduced-rate spaces may be available where the standard fee is genuinely prohibitive. If cost is a real barrier, mention it when reaching out and it can be discussed privately.</p>
+          <p class="text-base">Sessions are self-funded and are not submitted directly to medical aid. For parents of teenage boys, the separate parent consultation is R600 for 45 minutes.</p>
         </div>
       </div>
     </section>
 
-    <section class="ct-dark bg-header">
-      <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl">
-        <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl leading-tight mb-8">Finding the right fit</h2>
-        <div class="font-body text-lg text-parchment/85 leading-relaxed space-y-6">
-          <p>This work tends to suit people who are willing to engage honestly with experience, notice the patterns that repeat, and do some of the work between sessions. You do not need to have everything figured out before getting in touch.</p>
-          <p>Sangham offers supportive Wellness Counselling under ASCHP registration. It is distinct from clinical psychology, psychotherapy, psychiatry, and medical care. It does not include diagnosis or medication management.</p>
-          <p>Where a psychologist, psychiatrist, or medical provider would be more appropriate, I will say so directly. If you need urgent help or are in immediate danger, contact an emergency service rather than waiting for a counselling appointment.</p>
-          <p class="text-base">Confidentiality, appropriate boundaries, and respect for your autonomy are foundational to the process. <a href="/scope/" class="ct-link">Read the full scope and ethics.</a></p>
+    <!-- ═══ 12 · OTHER PATHWAYS ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl leading-tight mb-5">Other ways of working together</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-10">I work with adults generally, and have particular experience with boys and young men, and with people involved in contemplative practice. These pages describe those pathways in more depth.</p>
+        <div class="grid md:grid-cols-2 gap-5">
+          {supportPaths.map((path) => (
+            <a href={path.href} class="group flex flex-col border border-border/60 rounded-xl p-7 bg-card/30 hover:border-primary/60 transition-colors duration-200">
+              <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">{path.title}</h3>
+              <p class="font-body text-base text-foreground/75 leading-relaxed flex-1">{path.text}</p>
+              <span class="ctc-gold-deep-text font-body text-sm mt-5 underline underline-offset-4 decoration-primary/40">Read more &rarr;</span>
+            </a>
+          ))}
         </div>
       </div>
     </section>
 
-    <section>
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-10">Questions before you begin</h2>
-        <div class="ct-faq"><FAQ items={faqItems} /></div>
+    <!-- ═══ 13 · SCOPE OF PRACTICE ═══ -->
+    <section class="ctc-dark">
+      <div class="container mx-auto px-6 py-20 md:py-24 max-w-3xl ctc-reveal">
+        <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl leading-tight mb-8">Scope of practice</h2>
+        <div class="font-body text-lg leading-relaxed space-y-6 max-w-[65ch]">
+          <p>This is supportive Wellness Counselling under ASCHP registration. It is distinct from clinical psychology, psychotherapy, psychiatry and medical treatment, and it does not include diagnosis of psychiatric conditions or the prescribing of medication.</p>
+          <p>There are situations in which specialist psychological, psychiatric, addiction, crisis or medical care is more appropriate. Responsible counselling includes recognising those limits rather than trying to make every difficulty fit within one scope of practice. Where I believe another form or level of support would serve you better, I will discuss that openly and help you think through an appropriate next step.</p>
+          <p>If you need urgent help, or are in immediate danger, please contact an emergency service rather than waiting for a counselling appointment.</p>
+          <p class="text-base">Confidentiality, appropriate boundaries and respect for your autonomy are foundational to the process. <a href="/scope/" class="ctc-inline-link">Read the full scope and ethics.</a></p>
+        </div>
       </div>
     </section>
 
-    <section id="book-call" class="ct-warm border-t border-border/50 scroll-mt-[88px]">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl">
-        <h2 class="ct-heading font-heading text-3xl md:text-4xl leading-tight mb-8">Begin with a conversation</h2>
-        <div class="font-body text-lg text-foreground/80 leading-relaxed space-y-6 mb-8">
-          <p>A free 15-minute fit call is a chance to ask questions, discuss what you are looking for, and see whether it makes sense to work together. There is no obligation to continue.</p>
-          <p class="text-base">The calendar is for that introductory call. In-person counselling appointments are arranged afterwards, with the location details shared privately.</p>
+    <!-- ═══ 14 · FAQ ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">Questions before you begin</h2>
+        <div class="ctc-faq"><FAQ items={faqItems} /></div>
+      </div>
+    </section>
+
+    <!-- ═══ 15 · START WITH A CONVERSATION ═══ -->
+    <section id="book-call" class="ctc-warm-bg border-t border-border/50 scroll-mt-[88px]">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl ctc-reveal">
+        <h2 class="font-heading ctc-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-8">Start with a conversation</h2>
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-6 max-w-[65ch] mb-9">
+          <p>If something on this page feels familiar, you are welcome to begin with a free 15-minute call. We can speak about what is happening, what you are looking for, and whether working together feels like a good fit. There is no obligation to continue afterwards.</p>
+          <p class="text-base">The calendar below is for that introductory call. In-person counselling appointments in Newlands are arranged afterwards, with the location details shared privately.</p>
         </div>
-        <a href="#cal-inline-embed" class={primaryButton} data-cta="book-fit-call" data-service={SERVICE} data-placement="closing">Book a free 15-minute fit call</a>
-        <p class="font-body text-base mt-5 mb-10"><a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="ct-link" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="closing">Prefer to write first? Message on WhatsApp.</a></p>
+
+        <div class="flex flex-col sm:flex-row gap-3 mb-4">
+          <a href="#cal-inline-embed" class={primaryButton} data-cta="book-fit-call" data-service={SERVICE} data-placement="closing">Book a free 15-minute fit call</a>
+          <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2 px-7 py-4 border border-primary/40 text-foreground/80 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="closing">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            Message on WhatsApp
+          </a>
+        </div>
+        <p class="font-body text-sm text-foreground/60 italic mb-12">In person in Newlands, Cape Town &middot; Online worldwide</p>
+
         <CalEmbed minHeight="640px" service={SERVICE} />
       </div>
     </section>
 
     <StickyConsultationCTA label="Book a free 15-minute fit call →" href="#book-call" afterSelector="#the-work" variant="light" service={SERVICE} whatsappHref={WHATSAPP} desktopFloating={true} />
   </div>
-</BaseLayout>
 
-<style>
-  /* Colour and typography treatments from the meditators and young-men pages.
-     Local rules keep their existing styles and the shared site chrome intact. */
-  .ct-warm { background: hsl(38 30% 84%); }
-  .ct-heading, .ct-link { color: hsl(41 48% 31%); }
-  .ct-link { text-decoration: underline; text-underline-offset: 4px; text-decoration-color: hsl(41 48% 31% / .4); }
-  .ct-link:hover { text-decoration-color: currentColor; }
-  .ct-dark { --color-parchment: hsl(36 18% 92%); }
-  .ct-dark .ct-link { color: #E6BE76; text-decoration-color: #E6BE7666; }
-  .ct-dark .text-gold-gradient { background-image: linear-gradient(135deg, #DBAE5E, #D4A95C, #B88A3C); }
-  .ct-button { background: #D4A95C; color: #0F1422; text-align: center; }
-  .ct-button:hover { background: #E6BE76; }
-  .cape-town-page :global(a:focus-visible), .cape-town-page :global(summary:focus-visible) { outline: 2px solid currentColor; outline-offset: 5px; }
-  .ct-faq :global(summary) { font-size: 1.125rem; }
-  .ct-faq :global(details p) { font-size: 1rem; color: hsl(30 12% 25%); }
-  .cape-town-page :global(#cal-inline-embed) { scroll-margin-top: 88px; }
-  @media (prefers-reduced-motion: reduce) {
-    .cape-town-page :global(*) { scroll-behavior: auto; transition: none; }
-  }
-</style>
+  <script>
+    // Reveal on scroll, matching /counselling-for-meditators/.
+    const revealEls = document.querySelectorAll('.ctc-reveal');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      revealEls.forEach((el) => el.classList.add('ctc-in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('ctc-in');
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      );
+      revealEls.forEach((el) => io.observe(el));
+    }
+  </script>
+</BaseLayout>
