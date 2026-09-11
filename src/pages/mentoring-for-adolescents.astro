@@ -247,7 +247,7 @@ const jsonLd = [
     name: 'Mentoring and Reflective Counselling for Teenage Boys Aged 12 to 17',
     url: canonicalURL,
     description:
-      'Developmental mentorship and reflective counselling for teenage boys aged 12 to 17, with a clear process for parent involvement. ASCHP-registered wellness counselling. Online worldwide.',
+      'Developmental mentorship and reflective counselling for teenage boys aged 12 to 17, with a clear process for parent involvement. ASCHP-registered wellness counselling. In Cape Town and online worldwide.',
     serviceType: 'Wellness Counselling and Developmental Mentorship',
     provider: {
       '@type': 'Person',
@@ -279,11 +279,10 @@ const jsonLd = [
       { '@type': 'Country', name: 'South Africa' },
       { '@type': 'Place', name: 'Worldwide' },
     ],
-    availableChannel: {
-      '@type': 'ServiceChannel',
-      serviceType: 'Online via video call',
-      availableLanguage: 'English',
-    },
+    availableChannel: [
+      { '@type': 'ServiceChannel', serviceType: 'Online via video call', availableLanguage: 'English' },
+      { '@type': 'ServiceChannel', serviceUrl: 'https://www.sangham.org/counselling/cape-town/', serviceLocation: { '@type': 'Place', name: 'Newlands, Southern Suburbs, Cape Town' }, availableLanguage: 'English' },
+    ],
     offers: [
       {
         '@type': 'Offer',
@@ -677,7 +676,7 @@ const jsonLd = [
 
         <div class="md:order-1">
           <p class="text-primary/40 text-xs tracking-widest uppercase font-body mb-8">
-            South African-registered &middot; Currently based in India &middot; Online worldwide
+            South African-registered &middot; Based in Cape Town &middot; Online worldwide
           </p>
           <h1 class="font-heading text-[40px] sm:text-5xl md:text-6xl lg:text-7xl text-parchment/95 leading-[1.05] mb-8">
             A Different Kind of Support{' '}<br class="hidden sm:block" /><span class="text-gold-gradient">for the Adolescent Years</span>
@@ -723,7 +722,7 @@ const jsonLd = [
           </div>
 
           <div class="flex flex-wrap gap-x-5 gap-y-1.5">
-            {['ASCHP Registered', 'Online worldwide', 'Currently based in India', 'Ages 12 to 17'].map((t) => (
+            {['ASCHP Registered', 'In person & online', 'Based in Cape Town', 'Ages 12 to 17'].map((t) => (
               <p class="text-parchment/50 text-xs font-body">{t}</p>
             ))}
           </div>
@@ -975,7 +974,7 @@ const jsonLd = [
       <div class="border-t border-parchment/10 pt-10 mb-12 max-w-2xl">
         <h3 class="font-heading text-[15px] md:text-[17px] text-parchment/70 tracking-[0.18em] uppercase mb-5">Typical Structure</h3>
         <div class="space-y-3 font-body text-base text-parchment/58 leading-relaxed">
-          <p>Sessions are held online.</p>
+          <p>Sessions are held online or <a href="/counselling/cape-town/" class="underline underline-offset-4">in person in Newlands, Cape Town</a>, by arrangement.</p>
           <p>Individual sessions are approximately 60 minutes.</p>
           <p>Frequency is usually weekly or fortnightly depending on the situation.</p>
           <p>Parent reflection sessions may be included where useful.</p>
@@ -1464,7 +1463,7 @@ const jsonLd = [
               <span class="font-heading text-4xl text-parchment leading-none">850</span>
               <span class="font-body text-sm text-parchment/45 ml-1">/ 60 min</span>
             </div>
-            <p class="text-parchment/38 text-xs font-body mb-3">Weekly or fortnightly &middot; Online</p>
+            <p class="text-parchment/38 text-xs font-body mb-3">Weekly or fortnightly &middot; In person or online</p>
             <p class="font-body text-sm text-parchment/65 leading-relaxed">
               Individual mentorship and reflective counselling focused on emotional development, responsibility, self-awareness, direction, and practical life integration.
             </p>

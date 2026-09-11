@@ -24,7 +24,7 @@ export default defineConfig({
         !page.includes('/online-counselling-young-men-south-africa'),
       serialize(item) {
         const url = item.url;
-        const updatedItem = { ...item, lastmod: LAST_SIGNIFICANT_UPDATE };
+        const updatedItem = { ...item, lastmod: url === `${SITE}/counselling/cape-town/` ? '2026-09-11' : LAST_SIGNIFICANT_UPDATE };
 
         // Homepage: highest priority, checked weekly
         if (url === `${SITE}/`) {
