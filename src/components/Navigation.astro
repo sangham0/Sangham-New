@@ -13,12 +13,21 @@ const mainLinks = [
 
 const counsellingSubItems = [
   { path: '/counselling', label: 'Counselling Overview' },
+  { path: '/counselling/cape-town', label: 'In Person · Cape Town' },
   { path: '/counselling-for-meditators', label: 'Counselling for Meditators' },
   { path: '/mentoring-for-adolescents', label: 'Mentoring for Teenagers' },
   { path: '/mentoring-for-young-men', label: 'Mentoring for Young Men' },
 ];
 
 const currentPath = Astro.url.pathname;
+
+/**
+ * Built routes carry a trailing slash while the link paths above do not, so a
+ * direct comparison never matched and no sub-item ever showed as current.
+ * Normalise both sides before comparing.
+ */
+const normalise = (path: string) => (path.length > 1 ? path.replace(/\/$/, '') : path);
+const isCurrent = (path: string) => normalise(currentPath) === normalise(path);
 const isCounsellingActive =
   currentPath === '/counselling' ||
   currentPath.startsWith('/counselling/') ||
@@ -76,7 +85,7 @@ const isCounsellingActive =
                 role="menuitem"
                 class:list={[
                   'block px-5 py-2.5 text-sm font-body transition-colors duration-200',
-                  currentPath === item.path
+                  isCurrent(item.path)
                     ? 'text-gold-light'
                     : 'text-nav-foreground/60 hover:text-nav-foreground hover:bg-nav-foreground/5',
                   i < counsellingSubItems.length - 1 ? 'border-b border-nav-foreground/5' : '',
@@ -97,7 +106,7 @@ const isCounsellingActive =
           href={link.path}
           class:list={[
             'text-sm tracking-widest uppercase font-body transition-colors duration-300',
-            currentPath === link.path
+            isCurrent(link.path)
               ? 'text-gold-light'
               : 'text-nav-foreground/60 hover:text-nav-foreground',
           ]}
@@ -159,7 +168,7 @@ const isCounsellingActive =
               href={item.path}
               class:list={[
                 'text-sm font-body transition-colors py-1.5',
-                currentPath === item.path
+                isCurrent(item.path)
                   ? 'text-gold-light'
                   : 'text-nav-foreground/50 hover:text-nav-foreground',
               ]}
@@ -178,7 +187,7 @@ const isCounsellingActive =
           href={link.path}
           class:list={[
             'text-sm tracking-widest uppercase font-body transition-colors py-2',
-            currentPath === link.path
+            isCurrent(link.path)
               ? 'text-gold-light'
               : 'text-nav-foreground/60 hover:text-nav-foreground',
           ]}
