@@ -50,6 +50,27 @@ page's first divider (`golden-savanna.jpg`, in fact a Cape Town suburb at dusk)
 was chosen because it shows the kind of setting these programmes actually run
 in.
 
+### Section backgrounds
+
+Both heroes, the dark anchor sections and the closing invitation carry a
+landscape photograph under a heavy scrim, in the same idiom `/counselling/`
+uses for its approach section: an absolutely positioned `<Image>`, then a scrim
+`div`, then the content in a `relative z-10` container.
+
+The scrims are tuned per photograph rather than set once. Dark sections sit at
+`bg-cosmos/[0.89]` to `bg-cosmos/[0.90]`, the heroes at `bg-void/[0.90]` and
+`bg-void/[0.91]`, and the two closing sections under a cream
+`hsl(38 30% 84% / 0.93)`. One is deliberately heavier: `ancient-tree.jpg`
+behind "How support works" is a bright photograph whose vertical trunks
+competed with the numbered list rules, so it runs at `0.93`.
+
+If you swap one of these photographs, check the result at the section rather
+than trusting the number. A brighter or busier image needs a heavier scrim, and
+the text on these blocks is the point.
+
+Every section background is decorative: `alt=""` and `aria-hidden="true"`, so
+none of them is announced to a screen reader.
+
 ## Contact pathway
 
 Neither page routes to the Cal.com fit-call calendar, which is the individual

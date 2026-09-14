@@ -25,6 +25,16 @@ import capeCommunityDusk from '../../assets/golden-savanna.jpg';
 import peakThroughCloud from '../../assets/misty-valley.jpg';
 import duskVista from '../../assets/mountain-dusk-vista.jpg';
 
+// ── Section backgrounds ────────────────────────────────────────────────────
+// Carried under a heavy scrim, in the same idiom /counselling/ uses for its
+// approach section: the photograph gives the block depth and warmth without
+// ever competing with the text sitting on it.
+import heroTexture from '../../assets/forest-river-aerial.jpg';
+import sessionTexture from '../../assets/cave-meditation.jpg';
+import teamTexture from '../../assets/himalaya-forest-sunset.jpg';
+import facilitatorTexture from '../../assets/himalaya-snow-peak.jpg';
+import closingTexture from '../../assets/lone-tree-sunset.jpg';
+
 const canonicalURL = 'https://www.sangham.org/counselling/community-organisations/';
 
 const EMAIL = 'michael@sangham.org';
@@ -375,8 +385,20 @@ const jsonLd = [
   <div class="cgo bg-background text-foreground">
 
     <!-- ═══ 01 · HERO ═══ -->
-    <section class="cgo-dark-deep">
-      <div class="container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
+    <section class="cgo-dark-deep relative overflow-hidden">
+      <Image
+        src={heroTexture}
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover object-[center_60%]"
+        widths={[640, 1024, 1600]}
+        quality={60}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-void/[0.90]"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 100% at 30% 0%, hsl(42 40% 30% / 0.14), transparent 60%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
         <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 lg:gap-16 items-center">
 
           <div>
@@ -517,8 +539,10 @@ const jsonLd = [
 
     <!-- ═══ 04 · HOW A SESSION ACTUALLY WORKS ═══ -->
     <section class="cgo-dark relative overflow-hidden">
+      <Image src={sessionTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_45%]" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0 bg-cosmos/[0.89]"></div>
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
-      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
         <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">How a session actually works</h2>
         <p class="font-body text-lg leading-relaxed max-w-[62ch] mb-12">
           The group is structured, but it is not run like a classroom. Each session moves through roughly the same four movements, with the content changing according to the theme and what the room brings.
@@ -657,8 +681,10 @@ const jsonLd = [
 
     <!-- ═══ 08 · WORKING WITH YOUR TEAM ═══ -->
     <section id="working-together" class="cgo-dark relative overflow-hidden">
+      <Image src={teamTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%]" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0 bg-cosmos/[0.89]"></div>
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
-      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
         <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">Working with your team</h2>
 
         <div class="font-body text-lg leading-relaxed space-y-7 max-w-[65ch]">
@@ -743,8 +769,10 @@ const jsonLd = [
 
     <!-- ═══ 11 · ABOUT MICHAEL ═══ -->
     <section class="cgo-dark relative overflow-hidden">
+      <Image src={facilitatorTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_50%]" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0 bg-cosmos/[0.90]"></div>
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
-      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
 
         <div class="grid md:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
           <div>
@@ -842,8 +870,12 @@ const jsonLd = [
     </section>
 
     <!-- ═══ 14 · START A CONVERSATION ═══ -->
-    <section id="start" class="cgo-warm-bg border-t border-border/50 scroll-mt-[88px]">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+    <section id="start" class="cgo-warm-bg border-t border-border/50 scroll-mt-[88px] relative overflow-hidden">
+      <Image src={closingTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_60%] cgo-graded" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <!-- A cream scrim heavy enough that the photograph reads as warmth behind
+           the closing invitation rather than as an image competing with it. -->
+      <div class="absolute inset-0" style="background: hsl(38 30% 84% / 0.93);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
         <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">Talk about whether the group could fit your organisation</h2>
         <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
           The most useful first step is a conversation about your participants, the support already around them, and whether a weekly group is realistic in your setting. If it is not the right fit, that will be said plainly.

@@ -19,6 +19,16 @@ import roomGarden from '../../assets/counselling-cape-town-garden.webp';
 // subject of this page is people, not workplaces.
 import stillWater from '../../assets/river-sunrise.jpg';
 import coastTwilight from '../../assets/twilight-coast.jpg';
+import duskLake from '../../assets/mountain-lake.jpg';
+
+// ── Section backgrounds ────────────────────────────────────────────────────
+// Carried under a heavy scrim, in the same idiom /counselling/ uses for its
+// approach section. Landscape rather than workplace: the subject of this page
+// is the person, and an office photograph would say the opposite.
+import heroTexture from '../../assets/above-clouds.jpg';
+import supportTexture from '../../assets/ancient-tree.jpg';
+import michaelTexture from '../../assets/majestic-landscape-hills-and-clouds.JPG';
+import closingTexture from '../../assets/mountain-sunrise.jpg';
 
 const canonicalURL = 'https://www.sangham.org/counselling/workplace-wellbeing/';
 
@@ -395,8 +405,20 @@ const jsonLd = [
   <div class="cww bg-background text-foreground">
 
     <!-- ═══ 01 · HERO ═══ -->
-    <section class="cww-dark-deep">
-      <div class="container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
+    <section class="cww-dark-deep relative overflow-hidden">
+      <Image
+        src={heroTexture}
+        alt=""
+        aria-hidden="true"
+        class="absolute inset-0 w-full h-full object-cover object-[center_65%]"
+        widths={[640, 1024, 1600]}
+        quality={60}
+        sizes="100vw"
+        loading="eager"
+      />
+      <div class="absolute inset-0 bg-void/[0.91]"></div>
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 100% at 30% 0%, hsl(42 40% 30% / 0.14), transparent 60%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
         <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 lg:gap-16 items-center">
 
           <div>
@@ -510,8 +532,12 @@ const jsonLd = [
 
     <!-- ═══ 04 · HOW SUPPORT WORKS ═══ -->
     <section class="cww-dark relative overflow-hidden">
+      <Image src={supportTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_50%]" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <!-- Heavier than the other section scrims: this photograph is bright, and
+           its vertical trunks otherwise compete with the numbered list rules. -->
+      <div class="absolute inset-0 bg-cosmos/[0.93]"></div>
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
-      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
         <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">How support works</h2>
         <p class="font-body text-lg leading-relaxed max-w-[62ch] mb-12">
           Simple access, clear boundaries, and support that can grow with the need.
@@ -733,6 +759,17 @@ const jsonLd = [
       </div>
     </section>
 
+    <!-- ═══ BREAK 02 · dusk over the lake ═══ -->
+    <section class="relative overflow-hidden cww-graded">
+      <Image src={duskLake} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_58%] cww-kb-img" widths={[640, 1024, 1600]} quality={62} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.6), hsl(36 18% 90% / 0.36) 50%, hsl(36 18% 90% / 0.6));"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(62% 46% at 50% 50%, hsl(36 20% 93% / 0.74), transparent 74%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center cww-reveal">
+        <div class="cww-rule w-16 mx-auto mb-8"></div>
+        <p class="font-heading cww-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">People bring their whole lives to work, whether or not there is room for it.</p>
+      </div>
+    </section>
+
     <!-- ═══ 08 · SERVICE OPTIONS AND FEES ═══ -->
     <section id="fees" class="cww-warm-bg border-y border-border/40 scroll-mt-[88px]">
       <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cww-reveal">
@@ -834,8 +871,10 @@ const jsonLd = [
 
     <!-- ═══ 11 · ABOUT MICHAEL ═══ -->
     <section class="cww-dark relative overflow-hidden">
+      <Image src={michaelTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%]" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0 bg-cosmos/[0.90]"></div>
       <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
-      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
 
         <div class="grid md:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
           <div>
@@ -874,7 +913,7 @@ const jsonLd = [
       </div>
     </section>
 
-    <!-- ═══ BREAK 02 · the coast at twilight ═══ -->
+    <!-- ═══ BREAK 03 · the coast at twilight ═══ -->
     <section class="relative overflow-hidden cww-graded-dark bg-[hsl(220_26%_8%)]">
       <Image src={coastTwilight} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_50%] cww-kb-img" widths={[640, 1024, 1600]} quality={64} sizes="100vw" loading="lazy" />
       <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.66), hsl(220 26% 8% / 0.52) 50%, hsl(220 26% 8% / 0.76));"></div>
@@ -885,8 +924,12 @@ const jsonLd = [
     </section>
 
     <!-- ═══ 13 · START A CONVERSATION ═══ -->
-    <section id="start" class="cww-warm-bg border-t border-border/50 scroll-mt-[88px]">
-      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+    <section id="start" class="cww-warm-bg border-t border-border/50 scroll-mt-[88px] relative overflow-hidden">
+      <Image src={closingTexture} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%] cww-graded" widths={[640, 1024, 1600]} quality={58} sizes="100vw" loading="lazy" />
+      <!-- A cream scrim heavy enough that the photograph reads as warmth behind
+           the closing invitation rather than as an image competing with it. -->
+      <div class="absolute inset-0" style="background: hsl(38 30% 84% / 0.93);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
         <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">A partnership begins with a short conversation</h2>
         <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
           Before any service agreement is confirmed, we clarify workforce size, location, expected utilisation, whether online or in-person access suits better, referral pathways, confidentiality, reporting, and any team-level priorities.
