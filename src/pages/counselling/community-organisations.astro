@@ -1,0 +1,946 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import CtaPair from '../../components/CtaPair.astro';
+import StickyConsultationCTA from '../../components/StickyConsultationCTA.astro';
+import { Image } from 'astro:assets';
+
+// ── Michael ────────────────────────────────────────────────────────────────
+import michaelPortrait from '../../assets/michael-portrait-new.jpg';
+import michaelSeated from '../../assets/Michael-portrait-2.PNG';
+
+// ── Sangham's own group facilitation, Cape Town ────────────────────────────
+// Adults at a Sangham group workshop, photographed with consent. Used in
+// preference to stock imagery, and in preference to any depiction of the
+// populations an NGO actually serves: the people who would sit in a programme
+// group are not a marketing asset.
+import groupCircle from '../../assets/sangham-circle.jpg';
+import groupSeated from '../../assets/workshop-capetown-circle.png';
+
+// ── Landscape dividers ─────────────────────────────────────────────────────
+// Drawn from the existing Sangham library rather than new stock. The first is
+// a Cape Town community at dusk, which is the setting most of these
+// programmes would actually run in.
+import capeCommunityDusk from '../../assets/golden-savanna.jpg';
+import peakThroughCloud from '../../assets/misty-valley.jpg';
+import duskVista from '../../assets/mountain-dusk-vista.jpg';
+
+const canonicalURL = 'https://www.sangham.org/counselling/community-organisations/';
+
+const EMAIL = 'michael@sangham.org';
+// Prefilled so a programme manager is not composing an opening line into an
+// empty thread, which is the main friction in a "get in touch" call to action.
+const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(
+  'Reflective Group Counselling programme enquiry'
+)}&body=${encodeURIComponent(
+  'Hello Michael,\n\nI work with an organisation that may have a group who could benefit from the Reflective Group Counselling and Mindfulness programme.\n\nA little about us:\n- Organisation:\n- Who we work with:\n- Roughly how many participants:\n- Current support already in place:\n\nI would be glad to arrange a conversation.\n\n'
+)}`;
+const WHATSAPP_NUMBER = '27736738063';
+const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hi Michael, I came across the group counselling programme page and wanted to ask whether it might fit our organisation.'
+)}`;
+const PROPOSAL = '/downloads/sangham-reflective-group-counselling-programme.pdf';
+
+const SERVICE = 'group-programme';
+const CTA_ID = 'organisation-enquiry';
+
+const primaryButton =
+  'cgo-button inline-flex items-center justify-center px-8 py-4 rounded-lg text-sm tracking-wider uppercase font-body font-medium transition-colors duration-200';
+
+// The four-step arc of a session, taken from the programme proposal.
+const sessionArc = [
+  {
+    num: '01',
+    title: 'Arrive and settle',
+    text: 'A short grounding or breathing practice helps the group arrive and become present, before anything is asked of anyone.',
+  },
+  {
+    num: '02',
+    title: 'Open a real theme',
+    text: 'A story, a question, a guided reflection or a simple exercise opens something participants can recognise in their own lives.',
+  },
+  {
+    num: '03',
+    title: 'Make sense of it together',
+    text: 'Participants speak and listen, and begin noticing the connections between experience, emotion, relationship and behaviour.',
+  },
+  {
+    num: '04',
+    title: 'Practise a different response',
+    text: 'Mindfulness, grounding and reflective skills are introduced around what has actually arisen in the room, rather than taught in advance.',
+  },
+];
+
+const notThis = [
+  {
+    head: 'Not a lecture',
+    body: 'Psychological ideas are introduced in plain language, and only where they help someone understand something they have already experienced.',
+  },
+  {
+    head: 'Not forced disclosure',
+    body: 'Participation is invited, never demanded. People are encouraged to work at a pace that is appropriate for them, and silence is a legitimate way to attend.',
+  },
+  {
+    head: 'Not just meditation',
+    body: 'Mindfulness is one part of a wider relational process. Its purpose here is practical: to notice, to stay present, and to create more choice.',
+  },
+];
+
+// The six-session core, with the two optional extensions the proposal sets out.
+const coreSessions = [
+  {
+    num: '01',
+    title: 'Starting Where We Are',
+    text: 'Safety, trust, group agreements, and the different ways people learn to cope with difficult feelings or situations.',
+  },
+  {
+    num: '02',
+    title: 'The Child We Carry',
+    text: 'Early needs, hurt, protection, and the patterns that can continue into adult life.',
+  },
+  {
+    num: '03',
+    title: 'The Masks We Wear',
+    text: 'The identities and protective faces people use to stay safe, and what may sit underneath them.',
+  },
+  {
+    num: '04',
+    title: 'Anger, Hurt and Triggers',
+    text: 'Slowing down what happens when someone feels disrespected, rejected, threatened or overwhelmed.',
+  },
+  {
+    num: '05',
+    title: 'Craving, Avoidance and Relief',
+    text: 'Understanding what a coping strategy actually provides, and recognising the need beneath the urge.',
+  },
+  {
+    num: '06',
+    title: 'The Moment Before',
+    text: 'Recognising body cues, thoughts and urges before action, and practising a different response.',
+  },
+];
+
+const optionalSessions = [
+  {
+    num: '07',
+    title: 'Trust, Boundaries and Relationships',
+    text: 'How people protect themselves in relationships, what trust asks of them, and how boundaries can support connection rather than simply distance.',
+  },
+  {
+    num: '08',
+    title: 'Carrying It Forward',
+    text: 'Integration, personal warning signs, practices that help, sources of support, and what each participant wants to take into life beyond the group.',
+  },
+];
+
+const capacities = [
+  {
+    head: 'Recognising what is happening',
+    body: 'More awareness of feelings, triggers, body cues, and the patterns that tend to follow them.',
+  },
+  {
+    head: 'Putting experience into words',
+    body: 'A greater ability to name what is difficult, rather than only acting it out, avoiding it, or shutting it down.',
+  },
+  {
+    head: 'Creating a pause',
+    body: 'Simple grounding and mindfulness skills that can help someone notice an urge before automatically following it.',
+  },
+  {
+    head: 'Seeing coping with more compassion',
+    body: 'Understanding that a behaviour may have developed for a reason, without removing responsibility for what happens next.',
+  },
+  {
+    head: 'Feeling less alone',
+    body: 'Hearing other people name similar fears, contradictions and struggles can reduce isolation and shame.',
+  },
+  {
+    head: 'Healthier ways of relating',
+    body: 'Over time the group develops a culture of empathic listening, mutual support and honest communication that participants can carry beyond it.',
+  },
+];
+
+const settings = [
+  {
+    head: 'Recovery and substance-use services',
+    body: 'Where participants are working with craving, relapse, and the feelings a substance has reliably been used to change.',
+  },
+  {
+    head: 'Shelters and residential programmes',
+    body: 'Where housing instability, family disruption and loss of control over circumstances sit underneath daily behaviour.',
+  },
+  {
+    head: 'Youth and community programmes',
+    body: 'Where identity, belonging, anger, exclusion and community violence shape how young people learn to protect themselves.',
+  },
+  {
+    head: 'Clinics and community mental-health services',
+    body: 'Where a reflective group can sit alongside clinical care and add relational depth between appointments.',
+  },
+  {
+    head: 'NGOs and NPOs running longer-term support',
+    body: 'Where a defined block of group work can strengthen an existing programme without competing with it.',
+  },
+  {
+    head: 'Staff and care teams',
+    body: 'Where the people doing the work carry a great deal, and would benefit from a reflective space of their own.',
+  },
+];
+
+const responsibly = [
+  'Personal sharing is encouraged but never forced.',
+  'Exercises are not designed to push participants into reliving traumatic experiences.',
+  'Clear boundaries, confidentiality expectations and group agreements are established early.',
+  'Safeguarding, referral and escalation pathways are agreed with the host organisation in advance.',
+  'Sessions are adjusted where the group’s needs, literacy level, culture or current stability call for a different pace.',
+  'The programme complements existing clinical, social-work, addiction or other specialist support rather than replacing it.',
+];
+
+const faqItems = [
+  {
+    q: 'How long does the programme run?',
+    a: 'Six to eight weekly sessions of roughly 75 to 90 minutes each. Six sessions form the core; two optional sessions extend the programme into trust and boundaries, and into integration and what each participant carries forward. The exact sequence is agreed with the host organisation before the first session.',
+  },
+  {
+    q: 'How many participants should a group have?',
+    a: 'Typically six to twelve. A consistent group is strongly preferred, because a good deal of what makes group work useful depends on the same people returning each week and building enough trust to speak honestly.',
+  },
+  {
+    q: 'Does this replace the clinical or social-work support we already provide?',
+    a: 'No. The programme is designed to sit alongside existing clinical, social-work, addiction, community or specialist support, and to add a reflective, relational layer to it. Where a participant needs care that falls outside Michael’s professional scope, referral pathways agreed with your organisation are followed.',
+  },
+  {
+    q: 'Can a member of our staff join the group?',
+    a: 'Yes, and it is encouraged rather than required. A staff member or social worker who already knows the participants can help them enter the group with more trust, and strengthens the continuity between what happens in the room and your wider support. An initial hand-off into the first session is strongly encouraged in every setting.',
+  },
+  {
+    q: 'Do participants need any experience with meditation?',
+    a: 'None at all. Mindfulness is used practically and in context: noticing what is happening in the body, breath, emotions and urges before they become an automatic action. It is not taught as a philosophy, and no belief of any kind is required or assumed.',
+  },
+  {
+    q: 'What about participants with low literacy, or who work in another language?',
+    a: 'The programme is conversational and experiential rather than written or academic, so it does not depend on literacy. Language, culture, pace and the examples used are all discussed before the programme begins and adjusted as it runs.',
+  },
+  {
+    q: 'Is this trauma therapy?',
+    a: 'No. Exercises are not designed to push participants into reliving traumatic material, and the programme is not a substitute for trauma treatment. Where something significant surfaces, it is held carefully in the room and referred on through the pathways agreed with your organisation.',
+  },
+  {
+    q: 'How is confidentiality handled?',
+    a: 'Group agreements and confidentiality expectations are established in the first session, along with the limits of that confidentiality where safeguarding applies. The specifics, including what is shared with your team and what is not, are agreed with your organisation before the programme starts.',
+  },
+  {
+    q: 'Where does the programme run?',
+    a: 'Ordinarily at your premises, in a space your participants already know, which is usually the single biggest factor in whether people attend. Programmes run in and around Cape Town. Organisations further afield are welcome to make contact so that practicalities can be discussed.',
+  },
+  {
+    q: 'What does it cost?',
+    a: 'A limited number of complete programmes are currently offered on a pro-bono basis to suitable organisations whose participants may benefit. Where a programme falls outside that, it is quoted according to group size, preparation, travel and the length of the cycle. The first conversation is the place to work out which applies.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${canonicalURL}#service`,
+    name: 'Reflective Group Counselling and Mindfulness Programme',
+    url: canonicalURL,
+    description:
+      'A facilitated six to eight session group counselling and mindfulness programme for NGOs, NPOs, clinics, shelters, recovery services and community organisations. Shaped with the host organisation and designed to complement existing clinical, social-work and specialist support.',
+    serviceType: 'Group Counselling Programme',
+    provider: { '@id': 'https://www.sangham.org/about/#michael-kaplan' },
+    areaServed: [
+      { '@type': 'City', name: 'Cape Town' },
+      { '@type': 'Country', name: 'South Africa' },
+    ],
+    audience: {
+      '@type': 'Audience',
+      audienceType: 'NGOs, NPOs, clinics, shelters, recovery services and community organisations',
+    },
+    availableChannel: {
+      '@type': 'ServiceChannel',
+      serviceUrl: canonicalURL,
+      availableLanguage: 'English',
+    },
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sangham.org/' },
+      { '@type': 'ListItem', position: 2, name: 'Counselling', item: 'https://www.sangham.org/counselling/' },
+      { '@type': 'ListItem', position: 3, name: 'For Community Organisations', item: canonicalURL },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
+---
+
+<style is:global>
+  /* Colour, typography and motion follow /counselling/cape-town/ and
+     /counselling-for-meditators/, so this page reads as part of the same set
+     rather than as a separate organisational microsite. */
+  .cgo {
+    --cgo-warm: hsl(38 30% 84%);
+    --cgo-gold: hsl(41 48% 31%);        /* headings and links on light */
+    --cgo-gold-deep: hsl(40 52% 26%);   /* small labels on light */
+    --cgo-gold-light: hsl(42 54% 57%);  /* gold on deep navy */
+    --cgo-navy: hsl(220 22% 12%);
+    --cgo-navy-deep: hsl(220 26% 8%);
+    --cgo-parch: hsl(36 22% 86%);
+  }
+  .cgo-warm-bg { background-color: var(--cgo-warm); }
+
+  .cgo-dark { background-color: var(--cgo-navy); color: var(--cgo-parch); }
+  .cgo-dark-deep { background-color: var(--cgo-navy-deep); color: var(--cgo-parch); }
+  .cgo-dark p, .cgo-dark li, .cgo-dark-deep p, .cgo-dark-deep li { color: hsl(36 20% 86% / 0.84); }
+  .cgo-dark .cgo-emph, .cgo-dark-deep .cgo-emph { color: hsl(36 24% 92%); }
+
+  .cgo-gold-text { color: var(--cgo-gold); }
+  .cgo-gold-deep-text { color: var(--cgo-gold-deep); }
+  .cgo-gold-light-text { color: var(--cgo-gold-light); }
+  .cgo-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--cgo-gold), transparent); opacity: 0.5; }
+  .cgo-rule-light { height: 1px; background: linear-gradient(90deg, transparent, var(--cgo-gold-light), transparent); opacity: 0.55; }
+
+  /* Pull-quote over a light break: ink serif on a cream scrim */
+  .cgo-quote { color: hsl(30 14% 16%); text-shadow: 0 1px 10px hsl(36 30% 96% / 0.92), 0 2px 26px hsl(36 30% 96% / 0.75); }
+  /* Pull-quote over a dark break: warm gold serif on a navy scrim */
+  .cgo-quote-dark { color: var(--cgo-gold-light); text-shadow: 0 2px 30px hsl(220 30% 4% / 0.75); }
+
+  /* One warm grade, so the landscapes, the portraits and the group
+     photographs read as a single set rather than three different cameras. */
+  .cgo-graded img { filter: saturate(0.95) brightness(1.02) contrast(0.99) sepia(0.07); }
+  .cgo-graded-dark img { filter: saturate(0.9) brightness(0.92) contrast(1.04) sepia(0.06); }
+
+  .cgo-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%;
+    transition: background-size 0.3s ease; padding-bottom: 1px;
+  }
+  .cgo-link:hover, .cgo-link:focus-visible { background-size: 100% 1px; }
+
+  .cgo-inline-link { color: var(--cgo-gold); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: hsl(41 48% 31% / .4); }
+  .cgo-inline-link:hover { text-decoration-color: currentColor; }
+  .cgo-dark .cgo-inline-link, .cgo-dark-deep .cgo-inline-link { color: var(--cgo-gold-light); text-decoration-color: hsl(42 54% 57% / .45); }
+
+  .cgo-button { background: #D4A95C; color: #0F1422; text-align: center; }
+  .cgo-button:hover { background: #E6BE76; }
+
+  .cgo-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .cgo-reveal.cgo-in { opacity: 1; transform: none; }
+
+  .cgo-kb-img { animation: cgoKb 26s ease-in-out infinite alternate; transform-origin: center; will-change: transform; }
+  @keyframes cgoKb { from { transform: scale(1.03); } to { transform: scale(1.11); } }
+
+  /* Progressive-disclosure card body */
+  .cgo-card > .cgo-card-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+  .cgo-card[open] > .cgo-card-body { grid-template-rows: 1fr; }
+  .cgo-card > .cgo-card-body > div { overflow: hidden; }
+
+  /* Side statement that tracks a long reading column on wide screens. */
+  @media (min-width: 1024px) {
+    .cgo-aside { position: sticky; top: 7rem; }
+  }
+
+  .cgo-faq :global(summary) { font-size: 1.0625rem; }
+  .cgo-faq :global(details p) { font-size: 1rem; color: hsl(30 12% 25%); }
+
+  .cgo a:focus-visible, .cgo summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cgo-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .cgo-kb-img { animation: none !important; }
+    .cgo-card > .cgo-card-body { transition: none !important; }
+    .cgo :global(*) { scroll-behavior: auto; }
+  }
+</style>
+
+<BaseLayout
+  title="Group Counselling for NGOs and Community Organisations"
+  description="A facilitated six to eight week group counselling and mindfulness programme for NGOs, NPOs, clinics, shelters and recovery services. Run inside your existing support environment by Michael Kaplan, ASCHP-registered Wellness Counsellor. A limited number of pro-bono programmes are available."
+  canonicalURL={canonicalURL}
+  image="/images/og-counselling.jpg"
+  jsonLd={jsonLd}
+  hideStickyBar={true}
+>
+  <div class="cgo bg-background text-foreground">
+
+    <!-- ═══ 01 · HERO ═══ -->
+    <section class="cgo-dark-deep">
+      <div class="container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
+        <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 lg:gap-16 items-center">
+
+          <div>
+            <p class="font-body text-xs sm:text-sm tracking-[0.18em] uppercase text-parchment/60 mb-7">
+              For NGOs, NPOs, clinics, shelters and community organisations
+            </p>
+
+            <h1 class="font-heading text-gold-gradient text-[32px] sm:text-[44px] md:text-[50px] lg:text-[58px] leading-[1.08] mb-7 md:mb-8">
+              A group programme for the people you already support.
+            </h1>
+
+            <p class="font-body text-lg md:text-xl text-parchment/82 leading-relaxed mb-5 max-w-xl">
+              Reflective Group Counselling and Mindfulness is a facilitated six to eight week programme that helps participants recognise what happens inside them just before a familiar pattern takes over.
+            </p>
+            <p class="font-body text-base text-parchment/70 leading-relaxed mb-8 max-w-xl">
+              It is shaped with your team, runs inside your existing support environment, and is designed to complement clinical, social-work, addiction and other specialist care rather than replace it.
+            </p>
+
+            <CtaPair
+              tone="dark"
+              placement="hero"
+              service={SERVICE}
+              href={MAILTO}
+              primaryLabel="Discuss a programme"
+              primaryCta={CTA_ID}
+              primaryChannel="email"
+              whatsappHref={WHATSAPP}
+              whatsappLabel="Ask a question on WhatsApp"
+              note="A limited number of complete programmes are currently offered pro bono to suitable organisations."
+            />
+          </div>
+
+          <div class="flex justify-center md:justify-end">
+            <div class="w-full max-w-[240px] sm:max-w-[250px] lg:max-w-[260px]">
+              <div class="rounded-xl overflow-hidden border border-parchment/15 shadow-xl shadow-black/30 cgo-graded">
+                <div class="aspect-[4/5] overflow-hidden">
+                  <Image
+                    src={michaelPortrait}
+                    alt="Michael Kaplan, ASCHP-registered Wellness Counsellor and group facilitator"
+                    class="w-full h-full object-cover object-center"
+                    widths={[400, 520, 640]}
+                    sizes="(min-width: 1024px) 260px, (min-width: 640px) 250px, 240px"
+                    width={1254}
+                    height={1254}
+                    loading="eager"
+                    fetchpriority="high"
+                  />
+                </div>
+              </div>
+              <p class="font-heading text-base text-parchment/90 mt-4">Michael Kaplan</p>
+              <p class="cgo-gold-light-text text-[11px] font-body tracking-wide mt-1 leading-snug">BA Psychology &middot; ASCHP-registered Wellness Counsellor (Reg. 10559)</p>
+              <p class="font-body text-[11px] text-parchment/60 tracking-wide mt-2 leading-snug">Group facilitator &middot; Founder of Sangham<br />Cape Town, South Africa</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 02 · THE PROGRAMME AT A GLANCE ═══ -->
+    <section class="cgo-warm-bg border-b border-border/50">
+      <div class="container mx-auto px-6 py-14 md:py-20 max-w-5xl cgo-reveal">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-border/70">
+          <div class="sm:pr-10 lg:pr-14">
+            <p class="font-heading cgo-gold-text text-4xl md:text-5xl lg:text-[52px] leading-none mb-3">6 to 8</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[28ch] mx-auto sm:mx-0">weekly sessions, with a six-session core and two optional extensions</p>
+          </div>
+          <div class="sm:px-10 lg:px-14">
+            <p class="font-heading cgo-gold-text text-4xl md:text-5xl lg:text-[52px] leading-none mb-3">75 to 90</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[28ch] mx-auto sm:mx-0">minutes a session, at a pace the group can hold</p>
+          </div>
+          <div class="sm:pl-10 lg:pl-14">
+            <p class="font-heading cgo-gold-text text-4xl md:text-5xl lg:text-[52px] leading-none mb-3">6 to 12</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[28ch] mx-auto sm:mx-0">participants, with a consistent group strongly preferred</p>
+          </div>
+        </div>
+
+        <p class="font-body text-[15px] text-foreground/70 leading-relaxed text-center mt-12 pt-8 border-t border-border/50 max-w-[62ch] mx-auto">
+          Themes, language, pace and safeguarding are agreed with your team before the first session, and sessions run at your premises, in a room participants already know.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 03 · WHAT SITS UNDERNEATH THE PATTERN ═══ -->
+    <section id="the-programme" class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cgo-reveal">
+        <div class="grid lg:grid-cols-[1fr_1.7fr] gap-10 lg:gap-16">
+
+          <div>
+            <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[42px] leading-tight mb-8">Understanding what sits underneath the pattern</h2>
+            <div class="cgo-aside hidden lg:block border-l-2 border-primary/40 pl-6">
+              <p class="font-heading cgo-gold-text text-[22px] italic leading-snug">The aim is to create a little more space between what I feel and what I do next.</p>
+            </div>
+          </div>
+
+          <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+            <p>People usually know what they are supposed to do differently. Knowing is not always enough.</p>
+
+            <p>Someone may know they should not lose their temper, return to a substance, shut people out, or repeat a relationship that hurts them. They can often explain it clearly afterwards. The harder question, and the one this programme works with, is what happens inside them in the moments just before that behaviour takes over.</p>
+
+            <p>So the work begins with lived experience rather than theory. Sessions use conversation, guided reflection, simple experiential exercises and group process to help participants recognise the feelings, needs and survival strategies sitting underneath a familiar pattern. Where an idea from psychology helps someone make sense of what they have just described, it is offered in plain language. It is never the starting point.</p>
+
+            <p>Mindfulness is introduced where it becomes useful, and used practically: a way of noticing what is happening in the body, breath, emotions and urges before any of it becomes an automatic action. There is no requirement that anyone believe anything, and no prior experience of meditation is assumed.</p>
+
+            <p class="text-base text-foreground/72">The programme is built for real settings. It can be adapted for people navigating recovery, housing instability, family disruption, social exclusion, community violence, difficult relationships or other significant life pressures. The language stays direct, human and accessible throughout.</p>
+
+            <blockquote class="lg:hidden border-l-2 border-primary/40 pl-6 pt-1">
+              <p class="font-heading cgo-gold-text text-[22px] md:text-2xl italic leading-snug">The aim is to create a little more space between what I feel and what I do next.</p>
+            </blockquote>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ CTA 1 · once the idea has landed ═══ -->
+    <section class="cgo-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-12 md:py-14 max-w-5xl cgo-reveal">
+        <div class="flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-10">
+          <p class="font-heading cgo-gold-text text-xl md:text-2xl leading-snug lg:flex-1 lg:min-w-0 max-w-[42ch]">
+            If that sounds like the people you work with, a short conversation is the easiest place to start.
+          </p>
+          <div class="lg:shrink-0">
+            <CtaPair
+              placement="after-idea"
+              service={SERVICE}
+              href={MAILTO}
+              primaryLabel="Discuss a programme"
+              primaryCta={CTA_ID}
+              primaryChannel="email"
+              whatsappHref={WHATSAPP}
+              whatsappLabel="Ask a question on WhatsApp"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 04 · HOW A SESSION ACTUALLY WORKS ═══ -->
+    <section class="cgo-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">How a session actually works</h2>
+        <p class="font-body text-lg leading-relaxed max-w-[62ch] mb-12">
+          The group is structured, but it is not run like a classroom. Each session moves through roughly the same four movements, with the content changing according to the theme and what the room brings.
+        </p>
+
+        <div class="space-y-6 mb-14">
+          {sessionArc.map((step) => (
+            <div class="flex gap-5 items-start border-l-2 border-gold-light/30 pl-5">
+              <span class="cgo-gold-light-text font-heading text-2xl shrink-0 w-8">{step.num}</span>
+              <div>
+                <h3 class="font-heading text-xl text-parchment/90 mb-2">{step.title}</h3>
+                <p class="font-body text-base leading-relaxed">{step.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-5 pt-10 border-t border-parchment/15">
+          {notThis.map((item) => (
+            <div>
+              <p class="cgo-gold-light-text font-body text-xs tracking-[0.14em] uppercase mb-3">{item.head}</p>
+              <p class="font-body text-base leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 01 · a Cape Town community at dusk ═══ -->
+    <section class="relative overflow-hidden cgo-graded">
+      <Image src={capeCommunityDusk} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_60%] cgo-kb-img" widths={[640, 1024, 1600]} quality={62} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.6), hsl(36 18% 90% / 0.36) 50%, hsl(36 18% 90% / 0.6));"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(62% 46% at 50% 50%, hsl(36 20% 93% / 0.74), transparent 74%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center cgo-reveal">
+        <div class="cgo-rule w-16 mx-auto mb-8"></div>
+        <p class="font-heading cgo-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">The experience comes first. The language comes afterwards.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 05 · WHERE THE PROGRAMME FITS ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-7">Where the programme fits</h2>
+
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-3">
+          The programme suits settings where people are already being supported, and where the work would benefit from a defined block of reflective group time alongside everything else on offer.
+        </p>
+        <p class="font-body text-sm text-foreground/60 italic mb-10">Select any setting to read more.</p>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-12">
+          {settings.map((item) => (
+            <details class="cgo-card group rounded-xl border border-border/60 bg-card/30 hover:border-primary/40 hover:shadow-md hover:shadow-black/5 transition-all duration-300">
+              <summary class="flex items-start justify-between gap-4 px-6 py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="font-heading text-lg text-foreground/90 leading-snug">{item.head}</span>
+                <svg class="w-4 h-4 shrink-0 mt-1.5 cgo-gold-text transition-transform duration-200 group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+              </summary>
+              <div class="cgo-card-body"><div class="px-6 pb-5"><p class="font-body text-base text-foreground/72 leading-relaxed">{item.body}</p></div></div>
+            </details>
+          ))}
+        </div>
+
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch]">
+          What matters more than the category is who will actually be sitting in the room. A group of men in a residential recovery programme, a group of young people in a community centre, and a group of care staff carrying a heavy caseload need three quite different versions of the same process. Working that out is the point of the first conversation.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 06 · THE PROGRAMME SHAPE ═══ -->
+    <section id="programme-shape" class="cgo-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">A six-session core, with two optional extensions</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          The sequence below is a starting point rather than a fixed curriculum. Themes are adapted to the setting and the population, and the order can change where your team knows something about the group that the outline does not anticipate.
+        </p>
+
+        <div class="space-y-6">
+          {coreSessions.map((session) => (
+            <div class="flex gap-5 items-start border-l-2 border-primary/30 pl-5">
+              <span class="cgo-gold-text font-heading text-2xl shrink-0 w-8">{session.num}</span>
+              <div>
+                <h3 class="font-heading text-xl mb-2">{session.title}</h3>
+                <p class="font-body text-base text-foreground/75 leading-relaxed">{session.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="mt-12 pt-10 border-t border-border/60">
+          <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-6">Optional extensions</p>
+          <div class="grid md:grid-cols-2 gap-5">
+            {optionalSessions.map((session) => (
+              <div class="rounded-xl border border-border/60 bg-background/70 p-7">
+                <span class="cgo-gold-text font-heading text-xl block mb-2">{session.num}</span>
+                <h3 class="font-heading text-xl mb-3">{session.title}</h3>
+                <p class="font-body text-base text-foreground/75 leading-relaxed">{session.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 07 · WHAT PARTICIPANTS MAY DEVELOP ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">What participants may develop</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          The programme does not promise a particular clinical outcome, and no honest group programme could. What it is designed to strengthen are small practical capacities that participants can use in ordinary life.
+        </p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {capacities.map((item) => (
+            <div class="flex flex-col rounded-xl border border-border/60 bg-card/30 p-7">
+              <h3 class="font-heading text-xl text-foreground mb-3">{item.head}</h3>
+              <p class="font-body text-base text-foreground/75 leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <blockquote class="mt-12 md:mt-14 border-l-2 border-primary/50 pl-7 md:pl-8">
+          <p class="font-heading cgo-gold-text text-[26px] md:text-[32px] italic leading-snug max-w-[34ch]">Understanding does not excuse harmful behaviour. It gives us a better chance of changing it.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 02 · a peak emerging through cloud ═══ -->
+    <section class="relative overflow-hidden cgo-graded">
+      <Image src={peakThroughCloud} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%] cgo-kb-img" widths={[640, 1024, 1600]} quality={62} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.58), hsl(36 18% 90% / 0.34) 50%, hsl(36 18% 90% / 0.58));"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(62% 46% at 50% 50%, hsl(36 20% 93% / 0.74), transparent 74%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center cgo-reveal">
+        <div class="cgo-rule w-16 mx-auto mb-8"></div>
+        <p class="font-heading cgo-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Feeling something difficult while remaining safe, connected and witnessed can itself become part of the work.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 08 · WORKING WITH YOUR TEAM ═══ -->
+    <section id="working-together" class="cgo-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-10">Working with your team</h2>
+
+        <div class="font-body text-lg leading-relaxed space-y-7 max-w-[65ch]">
+          <p>The programme is not delivered as a fixed package dropped into every setting. Before the group begins, I meet with the relevant staff member or team to understand the population, the current programme, the risks, the language, the culture, and what your organisation actually hopes the group will add.</p>
+
+          <p class="cgo-emph">The first step is understanding who will be sitting in the room.</p>
+
+          <p>Where possible, a staff member or social worker who already knows the participants is welcome to join the group. This is encouraged rather than required. Familiar staff involvement helps participants enter the group with more trust, and strengthens the continuity between what happens in the room and the support your organisation provides the rest of the week.</p>
+
+          <p>An initial hand-off into the first session is strongly encouraged in every setting. A group that begins with someone the participants already trust in the room tends to settle considerably faster than one that begins with a stranger.</p>
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-6 mt-12 pt-10 border-t border-parchment/15">
+          <div>
+            <p class="cgo-gold-light-text font-body text-xs tracking-[0.14em] uppercase mb-3">Before</p>
+            <p class="font-body text-base leading-relaxed">A planning conversation with your team: population, risks, language, culture, and what the group should add.</p>
+          </div>
+          <div>
+            <p class="cgo-gold-light-text font-body text-xs tracking-[0.14em] uppercase mb-3">During</p>
+            <p class="font-body text-base leading-relaxed">Weekly sessions at your premises, with agreed safeguarding and referral pathways live throughout.</p>
+          </div>
+          <div>
+            <p class="cgo-gold-light-text font-body text-xs tracking-[0.14em] uppercase mb-3">After</p>
+            <p class="font-body text-base leading-relaxed">A closing review with your team on how the group went and what, if anything, is worth continuing.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 09 · WORKING RESPONSIBLY ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-7">Safety, scope and continuity</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-10">
+          Group work with people already under pressure has to be held carefully. The following are not conditions to be negotiated at the end; they are how the programme is built.
+        </p>
+
+        <ul class="space-y-4 mb-12">
+          {responsibly.map((item) => (
+            <li class="flex gap-4 items-start">
+              <svg class="w-4 h-4 shrink-0 mt-1.5 cgo-gold-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+              <span class="font-body text-lg text-foreground/78 leading-relaxed">{item}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div class="pt-10 border-t border-border/60">
+          <h3 class="font-heading text-2xl md:text-3xl text-foreground mb-5">Scope of practice</h3>
+          <div class="font-body text-base text-foreground/78 leading-relaxed space-y-5 max-w-[65ch]">
+            <p>This is supportive Wellness Counselling under ASCHP registration, facilitated in a group setting. It is distinct from clinical psychology, psychotherapy, psychiatry and medical treatment, and it does not include diagnosis of psychiatric conditions or the management of medication.</p>
+            <p>Where a participant needs specialist psychological, psychiatric, addiction, crisis or medical care, that is named directly and handled through the referral pathways agreed with your organisation before the programme starts. <a href="/scope/" class="cgo-inline-link">Read the full scope and ethics.</a></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10 · WHAT THE GROUP WORK LOOKS LIKE ═══ -->
+    <section class="cgo-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl leading-tight mb-5">A circle, a conversation, and enough time</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch] mb-10">
+          Group work needs very little: a room that can be closed, chairs or cushions in a circle, and the same people returning each week.
+        </p>
+
+        <figure>
+          <div class="grid gap-3 sm:gap-4 md:grid-cols-5">
+            <div class="md:col-span-3 rounded-xl overflow-hidden border border-border/60 cgo-graded">
+              <div class="aspect-[16/10] overflow-hidden">
+                <Image src={groupCircle} alt="A Sangham group sitting in a circle in a light-filled room in Cape Town, with the facilitator seated at the head of the circle" class="w-full h-full object-cover object-center" widths={[560, 860, 1160]} sizes="(min-width: 768px) 58vw, calc(100vw - 48px)" quality={84} loading="lazy" />
+              </div>
+            </div>
+            <div class="md:col-span-2 rounded-xl overflow-hidden border border-border/60 cgo-graded">
+              <div class="aspect-[16/10] md:aspect-auto md:h-full overflow-hidden">
+                <Image src={groupSeated} alt="Participants seated on the floor in a Sangham group session, listening as the facilitator speaks" class="w-full h-full object-cover object-center" widths={[360, 560, 860]} sizes="(min-width: 768px) 38vw, calc(100vw - 48px)" quality={84} loading="lazy" />
+              </div>
+            </div>
+          </div>
+          <figcaption class="font-body text-sm text-foreground/65 mt-4">Sangham group sessions in Cape Town, shared with the participants’ permission. Organisational programmes run at the host organisation’s own premises, in a space participants already know.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══ 11 · ABOUT MICHAEL ═══ -->
+    <section class="cgo-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+
+        <div class="grid md:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
+          <div>
+            <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-4">About the facilitator</h2>
+            <p class="font-heading text-xl text-parchment/90 mb-1">Michael Kaplan</p>
+            <p class="font-body text-sm cgo-gold-light-text tracking-wide leading-relaxed mb-7">ASCHP-registered Wellness Counsellor (Reg. 10559) &middot; Group facilitator &middot; Founder of Sangham</p>
+            <div class="font-body text-lg leading-relaxed space-y-6 max-w-[62ch]">
+              <p>Michael has more than a decade of experience working with boys and young men through mentoring, group facilitation and counselling, including many years within the Boys to Men community in Cape Town.</p>
+              <p>His work combines relational counselling, group process, and long experience with mindfulness and contemplative practice. Much of that development took place under the guidance of clinical psychologist Bernard Altman, particularly around adolescent developmental work and group process.</p>
+              <p class="cgo-emph">A particular focus of the work is translating psychological and contemplative ideas into experiences people can actually use, without requiring academic language or previous meditation experience.</p>
+              <p>The emphasis is on meeting people where they are, taking their ways of coping seriously, and helping them develop greater awareness and choice.</p>
+            </div>
+          </div>
+
+          <div class="max-w-[320px] md:max-w-none mx-auto md:mx-0 w-full">
+            <div class="rounded-xl overflow-hidden border border-parchment/12 shadow-xl shadow-black/25 cgo-graded">
+              <div class="aspect-[5/4] overflow-hidden">
+                <Image src={michaelSeated} alt="Michael Kaplan seated, hands clasped" class="w-full h-full object-cover object-center" widths={[400, 600, 760]} sizes="(min-width: 768px) 300px, 320px" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-start gap-3 mt-10 pt-8 border-t border-parchment/15 font-body text-sm">
+          <a href="/about/" class="cgo-link text-parchment/80">More about Michael and Sangham &rarr;</a>
+          <a href="https://www.psychologytoday.com/profile/1837187" target="_blank" rel="noopener noreferrer" class="cgo-link text-parchment/80">View verified Psychology Today profile &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 12 · THE PRO-BONO PILOT ═══ -->
+    <section id="pro-bono" class="cgo-warm-bg border-y border-border/40 scroll-mt-[88px]">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <div class="rounded-2xl border border-primary/45 bg-primary/[0.07] p-8 md:p-12">
+          <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">A limited pilot</p>
+          <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[42px] leading-tight mb-7">A small number of complete programmes, offered pro bono</h2>
+
+          <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-6 max-w-[62ch]">
+            <p>The full six to eight week cycle is currently being offered at no cost to a limited number of organisations with a group who could genuinely benefit. This is a defined pilot rather than an open-ended free service, and places are taken as they are agreed.</p>
+            <p>The reason for running it this way is straightforward. Group work of this kind is best evaluated by the organisations it is meant to serve, in the settings it is meant to run in, rather than described in a proposal.</p>
+          </div>
+
+          <div class="mt-10 pt-8 border-t border-primary/25">
+            <p class="font-heading text-xl text-foreground mb-5">An initial conversation would cover</p>
+            <div class="grid sm:grid-cols-2 gap-x-8 gap-y-3">
+              {[
+                'Who the participants are and what they are navigating',
+                'What support is already in place around them',
+                'Whether a consistent group of six to twelve is realistic',
+                'Your safeguarding and referral structures',
+                'Language, culture, literacy and pace',
+                'Premises, timing and the practicalities of a weekly cycle',
+              ].map((item) => (
+                <div class="flex gap-3 items-start">
+                  <svg class="w-4 h-4 shrink-0 mt-1.5 cgo-gold-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="font-body text-base text-foreground/78 leading-relaxed">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div class="mt-10 pt-8 border-t border-primary/25">
+            <CtaPair
+              placement="pro-bono"
+              service={SERVICE}
+              href={MAILTO}
+              primaryLabel="Explore a pro-bono partnership"
+              primaryCta={CTA_ID}
+              primaryChannel="email"
+              whatsappHref={WHATSAPP}
+              whatsappLabel="Ask a question on WhatsApp"
+              note="No obligation, and no commitment asked for in a first conversation."
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 13 · QUESTIONS ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">Questions organisations usually ask</h2>
+        <div class="cgo-faq"><FAQ items={faqItems} /></div>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 03 · dusk over the hills ═══ -->
+    <section class="relative overflow-hidden cgo-graded-dark bg-[hsl(220_26%_8%)]">
+      <Image src={duskVista} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%] cgo-kb-img" widths={[640, 1024, 1600]} quality={64} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.66), hsl(220 26% 8% / 0.52) 50%, hsl(220 26% 8% / 0.76));"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center cgo-reveal">
+        <div class="cgo-rule-light w-16 mx-auto mb-8"></div>
+        <p class="font-heading cgo-quote-dark text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Grounded group work, for real people and real settings.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 14 · START A CONVERSATION ═══ -->
+    <section id="start" class="cgo-warm-bg border-t border-border/50 scroll-mt-[88px]">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">Talk about whether the group could fit your organisation</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          The most useful first step is a conversation about your participants, the support already around them, and whether a weekly group is realistic in your setting. If it is not the right fit, that will be said plainly.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-5 mb-12">
+          <div class="rounded-xl border border-primary/40 bg-primary/[0.07] p-7 flex flex-col">
+            <h3 class="font-heading text-2xl text-foreground mb-3">Start by email</h3>
+            <p class="font-body text-base text-foreground/75 leading-relaxed flex-1 mb-6">Write with a short description of your organisation and the group you have in mind. A few lines is plenty to begin with.</p>
+            <a href={MAILTO} class={primaryButton} data-cta={CTA_ID} data-channel="email" data-service={SERVICE} data-placement="closing">Discuss a programme</a>
+          </div>
+          <div class="rounded-xl border border-border/60 bg-background/70 p-7 flex flex-col">
+            <h3 class="font-heading text-2xl text-foreground mb-3">Or ask first</h3>
+            <p class="font-body text-base text-foreground/75 leading-relaxed flex-1 mb-6">Send a WhatsApp message if you would rather ask one question before writing properly. Either route reaches Michael directly.</p>
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-primary/45 text-foreground/85 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="closing">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Message on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-border/60 bg-background/70 p-7 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+            <div class="flex-1">
+              <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">If your board or team needs the detail</p>
+              <p class="font-body text-base text-foreground/75 leading-relaxed max-w-[52ch]">The full programme proposal covers the same ground in a form you can circulate internally, including two worked example sessions.</p>
+            </div>
+            <a
+              href={PROPOSAL}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 border border-primary/45 text-foreground/85 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body shrink-0"
+              data-cta="proposal-download"
+              data-service={SERVICE}
+              data-placement="closing"
+            >
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
+              Programme proposal (PDF)
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-10 border-t border-border/60 grid sm:grid-cols-2 gap-x-10 gap-y-6">
+          <div>
+            <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Contact</p>
+            <p class="font-body text-base text-foreground/78 leading-relaxed">
+              Michael Kaplan<br />
+              <a href={`mailto:${EMAIL}`} class="cgo-inline-link" data-cta="email" data-channel="email" data-service={SERVICE} data-placement="closing-details">{EMAIL}</a><br />
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="cgo-inline-link" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="closing-details">073 673 8063</a><br />
+              Cape Town, South Africa
+            </p>
+          </div>
+          <div>
+            <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Also for organisations</p>
+            <p class="font-body text-base text-foreground/78 leading-relaxed">
+              <a href="/counselling/workplace-wellbeing/" class="cgo-inline-link">Corporate counselling and workplace wellbeing</a>, for companies funding confidential counselling access and team sessions for employees.
+            </p>
+            <p class="font-body text-base text-foreground/78 leading-relaxed mt-4">
+              <a href="/counselling/" class="cgo-inline-link">Individual counselling</a> and <a href="/workshops/" class="cgo-inline-link">open workshops</a> remain the main body of the practice.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <StickyConsultationCTA
+      label="Discuss a programme →"
+      href={MAILTO}
+      afterSelector="#the-programme"
+      variant="light"
+      service={SERVICE}
+      ctaId={CTA_ID}
+      whatsappHref={WHATSAPP}
+      desktopFloating={true}
+      prominentWhatsapp={true}
+    />
+  </div>
+
+  <script>
+    // Reveal on scroll, matching /counselling/cape-town/.
+    const revealEls = document.querySelectorAll('.cgo-reveal');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      revealEls.forEach((el) => el.classList.add('cgo-in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('cgo-in');
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      );
+      revealEls.forEach((el) => io.observe(el));
+    }
+  </script>
+</BaseLayout>

@@ -6,6 +6,14 @@ import sitemap from '@astrojs/sitemap';
 const SITE = 'https://www.sangham.org';
 const LAST_SIGNIFICANT_UPDATE = '2026-07-21';
 
+// Pages revised or published after the site-wide pass above carry their own
+// date, so a genuinely newer page is not advertised as older than it is.
+const PAGE_LAST_MODIFIED = {
+  [`${SITE}/counselling/cape-town/`]: '2026-09-11',
+  [`${SITE}/counselling/community-organisations/`]: '2026-09-14',
+  [`${SITE}/counselling/workplace-wellbeing/`]: '2026-09-14',
+};
+
 // https://astro.build/config
 export default defineConfig({
   site: SITE,
@@ -24,7 +32,7 @@ export default defineConfig({
         !page.includes('/online-counselling-young-men-south-africa'),
       serialize(item) {
         const url = item.url;
-        const updatedItem = { ...item, lastmod: url === `${SITE}/counselling/cape-town/` ? '2026-09-11' : LAST_SIGNIFICANT_UPDATE };
+        const updatedItem = { ...item, lastmod: PAGE_LAST_MODIFIED[url] ?? LAST_SIGNIFICANT_UPDATE };
 
         // Homepage: highest priority, checked weekly
         if (url === `${SITE}/`) {

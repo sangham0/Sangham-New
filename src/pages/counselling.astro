@@ -106,6 +106,19 @@ const supportPaths = [
   },
 ];
 
+const organisationPaths = [
+  {
+    title: 'Workplace wellbeing',
+    text: 'For employers funding confidential counselling access for their people, alongside facilitated team sessions and practical workplace workshops.',
+    href: '/counselling/workplace-wellbeing',
+  },
+  {
+    title: 'Community organisations',
+    text: 'A facilitated six to eight week Reflective Group Counselling and Mindfulness programme for NGOs, NPOs, clinics, shelters and recovery services.',
+    href: '/counselling/community-organisations',
+  },
+];
+
 const fiveSessionSteps = [
   { num: '01', title: 'Mapping', text: 'Understanding current patterns, dynamics, and the specific areas where there is a sense of being stuck or challenged.' },
   { num: '02', title: 'Identifying', text: 'Seeing what is actually maintaining these patterns. Not the story told about them, but the mechanisms underneath.' },
@@ -417,6 +430,25 @@ const faqJsonLd = {
             <span class="text-primary/70 group-hover:text-primary text-sm font-body mt-5">Read more &rarr;</span>
           </a>
         ))}
+      </div>
+
+      <!-- FOR ORGANISATIONS -->
+      <!-- Kept below the individual pathways, and visually quieter than them,
+           so the counselling practice does not start reading as B2B-first. -->
+      <div class="mt-16 pt-12 border-t border-border/40">
+        <h3 class="font-heading text-2xl md:text-3xl text-foreground text-center mb-4">For Organisations</h3>
+        <p class="text-muted-foreground font-body text-sm leading-relaxed text-center mb-10 max-w-xl mx-auto">
+          Counselling and facilitated group work can also be commissioned by an employer or an organisation, on behalf of the people it supports.
+        </p>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+          {organisationPaths.map((path) => (
+            <a href={path.href} class="group flex flex-col border border-border/40 rounded-xl p-7 bg-card hover:border-primary/35 hover:-translate-y-[2px] transition-all duration-200">
+              <h4 class="font-heading text-xl text-foreground group-hover:text-primary transition-colors mb-3">{path.title}</h4>
+              <p class="text-muted-foreground font-body text-sm leading-relaxed flex-1">{path.text}</p>
+              <span class="text-primary/70 group-hover:text-primary text-sm font-body mt-5">Read more &rarr;</span>
+            </a>
+          ))}
+        </div>
       </div>
     </div>
   </section>

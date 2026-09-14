@@ -19,6 +19,17 @@ const counsellingSubItems = [
   { path: '/mentoring-for-young-men', label: 'Mentoring for Young Men' },
 ];
 
+/**
+ * The organisational offers sit inside the Counselling menu, below a quiet
+ * label, rather than as top-level navigation. Individual counselling remains
+ * the practice's primary identity; an employer or an NGO director arriving
+ * from elsewhere still finds a route in one hop.
+ */
+const counsellingOrgItems = [
+  { path: '/counselling/workplace-wellbeing', label: 'Workplace Wellbeing' },
+  { path: '/counselling/community-organisations', label: 'Community Organisations' },
+];
+
 const currentPath = Astro.url.pathname;
 
 /**
@@ -96,6 +107,25 @@ const isCounsellingActive =
                 {item.label}
               </a>
             ))}
+            <p class="mt-1 pt-3 px-5 pb-1.5 border-t border-nav-foreground/10 text-[10px] font-body tracking-[0.14em] uppercase text-nav-foreground/35">
+              For organisations
+            </p>
+            {counsellingOrgItems.map((item) => (
+              <a
+                href={item.path}
+                role="menuitem"
+                class:list={[
+                  'block px-5 py-2.5 text-sm font-body transition-colors duration-200',
+                  isCurrent(item.path)
+                    ? 'text-gold-light'
+                    : 'text-nav-foreground/60 hover:text-nav-foreground hover:bg-nav-foreground/5',
+                ]}
+                data-cta="nav-subitem"
+                data-nav-item={item.label}
+              >
+                {item.label}
+              </a>
+            ))}
           </div>
         </div>
       </div>
@@ -164,6 +194,24 @@ const isCounsellingActive =
         </button>
         <div id="mobile-counselling-submenu" class="hidden pl-4 pb-2 flex flex-col gap-1">
           {counsellingSubItems.map((item) => (
+            <a
+              href={item.path}
+              class:list={[
+                'text-sm font-body transition-colors py-1.5',
+                isCurrent(item.path)
+                  ? 'text-gold-light'
+                  : 'text-nav-foreground/50 hover:text-nav-foreground',
+              ]}
+              data-cta="nav-subitem"
+              data-nav-item={item.label}
+            >
+              {item.label}
+            </a>
+          ))}
+          <p class="mt-2 pt-3 border-t border-nav-foreground/10 text-[10px] font-body tracking-[0.14em] uppercase text-nav-foreground/35">
+            For organisations
+          </p>
+          {counsellingOrgItems.map((item) => (
             <a
               href={item.path}
               class:list={[

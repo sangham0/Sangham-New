@@ -88,6 +88,9 @@ document.addEventListener('click', (event) => {
     case 'book-parent-consultation':
       pushDataLayer('parent_consultation_cta_click', common);
       break;
+    case 'organisation-enquiry':
+      pushDataLayer('organisation_enquiry_click', common);
+      break;
     case 'written-enquiry':
       pushDataLayer('written_enquiry_open', common);
       break;

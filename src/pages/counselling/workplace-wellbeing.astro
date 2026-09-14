@@ -1,0 +1,989 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import FAQ from '../../components/FAQ.astro';
+import CtaPair from '../../components/CtaPair.astro';
+import StickyConsultationCTA from '../../components/StickyConsultationCTA.astro';
+import { Image } from 'astro:assets';
+
+// ── Michael, and the Newlands consulting room ──────────────────────────────
+// The room matters here: the proposal offers selected weekday evenings and
+// Saturday mornings in Newlands alongside online sessions, so employees can
+// see where in-person appointments would actually happen.
+import michaelPortrait from '../../assets/michael-portrait-new.jpg';
+import michaelSeated from '../../assets/Michael-portrait-2.PNG';
+import roomChairs from '../../assets/counselling-cape-town-chairs.webp';
+import roomGarden from '../../assets/counselling-cape-town-garden.webp';
+
+// ── Landscape dividers ─────────────────────────────────────────────────────
+// From the existing Sangham library. Deliberately no office photography: the
+// subject of this page is people, not workplaces.
+import stillWater from '../../assets/river-sunrise.jpg';
+import coastTwilight from '../../assets/twilight-coast.jpg';
+
+const canonicalURL = 'https://www.sangham.org/counselling/workplace-wellbeing/';
+
+const EMAIL = 'michael@sangham.org';
+const MAILTO = `mailto:${EMAIL}?subject=${encodeURIComponent(
+  'Corporate counselling and workplace wellbeing enquiry'
+)}&body=${encodeURIComponent(
+  'Hello Michael,\n\nWe are looking into counselling and wellbeing support for our team.\n\nA little about us:\n- Organisation:\n- Roughly how many employees:\n- Location, and whether online or in person suits better:\n- What has prompted this:\n\nI would be glad to arrange a conversation.\n\n'
+)}`;
+const WHATSAPP_NUMBER = '27736738063';
+const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+  'Hi Michael, I came across the workplace wellbeing page and wanted to ask about counselling support for our team.'
+)}`;
+const PROPOSAL = '/downloads/sangham-corporate-counselling-workplace-wellbeing.pdf';
+
+const SERVICE = 'workplace-wellbeing';
+const CTA_ID = 'organisation-enquiry';
+
+const primaryButton =
+  'cww-button inline-flex items-center justify-center px-8 py-4 rounded-lg text-sm tracking-wider uppercase font-body font-medium transition-colors duration-200';
+
+const howItWorks = [
+  {
+    num: '01',
+    title: 'The company funds access',
+    text: 'An agreed allocation of counselling sessions is purchased for eligible employees. The organisation decides the size of the pool and who may draw on it.',
+  },
+  {
+    num: '02',
+    title: 'Employees book directly',
+    text: 'Employees contact Sangham themselves, so access stays private, simple, and independent of management.',
+  },
+  {
+    num: '03',
+    title: 'Counselling stays confidential',
+    text: 'Session content is not reported back to the employer, except with the employee’s consent or where a recognised safety or legal exception applies.',
+  },
+  {
+    num: '04',
+    title: 'Organisational work is added where it belongs',
+    text: 'Workshops, group sessions and facilitated conversations can be added where the difficulty sits with the team rather than with one person.',
+  },
+];
+
+const notThis = [
+  {
+    head: 'Not a full EAP',
+    body: 'This is an independent counselling and workplace wellbeing service, not a 24-hour employee assistance programme or an emergency response service.',
+  },
+  {
+    head: 'Not performance management',
+    body: 'Counselling is not used to judge quotas, discipline employees, or supply management with private clinical information.',
+  },
+  {
+    head: 'Not clinical diagnosis',
+    body: 'Where psychiatric diagnosis, specialised treatment, emergency care or formal assessment is required, referral is made to an appropriate professional.',
+  },
+];
+
+const individualAreas = [
+  'Stress and emotional strain',
+  'Anxiety',
+  'Grief and loss',
+  'Relationship difficulties',
+  'Life transitions and adjustment',
+  'Recurring patterns',
+  'Motivation',
+  'Workplace conflict',
+  'Boundaries and difficult conversations',
+];
+
+const facilitatedFocus = [
+  {
+    head: 'Communication and difficult conversations',
+    body: 'Where something needs to be said, has not been said, and the cost of the silence is starting to show in the work.',
+  },
+  {
+    head: 'Interpersonal conflict',
+    body: 'Where a tension between colleagues has settled into a pattern that neither party can now step out of alone.',
+  },
+  {
+    head: 'Trust and psychological safety',
+    body: 'Where people have learned that raising a concern is not worth what it costs them, and have quietly stopped raising them.',
+  },
+  {
+    head: 'Stress and burnout awareness',
+    body: 'Where overload has become the normal operating state, and nobody is noticing it early enough to act on.',
+  },
+];
+
+const workshops = [
+  {
+    head: 'Workplace communication',
+    body: 'Listening, feedback and repair: what makes a difficult conversation usable rather than merely survivable.',
+  },
+  {
+    head: 'Stress and self-regulation',
+    body: 'Recognising overload earlier, and practical ways to pause and respond with more awareness.',
+  },
+  {
+    head: 'Connection and team culture',
+    body: 'Healthier ways of relating, and what it takes for a team to repair after tension rather than route around it.',
+  },
+  {
+    head: 'Change and transition',
+    body: 'Navigating uncertainty together, and what people need from one another while the ground is moving.',
+  },
+];
+
+const outcomes = [
+  {
+    head: 'Earlier support',
+    body: 'A low-friction route to support before stress or personal difficulty becomes more entrenched.',
+  },
+  {
+    head: 'Healthier communication',
+    body: 'More capacity to name concerns, listen, set boundaries, and approach difficult conversations constructively.',
+  },
+  {
+    head: 'Self-regulation',
+    body: 'Practical ways to recognise overload, pause, and respond with greater awareness.',
+  },
+  {
+    head: 'Stronger team culture',
+    body: 'Shared sessions can strengthen empathy, mutual support, honest communication, and the ability to repair after tension.',
+  },
+  {
+    head: 'More reflective choices',
+    body: 'Space to understand patterns and consider healthier responses, without removing personal responsibility.',
+  },
+  {
+    head: 'Connection',
+    body: 'A culture in which asking for help, and relating with some humanity, become more ordinary than exceptional.',
+  },
+];
+
+// Rates as set out in the 2026 corporate proposal. Any change here should be
+// made against that document rather than adjusted in isolation.
+const fees = [
+  {
+    label: 'Individual session',
+    price: 'R850',
+    unit: '60 minutes',
+    note: 'Online, or in person in Newlands where available.',
+  },
+  {
+    label: 'Five-session package',
+    price: 'R3,400',
+    unit: 'total, at R680 a session',
+    note: 'A contained piece of work at a lower rate per session.',
+  },
+  {
+    label: 'Corporate counselling pool',
+    price: 'R680',
+    unit: 'per session, from 5 prepaid',
+    note: 'Non-refundable, and valid for 12 months from purchase.',
+    featured: true,
+  },
+  {
+    label: 'Focused facilitated session',
+    price: 'From R1,750',
+    unit: '60 to 90 minutes',
+    note: 'A small team or a specific workplace issue.',
+  },
+  {
+    label: 'Three-hour workshop',
+    price: 'R5,500',
+    unit: 'up to 20 participants',
+    note: 'Preparation included.',
+  },
+  {
+    label: 'Half-day workshop',
+    price: 'R7,500',
+    unit: 'up to 20 participants',
+    note: 'Approximately four hours, preparation included.',
+  },
+];
+
+const appropriate = [
+  'Total sessions used and remaining',
+  'Service uptake at an aggregate level',
+  'Agreed attendance confirmation, where genuinely necessary and consented to',
+  'Broad non-identifying organisational themes, where anonymity is realistic',
+  'Recommendations for workshops, manager training or systemic support',
+];
+
+const notAppropriate = [
+  'Counselling notes or detailed session content',
+  'Diagnosis or psychiatric opinion',
+  'Whether an employee is telling the truth',
+  'Performance, disciplinary or fitness-for-duty conclusions',
+  'Personal histories, or judgments about an employee’s character',
+];
+
+const faqItems = [
+  {
+    q: 'Who is the client, the company or the employee?',
+    a: 'The employee. The company funds access to counselling; the counselling relationship itself is between Michael and the employee. That distinction is what makes the support usable, because an employee who suspects their sessions are being reported on will not say anything worth saying.',
+  },
+  {
+    q: 'What does the employer actually get told?',
+    a: 'By default: how many sessions have been funded and used. Where numbers are large enough for anonymity to be realistic, carefully aggregated observations and recommendations can also be shared. Session notes, diagnoses, personal histories and opinions about an employee’s character or performance are not part of that.',
+  },
+  {
+    q: 'We are a team of eight. Can reporting really be anonymous?',
+    a: 'Honestly, no. In small teams even apparently anonymous thematic reporting can identify people, and it should be treated as identifying. In those settings reporting stays especially minimal: utilisation figures, and nothing that describes what anyone brought.',
+  },
+  {
+    q: 'Can a manager refer someone?',
+    a: 'Management can encourage or formally refer an employee to seek support. Performance expectations remain a management responsibility throughout. If any feedback is requested as part of a referral, the employee should know exactly what may be shared before counselling begins, and provide specific written consent where appropriate.',
+  },
+  {
+    q: 'Is this an EAP?',
+    a: 'No. This is an independent counselling and workplace wellbeing service. It is not a 24-hour employee assistance programme, an emergency response service, a psychiatric service, or a fitness-for-duty assessment. Where one of those is what is actually needed, referral is made rather than stretching this service beyond its proper role.',
+  },
+  {
+    q: 'What if we need mediation or a formal report?',
+    a: 'That is a materially different professional role, and it may need to be handled separately from any employee’s private counselling relationship. Mixing the two compromises both. It is worth raising early so the right structure can be put in place from the start.',
+  },
+  {
+    q: 'When and where do sessions happen?',
+    a: 'Sessions are 60 minutes. Online appointments are available during weekday working hours. In-person appointments are available in Newlands, in the Southern Suburbs of Cape Town, on selected weekday evenings, with Saturday morning availability.',
+  },
+  {
+    q: 'Do unused sessions expire?',
+    a: 'A corporate counselling pool starts at five prepaid sessions at R680 a session. It is non-refundable and valid for 12 months from purchase. Pool size and renewal are agreed in writing before commencement.',
+  },
+  {
+    q: 'Can employees use sessions for something unrelated to work?',
+    a: 'Yes, and most do. Stress, grief, anxiety, relationship difficulties and life transitions do not stay neatly outside the office, and an employee is not required to justify their reason for attending to anyone.',
+  },
+  {
+    q: 'Can you guarantee an improvement in productivity?',
+    a: 'No, and it would be worth being sceptical of any provider who does. Counselling supports the person. What it can reasonably aim at is earlier support, better communication, and more capacity for reflection, all of which tend to help how a workplace functions.',
+  },
+];
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'Service',
+    '@id': `${canonicalURL}#service`,
+    name: 'Corporate Counselling and Workplace Wellbeing',
+    url: canonicalURL,
+    description:
+      'A workplace wellbeing partnership combining confidential one-to-one counselling for employees with facilitated team sessions and practical workshops. The employer funds access; the employee remains the counselling client.',
+    serviceType: 'Corporate Counselling and Workplace Wellbeing',
+    provider: { '@id': 'https://www.sangham.org/about/#michael-kaplan' },
+    areaServed: [
+      { '@type': 'City', name: 'Cape Town' },
+      { '@type': 'Country', name: 'South Africa' },
+    ],
+    audience: { '@type': 'Audience', audienceType: 'Employers and organisations' },
+    availableChannel: [
+      { '@type': 'ServiceChannel', serviceUrl: canonicalURL, availableLanguage: 'English' },
+      {
+        '@type': 'ServiceChannel',
+        serviceUrl: canonicalURL,
+        serviceLocation: { '@type': 'Place', name: 'Newlands, Southern Suburbs, Cape Town' },
+        availableLanguage: 'English',
+      },
+    ],
+    offers: [
+      { '@type': 'Offer', name: 'Individual Session', price: '850', priceCurrency: 'ZAR', description: 'A 60-minute counselling session, online or in person where available.' },
+      { '@type': 'Offer', name: 'Five-Session Package', price: '3400', priceCurrency: 'ZAR', description: 'Five 60-minute sessions paid in advance, which works out at R680 a session.' },
+      { '@type': 'Offer', name: 'Corporate Counselling Pool', price: '680', priceCurrency: 'ZAR', description: 'Per session, from five prepaid sessions. Non-refundable and valid for 12 months.' },
+      { '@type': 'Offer', name: 'Focused Facilitated Session', price: '1750', priceCurrency: 'ZAR', description: 'From R1,750 for a 60 to 90 minute facilitated session on a small-team or workplace issue.' },
+      { '@type': 'Offer', name: 'Three-Hour Workplace Workshop', price: '5500', priceCurrency: 'ZAR', description: 'Up to 20 participants, preparation included.' },
+      { '@type': 'Offer', name: 'Half-Day Workshop', price: '7500', priceCurrency: 'ZAR', description: 'Approximately four hours for up to 20 participants, preparation included.' },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: [
+      { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://www.sangham.org/' },
+      { '@type': 'ListItem', position: 2, name: 'Counselling', item: 'https://www.sangham.org/counselling/' },
+      { '@type': 'ListItem', position: 3, name: 'Workplace Wellbeing', item: canonicalURL },
+    ],
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.q,
+      acceptedAnswer: { '@type': 'Answer', text: item.a },
+    })),
+  },
+];
+---
+
+<style is:global>
+  /* Same colour, typography and motion vocabulary as /counselling/cape-town/,
+     so a commercially framed page still reads as a Sangham counselling page
+     rather than as an HR consultancy bolted onto the side of the site. */
+  .cww {
+    --cww-warm: hsl(38 30% 84%);
+    --cww-gold: hsl(41 48% 31%);
+    --cww-gold-deep: hsl(40 52% 26%);
+    --cww-gold-light: hsl(42 54% 57%);
+    --cww-navy: hsl(220 22% 12%);
+    --cww-navy-deep: hsl(220 26% 8%);
+    --cww-parch: hsl(36 22% 86%);
+  }
+  .cww-warm-bg { background-color: var(--cww-warm); }
+
+  .cww-dark { background-color: var(--cww-navy); color: var(--cww-parch); }
+  .cww-dark-deep { background-color: var(--cww-navy-deep); color: var(--cww-parch); }
+  .cww-dark p, .cww-dark li, .cww-dark-deep p, .cww-dark-deep li { color: hsl(36 20% 86% / 0.84); }
+  .cww-dark .cww-emph, .cww-dark-deep .cww-emph { color: hsl(36 24% 92%); }
+
+  .cww-gold-text { color: var(--cww-gold); }
+  .cww-gold-deep-text { color: var(--cww-gold-deep); }
+  .cww-gold-light-text { color: var(--cww-gold-light); }
+  .cww-rule { height: 1px; background: linear-gradient(90deg, transparent, var(--cww-gold), transparent); opacity: 0.5; }
+  .cww-rule-light { height: 1px; background: linear-gradient(90deg, transparent, var(--cww-gold-light), transparent); opacity: 0.55; }
+
+  .cww-quote { color: hsl(30 14% 16%); text-shadow: 0 1px 10px hsl(36 30% 96% / 0.92), 0 2px 26px hsl(36 30% 96% / 0.75); }
+  .cww-quote-dark { color: var(--cww-gold-light); text-shadow: 0 2px 30px hsl(220 30% 4% / 0.75); }
+
+  .cww-graded img { filter: saturate(0.95) brightness(1.02) contrast(0.99) sepia(0.07); }
+  .cww-graded-dark img { filter: saturate(0.9) brightness(0.92) contrast(1.04) sepia(0.06); }
+
+  .cww-link {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-size: 0% 1px; background-repeat: no-repeat; background-position: 0 100%;
+    transition: background-size 0.3s ease; padding-bottom: 1px;
+  }
+  .cww-link:hover, .cww-link:focus-visible { background-size: 100% 1px; }
+
+  .cww-inline-link { color: var(--cww-gold); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: hsl(41 48% 31% / .4); }
+  .cww-inline-link:hover { text-decoration-color: currentColor; }
+  .cww-dark .cww-inline-link, .cww-dark-deep .cww-inline-link { color: var(--cww-gold-light); text-decoration-color: hsl(42 54% 57% / .45); }
+
+  .cww-button { background: #D4A95C; color: #0F1422; text-align: center; }
+  .cww-button:hover { background: #E6BE76; }
+
+  .cww-reveal { opacity: 0; transform: translateY(24px); transition: opacity 0.6s ease-out, transform 0.6s ease-out; }
+  .cww-reveal.cww-in { opacity: 1; transform: none; }
+
+  .cww-kb-img { animation: cwwKb 26s ease-in-out infinite alternate; transform-origin: center; will-change: transform; }
+  @keyframes cwwKb { from { transform: scale(1.03); } to { transform: scale(1.11); } }
+
+  .cww-card > .cww-card-body { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+  .cww-card[open] > .cww-card-body { grid-template-rows: 1fr; }
+  .cww-card > .cww-card-body > div { overflow: hidden; }
+
+  @media (min-width: 1024px) {
+    .cww-aside { position: sticky; top: 7rem; }
+  }
+
+  .cww-faq :global(summary) { font-size: 1.0625rem; }
+  .cww-faq :global(details p) { font-size: 1rem; color: hsl(30 12% 25%); }
+
+  .cww a:focus-visible, .cww summary:focus-visible { outline: 2px solid currentColor; outline-offset: 5px; }
+
+  @media (prefers-reduced-motion: reduce) {
+    .cww-reveal { opacity: 1 !important; transform: none !important; transition: none !important; }
+    .cww-kb-img { animation: none !important; }
+    .cww-card > .cww-card-body { transition: none !important; }
+    .cww :global(*) { scroll-behavior: auto; }
+  }
+</style>
+
+<BaseLayout
+  title="Corporate Counselling and Workplace Wellbeing in Cape Town"
+  description="Confidential counselling for employees, facilitated team sessions and workplace workshops, from Michael Kaplan, ASCHP-registered Wellness Counsellor. The employer funds access; the employee remains the client. Cape Town and online, with published rates."
+  canonicalURL={canonicalURL}
+  image="/images/og-counselling.jpg"
+  jsonLd={jsonLd}
+  hideStickyBar={true}
+>
+  <div class="cww bg-background text-foreground">
+
+    <!-- ═══ 01 · HERO ═══ -->
+    <section class="cww-dark-deep">
+      <div class="container mx-auto px-6 py-12 md:py-24 lg:py-28 max-w-5xl">
+        <div class="grid md:grid-cols-[1fr_auto] gap-8 md:gap-12 lg:gap-16 items-center">
+
+          <div>
+            <p class="font-body text-xs sm:text-sm tracking-[0.18em] uppercase text-parchment/60 mb-7">
+              Corporate counselling and workplace wellbeing &middot; Cape Town and online
+            </p>
+
+            <h1 class="font-heading text-gold-gradient text-[34px] sm:text-5xl md:text-[52px] lg:text-[60px] leading-[1.08] mb-7 md:mb-8">
+              Support the person. Strengthen the workplace.
+            </h1>
+
+            <p class="font-body text-lg md:text-xl text-parchment/82 leading-relaxed mb-5 max-w-xl">
+              Confidential one-to-one counselling for employees, with facilitated team sessions and practical workshops where the difficulty belongs to the group rather than to one person.
+            </p>
+            <p class="font-body text-base text-parchment/70 leading-relaxed mb-8 max-w-xl">
+              The employer funds access without becoming part of the counselling room. That distinction is what makes the support worth having.
+            </p>
+
+            <CtaPair
+              tone="dark"
+              placement="hero"
+              service={SERVICE}
+              href={MAILTO}
+              primaryLabel="Discuss a partnership"
+              primaryCta={CTA_ID}
+              primaryChannel="email"
+              whatsappHref={WHATSAPP}
+              whatsappLabel="Ask a question on WhatsApp"
+              note="Rates are published further down this page. A partnership begins with a short conversation."
+            />
+          </div>
+
+          <div class="flex justify-center md:justify-end">
+            <div class="w-full max-w-[240px] sm:max-w-[250px] lg:max-w-[260px]">
+              <div class="rounded-xl overflow-hidden border border-parchment/15 shadow-xl shadow-black/30 cww-graded">
+                <div class="aspect-[4/5] overflow-hidden">
+                  <Image
+                    src={michaelPortrait}
+                    alt="Michael Kaplan, ASCHP-registered Wellness Counsellor, who provides counselling for employees online and in Newlands, Cape Town"
+                    class="w-full h-full object-cover object-center"
+                    widths={[400, 520, 640]}
+                    sizes="(min-width: 1024px) 260px, (min-width: 640px) 250px, 240px"
+                    width={1254}
+                    height={1254}
+                    loading="eager"
+                    fetchpriority="high"
+                  />
+                </div>
+              </div>
+              <p class="font-heading text-base text-parchment/90 mt-4">Michael Kaplan</p>
+              <p class="cww-gold-light-text text-[11px] font-body tracking-wide mt-1 leading-snug">BA Psychology &middot; ASCHP-registered Wellness Counsellor (Reg. 10559)</p>
+              <p class="font-body text-[11px] text-parchment/60 tracking-wide mt-2 leading-snug">Online during working hours<br />In person in Newlands, Cape Town</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 02 · THE THREE BOUNDARIES THAT MAKE IT WORK ═══ -->
+    <section class="cww-warm-bg border-b border-border/50">
+      <div class="container mx-auto px-6 py-14 md:py-20 max-w-5xl cww-reveal">
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-10 sm:gap-0 text-center sm:text-left sm:divide-x sm:divide-border/70">
+          <div class="sm:pr-10 lg:pr-14">
+            <p class="font-heading cww-gold-text text-2xl md:text-3xl lg:text-[32px] leading-tight mb-3">The employer funds</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[30ch] mx-auto sm:mx-0">an agreed pool of sessions, sized to the organisation and topped up as it is used</p>
+          </div>
+          <div class="sm:px-10 lg:px-14">
+            <p class="font-heading cww-gold-text text-2xl md:text-3xl lg:text-[32px] leading-tight mb-3">The employee is the client</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[30ch] mx-auto sm:mx-0">booking directly, without explaining the reason to anyone at work</p>
+          </div>
+          <div class="sm:pl-10 lg:pl-14">
+            <p class="font-heading cww-gold-text text-2xl md:text-3xl lg:text-[32px] leading-tight mb-3">The content stays private</p>
+            <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[30ch] mx-auto sm:mx-0">with utilisation reported, and session material not reported at all</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 03 · THE IDEA BEHIND THE PARTNERSHIP ═══ -->
+    <section id="the-partnership" class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cww-reveal">
+        <div class="grid lg:grid-cols-[1fr_1.7fr] gap-10 lg:gap-16">
+
+          <div>
+            <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[42px] leading-tight mb-8">The idea behind the partnership</h2>
+            <div class="cww-aside hidden lg:block border-l-2 border-primary/40 pl-6">
+              <p class="font-heading cww-gold-text text-[22px] italic leading-snug">The aim is not simply to help people cope. It is to create more capacity for reflection, communication and constructive action.</p>
+            </div>
+          </div>
+
+          <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch]">
+            <p>Workplace wellbeing is not only about what happens when somebody reaches breaking point.</p>
+
+            <p>Stress, grief, relationship difficulties, anxiety, conflict and life transitions do not stay neatly outside the office. When people are struggling, concentration, motivation, communication and relationships at work are all affected, usually well before anyone names the problem out loud.</p>
+
+            <p>Sangham offers employees a confidential place to work through what is happening before it becomes more entrenched. The employer funds that access. The employee remains the counselling client, and the content of their sessions stays between them and the counsellor.</p>
+
+            <p>Alongside individual support, an organisation can add carefully designed group sessions and workshops focused on communication, stress, emotional awareness, conflict, trust and healthier team functioning. Not every workplace difficulty is one person’s private problem, and treating it as one tends to leave the actual pattern in place.</p>
+
+            <p class="text-base text-foreground/72">A partnership can begin simply, with a pool of counselling sessions, and expand into team development, facilitated conversations or focused workshops where that turns out to be useful.</p>
+
+            <blockquote class="lg:hidden border-l-2 border-primary/40 pl-6 pt-1">
+              <p class="font-heading cww-gold-text text-[22px] md:text-2xl italic leading-snug">The aim is not simply to help people cope. It is to create more capacity for reflection, communication and constructive action.</p>
+            </blockquote>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 04 · HOW SUPPORT WORKS ═══ -->
+    <section class="cww-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+        <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">How support works</h2>
+        <p class="font-body text-lg leading-relaxed max-w-[62ch] mb-12">
+          Simple access, clear boundaries, and support that can grow with the need.
+        </p>
+
+        <div class="space-y-6 mb-14">
+          {howItWorks.map((step) => (
+            <div class="flex gap-5 items-start border-l-2 border-gold-light/30 pl-5">
+              <span class="cww-gold-light-text font-heading text-2xl shrink-0 w-8">{step.num}</span>
+              <div>
+                <h3 class="font-heading text-xl text-parchment/90 mb-2">{step.title}</h3>
+                <p class="font-body text-base leading-relaxed">{step.text}</p>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        <div class="grid sm:grid-cols-3 gap-5 pt-10 border-t border-parchment/15">
+          {notThis.map((item) => (
+            <div>
+              <p class="cww-gold-light-text font-body text-xs tracking-[0.14em] uppercase mb-3">{item.head}</p>
+              <p class="font-body text-base leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+
+        <p class="font-heading cww-emph text-2xl md:text-[28px] italic leading-snug mt-12 max-w-[34ch]">
+          The employer can support access without becoming part of the counselling room.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ CTA 1 · once the model is clear ═══ -->
+    <section class="cww-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-12 md:py-14 max-w-5xl cww-reveal">
+        <div class="flex flex-col lg:flex-row lg:items-center gap-7 lg:gap-10">
+          <p class="font-heading cww-gold-text text-xl md:text-2xl leading-snug lg:flex-1 lg:min-w-0 max-w-[42ch]">
+            Most partnerships start with a small pool of sessions and grow from there.
+          </p>
+          <div class="lg:shrink-0">
+            <CtaPair
+              placement="after-model"
+              service={SERVICE}
+              href={MAILTO}
+              primaryLabel="Discuss a partnership"
+              primaryCta={CTA_ID}
+              primaryChannel="email"
+              whatsappHref={WHATSAPP}
+              whatsappLabel="Ask a question on WhatsApp"
+            />
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 05 · INDIVIDUAL COUNSELLING ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+        <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">One to one</p>
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-7">A private place to work through what is getting in the way</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-7 max-w-[65ch] mb-10">
+          <p>Employees can use sessions for anything affecting their wellbeing, their relationships or their ability to function. They do not need to justify the reason to management, and nobody at work is told they attended.</p>
+          <p>The work is supportive and reflective rather than diagnostic. It helps people understand what is happening, identify the patterns underneath it, consider their choices, and develop healthier ways of responding.</p>
+        </div>
+
+        <div class="rounded-xl border border-border/60 bg-card/30 p-7 md:p-8 mb-10">
+          <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">Common areas of work</p>
+          <ul class="flex flex-wrap gap-x-3 gap-y-3">
+            {individualAreas.map((area) => (
+              <li class="font-body text-[15px] text-foreground/78 border border-border/70 rounded-full px-4 py-1.5 bg-background/60">{area}</li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-10 lg:gap-14 mb-10">
+          <div>
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-4">When work is part of the problem</p>
+            <p class="font-body text-lg text-foreground/78 leading-relaxed">Sessions can explore workplace stress, difficult conversations, boundaries, motivation, conflict and adjustment directly. Where an employee comes because their performance is under strain, the counselling still remains separate from the employer’s performance-management process. The counsellor helps them think through constructive next steps, and does not become an evaluator for management.</p>
+          </div>
+          <div>
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-4">Practical details</p>
+            <ul class="space-y-3">
+              {[
+                '60-minute sessions',
+                'Online during weekday working hours',
+                'Newlands, Cape Town, on selected weekday evenings',
+                'Saturday morning availability',
+              ].map((item) => (
+                <li class="flex gap-3 items-start">
+                  <svg class="w-4 h-4 shrink-0 mt-1.5 cww-gold-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="font-body text-lg text-foreground/78 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <p class="font-body text-base text-foreground/75 leading-relaxed max-w-[65ch]">
+          If a presenting concern suggests that a psychologist, psychiatrist, medical practitioner, emergency service or other specialist is more appropriate, the employee is supported with a referral. Where it helps, supportive counselling may continue alongside that specialist care.
+        </p>
+
+        <blockquote class="mt-12 border-l-2 border-primary/50 pl-7 md:pl-8">
+          <p class="font-heading cww-gold-text text-[26px] md:text-[32px] italic leading-snug max-w-[34ch]">The employee is the client. The company enables access to support.</p>
+        </blockquote>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 01 · still water at first light ═══ -->
+    <section class="relative overflow-hidden cww-graded">
+      <Image src={stillWater} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_55%] cww-kb-img" widths={[640, 1024, 1600]} quality={62} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(36 18% 90% / 0.58), hsl(36 18% 90% / 0.34) 50%, hsl(36 18% 90% / 0.58));"></div>
+      <div class="absolute inset-0" style="background: radial-gradient(62% 46% at 50% 50%, hsl(36 20% 93% / 0.74), transparent 74%);"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center cww-reveal">
+        <div class="cww-rule w-16 mx-auto mb-8"></div>
+        <p class="font-heading cww-quote text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Not every workplace difficulty is one person’s private problem.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 06 · TEAM AND WORKPLACE SESSIONS ═══ -->
+    <section id="team-sessions" class="cww-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cww-reveal">
+        <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">Group work</p>
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-7">When the challenge belongs to the team, work with the team</h2>
+
+        <div class="font-body text-lg text-foreground/78 leading-relaxed space-y-6 max-w-[65ch] mb-12">
+          <p>Some patterns cannot be resolved in private counselling, because they do not belong to any one person. Facilitated sessions give colleagues a structured way to address tension, rebuild communication, and get clear about what actually needs to change.</p>
+          <p>These sessions are kept distinct from any employee’s private counselling. Participation, purpose, confidentiality and who will receive any feedback are all agreed in advance, so that nobody is surprised by the role the facilitator is playing.</p>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-4 mb-14">
+          {facilitatedFocus.map((item) => (
+            <details class="cww-card group rounded-xl border border-border/60 bg-background/70 hover:border-primary/40 hover:shadow-md hover:shadow-black/5 transition-all duration-300">
+              <summary class="flex items-start justify-between gap-4 px-6 py-5 cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                <span class="font-heading text-lg text-foreground/90 leading-snug">{item.head}</span>
+                <svg class="w-4 h-4 shrink-0 mt-1.5 cww-gold-text transition-transform duration-200 group-open:rotate-45" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" /></svg>
+              </summary>
+              <div class="cww-card-body"><div class="px-6 pb-5"><p class="font-body text-base text-foreground/72 leading-relaxed">{item.body}</p></div></div>
+            </details>
+          ))}
+        </div>
+
+        <div class="pt-12 border-t border-border/60">
+          <h3 class="font-heading text-2xl md:text-3xl text-foreground mb-4">Workshops, used before a problem becomes a crisis</h3>
+          <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-10">
+            Workshops combine guided discussion, reflection, practical exercises and usable psychological or mindfulness-based tools. They are built around the team’s real context rather than delivered as a generic motivational talk.
+          </p>
+          <div class="grid sm:grid-cols-2 gap-5">
+            {workshops.map((item) => (
+              <div class="rounded-xl border border-border/60 bg-background/70 p-7">
+                <h4 class="font-heading text-xl text-foreground mb-3">{item.head}</h4>
+                <p class="font-body text-base text-foreground/75 leading-relaxed">{item.body}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <p class="font-heading cww-gold-text text-2xl md:text-[28px] italic leading-snug mt-12 max-w-[42ch]">
+          A healthier workplace is not one without tension. It is one with more capacity to notice, communicate and repair.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 07 · CONFIDENTIALITY AND REPORTING ═══ -->
+    <section id="confidentiality" class="bg-background scroll-mt-[88px]">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+        <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">Boundaries</p>
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-7">Useful information for the employer, without turning counselling into surveillance</h2>
+
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          An employer can reasonably know how many sessions have been funded and used, and can receive carefully aggregated observations where the numbers are large enough to protect identity. What an employer does not automatically receive is anything about a particular person.
+        </p>
+
+        <div class="grid md:grid-cols-2 gap-5 mb-12">
+          <div class="rounded-xl border border-primary/40 bg-primary/[0.06] p-7">
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">Generally appropriate to share</p>
+            <ul class="space-y-3">
+              {appropriate.map((item) => (
+                <li class="flex gap-3 items-start">
+                  <svg class="w-4 h-4 shrink-0 mt-1 cww-gold-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
+                  <span class="font-body text-base text-foreground/78 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div class="rounded-xl border border-border/60 bg-card/30 p-7">
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">Not ordinarily appropriate</p>
+            <ul class="space-y-3">
+              {notAppropriate.map((item) => (
+                <li class="flex gap-3 items-start">
+                  <svg class="w-4 h-4 shrink-0 mt-1 text-muted-foreground/60" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /></svg>
+                  <span class="font-body text-base text-foreground/78 leading-relaxed">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+
+        <div class="space-y-10">
+          <div class="border-l-2 border-primary/40 pl-6">
+            <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">Small teams deserve extra care</h3>
+            <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">In a small team, even apparently anonymous thematic reporting can identify people. It is more honest to say so than to promise an anonymity the numbers cannot support. In those settings reporting should stay especially minimal.</p>
+          </div>
+
+          <div class="border-l-2 border-primary/40 pl-6">
+            <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">If management refers someone</h3>
+            <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">Management can encourage or formally refer an employee to seek support, and performance expectations remain a management responsibility throughout. If any feedback is requested, the employee should know exactly what may be shared before counselling begins, and provide specific written consent where appropriate.</p>
+          </div>
+
+          <div class="border-l-2 border-primary/40 pl-6">
+            <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">Separate roles where they are needed</h3>
+            <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">If the organisation needs mediation, a formal assessment, or a report supporting an employment decision, that is a materially different professional role. It may need to be handled separately from an employee’s private counselling relationship, and it is worth raising early rather than at the point it becomes urgent.</p>
+          </div>
+        </div>
+
+        <p class="font-body text-base text-foreground/72 leading-relaxed max-w-[65ch] mt-12 pt-8 border-t border-border/60">
+          Wellbeing support can contribute to better functioning at work. It should never become a covert tool for surveillance or discipline. <a href="/privacy/" class="cww-inline-link">Read the privacy policy</a>, or the <a href="/scope/" class="cww-inline-link">full scope and ethics</a>.
+        </p>
+      </div>
+    </section>
+
+    <!-- ═══ 08 · SERVICE OPTIONS AND FEES ═══ -->
+    <section id="fees" class="cww-warm-bg border-y border-border/40 scroll-mt-[88px]">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cww-reveal">
+        <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">2026 rates</p>
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-7">Start simple. Add depth where it is useful.</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          A small organisation can begin with a counselling allocation alone, and add organisational work only where a need actually appears.
+        </p>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
+          {fees.map((item) => (
+            <div class:list={[
+              'flex flex-col rounded-xl p-7',
+              item.featured ? 'border border-primary/45 bg-primary/[0.07]' : 'border border-border/60 bg-background/70',
+            ]}>
+              <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-4">{item.label}</p>
+              <p class="font-heading text-[34px] leading-none text-foreground mb-2 break-words">{item.price}</p>
+              <p class="font-body text-sm text-foreground/70 mb-5">{item.unit}</p>
+              <p class="font-body text-base text-foreground/75 leading-relaxed">{item.note}</p>
+            </div>
+          ))}
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-5 mt-5">
+          <div class="rounded-xl border border-border/60 bg-background/70 p-7">
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-4">Larger groups and custom programmes</p>
+            <p class="font-body text-base text-foreground/75 leading-relaxed">Quoted separately where participant numbers, preparation, travel, multiple facilitators or custom materials materially change the scope.</p>
+          </div>
+          <div class="rounded-xl border border-border/60 bg-background/70 p-7">
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-4">Retainer or monthly allocation</p>
+            <p class="font-body text-base text-foreground/75 leading-relaxed">For organisations wanting a predictable monthly pool of counselling plus agreed check-ins or workshops, a tailored retainer can be structured.</p>
+          </div>
+        </div>
+
+        <p class="font-body text-base text-foreground/72 leading-relaxed max-w-[65ch] mt-10">
+          Rates and scope are confirmed in writing before commencement. Individual clients outside a corporate arrangement pay the same session rates, set out on the <a href="/counselling/cape-town/" class="cww-inline-link">Cape Town counselling page</a>.
+        </p>
+
+        <div class="mt-12 pt-10 border-t border-border/60">
+          <CtaPair
+            placement="after-fees"
+            service={SERVICE}
+            href={MAILTO}
+            primaryLabel="Discuss a partnership"
+            primaryCta={CTA_ID}
+            primaryChannel="email"
+            whatsappHref={WHATSAPP}
+            whatsappLabel="Ask a question on WhatsApp"
+            note="Ask about a pool size that would suit your headcount, or about a single workshop to begin with."
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 09 · WHAT THE PARTNERSHIP MAY SUPPORT ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cww-reveal">
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">What the partnership may support</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          No ethical provider can promise a productivity outcome from counselling. What this work aims at is a set of human capacities that tend to support both wellbeing and better functioning at work.
+        </p>
+
+        <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+          {outcomes.map((item) => (
+            <div class="flex flex-col rounded-xl border border-border/60 bg-card/30 p-7">
+              <h3 class="font-heading text-xl text-foreground mb-3">{item.head}</h3>
+              <p class="font-body text-base text-foreground/75 leading-relaxed">{item.body}</p>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 10 · WHERE SESSIONS HAPPEN ═══ -->
+    <section class="cww-warm-bg border-y border-border/40">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-5xl cww-reveal">
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl leading-tight mb-5">Online, or a quiet room in Newlands</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch] mb-10">
+          Most employees work online, which is simpler to sustain around a working week. For those who would rather sit in a room, in-person appointments are held in a private consulting room in the Southern Suburbs of Cape Town.
+        </p>
+
+        <figure>
+          <div class="grid gap-3 sm:gap-4 md:grid-cols-5">
+            <div class="md:col-span-3 rounded-xl overflow-hidden border border-border/60 cww-graded">
+              <div class="aspect-[4/3] overflow-hidden">
+                <Image src={roomChairs} alt="Two red wicker chairs, bookshelves and a striped rug in the Newlands counselling room" class="w-full h-full object-cover object-center" widths={[560, 860, 1160]} sizes="(min-width: 768px) 58vw, calc(100vw - 48px)" quality={84} loading="lazy" />
+              </div>
+            </div>
+            <div class="md:col-span-2 rounded-xl overflow-hidden border border-border/60 cww-graded">
+              <div class="aspect-[4/3] md:aspect-auto md:h-full overflow-hidden">
+                <Image src={roomGarden} alt="Natural light and a garden outlook through the Newlands consulting room's glass doors" class="w-full h-full object-cover object-center" widths={[360, 560, 760]} sizes="(min-width: 768px) 38vw, calc(100vw - 48px)" quality={84} loading="lazy" />
+              </div>
+            </div>
+          </div>
+          <figcaption class="font-body text-sm text-foreground/65 mt-4">The consulting room in Newlands, Cape Town. In-person appointments are held here on selected weekday evenings, with Saturday morning availability. The address is shared privately once an appointment is confirmed.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <!-- ═══ 11 · ABOUT MICHAEL ═══ -->
+    <section class="cww-dark relative overflow-hidden">
+      <div class="absolute inset-0 pointer-events-none" style="background: radial-gradient(120% 90% at 50% 0%, hsl(42 40% 30% / 0.1), transparent 55%);"></div>
+      <div class="relative container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+
+        <div class="grid md:grid-cols-[1fr_300px] gap-10 lg:gap-14 items-start">
+          <div>
+            <h2 class="font-heading text-gold-gradient text-3xl md:text-4xl lg:text-[44px] leading-tight mb-4">About Michael</h2>
+            <p class="font-heading text-xl text-parchment/90 mb-1">Michael Kaplan</p>
+            <p class="font-body text-sm cww-gold-light-text tracking-wide leading-relaxed mb-7">ASCHP-registered Wellness Counsellor (Reg. 10559) &middot; Group facilitator &middot; Founder of Sangham</p>
+            <div class="font-body text-lg leading-relaxed space-y-6 max-w-[62ch]">
+              <p>Michael has more than a decade of experience working with boys and young men through mentoring, group facilitation and counselling, including many years within the Boys to Men community in Cape Town. His work combines relational counselling, group process, and long experience with mindfulness and contemplative practice.</p>
+              <p class="cww-emph">Within organisations, the emphasis is on creating psychologically safe spaces in which people can reflect honestly, while keeping the boundary between employee support and management decision-making clear.</p>
+              <p>Where a need sits outside his professional scope, he refers to psychologists, psychiatrists, medical practitioners, mediators or other appropriate specialists, rather than stretching the service beyond its proper role.</p>
+            </div>
+          </div>
+
+          <div class="max-w-[320px] md:max-w-none mx-auto md:mx-0 w-full">
+            <div class="rounded-xl overflow-hidden border border-parchment/12 shadow-xl shadow-black/25 cww-graded">
+              <div class="aspect-[5/4] overflow-hidden">
+                <Image src={michaelSeated} alt="Michael Kaplan seated, hands clasped" class="w-full h-full object-cover object-center" widths={[400, 600, 760]} sizes="(min-width: 768px) 300px, 320px" loading="lazy" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="flex flex-col items-start gap-3 mt-10 pt-8 border-t border-parchment/15 font-body text-sm">
+          <a href="/about/" class="cww-link text-parchment/80">More about Michael and Sangham &rarr;</a>
+          <a href="/testimonials/" class="cww-link text-parchment/80">Read reflections from people he has worked with &rarr;</a>
+          <a href="https://www.psychologytoday.com/profile/1837187" target="_blank" rel="noopener noreferrer" class="cww-link text-parchment/80">View verified Psychology Today profile &rarr;</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══ 12 · QUESTIONS ═══ -->
+    <section class="bg-background">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-3xl cww-reveal">
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-12">Questions employers usually ask</h2>
+        <div class="cww-faq"><FAQ items={faqItems} /></div>
+      </div>
+    </section>
+
+    <!-- ═══ BREAK 02 · the coast at twilight ═══ -->
+    <section class="relative overflow-hidden cww-graded-dark bg-[hsl(220_26%_8%)]">
+      <Image src={coastTwilight} alt="" aria-hidden="true" class="absolute inset-0 w-full h-full object-cover object-[center_50%] cww-kb-img" widths={[640, 1024, 1600]} quality={64} sizes="100vw" loading="lazy" />
+      <div class="absolute inset-0" style="background: linear-gradient(180deg, hsl(220 26% 8% / 0.66), hsl(220 26% 8% / 0.52) 50%, hsl(220 26% 8% / 0.76));"></div>
+      <div class="relative z-10 container mx-auto px-6 py-28 md:py-44 max-w-3xl text-center cww-reveal">
+        <div class="cww-rule-light w-16 mx-auto mb-8"></div>
+        <p class="font-heading cww-quote-dark text-2xl sm:text-3xl md:text-4xl italic leading-relaxed">Support people well. Help teams work better. Keep the boundaries clear.</p>
+      </div>
+    </section>
+
+    <!-- ═══ 13 · START A CONVERSATION ═══ -->
+    <section id="start" class="cww-warm-bg border-t border-border/50 scroll-mt-[88px]">
+      <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cww-reveal">
+        <h2 class="font-heading cww-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">A partnership begins with a short conversation</h2>
+        <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
+          Before any service agreement is confirmed, we clarify workforce size, location, expected utilisation, whether online or in-person access suits better, referral pathways, confidentiality, reporting, and any team-level priorities.
+        </p>
+
+        <div class="grid sm:grid-cols-2 gap-5 mb-12">
+          <div class="rounded-xl border border-primary/40 bg-primary/[0.07] p-7 flex flex-col">
+            <h3 class="font-heading text-2xl text-foreground mb-3">Start by email</h3>
+            <p class="font-body text-base text-foreground/75 leading-relaxed flex-1 mb-6">Write with your headcount, your location, and what has prompted the enquiry. A few lines is enough to work out whether there is a sensible fit.</p>
+            <a href={MAILTO} class={primaryButton} data-cta={CTA_ID} data-channel="email" data-service={SERVICE} data-placement="closing">Discuss a partnership</a>
+          </div>
+          <div class="rounded-xl border border-border/60 bg-background/70 p-7 flex flex-col">
+            <h3 class="font-heading text-2xl text-foreground mb-3">Or ask first</h3>
+            <p class="font-body text-base text-foreground/75 leading-relaxed flex-1 mb-6">Send a WhatsApp message if you would rather ask one question before involving anyone else. Either route reaches Michael directly.</p>
+            <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="inline-flex items-center justify-center gap-2.5 px-7 py-4 border border-primary/45 text-foreground/85 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="closing">
+              <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Message on WhatsApp
+            </a>
+          </div>
+        </div>
+
+        <div class="rounded-xl border border-border/60 bg-background/70 p-7 md:p-8">
+          <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
+            <div class="flex-1">
+              <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">If you need to circulate it internally</p>
+              <p class="font-body text-base text-foreground/75 leading-relaxed max-w-[52ch]">The full partnership proposal covers the same ground in a document you can send to a director, an HR lead or a board.</p>
+            </div>
+            <a
+              href={PROPOSAL}
+              target="_blank"
+              rel="noopener"
+              class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 border border-primary/45 text-foreground/85 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body shrink-0"
+              data-cta="proposal-download"
+              data-service={SERVICE}
+              data-placement="closing"
+            >
+              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
+              Partnership proposal (PDF)
+            </a>
+          </div>
+        </div>
+
+        <div class="mt-12 pt-10 border-t border-border/60 grid sm:grid-cols-2 gap-x-10 gap-y-6">
+          <div>
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Contact</p>
+            <p class="font-body text-base text-foreground/78 leading-relaxed">
+              Michael Kaplan<br />
+              <a href={`mailto:${EMAIL}`} class="cww-inline-link" data-cta="email" data-channel="email" data-service={SERVICE} data-placement="closing-details">{EMAIL}</a><br />
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="cww-inline-link" data-cta="whatsapp" data-channel="whatsapp" data-service={SERVICE} data-placement="closing-details">073 673 8063</a><br />
+              Cape Town, South Africa
+            </p>
+          </div>
+          <div>
+            <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">Also for organisations</p>
+            <p class="font-body text-base text-foreground/78 leading-relaxed">
+              <a href="/counselling/community-organisations/" class="cww-inline-link">Reflective Group Counselling and Mindfulness</a>, a six to eight week facilitated programme for NGOs, clinics, shelters and community organisations.
+            </p>
+            <p class="font-body text-base text-foreground/78 leading-relaxed mt-4">
+              Employees can read about the counselling itself on the <a href="/counselling/" class="cww-inline-link">counselling overview</a>.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <StickyConsultationCTA
+      label="Discuss a partnership →"
+      href={MAILTO}
+      afterSelector="#the-partnership"
+      variant="light"
+      service={SERVICE}
+      ctaId={CTA_ID}
+      whatsappHref={WHATSAPP}
+      desktopFloating={true}
+      prominentWhatsapp={true}
+    />
+  </div>
+
+  <script>
+    // Reveal on scroll, matching /counselling/cape-town/.
+    const revealEls = document.querySelectorAll('.cww-reveal');
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduce || !('IntersectionObserver' in window)) {
+      revealEls.forEach((el) => el.classList.add('cww-in'));
+    } else {
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('cww-in');
+              io.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.12, rootMargin: '0px 0px -8% 0px' }
+      );
+      revealEls.forEach((el) => io.observe(el));
+    }
+  </script>
+</BaseLayout>

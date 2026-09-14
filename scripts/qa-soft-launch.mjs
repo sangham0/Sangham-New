@@ -85,7 +85,48 @@ const previews = [
     image: 'https://www.sangham.org/images/og-mentoring-adolescents.jpg',
     title: 'Mentoring for Teenagers (Ages 12 to 17) | Sangham',
   },
+  {
+    route: '/counselling/workplace-wellbeing',
+    canonical: 'https://www.sangham.org/counselling/workplace-wellbeing/',
+    image: 'https://www.sangham.org/images/og-counselling.jpg',
+    title: 'Corporate Counselling and Workplace Wellbeing in Cape Town | Sangham',
+  },
+  {
+    route: '/counselling/community-organisations',
+    canonical: 'https://www.sangham.org/counselling/community-organisations/',
+    image: 'https://www.sangham.org/images/og-counselling.jpg',
+    title: 'Group Counselling for NGOs and Community Organisations | Sangham',
+  },
 ];
+
+// The corporate rates are quoted from the 2026 partnership proposal. A silent
+// drift between the page and that document is the failure worth catching, so
+// each published figure is asserted rather than trusted.
+const corporateRates = ['R850', 'R3,400', 'R680', 'R1,750', 'R5,500', 'R7,500'];
+const workplaceHtml = htmlFor('/counselling/workplace-wellbeing');
+for (const rate of corporateRates) {
+  assert(workplaceHtml.includes(rate), `/counselling/workplace-wellbeing: rate ${rate} is missing`);
+}
+assert(
+  workplaceHtml.includes('valid for 12 months'),
+  '/counselling/workplace-wellbeing: the counselling pool validity period is missing'
+);
+
+// The pro-bono offer is deliberately limited. Losing the qualifier would turn
+// a pilot into an open-ended promise.
+const communityHtml = htmlFor('/counselling/community-organisations');
+assert(
+  /limited number of (complete )?programmes/i.test(communityHtml),
+  '/counselling/community-organisations: the pro-bono offer is no longer described as limited'
+);
+
+for (const [route, proposal] of [
+  ['/counselling/community-organisations', '/downloads/sangham-reflective-group-counselling-programme.pdf'],
+  ['/counselling/workplace-wellbeing', '/downloads/sangham-corporate-counselling-workplace-wellbeing.pdf'],
+]) {
+  assert(htmlFor(route).includes(proposal), `${route}: the proposal PDF link is missing`);
+  assert(existsSync(path.join(dist, proposal.replace(/^\//, ''))), `${proposal} is missing from the build`);
+}
 
 for (const preview of previews) {
   const html = htmlFor(preview.route);
