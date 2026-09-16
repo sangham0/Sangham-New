@@ -7,8 +7,17 @@ Two pages address organisations rather than individuals:
 | `/counselling/community-organisations/` | NGOs, NPOs, clinics, shelters, recovery services, community programmes | `public/downloads/sangham-reflective-group-counselling-programme.pdf` |
 | `/counselling/workplace-wellbeing/` | Employers funding counselling and workplace support for staff | `public/downloads/sangham-corporate-counselling-workplace-wellbeing.pdf` |
 
-Each page links its own proposal as a download, so the PDF a visitor receives
-is the same document the page was written from.
+Neither page offers its proposal as a public download. The proposals are
+follow-up material, sent directly after an enquiry or a first conversation, and
+they live in `docs/proposals/` rather than under `public/`, so nothing serves
+them. `npm test` asserts both that neither page links one and that neither is
+present in the build.
+
+The pages are written as first-contact landing pages: enough for an HR lead or
+a programme manager to understand the service and judge fit, and not the whole
+pitch. Detail that belongs in a proposal or an onboarding conversation, such as
+the session-by-session curriculum or the agenda of a first call, was
+deliberately taken off them.
 
 ## Changing the corporate rates
 
@@ -82,3 +91,29 @@ the dataLayer as `organisation_enquiry_click`.
 `CtaPair` takes the label, target, analytics identifier and channel of its
 primary action as props so these pages reuse it rather than duplicating the
 layout. Its defaults are unchanged, so the fit-call pages are unaffected.
+
+## The enquiry form
+
+`src/components/OrganisationEnquiryForm.astro` sits in the closing section of
+both pages, alongside the email and WhatsApp routes rather than replacing them.
+It reuses the contact page's infrastructure wholesale: the same Formspree
+endpoint, the same `appendAttribution` helper, the same honeypot. There is no
+new backend.
+
+Two events come out of it, and the distinction matters:
+
+- `organisation_enquiry_click` is intent. It fires when someone clicks an email
+  or WhatsApp call to action. The form's submit button deliberately carries no
+  `data-cta`, so a submission is not also counted as a click.
+- `organisation_enquiry_submitted` fires only after Formspree returns a 2xx. A
+  failure emits `organisation_enquiry_failure` instead and the form stays on
+  screen with its values intact. `npm test` asserts that the success event
+  cannot be reached before the response is checked.
+
+Both events carry `service`, so `workplace-wellbeing` and `group-programme` are
+separable in analytics, and the POST body carries the full first-touch
+attribution set including UTMs and advertising click identifiers.
+
+Both routes are also in the `SCROLL_PAGES` list in `src/scripts/analytics.ts`,
+so 25/50/75/90 depth events fire on them as they do on the other major
+counselling pages.

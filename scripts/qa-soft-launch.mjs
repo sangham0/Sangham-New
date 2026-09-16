@@ -120,13 +120,43 @@ assert(
   '/counselling/community-organisations: the pro-bono offer is no longer described as limited'
 );
 
-for (const [route, proposal] of [
-  ['/counselling/community-organisations', '/downloads/sangham-reflective-group-counselling-programme.pdf'],
-  ['/counselling/workplace-wellbeing', '/downloads/sangham-corporate-counselling-workplace-wellbeing.pdf'],
-]) {
-  assert(htmlFor(route).includes(proposal), `${route}: the proposal PDF link is missing`);
-  assert(existsSync(path.join(dist, proposal.replace(/^\//, ''))), `${proposal} is missing from the build`);
+// The proposals are follow-up material sent after an enquiry, not public sales
+// collateral. Neither page may link one, and neither may be served.
+const organisationRoutes = ['/counselling/community-organisations', '/counselling/workplace-wellbeing'];
+for (const route of organisationRoutes) {
+  assert(!/\/downloads\/sangham-[^"']*\.pdf/.test(htmlFor(route)), `${route}: still links a proposal PDF`);
 }
+for (const proposal of [
+  'downloads/sangham-reflective-group-counselling-programme.pdf',
+  'downloads/sangham-corporate-counselling-workplace-wellbeing.pdf',
+]) {
+  assert(!existsSync(path.join(dist, proposal)), `${proposal} is still published in the build`);
+}
+
+// Both organisational pages carry the enquiry form, and it must ship the full
+// attribution set so a lead can be reconciled with the click that produced it.
+for (const route of organisationRoutes) {
+  const html = htmlFor(route);
+  assert(html.includes('id="org-enquiry-form"'), `${route}: the organisation enquiry form is missing`);
+  for (const field of ['attribution_utm_source', 'attribution_utm_campaign', 'attribution_gclid', 'attribution_msclkid', 'attribution_initial_landing_page']) {
+    assert(html.includes(`name="${field}"`), `${route}: enquiry form is missing hidden field ${field}`);
+  }
+  assert(/data-cta="organisation-enquiry"[^>]*data-service="(workplace-wellbeing|group-programme)"/.test(html) || /data-service="(workplace-wellbeing|group-programme)"[^>]*data-cta="organisation-enquiry"/.test(html), `${route}: organisation CTA is missing a distinguishing data-service`);
+}
+
+// Scroll depth has to be armed for both routes, or the paid traffic arriving
+// on them reports no engagement at all.
+const analyticsSource = readFileSync(path.join(root, 'src/scripts/analytics.ts'), 'utf8');
+for (const route of organisationRoutes) {
+  assert(analyticsSource.includes(`'${route}'`), `${route}: missing from the scroll-depth page list`);
+}
+
+// The success event must not be reachable without a successful response.
+const formSource = readFileSync(path.join(root, 'src/components/OrganisationEnquiryForm.astro'), 'utf8');
+assert(
+  formSource.indexOf('if (!response.ok) throw') < formSource.indexOf("pushDataLayer('organisation_enquiry_submitted'"),
+  'organisation_enquiry_submitted can fire before the response is checked'
+);
 
 for (const preview of previews) {
   const html = htmlFor(preview.route);

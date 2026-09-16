@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ from '../../components/FAQ.astro';
 import CtaPair from '../../components/CtaPair.astro';
 import StickyConsultationCTA from '../../components/StickyConsultationCTA.astro';
+import OrganisationEnquiryForm from '../../components/OrganisationEnquiryForm.astro';
 import { Image } from 'astro:assets';
 
 // ── Michael ────────────────────────────────────────────────────────────────
@@ -49,7 +50,6 @@ const WHATSAPP_NUMBER = '27736738063';
 const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   'Hi Michael, I came across the group counselling programme page and wanted to ask whether it might fit our organisation.'
 )}`;
-const PROPOSAL = '/downloads/sangham-reflective-group-counselling-programme.pdf';
 
 const SERVICE = 'group-programme';
 const CTA_ID = 'organisation-enquiry';
@@ -96,50 +96,24 @@ const notThis = [
   },
 ];
 
-// The six-session core, with the two optional extensions the proposal sets out.
-const coreSessions = [
+// The public page describes the arc of the programme rather than its sessions.
+// The full sequence is worked through with the host organisation, and lives in
+// the proposal rather than here.
+const programmeArc = [
   {
     num: '01',
-    title: 'Starting Where We Are',
-    text: 'Safety, trust, group agreements, and the different ways people learn to cope with difficult feelings or situations.',
+    title: 'Settling and safety',
+    text: 'Group agreements, trust, and an honest look at the different ways people learn to cope with difficult feelings or situations.',
   },
   {
     num: '02',
-    title: 'The Child We Carry',
-    text: 'Early needs, hurt, protection, and the patterns that can continue into adult life.',
+    title: 'What sits underneath',
+    text: 'The middle of the programme works with early needs and protection, the faces people show to stay safe, anger and hurt, and what a craving or an avoidance is actually doing for someone.',
   },
   {
     num: '03',
-    title: 'The Masks We Wear',
-    text: 'The identities and protective faces people use to stay safe, and what may sit underneath them.',
-  },
-  {
-    num: '04',
-    title: 'Anger, Hurt and Triggers',
-    text: 'Slowing down what happens when someone feels disrespected, rejected, threatened or overwhelmed.',
-  },
-  {
-    num: '05',
-    title: 'Craving, Avoidance and Relief',
-    text: 'Understanding what a coping strategy actually provides, and recognising the need beneath the urge.',
-  },
-  {
-    num: '06',
-    title: 'The Moment Before',
-    text: 'Recognising body cues, thoughts and urges before action, and practising a different response.',
-  },
-];
-
-const optionalSessions = [
-  {
-    num: '07',
-    title: 'Trust, Boundaries and Relationships',
-    text: 'How people protect themselves in relationships, what trust asks of them, and how boundaries can support connection rather than simply distance.',
-  },
-  {
-    num: '08',
-    title: 'Carrying It Forward',
-    text: 'Integration, personal warning signs, practices that help, sources of support, and what each participant wants to take into life beyond the group.',
+    title: 'Carrying it forward',
+    text: 'Recognising body cues and urges before action, practising a different response, and naming the personal warning signs, practices and sources of support each participant wants to take with them.',
   },
 ];
 
@@ -208,36 +182,16 @@ const responsibly = [
 
 const faqItems = [
   {
-    q: 'How long does the programme run?',
-    a: 'Six to eight weekly sessions of roughly 75 to 90 minutes each. Six sessions form the core; two optional sessions extend the programme into trust and boundaries, and into integration and what each participant carries forward. The exact sequence is agreed with the host organisation before the first session.',
-  },
-  {
-    q: 'How many participants should a group have?',
-    a: 'Typically six to twelve. A consistent group is strongly preferred, because a good deal of what makes group work useful depends on the same people returning each week and building enough trust to speak honestly.',
-  },
-  {
     q: 'Does this replace the clinical or social-work support we already provide?',
     a: 'No. The programme is designed to sit alongside existing clinical, social-work, addiction, community or specialist support, and to add a reflective, relational layer to it. Where a participant needs care that falls outside Michael’s professional scope, referral pathways agreed with your organisation are followed.',
-  },
-  {
-    q: 'Can a member of our staff join the group?',
-    a: 'Yes, and it is encouraged rather than required. A staff member or social worker who already knows the participants can help them enter the group with more trust, and strengthens the continuity between what happens in the room and your wider support. An initial hand-off into the first session is strongly encouraged in every setting.',
-  },
-  {
-    q: 'Do participants need any experience with meditation?',
-    a: 'None at all. Mindfulness is used practically and in context: noticing what is happening in the body, breath, emotions and urges before they become an automatic action. It is not taught as a philosophy, and no belief of any kind is required or assumed.',
-  },
-  {
-    q: 'What about participants with low literacy, or who work in another language?',
-    a: 'The programme is conversational and experiential rather than written or academic, so it does not depend on literacy. Language, culture, pace and the examples used are all discussed before the programme begins and adjusted as it runs.',
   },
   {
     q: 'Is this trauma therapy?',
     a: 'No. Exercises are not designed to push participants into reliving traumatic material, and the programme is not a substitute for trauma treatment. Where something significant surfaces, it is held carefully in the room and referred on through the pathways agreed with your organisation.',
   },
   {
-    q: 'How is confidentiality handled?',
-    a: 'Group agreements and confidentiality expectations are established in the first session, along with the limits of that confidentiality where safeguarding applies. The specifics, including what is shared with your team and what is not, are agreed with your organisation before the programme starts.',
+    q: 'What about participants with low literacy, or who work in another language?',
+    a: 'The programme is conversational and experiential rather than written or academic, so it does not depend on literacy. Language, culture, pace and the examples used are all discussed before the programme begins and adjusted as it runs.',
   },
   {
     q: 'Where does the programme run?',
@@ -605,7 +559,7 @@ const jsonLd = [
         </div>
 
         <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch]">
-          What matters more than the category is who will actually be sitting in the room. A group of men in a residential recovery programme, a group of young people in a community centre, and a group of care staff carrying a heavy caseload need three quite different versions of the same process. Working that out is the point of the first conversation.
+          What matters more than the category is who will actually be sitting in the room. Working that out is the point of the first conversation.
         </p>
       </div>
     </section>
@@ -613,34 +567,28 @@ const jsonLd = [
     <!-- ═══ 06 · THE PROGRAMME SHAPE ═══ -->
     <section id="programme-shape" class="cgo-warm-bg border-y border-border/40">
       <div class="container mx-auto px-6 py-20 md:py-28 max-w-4xl cgo-reveal">
-        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">A six-session core, with two optional extensions</h2>
+        <h2 class="font-heading cgo-gold-text text-3xl md:text-4xl lg:text-[44px] leading-tight mb-6">How the programme moves</h2>
         <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch] mb-12">
-          The sequence below is a starting point rather than a fixed curriculum. Themes are adapted to the setting and the population, and the order can change where your team knows something about the group that the outline does not anticipate.
+          Six sessions form the core, with two optional extensions into trust and boundaries, and into integration. Across them the work moves roughly through three movements.
         </p>
 
         <div class="space-y-6">
-          {coreSessions.map((session) => (
+          {programmeArc.map((phase) => (
             <div class="flex gap-5 items-start border-l-2 border-primary/30 pl-5">
-              <span class="cgo-gold-text font-heading text-2xl shrink-0 w-8">{session.num}</span>
+              <span class="cgo-gold-text font-heading text-2xl shrink-0 w-8">{phase.num}</span>
               <div>
-                <h3 class="font-heading text-xl mb-2">{session.title}</h3>
-                <p class="font-body text-base text-foreground/75 leading-relaxed">{session.text}</p>
+                <h3 class="font-heading text-xl mb-2">{phase.title}</h3>
+                <p class="font-body text-base text-foreground/75 leading-relaxed">{phase.text}</p>
               </div>
             </div>
           ))}
         </div>
 
         <div class="mt-12 pt-10 border-t border-border/60">
-          <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-6">Optional extensions</p>
-          <div class="grid md:grid-cols-2 gap-5">
-            {optionalSessions.map((session) => (
-              <div class="rounded-xl border border-border/60 bg-background/70 p-7">
-                <span class="cgo-gold-text font-heading text-xl block mb-2">{session.num}</span>
-                <h3 class="font-heading text-xl mb-3">{session.title}</h3>
-                <p class="font-body text-base text-foreground/75 leading-relaxed">{session.text}</p>
-              </div>
-            ))}
-          </div>
+          <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5">The same programme is not delivered twice</p>
+          <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[65ch]">
+            Content, language, pace and emphasis are worked out collaboratively with your team, according to participant needs, culture, literacy, current stability and the support structures already around them. A group of men in a residential recovery programme and a group of young people in a community centre need genuinely different versions of the same process. The full session sequence is agreed with you before the programme begins.
+          </p>
         </div>
       </div>
     </section>
@@ -815,24 +763,9 @@ const jsonLd = [
             <p>The reason for running it this way is straightforward. Group work of this kind is best evaluated by the organisations it is meant to serve, in the settings it is meant to run in, rather than described in a proposal.</p>
           </div>
 
-          <div class="mt-10 pt-8 border-t border-primary/25">
-            <p class="font-heading text-xl text-foreground mb-5">An initial conversation would cover</p>
-            <div class="grid sm:grid-cols-2 gap-x-8 gap-y-3">
-              {[
-                'Who the participants are and what they are navigating',
-                'What support is already in place around them',
-                'Whether a consistent group of six to twelve is realistic',
-                'Your safeguarding and referral structures',
-                'Language, culture, literacy and pace',
-                'Premises, timing and the practicalities of a weekly cycle',
-              ].map((item) => (
-                <div class="flex gap-3 items-start">
-                  <svg class="w-4 h-4 shrink-0 mt-1.5 cgo-gold-text" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" /></svg>
-                  <span class="font-body text-base text-foreground/78 leading-relaxed">{item}</span>
-                </div>
-              ))}
-            </div>
-          </div>
+          <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch] mt-6">
+            A first conversation covers who the participants are, what support is already around them, whether a consistent weekly group is realistic in your setting, and how safeguarding would work.
+          </p>
 
           <div class="mt-10 pt-8 border-t border-primary/25">
             <CtaPair
@@ -897,26 +830,13 @@ const jsonLd = [
           </div>
         </div>
 
-        <div class="rounded-xl border border-border/60 bg-background/70 p-7 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
-            <div class="flex-1">
-              <p class="cgo-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">If your board or team needs the detail</p>
-              <p class="font-body text-base text-foreground/75 leading-relaxed max-w-[52ch]">The full programme proposal covers the same ground in a form you can circulate internally, including two worked example sessions.</p>
-            </div>
-            <a
-              href={PROPOSAL}
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 border border-primary/45 text-foreground/85 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body shrink-0"
-              data-cta="proposal-download"
-              data-service={SERVICE}
-              data-placement="closing"
-            >
-              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
-              Programme proposal (PDF)
-            </a>
-          </div>
-        </div>
+        <OrganisationEnquiryForm
+          service={SERVICE}
+          subject="Reflective Group Counselling programme enquiry"
+          sizeLabel="Approximate group size"
+          sizePlaceholder="e.g. 10 participants"
+          messagePlaceholder="Who the group would be, and what support is already around them."
+        />
 
         <div class="mt-12 pt-10 border-t border-border/60 grid sm:grid-cols-2 gap-x-10 gap-y-6">
           <div>

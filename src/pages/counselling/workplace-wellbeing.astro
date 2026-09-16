@@ -3,6 +3,7 @@ import BaseLayout from '../../layouts/BaseLayout.astro';
 import FAQ from '../../components/FAQ.astro';
 import CtaPair from '../../components/CtaPair.astro';
 import StickyConsultationCTA from '../../components/StickyConsultationCTA.astro';
+import OrganisationEnquiryForm from '../../components/OrganisationEnquiryForm.astro';
 import { Image } from 'astro:assets';
 
 // ── Michael, and the Newlands consulting room ──────────────────────────────
@@ -42,7 +43,6 @@ const WHATSAPP_NUMBER = '27736738063';
 const WHATSAPP = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
   'Hi Michael, I came across the workplace wellbeing page and wanted to ask about counselling support for our team.'
 )}`;
-const PROPOSAL = '/downloads/sangham-corporate-counselling-workplace-wellbeing.pdf';
 
 const SERVICE = 'workplace-wellbeing';
 const CTA_ID = 'organisation-enquiry';
@@ -71,6 +71,16 @@ const howItWorks = [
     title: 'Organisational work is added where it belongs',
     text: 'Workshops, group sessions and facilitated conversations can be added where the difficulty sits with the team rather than with one person.',
   },
+];
+
+// Shown directly under the three boundaries, so a reader can place their own
+// organisation before reading any further.
+const designedFor = [
+  'Small and medium businesses',
+  'Professional practices',
+  'NGOs and non-profits',
+  'Agencies and studios',
+  'Growing teams',
 ];
 
 const notThis = [
@@ -153,15 +163,7 @@ const outcomes = [
   },
   {
     head: 'Stronger team culture',
-    body: 'Shared sessions can strengthen empathy, mutual support, honest communication, and the ability to repair after tension.',
-  },
-  {
-    head: 'More reflective choices',
-    body: 'Space to understand patterns and consider healthier responses, without removing personal responsibility.',
-  },
-  {
-    head: 'Connection',
-    body: 'A culture in which asking for help, and relating with some humanity, become more ordinary than exceptional.',
+    body: 'Shared sessions can strengthen empathy, mutual support, and the ability to repair after tension. Over time, asking for help becomes more ordinary than exceptional.',
   },
 ];
 
@@ -225,40 +227,12 @@ const notAppropriate = [
 
 const faqItems = [
   {
-    q: 'Who is the client, the company or the employee?',
-    a: 'The employee. The company funds access to counselling; the counselling relationship itself is between Michael and the employee. That distinction is what makes the support usable, because an employee who suspects their sessions are being reported on will not say anything worth saying.',
-  },
-  {
-    q: 'What does the employer actually get told?',
-    a: 'By default: how many sessions have been funded and used. Where numbers are large enough for anonymity to be realistic, carefully aggregated observations and recommendations can also be shared. Session notes, diagnoses, personal histories and opinions about an employee’s character or performance are not part of that.',
-  },
-  {
-    q: 'We are a team of eight. Can reporting really be anonymous?',
-    a: 'Honestly, no. In small teams even apparently anonymous thematic reporting can identify people, and it should be treated as identifying. In those settings reporting stays especially minimal: utilisation figures, and nothing that describes what anyone brought.',
-  },
-  {
-    q: 'Can a manager refer someone?',
-    a: 'Management can encourage or formally refer an employee to seek support. Performance expectations remain a management responsibility throughout. If any feedback is requested as part of a referral, the employee should know exactly what may be shared before counselling begins, and provide specific written consent where appropriate.',
-  },
-  {
-    q: 'Is this an EAP?',
-    a: 'No. This is an independent counselling and workplace wellbeing service. It is not a 24-hour employee assistance programme, an emergency response service, a psychiatric service, or a fitness-for-duty assessment. Where one of those is what is actually needed, referral is made rather than stretching this service beyond its proper role.',
-  },
-  {
-    q: 'What if we need mediation or a formal report?',
-    a: 'That is a materially different professional role, and it may need to be handled separately from any employee’s private counselling relationship. Mixing the two compromises both. It is worth raising early so the right structure can be put in place from the start.',
-  },
-  {
-    q: 'When and where do sessions happen?',
-    a: 'Sessions are 60 minutes. Online appointments are available during weekday working hours. In-person appointments are available in Newlands, in the Southern Suburbs of Cape Town, on selected weekday evenings, with Saturday morning availability.',
-  },
-  {
-    q: 'Do unused sessions expire?',
-    a: 'A corporate counselling pool starts at five prepaid sessions at R680 a session. It is non-refundable and valid for 12 months from purchase. Pool size and renewal are agreed in writing before commencement.',
-  },
-  {
     q: 'Can employees use sessions for something unrelated to work?',
     a: 'Yes, and most do. Stress, grief, anxiety, relationship difficulties and life transitions do not stay neatly outside the office, and an employee is not required to justify their reason for attending to anyone.',
+  },
+  {
+    q: 'What happens if someone needs more support than the allocation covers?',
+    a: 'The pool can be extended, or the employee can continue privately at the standard session rate. Where the need is for specialist care rather than more sessions, referral is made to an appropriate professional. Nobody is left without a next step because an allocation ran out.',
   },
   {
     q: 'Can you guarantee an improvement in productivity?',
@@ -495,6 +469,18 @@ const jsonLd = [
             <p class="font-body text-[15px] text-foreground/70 leading-relaxed max-w-[30ch] mx-auto sm:mx-0">with utilisation reported, and session material not reported at all</p>
           </div>
         </div>
+
+        <div class="mt-12 pt-8 border-t border-border/50">
+          <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-5 text-center">Designed for</p>
+          <ul class="flex flex-wrap justify-center gap-x-3 gap-y-3 mb-5">
+            {designedFor.map((item) => (
+              <li class="font-body text-[15px] text-foreground/78 border border-border/70 rounded-full px-4 py-1.5 bg-background/60">{item}</li>
+            ))}
+          </ul>
+          <p class="font-body text-[15px] text-foreground/70 leading-relaxed text-center max-w-[58ch] mx-auto">
+            Organisations that want confidential support in place for their people without commissioning a full traditional employee assistance programme.
+          </p>
+        </div>
       </div>
     </section>
 
@@ -563,10 +549,6 @@ const jsonLd = [
             </div>
           ))}
         </div>
-
-        <p class="font-heading cww-emph text-2xl md:text-[28px] italic leading-snug mt-12 max-w-[34ch]">
-          The employer can support access without becoming part of the counselling room.
-        </p>
       </div>
     </section>
 
@@ -639,10 +621,6 @@ const jsonLd = [
         <p class="font-body text-base text-foreground/75 leading-relaxed max-w-[65ch]">
           If a presenting concern suggests that a psychologist, psychiatrist, medical practitioner, emergency service or other specialist is more appropriate, the employee is supported with a referral. Where it helps, supportive counselling may continue alongside that specialist care.
         </p>
-
-        <blockquote class="mt-12 border-l-2 border-primary/50 pl-7 md:pl-8">
-          <p class="font-heading cww-gold-text text-[26px] md:text-[32px] italic leading-snug max-w-[34ch]">The employee is the client. The company enables access to support.</p>
-        </blockquote>
       </div>
     </section>
 
@@ -736,24 +714,13 @@ const jsonLd = [
           </div>
         </div>
 
-        <div class="space-y-10">
-          <div class="border-l-2 border-primary/40 pl-6">
-            <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">Small teams deserve extra care</h3>
-            <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">In a small team, even apparently anonymous thematic reporting can identify people. It is more honest to say so than to promise an anonymity the numbers cannot support. In those settings reporting should stay especially minimal.</p>
-          </div>
-
-          <div class="border-l-2 border-primary/40 pl-6">
-            <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">If management refers someone</h3>
-            <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">Management can encourage or formally refer an employee to seek support, and performance expectations remain a management responsibility throughout. If any feedback is requested, the employee should know exactly what may be shared before counselling begins, and provide specific written consent where appropriate.</p>
-          </div>
-
-          <div class="border-l-2 border-primary/40 pl-6">
-            <h3 class="font-heading text-xl md:text-2xl text-foreground mb-3">Separate roles where they are needed</h3>
-            <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">If the organisation needs mediation, a formal assessment, or a report supporting an employment decision, that is a materially different professional role. It may need to be handled separately from an employee’s private counselling relationship, and it is worth raising early rather than at the point it becomes urgent.</p>
-          </div>
+        <div class="border-l-2 border-primary/40 pl-6 space-y-5">
+          <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">In a small team, can that reporting really be anonymous? Honestly, no. Even apparently anonymous thematic reporting can identify people, and it should be treated as identifying. In those settings reporting stays especially minimal.</p>
+          <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">Management can encourage or formally refer someone to seek support, and performance expectations remain a management responsibility throughout. Where any feedback is expected as part of that, the employee should know exactly what may be shared before counselling begins.</p>
+          <p class="font-body text-lg text-foreground/78 leading-relaxed max-w-[62ch]">Mediation, formal assessment, or a report supporting an employment decision is a materially different professional role, and may need to be held separately from an employee’s private counselling. It is worth raising early rather than at the point it becomes urgent.</p>
         </div>
 
-        <p class="font-body text-base text-foreground/72 leading-relaxed max-w-[65ch] mt-12 pt-8 border-t border-border/60">
+        <p class="font-body text-base text-foreground/72 leading-relaxed max-w-[65ch] mt-10 pt-8 border-t border-border/60">
           Wellbeing support can contribute to better functioning at work. It should never become a covert tool for surveillance or discipline. <a href="/privacy/" class="cww-inline-link">Read the privacy policy</a>, or the <a href="/scope/" class="cww-inline-link">full scope and ethics</a>.
         </p>
       </div>
@@ -864,7 +831,7 @@ const jsonLd = [
               </div>
             </div>
           </div>
-          <figcaption class="font-body text-sm text-foreground/65 mt-4">The consulting room in Newlands, Cape Town. In-person appointments are held here on selected weekday evenings, with Saturday morning availability. The address is shared privately once an appointment is confirmed.</figcaption>
+          <figcaption class="font-body text-sm text-foreground/65 mt-4">The consulting room in Newlands, Cape Town. The address is shared privately once an appointment is confirmed.</figcaption>
         </figure>
       </div>
     </section>
@@ -951,26 +918,13 @@ const jsonLd = [
           </div>
         </div>
 
-        <div class="rounded-xl border border-border/60 bg-background/70 p-7 md:p-8">
-          <div class="flex flex-col md:flex-row md:items-center gap-6 md:gap-8">
-            <div class="flex-1">
-              <p class="cww-gold-deep-text font-body text-xs tracking-[0.14em] uppercase mb-3">If you need to circulate it internally</p>
-              <p class="font-body text-base text-foreground/75 leading-relaxed max-w-[52ch]">The full partnership proposal covers the same ground in a document you can send to a director, an HR lead or a board.</p>
-            </div>
-            <a
-              href={PROPOSAL}
-              target="_blank"
-              rel="noopener"
-              class="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 border border-primary/45 text-foreground/85 hover:border-primary hover:bg-primary/10 transition-colors duration-300 rounded-lg text-sm tracking-wide font-body shrink-0"
-              data-cta="proposal-download"
-              data-service={SERVICE}
-              data-placement="closing"
-            >
-              <svg class="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v12m0 0l-4-4m4 4l4-4M4 20h16" /></svg>
-              Partnership proposal (PDF)
-            </a>
-          </div>
-        </div>
+        <OrganisationEnquiryForm
+          service={SERVICE}
+          subject="Corporate counselling and workplace wellbeing enquiry"
+          sizeLabel="Roughly how many employees"
+          sizePlaceholder="e.g. 25 people"
+          messagePlaceholder="What has prompted the enquiry, and whether online or in person suits better."
+        />
 
         <div class="mt-12 pt-10 border-t border-border/60 grid sm:grid-cols-2 gap-x-10 gap-y-6">
           <div>
