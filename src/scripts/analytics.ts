@@ -31,6 +31,72 @@ function populateAttributionFields(): void {
   }
 }
 
+/**
+ * Landing pages that paid campaigns point at, as the short codes that appear
+ * in a WhatsApp reference. Each campaign has its own destination, so source
+ * plus landing page is enough to tell which campaign a lead came from.
+ */
+const LANDING_CODES: Record<string, string> = {
+  '/counselling/cape-town': 'CT',
+  '/counselling/workplace-wellbeing': 'WW',
+  '/counselling/community-organisations': 'CG',
+  '/counselling-for-meditators': 'MD',
+  '/mentoring-for-young-men': 'YM',
+  '/mentoring-for-adolescents': 'TB',
+  '/online-counselling-south-africa': 'OC',
+  '/counselling': 'CO',
+};
+
+/**
+ * A short reference for enquiries from visitors who arrived through a paid ad,
+ * for example "G-CT" for Google to the Cape Town page.
+ *
+ * Most enquiries happen on WhatsApp, and no click identifier survives into a
+ * chat, so without this a paid lead cannot be told apart from an organic one.
+ * The code is deliberately opaque: it tells Michael the source without telling
+ * the visitor they were measured. Organic and direct visitors get no reference.
+ */
+function paidReference(): string {
+  const attribution = getAttribution();
+  const ids = clickIds();
+  const source = attribution.utm_source.toLowerCase();
+  const medium = attribution.utm_medium.toLowerCase();
+
+  let channel = '';
+  if (ids.gclid || ids.gbraid || ids.wbraid || (source === 'google' && /cpc|ppc|paid/.test(medium))) {
+    channel = 'G';
+  } else if (ids.rdt_cid || source === 'reddit') {
+    channel = 'R';
+  }
+  if (!channel) return '';
+
+  const path = attribution.initial_landing_page.replace(/\/+$/, '') || '/';
+  return `${channel}-${LANDING_CODES[path] || 'X'}`;
+}
+
+/**
+ * Append the paid reference to a WhatsApp link's prefilled message, keeping any
+ * opening line the page already provides. Runs at click time so it reflects
+ * the visitor's first-touch attribution rather than the page's build-time URL.
+ */
+function tagWhatsAppLink(link: HTMLAnchorElement): string {
+  const ref = paidReference();
+  if (!ref) return '';
+
+  try {
+    const url = new URL(link.href);
+    const text = url.searchParams.get('text') || '';
+    if (text.includes('(ref ')) return ref;
+    // Built by hand: URLSearchParams would encode spaces as "+", which
+    // WhatsApp shows literally.
+    url.search = `?text=${encodeURIComponent(`${text || 'Hi Michael'} (ref ${ref})`)}`;
+    link.href = url.toString();
+  } catch {
+    // An unparseable link is left exactly as the page rendered it.
+  }
+  return ref;
+}
+
 function getPlacement(element: HTMLElement): string {
   if (element.dataset.placement) return element.dataset.placement;
   if (element.closest('nav')) return 'navigation';
@@ -74,7 +140,8 @@ document.addEventListener('click', (event) => {
   };
 
   if (channel === 'whatsapp') {
-    pushDataLayer('whatsapp_click', common);
+    const refCode = contactLink ? tagWhatsAppLink(contactLink) : '';
+    pushDataLayer('whatsapp_click', { ...common, ref_code: refCode });
   }
 
   if (channel === 'email') {
