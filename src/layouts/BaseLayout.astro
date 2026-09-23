@@ -183,10 +183,15 @@ const breadcrumbJsonLd = canonicalPath === '/' || hasBreadcrumb
         var requiresOptIn = !tz || consentZonePrefixes.some(function(z){ return tz.indexOf(z) === 0; }) || consentZoneNames.indexOf(tz) !== -1;
         window.sanghamRequiresOptIn = requiresOptIn;
 
-        // Default consent state
+        // Default consent state. Advertising measurement follows the same
+        // regional rule as analytics, so a booking from an ad is counted
+        // outside opt-in regions unless the visitor rejects it. Ad
+        // personalisation (remarketing) stays denied for every visitor and
+        // every choice: this is a health-adjacent service, and Google Ads
+        // health policy does not allow audience targeting on it.
         gtag('consent', 'default', {
-          ad_storage: 'denied',
-          ad_user_data: 'denied',
+          ad_storage: requiresOptIn ? 'denied' : 'granted',
+          ad_user_data: requiresOptIn ? 'denied' : 'granted',
           ad_personalization: 'denied',
           analytics_storage: requiresOptIn ? 'denied' : 'granted',
           wait_for_update: 500
@@ -199,7 +204,7 @@ const breadcrumbJsonLd = canonicalPath === '/' || hasBreadcrumb
             gtag('consent', 'update', {
               ad_storage: stored.ad ? 'granted' : 'denied',
               ad_user_data: stored.ad ? 'granted' : 'denied',
-              ad_personalization: stored.ad ? 'granted' : 'denied',
+              ad_personalization: 'denied',
               analytics_storage: stored.analytics ? 'granted' : 'denied'
             });
           }
@@ -382,7 +387,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           const stored = getStoredConsent();
           const requiresOptIn = Boolean((window as any).sanghamRequiresOptIn);
           if (analyticsCheck) analyticsCheck.checked = stored ? stored.analytics : !requiresOptIn;
-          if (adsCheck) adsCheck.checked = stored ? stored.ad : false;
+          if (adsCheck) adsCheck.checked = stored ? stored.ad : !requiresOptIn;
         }
 
         function showBanner(openPreferences = false) {
@@ -405,7 +410,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
             gtag('consent', 'update', {
               ad_storage: ad ? 'granted' : 'denied',
               ad_user_data: ad ? 'granted' : 'denied',
-              ad_personalization: ad ? 'granted' : 'denied',
+              ad_personalization: 'denied',
               analytics_storage: analytics ? 'granted' : 'denied',
             });
           }
@@ -447,7 +452,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           try {
             const stored = JSON.parse(localStorage.getItem('sangham_consent') || 'null');
             if (analytics) analytics.checked = stored ? Boolean(stored.analytics) : !Boolean((window as any).sanghamRequiresOptIn);
-            if (ads) ads.checked = stored ? Boolean(stored.ad) : false;
+            if (ads) ads.checked = stored ? Boolean(stored.ad) : !Boolean((window as any).sanghamRequiresOptIn);
           } catch {}
           banner?.classList.remove('hidden');
           panel?.classList.remove('hidden');
