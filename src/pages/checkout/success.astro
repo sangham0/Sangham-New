@@ -1,0 +1,74 @@
+---
+/**
+ * Post-payment return page. GRANTS NOTHING: it reads order state from the
+ * database, which only verified server-side notifications mutate. If the
+ * provider's confirmation has not arrived yet, it says so honestly.
+ */
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { createAdminClient } from '../../lib/supabase';
+
+const url = new URL(Astro.request.url);
+const orderRef = (url.searchParams.get('ref') ?? '').slice(0, 40);
+
+let order: { status: string; email: string; product_title: string } | null = null;
+if (/^SG-\d{4}-\d{6}$/.test(orderRef)) {
+  const admin = createAdminClient();
+  const { data } = await admin
+    .from('orders')
+    .select('status, email, products (title)')
+    .eq('order_ref', orderRef)
+    .single();
+  if (data) {
+    order = {
+      status: data.status,
+      email: data.email.replace(/^(.).*(@.*)$/, '$1***$2'),
+      product_title: (data.products as { title?: string } | null)?.title ?? 'your purchase',
+    };
+  }
+}
+const paid = order?.status === 'paid';
+const pending = order?.status === 'pending';
+---
+
+<BaseLayout title="Thank you" description="Order status" minimalNav hideStickyBar>
+  <main class="mx-auto max-w-md px-6 py-16 text-center">
+    {!order && (
+      <>
+        <h1 class="text-2xl font-semibold">Order not found</h1>
+        <p class="mt-3 opacity-75">We could not find that order reference. If you completed a payment, please <a href="/contact/" class="underline">contact us</a>.</p>
+      </>
+    )}
+    {paid && (
+      <>
+        <h1 class="text-2xl font-semibold">Thank you · payment confirmed</h1>
+        <p class="mt-3 opacity-80">{order.product_title} is attached to {order.email}.</p>
+        <p class="mt-2 opacity-80">We have emailed a sign-in link to that address. You can also open your library directly:</p>
+        <a href="/library/" class="mt-6 inline-block rounded-md bg-primary px-5 py-2.5 font-medium text-white">Open your library</a>
+      </>
+    )}
+    {pending && (
+      <>
+        <h1 class="text-2xl font-semibold">Nearly there</h1>
+        <p class="mt-3 opacity-80">
+          Your payment is being confirmed by the payment provider. This usually takes a moment.
+          This page does not update by itself · refresh it shortly.
+        </p>
+        <a href={`/checkout/success/?ref=${orderRef}`} class="mt-6 inline-block rounded-md border border-neutral-300 px-5 py-2.5">Refresh</a>
+        <p class="mt-4 text-sm opacity-70">Order {orderRef}. If it stays unconfirmed for more than an hour, <a href="/contact/" class="underline">contact us</a> with this reference.</p>
+      </>
+    )}
+    {order && !paid && !pending && (
+      <>
+        <h1 class="text-2xl font-semibold">Order {order.status}</h1>
+        <p class="mt-3 opacity-80">This order is marked {order.status}. If you believe you were charged, <a href="/contact/" class="underline">contact us</a> with reference {orderRef}.</p>
+      </>
+    )}
+  </main>
+  {paid && (
+    <script define:vars={{ orderRef }}>
+      window.dataLayer?.push({ event: 'payment_success', cta_id: orderRef });
+    </script>
+  )}
+</BaseLayout>

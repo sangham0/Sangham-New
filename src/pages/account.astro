@@ -1,0 +1,74 @@
+---
+/**
+ * Account page: profile, purchase history, sign-out, support route.
+ */
+export const prerender = false;
+
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { getSession } from '../lib/access';
+
+const session = await getSession(Astro);
+if (!session.user) return Astro.redirect('/auth/login/?next=/account/', 302);
+
+const { data: profile } = await session.supabase
+  .from('profiles')
+  .select('email, display_name')
+  .eq('id', session.user.id)
+  .single();
+
+const { data: orders } = await session.supabase
+  .from('orders')
+  .select('order_ref, status, amount_cents, currency, provider, created_at, products (title)')
+  .order('created_at', { ascending: false })
+  .limit(25);
+
+function money(cents: number, currency: string): string {
+  const value = (cents / 100).toFixed(2);
+  return currency === 'ZAR' ? `R${value}` : `${currency} ${value}`;
+}
+---
+
+<BaseLayout title="Your account" description="Your Sangham account." minimalNav hideStickyBar>
+  <main class="mx-auto max-w-2xl px-6 py-12">
+    <nav class="mb-6 text-sm opacity-70"><a href="/library/" class="underline">Library</a> · Account</nav>
+    <h1 class="mb-8 text-3xl font-semibold">Your account</h1>
+
+    <section class="mb-10 rounded-lg border border-neutral-200 p-5">
+      <h2 class="mb-2 text-sm font-medium uppercase tracking-wide opacity-60">Signed in as</h2>
+      <p>{profile?.email ?? session.user.email}</p>
+      <form method="post" action="/auth/signout" class="mt-4">
+        <button type="submit" class="rounded-md border border-neutral-300 px-4 py-2 text-sm">Sign out</button>
+      </form>
+    </section>
+
+    <section class="mb-10">
+      <h2 class="mb-3 text-sm font-medium uppercase tracking-wide opacity-60">Purchases</h2>
+      {(orders ?? []).length === 0 ? (
+        <p class="text-sm opacity-75">No purchases on this account yet.</p>
+      ) : (
+        <ul class="divide-y divide-neutral-100 rounded-lg border border-neutral-200">
+          {(orders ?? []).map((order) => (
+            <li class="flex items-center justify-between px-4 py-3 text-sm">
+              <span>
+                {(order.products as { title?: string } | null)?.title ?? 'Product'}
+                <span class="ml-2 opacity-60">{order.order_ref}</span>
+              </span>
+              <span class="text-right">
+                {money(order.amount_cents, order.currency)}
+                <span class="ml-2 opacity-60">{order.status}</span>
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
+    </section>
+
+    <section class="rounded-lg border border-neutral-200 p-5 text-sm">
+      <h2 class="mb-2 text-sm font-medium uppercase tracking-wide opacity-60">Need help?</h2>
+      <p class="opacity-80">
+        If a purchase is missing, a page will not open, or anything else is wrong, write to us via the
+        <a href="/contact/" class="underline"> contact page</a> and include your order reference. We answer within two business days.
+      </p>
+    </section>
+  </main>
+</BaseLayout>

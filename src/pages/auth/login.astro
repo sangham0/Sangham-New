@@ -1,0 +1,100 @@
+---
+/**
+ * Sign-in / account-claim page. Email in, magic link out. No passwords,
+ * no registration form.
+ */
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSession } from '../../lib/access';
+
+const session = await getSession(Astro);
+if (session.user) {
+  return Astro.redirect('/library/', 302);
+}
+
+const url = new URL(Astro.request.url);
+const prefillEmail = url.searchParams.get('email') ?? '';
+const isClaim = url.searchParams.get('claim') === '1';
+const expired = url.searchParams.get('expired') === '1';
+const nextParam = url.searchParams.get('next') ?? '/library/';
+const next = /^\/[a-z0-9\-/]*$/i.test(nextParam) ? nextParam : '/library/';
+---
+
+<BaseLayout title="Sign in" description="Sign in to your Sangham library." minimalNav hideStickyBar>
+  <main class="mx-auto max-w-md px-6 py-16">
+    <h1 class="text-3xl font-semibold mb-3">{isClaim ? 'Open your library' : 'Sign in'}</h1>
+
+    {expired && (
+      <p class="mb-4 rounded-md border border-amber-300 bg-amber-50 p-3 text-sm text-amber-900">
+        That sign-in link has expired or was already used. Enter your email below and we will send a fresh one.
+      </p>
+    )}
+
+    <p class="mb-6 opacity-80">
+      {isClaim
+        ? 'Enter the email address you used for your purchase. We will send you a sign-in link, and your purchase will be waiting in your library.'
+        : 'Enter your email address and we will send you a sign-in link. No password needed.'}
+    </p>
+
+    <form id="login-form" class="space-y-4" novalidate>
+      <label class="block">
+        <span class="mb-1 block text-sm font-medium">Email address</span>
+        <input
+          type="email"
+          name="email"
+          required
+          autocomplete="email"
+          value={prefillEmail}
+          class="w-full rounded-md border border-neutral-300 px-3 py-2"
+          placeholder="you@example.com"
+        />
+      </label>
+      <button
+        type="submit"
+        class="w-full rounded-md bg-primary px-4 py-2.5 font-medium text-white"
+        data-cta="library-sign-in"
+      >
+        Email me a sign-in link
+      </button>
+      <p id="login-status" class="hidden text-sm" role="status"></p>
+    </form>
+
+    <p class="mt-8 text-sm opacity-70">
+      Trouble signing in? Write to us via the <a href="/contact/" class="underline">contact page</a> and we will sort it out.
+    </p>
+  </main>
+
+  <script define:vars={{ next }}>
+    const form = document.getElementById('login-form');
+    const status = document.getElementById('login-status');
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const email = new FormData(form).get('email');
+      status.classList.remove('hidden');
+      status.textContent = 'Sending your link…';
+      try {
+        const response = await fetch('/api/auth/magic-link', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ email, next }),
+        });
+        if (response.status === 429) {
+          status.textContent = 'Too many requests. Please wait a few minutes and try again.';
+          return;
+        }
+        const json = await response.json().catch(() => ({}));
+        if (json.ok) {
+          window.dataLayer?.push({ event: 'login_success', service: 'library' });
+          form.querySelector('button').disabled = true;
+          status.textContent = 'Check your email. Your sign-in link is on its way; it stays valid for a short while.';
+        } else {
+          window.dataLayer?.push({ event: 'login_failure', service: 'library', error_type: json.error || 'unknown' });
+          status.textContent = 'That did not work. Please check the address and try again.';
+        }
+      } catch {
+        status.textContent = 'Connection problem. Please try again.';
+      }
+    });
+  </script>
+</BaseLayout>

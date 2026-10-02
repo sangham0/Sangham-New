@@ -1,0 +1,150 @@
+---
+/**
+ * Checkout initiation: email (guests) + payment-provider choice.
+ * Prices come from the database; the client never supplies an amount.
+ * PayFast charges ZAR; PayPal charges USD (SA account constraint).
+ */
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSession, userOwnsProduct } from '../../lib/access';
+import { payfastConfig } from '../../lib/payments/payfast';
+import { paypalConfig } from '../../lib/payments/paypal';
+
+const { product: productSlug } = Astro.params;
+const session = await getSession(Astro);
+
+const { data: product } = await session.supabase
+  .from('products')
+  .select('id, slug, title, subtitle, product_type, status, is_public_access, price_cents, currency, price_usd_cents')
+  .eq('slug', productSlug ?? '')
+  .single();
+
+if (!product || product.status !== 'published' || product.is_public_access) {
+  return Astro.redirect('/', 302);
+}
+
+// Already owned? Straight to the library.
+if (session.user && (await userOwnsProduct(session.supabase, product.id))) {
+  return Astro.redirect(`/library/${product.slug}/`, 302);
+}
+
+const payfastAvailable = Boolean(payfastConfig()) && Boolean(product.price_cents);
+const paypalAvailable = Boolean(paypalConfig()) && Boolean(product.price_usd_cents);
+const zarPrice = product.price_cents ? `R${(product.price_cents / 100).toFixed(2)}` : null;
+const usdPrice = product.price_usd_cents ? `$${(product.price_usd_cents / 100).toFixed(2)} USD` : null;
+const memberEmail = session.user?.email ?? '';
+---
+
+<BaseLayout title={`Buy ${product.title}`} description={`Purchase ${product.title}`} minimalNav hideStickyBar>
+  <main class="mx-auto max-w-md px-6 py-14">
+    <h1 class="text-2xl font-semibold">{product.title}</h1>
+    {product.subtitle && <p class="mt-1 opacity-75">{product.subtitle}</p>}
+
+    <div class="mt-6 rounded-lg border border-neutral-200 p-5">
+      {!payfastAvailable && !paypalAvailable ? (
+        <p class="text-sm opacity-80">
+          Checkout is not open yet. If you would like this {product.product_type === 'guide' ? 'guide' : 'course'},
+          please <a href="/contact/" class="underline">contact us</a>.
+        </p>
+      ) : (
+        <form id="checkout-form" class="space-y-5" novalidate>
+          {!memberEmail && (
+            <label class="block">
+              <span class="mb-1 block text-sm font-medium">Email for your purchase</span>
+              <input type="email" name="email" required autocomplete="email"
+                class="w-full rounded-md border border-neutral-300 px-3 py-2" placeholder="you@example.com" />
+              <span class="mt-1 block text-xs opacity-60">
+                Your purchase is attached to this address; you will use it to open your library. No password needed.
+              </span>
+            </label>
+          )}
+          {memberEmail && (
+            <p class="text-sm opacity-80">Purchasing as <strong>{memberEmail}</strong> · it will appear in your library straight away.</p>
+          )}
+
+          <fieldset class="space-y-2">
+            <legend class="mb-1 text-sm font-medium">How would you like to pay?</legend>
+            {payfastAvailable && (
+              <label class="flex cursor-pointer items-center justify-between rounded-md border border-neutral-300 px-4 py-3">
+                <span class="flex items-center gap-3">
+                  <input type="radio" name="provider" value="payfast" checked class="accent-primary" />
+                  <span>PayFast <span class="text-xs opacity-60">(South African cards and instant EFT)</span></span>
+                </span>
+                <span class="font-medium">{zarPrice}</span>
+              </label>
+            )}
+            {paypalAvailable && (
+              <label class="flex cursor-pointer items-center justify-between rounded-md border border-neutral-300 px-4 py-3">
+                <span class="flex items-center gap-3">
+                  <input type="radio" name="provider" value="paypal" checked={!payfastAvailable} class="accent-primary" />
+                  <span>PayPal <span class="text-xs opacity-60">(international cards and PayPal)</span></span>
+                </span>
+                <span class="font-medium">{usdPrice}</span>
+              </label>
+            )}
+          </fieldset>
+
+          <button type="submit" class="w-full rounded-md bg-primary px-4 py-2.5 font-medium text-white" data-cta="checkout-pay">
+            Continue to payment
+          </button>
+          <p id="checkout-status" class="hidden text-sm" role="status"></p>
+          <p class="text-xs opacity-60">
+            You will complete payment on the provider's secure page and return here.
+            Your access is personal and non-transferable.
+          </p>
+        </form>
+      )}
+    </div>
+  </main>
+
+  <script define:vars={{ productSlug: product.slug, memberEmail }}>
+    const form = document.getElementById('checkout-form');
+    const status = document.getElementById('checkout-status');
+
+    window.dataLayer?.push({ event: 'checkout_start', service: productSlug });
+
+    form?.addEventListener('submit', async (event) => {
+      event.preventDefault();
+      const data = new FormData(form);
+      const provider = data.get('provider');
+      const email = memberEmail || data.get('email');
+      window.dataLayer?.push({ event: 'payment_provider_selected', service: productSlug, cta_id: String(provider) });
+      status.classList.remove('hidden');
+      status.textContent = 'Preparing secure checkout…';
+      try {
+        const response = await fetch('/api/checkout/start', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ productSlug, provider, email }),
+        });
+        const json = await response.json();
+        if (!response.ok || !json.redirect) {
+          window.dataLayer?.push({ event: 'payment_failure', service: productSlug, error_type: json.error || String(response.status) });
+          status.textContent = json.error === 'invalid_email'
+            ? 'Please check the email address.'
+            : 'We could not start checkout. Please try again, or contact us if it keeps happening.';
+          return;
+        }
+        if (json.redirect.method === 'POST' && json.redirect.fields) {
+          const gateway = document.createElement('form');
+          gateway.method = 'POST';
+          gateway.action = json.redirect.url;
+          for (const [name, value] of Object.entries(json.redirect.fields)) {
+            const input = document.createElement('input');
+            input.type = 'hidden';
+            input.name = name;
+            input.value = String(value);
+            gateway.appendChild(input);
+          }
+          document.body.appendChild(gateway);
+          gateway.submit();
+        } else {
+          window.location.href = json.redirect.url;
+        }
+      } catch {
+        status.textContent = 'Connection problem. Please try again.';
+      }
+    });
+  </script>
+</BaseLayout>

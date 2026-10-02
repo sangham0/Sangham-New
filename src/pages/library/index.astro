@@ -1,0 +1,113 @@
+---
+/**
+ * Personal library: owned products, progress, clean empty state.
+ * The free Stillness series remains public elsewhere (founder policy); the library
+ * links to free resources but never gates them.
+ */
+export const prerender = false;
+
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getSession } from '../../lib/access';
+
+const session = await getSession(Astro);
+if (!session.user) {
+  return Astro.redirect('/auth/login/?next=/library/', 302);
+}
+
+// Claim any entitlements bound to this verified email (idempotent).
+try {
+  await session.supabase.rpc('claim_my_entitlements');
+} catch {
+  /* non-fatal */
+}
+
+// Own entitlements + product cards (RLS scopes everything to this user).
+const { data: entitlements } = await session.supabase
+  .from('entitlements')
+  .select('id, status, product_id, granted_at, products (id, slug, title, subtitle, product_type, cover_path)')
+  .order('granted_at', { ascending: false });
+
+const active = (entitlements ?? []).filter((e) => e.status === 'active' && e.products);
+const inactive = (entitlements ?? []).filter((e) => e.status !== 'active' && e.products);
+
+// Progress summary per product.
+const { data: progress } = await session.supabase
+  .from('course_progress')
+  .select('lesson_id, status, lessons:lesson_id (product_id)');
+const completedByProduct = new Map<string, number>();
+for (const row of progress ?? []) {
+  const pid = (row.lessons as { product_id?: string } | null)?.product_id;
+  if (pid && row.status === 'completed') {
+    completedByProduct.set(pid, (completedByProduct.get(pid) ?? 0) + 1);
+  }
+}
+
+const typeLabel: Record<string, string> = {
+  guide: 'Written guide',
+  audio_course: 'Audio course',
+  video_course: 'Video course',
+  mixed_course: 'Course',
+  bundle: 'Bundle',
+  free_public: 'Free resource',
+};
+---
+
+<BaseLayout title="Your library" description="Your Sangham library." minimalNav hideStickyBar>
+  <main class="mx-auto max-w-3xl px-6 py-12">
+    <div class="mb-8 flex items-baseline justify-between">
+      <h1 class="text-3xl font-semibold">Your library</h1>
+      <a href="/account/" class="text-sm underline opacity-80">Account</a>
+    </div>
+
+    {active.length === 0 ? (
+      <div class="rounded-lg border border-neutral-200 p-8 text-center">
+        <p class="mb-2 text-lg">Nothing here yet.</p>
+        <p class="mb-6 opacity-75">
+          When you purchase a Sangham guide or course, it appears here, attached to this email address.
+        </p>
+        <p class="text-sm opacity-75">
+          The free Stillness &amp; Meditation practices remain freely available on the
+          <a href="/practices/" class="underline">practices page</a> · no account needed.
+        </p>
+      </div>
+    ) : (
+      <ul class="space-y-4">
+        {active.map((ent) => {
+          const p = ent.products as { slug: string; title: string; subtitle: string | null; product_type: string; id: string };
+          const done = completedByProduct.get(p.id) ?? 0;
+          return (
+            <li class="rounded-lg border border-neutral-200 p-5 transition hover:border-neutral-400">
+              <a href={`/library/${p.slug}/`} class="block">
+                <div class="mb-1 text-xs uppercase tracking-wide opacity-60">{typeLabel[p.product_type] ?? 'Product'}</div>
+                <div class="text-xl font-medium">{p.title}</div>
+                {p.subtitle && <div class="mt-1 text-sm opacity-75">{p.subtitle}</div>}
+                {done > 0 && <div class="mt-2 text-xs opacity-60">{done} {done === 1 ? 'section' : 'sections'} completed</div>}
+              </a>
+            </li>
+          );
+        })}
+      </ul>
+    )}
+
+    {inactive.length > 0 && (
+      <div class="mt-10">
+        <h2 class="mb-3 text-sm font-medium uppercase tracking-wide opacity-60">Not currently active</h2>
+        <ul class="space-y-2">
+          {inactive.map((ent) => {
+            const p = ent.products as { title: string };
+            return (
+              <li class="rounded-md border border-neutral-100 p-3 text-sm opacity-70">
+                {p.title} · access {ent.status}. If this seems wrong, please
+                <a href="/contact/" class="underline"> contact us</a>.
+              </li>
+            );
+          })}
+        </ul>
+      </div>
+    )}
+
+    <p class="mt-12 text-sm opacity-70">
+      Free foundational audio lives on the <a href="/practices/" class="underline">practices page</a> and stays free.
+    </p>
+  </main>
+</BaseLayout>
