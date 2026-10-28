@@ -13,6 +13,7 @@ import himalayaForestSunset from '../assets/himalaya-forest-sunset.jpg';
 import himalayaSnowPeak from '../assets/himalaya-snow-peak.jpg';
 
 const canonicalURL = 'https://www.sangham.org/mentoring-for-adolescents/';
+const WHATSAPP = `https://wa.me/27798407707?text=${encodeURIComponent('Hi Michael, I am interested in support for my teenage son and would like to ask about a first conversation.')}`;
 
 import { getPublishedTestimonial } from '../data/testimonials';
 
@@ -1569,7 +1570,7 @@ const jsonLd = [
         If a slot doesn't suit your timezone or schedule, reach out via
         <a href="/contact" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15">the contact form</a>
         or
-        <a href="https://wa.me/27798407707" target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15" data-cta="whatsapp" data-channel="whatsapp" data-service="teenage-boys" data-placement="booking-alternative">WhatsApp</a>.
+        <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" class="text-[#1A1F2E]/70 hover:text-[#1A1F2E] transition-colors underline underline-offset-2 decoration-[#1A1F2E]/15" data-cta="whatsapp" data-channel="whatsapp" data-service="teenage-boys" data-placement="booking-alternative">WhatsApp</a>.
       </p>
 
     </div>
@@ -1913,7 +1914,7 @@ const jsonLd = [
   label="Book a Parent Consultation →"
   href="#parental-cal"
   variant="dark"
-  whatsappHref="https://wa.me/27798407707"
+  whatsappHref={WHATSAPP}
   desktopFloating={true}
   service="teenage-boys"
   ctaId="book-parent-consultation"
